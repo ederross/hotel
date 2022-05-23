@@ -169,7 +169,7 @@ export default function Header({ placeholder }) {
         {/* End Dynamic Input Search */}
 
         <div className={styles.profile}>
-          <a href="#">Become a host</a>
+          <a href="#">Carrinho</a>
           <div className={styles.user}>
             <Menu className={styles.menu} />
             <User className={styles.userIcon} />
