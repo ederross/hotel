@@ -36,7 +36,7 @@ export default function Header({ placeholder }) {
       }
     }, 10);
   };
-  const closeDatePicker = () => {
+  const closeMobileFilters = () => {
     setInputFocus(false);
     setLocation('');
     setNumberOfChildren(0);
@@ -61,13 +61,13 @@ export default function Header({ placeholder }) {
         guests: numberOfChildren + numberOfAdults,
       },
     });
-    setTimeout(() => closeDatePicker(), 100);
+    setTimeout(() => closeMobileFilters(), 100);
   };
 
   useEffect(() => {
     const handleClick = (event) => {
       if (!headerRef.current.contains(event.target)) {
-        closeDatePicker();
+        closeMobileFilters();
       }
     };
 
@@ -143,7 +143,7 @@ export default function Header({ placeholder }) {
           </form>
         )}
 
-        {inputFocus && <Filters />}
+        {inputFocus && <Filters closeMobileFilters={closeMobileFilters} />}
 
         {/* End Dynamic Input Search */}
 

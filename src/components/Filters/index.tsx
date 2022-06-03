@@ -13,9 +13,11 @@ import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { FreeMode } from 'swiper';
 import CardEventType2 from '../cardsEvents/CardEventType2';
 
-export interface IFilters {}
+interface IFilters {
+  closeMobileFilters: () => void;
+}
 
-const Filters = ({}: IFilters) => {
+const Filters = ({closeMobileFilters}: IFilters) => {
   const swiper = useSwiper();
   const [state, setState] = useState([
     {
@@ -62,7 +64,7 @@ const Filters = ({}: IFilters) => {
             height: 'auto',
           }}
         >
-          <button className={styles.btnClose}>Fechar</button>
+          <button onClick={closeMobileFilters} className={styles.btnClose}>Fechar</button>
 
           <Container>
             <h2>Selecione as datas de Check-in {'&'} Check-out</h2>
