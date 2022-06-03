@@ -25,33 +25,33 @@ const Filters = ({}: IFilters) => {
     },
   ]);
 
-  // function customDayContent(day) {
-  //   let extraDot = null;
-  //   if (isWeekend(day)) {
-  //     extraDot = (
-  //       <div
-  //         style={{
-  //           height: '5px',
-  //           width: '5px',
-  //           borderRadius: '100%',
-  //           background: 'red',
-  //           position: 'absolute',
-  //           top: 2,
-  //           right: 2,
-  //         }}
-  //       />
-  //     );
-  //   }
-  //   return (
-  //     <>
-  //       <div>
-  //         {extraDot}
+  function customDayContent(day) {
+    let extraDot = null;
+    if (isWeekend(day)) {
+      extraDot = (
+        <div
+          style={{
+            height: '5px',
+            width: '5px',
+            borderRadius: '100%',
+            background: 'red',
+            position: 'absolute',
+            top: 2,
+            right: 2,
+          }}
+        />
+      );
+    }
+    return (
+      <>
+        <div>
+          {extraDot}
 
-  //         <span>{format(day, 'd')}</span>
-  //       </div>
-  //     </>
-  //   );
-  // }
+          <span>{format(day, 'd')}</span>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -73,7 +73,7 @@ const Filters = ({}: IFilters) => {
               ranges={state}
               months={1}
               locale={locales['pt']}
-              // dayContentRenderer={customDayContent}
+              dayContentRenderer={customDayContent}
               direction={'vertical'}
               minDate={new Date()}
               rangeColors={['var(--primary-color)']}
@@ -108,6 +108,12 @@ const Filters = ({}: IFilters) => {
 
           <div className={styles.guestsContainer}>
             <h3>Hóspedes</h3>
+          </div>
+
+          <div className={styles.buttonContainer}>
+            <button className={styles.searchButton}>
+              Pesquisar
+            </button>
           </div>
         </div>
       </section>

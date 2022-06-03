@@ -71,4 +71,27 @@
       color: var(--dark-text);
     }
   }
+
+  .buttonContainer {
+    padding: 2rem 1rem;
+  }
+
+  .searchButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    padding: 16px;
+    border-radius: 0.5rem;
+    width: 100%;
+    height: 64px;
+    background: linear-gradient(
+      90.72deg,
+      var(--primary-color) 23.93%,
+      #0a7763 138.27%
+    );
+
+    font-size: 1rem;
+    font-weight: 500;
+  }
 }
