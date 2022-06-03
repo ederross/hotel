@@ -7,12 +7,14 @@
 }
 
 :root {
+  --dark-text: #000000;
+  --light-text: #FFF;
   --primary-color: #2AB59C;
   --yellow: #ffffd6;
   --dark: #2e2e48;
   --brown: #3f3f1a;
   --light: #fafafc;
-  --gray: #efeff5;
+  --gray: #d5d5d5;
   --white: #fff;
   --sidePadding: 3rem;
   --maxWidth: 40%;
@@ -53,6 +55,8 @@ button {
   border-radius: 0.66rem;
   transition: all 0.2s;
   box-shadow: 0 0.5rem 1.5rem -0.5rem currentColor;
+  
+  font-weight: 600;
 }
 .btn.btn-dark {
   --color: var(--light);
@@ -96,7 +100,8 @@ section h2 {
   }
   .btn {
     font-size: 1rem;
-    padding: 0.5rem 1rem;
+    padding: 1.25rem 1rem;
+    font-weight: 600;
   }
 
   section h2 {

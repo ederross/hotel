@@ -5,6 +5,7 @@ import { useMediaQuery } from '@react-hook/media-query';
 import { useRouter } from 'next/router';
 
 import styles from './styles.module.scss';
+import Filters from '../Filters';
 
 export default function Header({ placeholder }) {
   const router = useRouter();
@@ -111,60 +112,38 @@ export default function Header({ placeholder }) {
 
         {/* Start Dynamic Input Search */}
 
-        <form className={styles.search}>
-          <input
-            type="text"
-            ref={primaryLocationRef}
-            placeholder={placeholder ? placeholder : 'Where are you going?'}
-            onFocus={openDatePicker}
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            required
-          />
+        {!inputFocus && (
+          <form className={styles.search}>
+            <input
+              type="text"
+              ref={primaryLocationRef}
+              placeholder={placeholder ? placeholder : 'Encontrar hospedagem'}
+              onFocus={openDatePicker}
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              required
+            />
+            <button
+              type="submit"
+              disabled={
+                inputFocus &&
+                !(
+                  location &&
+                  checkInDate &&
+                  checkOutDate &&
+                  (numberOfAdults || numberOfChildren)
+                )
+              }
+              onClick={handleSubmit}
+              aria-label="search places"
+            >
+              <Search />
+              <span>Search</span>
+            </button>
+          </form>
+        )}
 
-          {inputFocus && (
-            <div className={styles.overlay}>
-              <div className={styles.field}>
-                <label>Check-in</label>
-                <input disabled placeholder="Add dates" value={checkInDate} />
-              </div>
-
-              <div className={styles.field}>
-                <label>Check-out</label>
-                <input disabled placeholder="Add dates" value={checkOutDate} />
-              </div>
-
-              <div className={styles.field}>
-                <label>Qtnd. Hóspedes</label>
-                <span className={styles.guestNumber}>
-                  {numberOfChildren || numberOfAdults ? (
-                    <p>{numberOfAdults + numberOfChildren} guests</p>
-                  ) : (
-                    <p className={styles.empty}>Add guests</p>
-                  )}
-                </span>
-              </div>
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={
-              inputFocus &&
-              !(
-                location &&
-                checkInDate &&
-                checkOutDate &&
-                (numberOfAdults || numberOfChildren)
-              )
-            }
-            onClick={handleSubmit}
-            aria-label="search places"
-          >
-            <Search />
-            <span>Search</span>
-          </button>
-        </form>
+        {inputFocus && <Filters />}
 
         {/* End Dynamic Input Search */}
 

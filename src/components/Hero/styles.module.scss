@@ -1,17 +1,21 @@
 .heroSection {
-  min-height: 90vh !important;
+  min-height: 50vh !important;
   text-align: center;
   background: linear-gradient(
       to top,
       rgba(0, 0, 0, 0.5) 3rem,
-      transparent 30rem
+      transparent 100rem
     ),
     url(/images/hero/bg.jpg);
-  background-position: center, bottom left;
+  background-position: center;
   background-size: cover, cover;
   height: fit-content;
   color: var(--light);
-  padding: 15rem var(--sidePadding) 6rem;
+  padding: 10rem var(--sidePadding) 6rem;
+
+  @media screen and (min-width: 568px) {
+    padding: 14rem 0 6rem;
+  }
 
   .heroInner {
     display: flex;
@@ -26,9 +30,8 @@
   }
 
   h1 {
-    margin-top: 2rem;
     font-weight: 900;
-    font-size: clamp(2rem, 5.5vw, 2.95rem);
+    font-size: clamp(2.5rem, 5.5vw, 2.6rem);
     line-height: normal;
     margin-bottom: 1.5rem;
   }

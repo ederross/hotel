@@ -1,7 +1,11 @@
-import '../../styles/globals.css'
+import { AppProps } from 'next/app';
+import '../../styles/globals.css';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+function MyApp({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
 }
 
-export default MyApp
+export default MyApp;
