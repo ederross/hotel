@@ -14,7 +14,7 @@ const Search = () => {
       <main>
         <header className={styles.headerSection}></header>
         <section className={styles.filterInfo}>
-          <div style={{ minHeight: 96, maxHeight: 96, width: '100%' }}></div>
+          <div style={{ minHeight: 132, maxHeight: 132, width: '100%' }}></div>
 
           <div style={{ flex: 1, paddingTop: 16 }}>
             <h2>
