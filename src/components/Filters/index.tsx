@@ -15,9 +15,10 @@ import CardEventType2 from '../cardsEvents/CardEventType2';
 
 interface IFilters {
   closeMobileFilters: () => void;
+  handleSubmit: () => void;
 }
 
-const Filters = ({closeMobileFilters}: IFilters) => {
+const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
   const swiper = useSwiper();
   const [state, setState] = useState([
     {
@@ -64,7 +65,9 @@ const Filters = ({closeMobileFilters}: IFilters) => {
             height: 'auto',
           }}
         >
-          <button onClick={closeMobileFilters} className={styles.btnClose}>Fechar</button>
+          <button onClick={closeMobileFilters} className={styles.btnClose}>
+            Fechar
+          </button>
 
           <Container>
             <h2>Selecione as datas de Check-in {'&'} Check-out</h2>
@@ -113,7 +116,7 @@ const Filters = ({closeMobileFilters}: IFilters) => {
           </div>
 
           <div className={styles.buttonContainer}>
-            <button className={styles.searchButton}>
+            <button onClick={handleSubmit} className={styles.searchButton}>
               Pesquisar
             </button>
           </div>

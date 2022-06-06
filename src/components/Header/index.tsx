@@ -48,18 +48,18 @@ export default function Header({ placeholder }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!location) {
-      primaryLocationRef.current.focus();
-      return;
-    }
+    // if (!location) {
+    //   primaryLocationRef.current.focus();
+    //   return;
+    // }
     router.push({
       pathname: '/search',
-      query: {
-        location: location,
-        checkIn: checkInDate.toString(),
-        checkOut: checkOutDate.toString(),
-        guests: numberOfChildren + numberOfAdults,
-      },
+      // query: {
+      //   location: location,
+      //   checkIn: checkInDate.toString(),
+      //   checkOut: checkOutDate.toString(),
+      //   guests: numberOfChildren + numberOfAdults,
+      // },
     });
     setTimeout(() => closeMobileFilters(), 100);
   };
@@ -143,7 +143,7 @@ export default function Header({ placeholder }) {
           </form>
         )}
 
-        {inputFocus && <Filters closeMobileFilters={closeMobileFilters} />}
+        {inputFocus && <Filters handleSubmit={handleSubmit as any} closeMobileFilters={closeMobileFilters} />}
 
         {/* End Dynamic Input Search */}
 
