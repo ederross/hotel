@@ -1,0 +1,63 @@
+.headerSection {
+  position: fixed;
+  top: 0;
+  color: #fafafc;
+  padding: 0 var(--sidePadding);
+  height: 84px;
+  width: 100%;
+  z-index: 10;
+  transition: background 0.2s, border-bottom 0.2s;
+  background: red;
+}
+
+.filterInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  margin-bottom: 4rem;
+
+  text-align: center;
+
+  font-weight: 500;
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  span {
+    color: var(--primary-color);
+  }
+
+  .filtersMobileSection {
+    flex: 1;
+    display: flex;
+    width: 100%;
+    padding-top: 4rem;
+    border-bottom: 1px solid var(--gray);
+
+    .filterButtonContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 1rem;
+
+      min-width: 100px;
+      height: 56px;
+      margin-bottom: -3.5px;
+
+      h4{
+          font-size: 0.9rem;
+          font-weight: 600;
+      }
+    }
+  }
+}
+
+
+.contentResultContainer{
+    flex: 1;
+    padding: 0 1rem;
+}

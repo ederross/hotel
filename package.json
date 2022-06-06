@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.8.2",
+    "@mui/material": "^5.8.2",
     "@react-hook/media-query": "^1.1.1",
     "@types/react-date-range": "^1.4.3",
     "@types/swiper": "^6.0.0",
