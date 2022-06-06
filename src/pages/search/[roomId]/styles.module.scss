@@ -1,0 +1,427 @@
+.mainBox {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: auto;
+  align-items: center;
+  background-color: #fff;
+
+  .contentBox {
+    border-bottom: 1px solid #dadada;
+    min-width: 100%;
+    height: auto;
+
+    .imgsBox {
+      display: flex;
+      min-width: 100%;
+      height: 256px;
+      color: white;
+
+      @media screen and (min-width: 528px) {
+        height: 336px;
+      }
+
+      .swiperImgsBox {
+        flex: 1;
+      }
+
+      .imgLeftSide {
+        display: none;
+        flex: 2;
+        background-color: orange;
+        background-size: contain;
+        background-position: center;
+      }
+      .imgRightSide {
+        display: none;
+        flex-direction: column;
+        flex: 1;
+      }
+    }
+
+    .content {
+      margin-top: 2rem;
+      display: flex;
+      width: 100%;
+      min-height: auto;
+      margin-bottom: 8rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+
+      color: white;
+      border-radius: 16px;
+
+      .infoBox {
+        display: flex;
+        flex-direction: column;
+        color: #000;
+        width: 100%;
+
+        h1 {
+          color: #d04e4e;
+          font-size: 36px;
+          margin-bottom: 1rem;
+        }
+
+        h3 {
+          font-size: 14px;
+          font-family: Poppins;
+          font-weight: 500;
+          margin-top: 2rem;
+          margin-bottom: 1rem;
+        }
+
+        p {
+          font-weight: 100;
+          margin-bottom: 3rem;
+          font-size: 14px;
+          color: #979797;
+        }
+      }
+
+      .ctaBoxHolder {
+        display: none;
+        flex: 1;
+
+        .ctaBox {
+          display: none;
+          align-items: center;
+          justify-content: space-between;
+          flex-direction: column;
+          position: -webkit-sticky;
+          position: sticky;
+          top: 36px;
+          width: 100%;
+          height: 436px;
+          padding: 2rem 2rem;
+          color: var(--black);
+          border-radius: 0.5rem;
+
+          -webkit-box-shadow: 0px 5px 8px -1px rgba(164, 164, 164, 0.53);
+          box-shadow: 0px 5px 8px -1px rgba(164, 164, 164, 0.53);
+
+          div {
+            display: flex;
+            text-align: center;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+          }
+
+          h3 {
+            font-family: Poppins;
+            margin-bottom: 1rem;
+            font-size: 24px;
+          }
+
+          h4 {
+            font-weight: 400;
+            color: #979797;
+            margin-bottom: 2rem;
+          }
+
+          h5 {
+            font-size: 18px;
+            color: #34a853;
+          }
+
+          button {
+            width: 100%;
+            height: 56px;
+            margin-top: 1rem;
+            border-radius: 1rem;
+            border: 0;
+
+            font-weight: 500;
+            color: #fff;
+            background-color: #34a853;
+            transition: 0.4s all ease;
+
+            &:hover {
+              background-color: #15632a;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .boxRecommedations {
+    width: 100%;
+    height: auto;
+    padding: 4rem 1rem;
+
+    h3 {
+      margin-bottom: 2rem;
+    }
+
+    .swiperContainer {
+      width: 100%;
+      padding-left: 1rem;
+      padding-right: 2rem;
+      padding-bottom: 4rem;
+
+      .cardsContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 264px;
+        height: 364px;
+        background-color: #fff;
+        margin-right: 3rem;
+        border-radius: 0.5rem;
+        background-size: cover;
+        background-color: #000;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+}
+
+// *****************************************************************************
+// Responsive
+
+@media screen and (min-width: 428px) {
+  .mainBox {
+    .contentBox {
+      .content {
+        padding: 0 2rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 628px) {
+  .mainBox {
+    .contentBox {
+      .content {
+        .infoBox {
+          padding-right: 2rem;
+          padding-left: 2rem;
+        }
+      }
+    }
+
+    .boxRecommedations {
+      width: 100%;
+      height: auto;
+      padding: 4rem 2rem;
+
+      h3 {
+        margin-bottom: 2rem;
+      }
+
+      .swiperContainer {
+        width: 100%;
+        padding-left: 0.5rem;
+        padding-right: 2rem;
+        padding-bottom: 4rem;
+
+        .cardsContainer {
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .mainBox {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: auto;
+    align-items: center;
+    padding-top: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    .contentBox {
+      border-bottom: 1px solid #dadada;
+      min-width: 100%;
+      height: auto;
+
+      .imgsBox {
+        display: flex;
+        min-width: 100%;
+        height: 456px;
+        color: white;
+        border-radius: 16px;
+        padding: 0 2rem;
+
+        .swiperImgsBox {
+          display: none;
+        }
+
+        .imgLeftSide {
+          display: flex;
+          flex: 2;
+          background-color: orange;
+          background-size: cover;
+          border-top-left-radius: 0.5rem;
+          border-bottom-left-radius: 0.5rem;
+        }
+        .imgRightSide {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          border-top-right-radius: 0.5rem;
+          border-bottom-right-radius: 0.5rem;
+          padding: 0 8px;
+
+          .secondImgBox {
+            flex: 1;
+            background-color: red;
+            border-top-right-radius: 0.5rem;
+          }
+
+          .thirdImgBox {
+            margin-top: 8px;
+            flex: 1;
+            background-color: orange;
+            border-bottom-right-radius: 0.5rem;
+          }
+        }
+      }
+
+      .content {
+        margin-top: 2rem;
+        display: flex;
+        width: 100%;
+        min-height: 856px;
+
+        color: white;
+        border-radius: 16px;
+
+        .infoBox {
+          flex: 2;
+          color: #000;
+
+          h1 {
+            color: #d04e4e;
+            font-size: 44px;
+            margin-bottom: 1rem;
+          }
+
+          h3 {
+            font-size: 15px;
+            font-family: Poppins;
+            font-weight: 500;
+            margin-top: 4rem;
+            margin-bottom: 1rem;
+          }
+
+          p {
+            margin-bottom: 3rem;
+            font-size: 14px;
+            font-weight: 300;
+            color: #919191;
+            padding-right: 8rem;
+          }
+        }
+
+        .ctaBoxHolder {
+          display: flex;
+          flex: 1;
+
+          .ctaBox {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: column;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 36px;
+            width: 100%;
+            height: 436px;
+            padding: 2rem 2rem;
+            border: 1px solid #dadada;
+            color: var(--black);
+            border-radius: px;
+
+            -webkit-box-shadow: 0px 5px 8px -1px rgba(225, 225, 225, 0.53);
+            box-shadow: 0px 5px 8px -1px rgba(225, 225, 225, 0.53);
+
+            .ownerLogo {
+              width: 76px;
+              height: 76px;
+              max-width: 76px;
+              border-radius: 100%;
+              background-color: red;
+              margin-top: 4rem;
+              background-repeat: no-repeat;
+              background-size: contain;
+            }
+
+            h3 {
+              font-family: Poppins;
+              margin-bottom: 1rem;
+              font-size: 18px;
+            }
+
+            h4 {
+              font-size: 14px;
+              font-weight: 400;
+              color: #919191;
+              margin-bottom: 2rem;
+            }
+
+            h5 {
+              font-size: 16px;
+              color: #34a853;
+            }
+
+            button {
+              width: 100%;
+              height: 56px;
+              margin-top: 1rem;
+              border-radius: 0.5rem;
+              border: 0;
+              font-weight: 500;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+
+    .boxRecommedations {
+      width: 100%;
+      height: auto;
+      padding: 4rem 3rem;
+
+      h3 {
+        margin-bottom: 2rem;
+      }
+
+      .swiperContainer {
+        width: 100%;
+        padding-left: 0.5rem;
+        padding-right: 2rem;
+        padding-bottom: 4rem;
+
+        .cardsContainer {
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .mainBox {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: auto;
+    align-items: center;
+    background-color: #fff;
+    padding-top: 2rem;
+    padding-left: 12rem;
+    padding-right: 12rem;
+
+    .boxRecommedations {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+}
