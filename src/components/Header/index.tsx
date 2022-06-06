@@ -143,7 +143,12 @@ export default function Header({ placeholder }) {
           </form>
         )}
 
-        {inputFocus && <Filters handleSubmit={handleSubmit as any} closeMobileFilters={closeMobileFilters} />}
+        {inputFocus && (
+          <Filters
+            handleSubmit={handleSubmit as any}
+            closeMobileFilters={closeMobileFilters}
+          />
+        )}
 
         {/* End Dynamic Input Search */}
 
