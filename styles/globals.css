@@ -128,3 +128,21 @@ section h2 {
     margin-right: auto;
   }  */
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: #fafafa;
+  border-radius: 2rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  transition: all 0.4s ease;
+  background: #a1a1a1;
+  border-radius: 200px;
+}

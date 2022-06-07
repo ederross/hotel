@@ -24,7 +24,7 @@ export default function Header({ placeholder }) {
   const primaryLocationRef = useRef(null);
   const secondaryLocationRef = useRef(null);
 
-  const isSmallScreen = useMediaQuery('(max-width: 36rem)');
+  const isSmallScreen = useMediaQuery('(max-width: 868px)');
 
   //form data
 
@@ -52,6 +52,17 @@ export default function Header({ placeholder }) {
       }
     }, 10);
   };
+
+  const closeDatePickerWeb = () => {
+    setInputFocus(false);
+    setLocation('');
+    setNumberOfChildren(0);
+    setNumberOfAdults(0);
+    setCheckInDate('');
+    setCheckOutDate('');
+    document.body.style.overflow = 'initial';
+  };
+
   const closeMobileFilters = () => {
     setInputFocus(false);
     setLocation('');
@@ -158,73 +169,76 @@ export default function Header({ placeholder }) {
         </div>
 
         {/* Start Dynamic Input Search */}
+        {!isSmallScreen && (
+          <form className={styles.search}>
+            <input
+              type="text"
+              ref={primaryLocationRef}
+              placeholder={
+                placeholder ? placeholder : 'Whsssere are you going?'
+              }
+              onFocus={openDatePicker}
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              required
+            />
 
-        <form className={styles.search}>
-          <input
-            type="text"
-            ref={primaryLocationRef}
-            placeholder={placeholder ? placeholder : 'Whsssere are you going?'}
-            onFocus={openDatePicker}
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            required
-          />
+            <div className={styles.overlay}>
+              <div
+                className={styles.field}
+                onClick={openDatePicker}
+                style={{ boxShadow: inputFocus && '0 1rem 3rem -1rem #1e1e38' }}
+              >
+                <label>Check-in</label>
+                <input
+                  readOnly
+                  placeholder="Add dates"
+                  value={state[0].startDate as any}
+                />
+              </div>
 
-          <div className={styles.overlay}>
-            <div
-              className={styles.field}
-              onClick={openDatePicker}
-              style={{ boxShadow: inputFocus && '0 1rem 3rem -1rem #1e1e38' }}
+              <div className={styles.field}>
+                <label>Check-out</label>
+                <input
+                  disabled
+                  placeholder="Add dates"
+                  value={state[0].endDate as any}
+                />
+              </div>
+
+              <div className={styles.field}>
+                <label>Guests</label>
+                <span className="guestNumber">
+                  {numberOfChildren || numberOfAdults ? (
+                    <p>{numberOfAdults + numberOfChildren} guests</p>
+                  ) : (
+                    <p className="empty">Add guests</p>
+                  )}
+                </span>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={
+                inputFocus &&
+                !(
+                  location &&
+                  checkInDate &&
+                  checkOutDate &&
+                  (numberOfAdults || numberOfChildren)
+                )
+              }
+              onClick={handleSubmit}
+              aria-label="search places"
             >
-              <label>Check-in</label>
-              <input
-                readOnly
-                placeholder="Add dates"
-                value={state[0].startDate as any}
-              />
-            </div>
+              <Search />
+              <span>Search</span>
+            </button>
+          </form>
+        )}
 
-            <div className={styles.field}>
-              <label>Check-out</label>
-              <input
-                disabled
-                placeholder="Add dates"
-                value={state[0].endDate as any}
-              />
-            </div>
-
-            <div className={styles.field}>
-              <label>Guests</label>
-              <span className="guestNumber">
-                {numberOfChildren || numberOfAdults ? (
-                  <p>{numberOfAdults + numberOfChildren} guests</p>
-                ) : (
-                  <p className="empty">Add guests</p>
-                )}
-              </span>
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={
-              inputFocus &&
-              !(
-                location &&
-                checkInDate &&
-                checkOutDate &&
-                (numberOfAdults || numberOfChildren)
-              )
-            }
-            onClick={handleSubmit}
-            aria-label="search places"
-          >
-            <Search />
-            <span>Search</span>
-          </button>
-        </form>
-
-        {inputFocus && (
+        {!isSmallScreen && inputFocus && (
           <div className={styles.controlsFullContainer}>
             <div className={styles.controlsContainerHolder}>
               <div
@@ -271,14 +285,27 @@ export default function Header({ placeholder }) {
             </div>
           </div>
         )}
-
-        {/* 
         {inputFocus && (
+          <div
+            onClick={closeDatePickerWeb}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100vw',
+              height: '100vh',
+              zIndex: -2,
+              background: 'rgba(0,0,0,0.5)',
+            }}
+          ></div>
+        )}
+
+        {isSmallScreen && inputFocus && (
           <Filters
             handleSubmit={handleSubmit as any}
             closeMobileFilters={closeMobileFilters}
           />
-        )} */}
+        )}
 
         {/* End Dynamic Input Search */}
 
