@@ -1,0 +1,91 @@
+.container {
+  font-family: 'DM Sans' !important;
+  img {
+    width: 100%;
+    height: 316px;
+    object-fit: cover;
+  }
+
+  .typeServiceContainer {
+    display: flex;
+    padding-top: 0.5rem;
+    
+    h5{
+      padding: 0.5rem 0;
+    }
+  }
+
+  h2 {
+    margin-bottom: 0.8rem;
+
+    font-size: 1.2rem;
+
+    line-height: normal;
+
+    font-weight: 600;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+
+    line-height: normal;
+
+    color: var(--gray-600);
+    font-weight: 400;
+    font-size: 0.85rem;
+
+    span {
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+  }
+
+  .priceAndControlsContainerHolder {
+    display: flex;
+    height: auto;
+
+    .pricesInfos {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      font-family: 'DM Sans';
+
+      h4 {
+        margin-bottom: 0.5rem;
+
+        color: var(--primary-color);
+        font-size: 1.2rem;
+
+        span {
+          color: var(--gray-400);
+          font-size: 0.9rem;
+        }
+      }
+
+      h6 {
+        color: var(--gray-400);
+        font-size: 0.9rem;
+      }
+    }
+
+    .addButtons {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      font-family: 'DM Sans';
+
+      button {
+        cursor: pointer;
+        height: 42px;
+        width: 42px;
+        border-radius: 100%;
+        border: none;
+      }
+      h5 {
+        padding: 0 0.5rem;
+      }
+    }
+  }
+}

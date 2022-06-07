@@ -14,12 +14,12 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 const imgSrc = [
-  'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-  'https://images.unsplash.com/photo-1591088398332-8a7791972843?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
-  'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1157&q=80',
+  'https://images.unsplash.com/photo-1604156788856-2ce5f2171cce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+  'https://images.unsplash.com/photo-1559686043-aef1bbc98d19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+  'https://images.unsplash.com/photo-1514923995763-768e52f5af87?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
 ];
 
-const CardRoom = () => {
+const CardService = () => {
   const imagesRef = useRef(null);
   const [currSlide, setCurrSlide] = useState(0);
 
@@ -60,54 +60,22 @@ const CardRoom = () => {
             </div>
           )}
 
-          <div className={styles.iconsContainerHolder}>
-            <div className={styles.iconWithNumberContainer}>
-              <BedOutlinedIcon fontSize={'small'} />
-              <h5>2</h5>
-            </div>
-            <div className={styles.iconWithNumberContainer}>
-              <SingleBedOutlinedIcon fontSize={'small'} />
-              <h5>1</h5>
-            </div>
-            <div className={styles.iconWithNumberContainer}>
-              <PersonOutlinedIcon fontSize={'small'} />
-              <h5>5</h5>
-            </div>
+          <div className={styles.typeServiceContainer}>
+            <h5>Aluguel</h5>
           </div>
 
-          <h2>Quarto Estofado suíte Deluxe</h2>
+          <h2>Passeio de balão</h2>
 
           <p>
-            Ar-condicionado, cama box, TV a cabo, mesa de trabalho, frigobar...{' '}
-            <span>Ler mais</span>
+            Air Fun Balonismo está há 28 Anos no mercado passeio de Balão em
+            Boituva. Faça sua reserva. Passeio de Balão com {'...'}Ler mais
           </p>
-
-          <div className={styles.amenitiesContainer}>
-            <div className={styles.amenitie}>
-              <TvOutlined fontSize={'small'} />
-              <h5>TV</h5>
-            </div>
-            <div className={styles.amenitie}>
-              <SignalWifi4BarOutlined fontSize={'small'} />
-              <h5>Wi-Fi</h5>
-            </div>
-            <div className={styles.amenitie}>
-              <LocalPhoneOutlined fontSize={'small'} />
-              <h5>Telefone</h5>
-            </div>
-          </div>
 
           <div className={styles.priceAndControlsContainerHolder}>
             <div className={styles.pricesInfos}>
-              {/* <s>
-                <h6>R$ 200</h6>
-              </s> */}
               <h4>
-                R$ 100 <span>3 noites</span>
+                R$ 100 <span>por dia</span>
               </h4>
-              {/* <u>
-                <h5>+2 ofertas</h5>
-              </u> */}
             </div>
             <div className={styles.addButtons}>
               <button disabled>-</button>
@@ -129,10 +97,8 @@ const ImageComponent = ({ index, url }) => {
       <Image
         layout="fill"
         objectFit="cover"
-       
         src={`${url}`}
         onLoadingComplete={() => setLoading(false)}
-
       />
     </div>
   );
@@ -229,4 +195,4 @@ const CardDiv = styled.div`
   }
 `;
 
-export default CardRoom;
+export default CardService;
