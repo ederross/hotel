@@ -10,6 +10,8 @@ import Filters from '../Filters';
 import { DateRange, DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+
+import * as locales from 'react-date-range/dist/locale';
 import { addDays, isWeekend, format } from 'date-fns';
 
 export default function Header({ placeholder }) {
@@ -102,6 +104,44 @@ export default function Header({ placeholder }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  function customDayContent(day) {
+    let extraDot = null;
+    // if (isWeekend(day)) {
+    //   extraDot = (
+    //     <div
+    //       style={{
+    //         height: '5px',
+    //         width: '5px',
+    //         borderRadius: '100%',
+    //         background: 'red',
+    //         position: 'absolute',
+    //         top: 2,
+    //         right: 2,
+    //       }}
+    //     />
+    //   );
+    // }
+    return (
+      <>
+        <div>
+          {extraDot}
+
+          <span>{format(day, 'd')}</span>
+          {/* <span
+            style={{
+              fontSize: 10,
+              position: 'absolute',
+              bottom: -20,
+              right: '55%',
+            }}
+          >
+            999
+          </span> */}
+        </div>
+      </>
+    );
+  }
+
   return (
     <header
       ref={headerRef}
@@ -119,74 +159,119 @@ export default function Header({ placeholder }) {
 
         {/* Start Dynamic Input Search */}
 
-        {!inputFocus && (
-          <form className={styles.search}>
-            <input
-              type="text"
-              ref={primaryLocationRef}
-              placeholder={
-                placeholder ? placeholder : 'Whsssere are you going?'
-              }
-              onFocus={openDatePicker}
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              required
-            />
+        <form className={styles.search}>
+          <input
+            type="text"
+            ref={primaryLocationRef}
+            placeholder={placeholder ? placeholder : 'Whsssere are you going?'}
+            onFocus={openDatePicker}
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required
+          />
 
-            <div className={styles.overlay}>
-              <div
-                className={styles.field}
-                onClick={openDatePicker}
-                style={{ boxShadow: inputFocus && '0 1rem 3rem -1rem #1e1e38' }}
-              >
-                <label>Check-in</label>
-                <input
-                  readOnly
-                  placeholder="Add dates"
-                  value={state[0].startDate as any}
-                />
-              </div>
-
-              <div className={styles.field}>
-                <label>Check-out</label>
-                <input
-                  disabled
-                  placeholder="Add dates"
-                  value={state[0].endDate as any}
-                />
-              </div>
-
-              <div className={styles.field}>
-                <label>Guests</label>
-                <span className="guestNumber">
-                  {numberOfChildren || numberOfAdults ? (
-                    <p>{numberOfAdults + numberOfChildren} guests</p>
-                  ) : (
-                    <p className="empty">Add guests</p>
-                  )}
-                </span>
-              </div>
+          <div className={styles.overlay}>
+            <div
+              className={styles.field}
+              onClick={openDatePicker}
+              style={{ boxShadow: inputFocus && '0 1rem 3rem -1rem #1e1e38' }}
+            >
+              <label>Check-in</label>
+              <input
+                readOnly
+                placeholder="Add dates"
+                value={state[0].startDate as any}
+              />
             </div>
 
-            <button
-              type="submit"
-              disabled={
-                inputFocus &&
-                !(
-                  location &&
-                  checkInDate &&
-                  checkOutDate &&
-                  (numberOfAdults || numberOfChildren)
-                )
-              }
-              onClick={handleSubmit}
-              aria-label="search places"
-            >
-              <Search />
-              <span>Search</span>
-            </button>
-          </form>
+            <div className={styles.field}>
+              <label>Check-out</label>
+              <input
+                disabled
+                placeholder="Add dates"
+                value={state[0].endDate as any}
+              />
+            </div>
+
+            <div className={styles.field}>
+              <label>Guests</label>
+              <span className="guestNumber">
+                {numberOfChildren || numberOfAdults ? (
+                  <p>{numberOfAdults + numberOfChildren} guests</p>
+                ) : (
+                  <p className="empty">Add guests</p>
+                )}
+              </span>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={
+              inputFocus &&
+              !(
+                location &&
+                checkInDate &&
+                checkOutDate &&
+                (numberOfAdults || numberOfChildren)
+              )
+            }
+            onClick={handleSubmit}
+            aria-label="search places"
+          >
+            <Search />
+            <span>Search</span>
+          </button>
+        </form>
+
+        {inputFocus && (
+          <div className={styles.controlsFullContainer}>
+            <div className={styles.controlsContainerHolder}>
+              <div
+                style={{
+                  position: 'relative',
+                }}
+              >
+                <div
+                  style={{
+                    flex: 1,
+                    width: '100%',
+                    paddingBottom: 100,
+                  }}
+                >
+                  <Container>
+                    <DateRangePicker
+                      onChange={(item) => setState([item.selection] as any)}
+                      // showSelectionPreview={true}
+                      moveRangeOnFirstSelection={false}
+                      months={2}
+                      ranges={state}
+                      direction="horizontal"
+                      showDateDisplay={false}
+                      editableDateInputs={false}
+                      showMonthAndYearPickers={false}
+                      locale={locales['pt']}
+                      inputRanges={[]}
+                      staticRanges={[]}
+                      dayContentRenderer={customDayContent}
+                    />
+                  </Container>
+
+                  <h4>Próximos Eventos</h4>
+                  <div
+                    style={{
+                      width: '100%',
+                      height: 200,
+                      background: 'red',
+                      paddingTop: '1rem',
+                    }}
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
         )}
+
         {/* 
         {inputFocus && (
           <Filters
@@ -208,3 +293,228 @@ export default function Header({ placeholder }) {
     </header>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  font-family: 'DM Sans';
+  margin-bottom: 1rem;
+
+  .button {
+    transition: transform 0.2s;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 1px currentColor;
+    }
+    &:disabled {
+      opacity: 0.5;
+      box-shadow: none;
+    }
+  }
+
+  .guests {
+    width: 100%;
+    padding-top: 3rem;
+  }
+  .inputs {
+    display: flex;
+    padding-top: 1rem;
+  }
+
+  .inner {
+    width: 100%;
+    max-width: 720px;
+    height: fit-content;
+    max-height: calc(100vh - 18rem);
+    overflow: scroll;
+    opacity: 0;
+    transition: opacity 0.5s 0.2s;
+    position: relative;
+    &::-webkit-scrollbar {
+      display: none;
+      -webkit-appearance: none;
+    }
+  }
+
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    background: #ff585d20;
+    color: var(--red);
+    border-radius: 99px;
+  }
+
+  &.visible {
+    transform: translate(-50%, 0);
+
+    .inner {
+      opacity: 1;
+    }
+  }
+
+  .rdrCalendarWrapper {
+    color: #000000;
+    flex: 1;
+  }
+
+  .rdrMonth {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rdrMonths {
+    margin-top: -48px;
+  }
+
+  .rdrMonthAndYearPickers {
+    display: none;
+  }
+
+  .rdrMonthName {
+    align-self: center;
+    text-transform: capitalize;
+    color: black;
+  }
+
+  .rdrNextPrevButton {
+    background: white;
+  }
+
+  .rdrDateRangePickerWrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+  .rdrDateDisplayWrapper {
+    background: none;
+  }
+  .rdrDayDisabled {
+    background-color: var(--light);
+  }
+  .rdrDateDisplayItem {
+    border-radius: 200px;
+    background-color: var(--light);
+    input {
+      color: var(--dark);
+    }
+  }
+  .rdrDefinedRangesWrapper {
+    border: none;
+    border-radius: 2rem;
+  }
+  .rdrCalendarWrapper {
+    background: none;
+    color: var(--dark);
+  }
+  .rdrStaticRange {
+    border: none;
+    background: none;
+    &:hover,
+    &:focus {
+      .rdrStaticRangeLabel {
+        background: var(--gray);
+      }
+    }
+  }
+  .rdrDefinedRangesWrapper {
+    display: none;
+    margin-right: 1.5rem;
+    padding-top: 0.75rem;
+    background: var(--dark);
+  }
+  .rdrDayNumber span {
+    color: var(--dark);
+  }
+  .rdrDayPassive .rdrDayNumber span {
+    color: var(--dark);
+    opacity: 0.33;
+  }
+  .rdrDayToday .rdrDayNumber span:after {
+    background: var(--red);
+  }
+
+  /* @media (max-width: 36rem) {
+    padding-top: 7.5rem;
+    overflow: scroll;
+    height: 100vh;
+
+    .rdrCalendarWrapper {
+      font-size: 11px;
+    }
+
+    .inner {
+      height: 100%;
+      max-height: unset;
+      overflow: scroll;
+      padding-bottom: 10rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: fit-content;
+    }
+    h4 {
+      width: 100%;
+    }
+    .close {
+      top: auto;
+      bottom: -3.5rem;
+      right: 0;
+      margin: 0 auto;
+      display: block;
+      position: relative;
+    }
+    .inputs {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  } */
+  @media (min-width: 768px) {
+    .rdrDefinedRangesWrapper {
+      font-size: 13px;
+    }
+    .rdrCalendarWrapper {
+      font-size: 13px;
+    }
+  }
+
+  /* @media (min-width: 868px) {
+    .rdrDefinedRangesWrapper {
+      font-size: 13px;
+    }
+    .rdrCalendarWrapper {
+      font-size: 13px;
+    }
+  } */
+
+  @media (min-width: 1024px) {
+    .rdrDefinedRangesWrapper {
+      font-size: 14px;
+    }
+    .rdrCalendarWrapper {
+      font-size: 14px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .rdrDefinedRangesWrapper {
+      font-size: 16px;
+    }
+    .rdrCalendarWrapper {
+      font-size: 16px;
+    }
+  }
+
+  /* @media (min-width: 36rem) and (max-width: 48rem) {
+    .rdrCalendarWrapper {
+      margin: 0 auto;
+    }
+  } */
+`;
