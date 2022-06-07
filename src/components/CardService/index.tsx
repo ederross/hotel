@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from 'react-feather';
 
 import Image from 'next/image';
 import styled from 'styled-components';
+import ImageComponent from '../utils/ImageComponent';
 
 const imgSrc = [
   'https://images.unsplash.com/photo-1604156788856-2ce5f2171cce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
@@ -30,8 +31,6 @@ const CardService = () => {
     return () => imagesRefCurr.removeEventListener('scroll', handleScroll);
   }, []);
 
-  console.log(currSlide + ' ' + imgSrc.length)
-
   return (
     <>
       <div className={styles.container}>
@@ -45,7 +44,7 @@ const CardService = () => {
             </div>
           )}
 
-          {(imgSrc.length - 1) !== currSlide   && (
+          {imgSrc.length - 1 !== currSlide && (
             <div className="btnGo" onClick={() => scrollToImage(currSlide + 1)}>
               <ChevronRight width={18} height={18} />
             </div>
@@ -100,22 +99,11 @@ const CardService = () => {
   );
 };
 
-const ImageComponent = ({ index, url }) => {
-  const [loading, setLoading] = useState(true);
 
-  return (
-    <div className={`img ${loading ? 'loading' : null}`}>
-      <Image
-        layout="fill"
-        objectFit="cover"
-        src={`${url}`}
-        onLoadingComplete={() => setLoading(false)}
-      />
-    </div>
-  );
-};
 
 const CarouselHolder = styled.div`
+  transition: all 0.2s ease-in-out;
+
   .btnGo {
     cursor: pointer;
     z-index: 99;
@@ -137,9 +125,11 @@ const CarouselHolder = styled.div`
     border-radius: 100%;
 
     background-color: var(--light-text);
+    opacity: 0.8;
 
     &:hover {
-      transform: scale(1.1);
+      opacity: 1;
+      transform: scale(1.2);
       box-shadow: 0 0.2rem 0.2rem rgb(135, 135, 135);
     }
   }
@@ -165,9 +155,11 @@ const CarouselHolder = styled.div`
     border-radius: 100%;
 
     background-color: var(--light-text);
+    opacity: 0.8;
 
     &:hover {
-      transform: scale(1.1);
+      opacity: 1;
+      transform: scale(1.2);
       box-shadow: 0 0.2rem 0.2rem rgb(135, 135, 135);
     }
   }
@@ -195,27 +187,7 @@ const CarouselHolder = styled.div`
       display: none;
       -webkit-appearance: none;
     }
-    .img {
-      flex: 0 0 100%;
-      padding-bottom: 66.67%;
-      position: relative;
-      scroll-snap-align: start;
-      width: 100%;
-      height: 232px;
-      max-width: 100%;
-      max-height: 232px;
-
-      &.loading {
-        animation: shimmer 2s infinite;
-        background: linear-gradient(
-          to right,
-          #eff1f3 4%,
-          #e2e2e2 25%,
-          #eff1f3 36%
-        );
-        background-size: 1000px 100%;
-      }
-    }
+    
 
     img {
       transition: transform 0.2s;
