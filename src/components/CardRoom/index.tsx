@@ -131,6 +131,7 @@ const ImageComponent = ({ index, url }) => {
         objectFit="cover"
         src={`${url}`}
         onLoadingComplete={() => setLoading(false)}
+        priority
       />
     </div>
   );

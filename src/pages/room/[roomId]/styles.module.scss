@@ -1,18 +1,15 @@
 .mainBox {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  height: auto;
-  align-items: center;
-  background-color: #fff;
-
   .contentBox {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
     border-bottom: 1px solid #dadada;
     min-width: 100%;
     height: auto;
 
     .imgsBox {
-      display: flex;
+      display: none;
       min-width: 100%;
       height: 256px;
       color: white;
@@ -31,6 +28,26 @@
         background-color: orange;
         background-size: contain;
         background-position: center;
+
+        &.loading {
+          animation: shimmer 2s infinite;
+          background: linear-gradient(
+            to right,
+            #eff1f3 4%,
+            #e2e2e2 25%,
+            #eff1f3 36%
+          );
+          background-size: 1000px 100%;
+        }
+
+        @keyframes shimmer {
+          0% {
+            background-position: -1000px 0;
+          }
+          100% {
+            background-position: 1000px 0;
+          }
+        }
       }
       .imgRightSide {
         display: none;
@@ -45,8 +62,7 @@
       width: 100%;
       min-height: auto;
       margin-bottom: 8rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding: 0 1rem;
 
       color: white;
       border-radius: 16px;
@@ -54,28 +70,71 @@
       .infoBox {
         display: flex;
         flex-direction: column;
-        color: #000;
+        color: var(--dark);
         width: 100%;
 
-        h1 {
-          color: #d04e4e;
-          font-size: 36px;
-          margin-bottom: 1rem;
+        .iconsContainerHolder {
+          display: flex;
+          padding: 1rem 0;
+
+          .iconWithNumberContainer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.5rem;
+
+            h5 {
+              padding: 0 0.2rem;
+
+              font-weight: 600;
+            }
+          }
         }
 
-        h3 {
-          font-size: 14px;
-          font-family: Poppins;
-          font-weight: 500;
-          margin-top: 2rem;
-          margin-bottom: 1rem;
+        h2 {
+          margin-bottom: 0.8rem;
+
+          font-size: 1.2rem;
+
+          line-height: normal;
+
+          font-weight: 600;
         }
 
         p {
-          font-weight: 100;
-          margin-bottom: 3rem;
-          font-size: 14px;
-          color: #979797;
+          margin-bottom: 1.5rem;
+
+          line-height: normal;
+
+          color: var(--gray-600);
+          font-weight: 400;
+          font-size: 0.85rem;
+
+          span {
+            color: var(--primary-color);
+            font-weight: 500;
+          }
+        }
+
+        .amenitiesContainer {
+          display: flex;
+          margin-bottom: 1rem;
+
+          .amenitie {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+
+            h5 {
+              margin: 8px 0;
+              padding: 0 0.2rem;
+
+              font-weight: 600;
+              font-size: 0.75rem;
+            }
+          }
         }
       }
 
@@ -145,38 +204,6 @@
       }
     }
   }
-
-  .boxRecommedations {
-    width: 100%;
-    height: auto;
-    padding: 4rem 1rem;
-
-    h3 {
-      margin-bottom: 2rem;
-    }
-
-    .swiperContainer {
-      width: 100%;
-      padding-left: 1rem;
-      padding-right: 2rem;
-      padding-bottom: 4rem;
-
-      .cardsContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 264px;
-        height: 364px;
-        background-color: #fff;
-        margin-right: 3rem;
-        border-radius: 0.5rem;
-        background-size: cover;
-        background-color: #000;
-        background-repeat: no-repeat;
-      }
-    }
-  }
 }
 
 // *****************************************************************************
@@ -187,39 +214,6 @@
     .contentBox {
       .content {
         padding: 0 2rem;
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 628px) {
-  .mainBox {
-    .contentBox {
-      .content {
-        .infoBox {
-          padding-right: 2rem;
-          padding-left: 2rem;
-        }
-      }
-    }
-
-    .boxRecommedations {
-      width: 100%;
-      height: auto;
-      padding: 4rem 2rem;
-
-      h3 {
-        margin-bottom: 2rem;
-      }
-
-      .swiperContainer {
-        width: 100%;
-        padding-left: 0.5rem;
-        padding-right: 2rem;
-        padding-bottom: 4rem;
-
-        .cardsContainer {
-        }
       }
     }
   }
@@ -249,7 +243,7 @@
         border-radius: 16px;
         padding: 0 2rem;
 
-        .swiperImgsBox {
+        .carousel {
           display: none;
         }
 
@@ -294,7 +288,7 @@
         border-radius: 16px;
 
         .infoBox {
-          flex: 2;
+          flex: 1.5;
           color: #000;
 
           h1 {
@@ -341,17 +335,6 @@
 
             -webkit-box-shadow: 0px 5px 8px -1px rgba(225, 225, 225, 0.53);
             box-shadow: 0px 5px 8px -1px rgba(225, 225, 225, 0.53);
-
-            .ownerLogo {
-              width: 76px;
-              height: 76px;
-              max-width: 76px;
-              border-radius: 100%;
-              background-color: red;
-              margin-top: 4rem;
-              background-repeat: no-repeat;
-              background-size: contain;
-            }
 
             h3 {
               font-family: Poppins;
