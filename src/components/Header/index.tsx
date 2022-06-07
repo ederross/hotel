@@ -7,6 +7,11 @@ import { useRouter } from 'next/router';
 import styles from './styles.module.scss';
 import Filters from '../Filters';
 
+import { DateRange, DateRangePicker } from 'react-date-range';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+import { addDays, isWeekend, format } from 'date-fns';
+
 export default function Header({ placeholder }) {
   const router = useRouter();
 
@@ -26,6 +31,15 @@ export default function Header({ placeholder }) {
   const [checkOutDate, setCheckOutDate] = useState('');
   const [numberOfAdults, setNumberOfAdults] = useState(0);
   const [numberOfChildren, setNumberOfChildren] = useState(0);
+
+  //Data Picker
+  const [state, setState] = useState([
+    {
+      startDate: new Date(),
+      endDate: addDays(new Date(), 0),
+      key: 'selection',
+    },
+  ]);
 
   const openDatePicker = () => {
     setInputFocus(true);
@@ -102,13 +116,6 @@ export default function Header({ placeholder }) {
         <div className={styles.logo} onClick={() => router.push('/')}>
           <span>hotel</span>
         </div>
-        {/* <nav ref={navRef}>
-          <a href="#" className={styles.active}>
-            Places to stay
-          </a>
-          <a href="#">Experiences</a>
-          <a href="#">Online Experiences</a>
-        </nav> */}
 
         {/* Start Dynamic Input Search */}
 
@@ -117,12 +124,50 @@ export default function Header({ placeholder }) {
             <input
               type="text"
               ref={primaryLocationRef}
-              placeholder={placeholder ? placeholder : 'Encontrar hospedagem'}
+              placeholder={
+                placeholder ? placeholder : 'Whsssere are you going?'
+              }
               onFocus={openDatePicker}
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               required
             />
+
+            <div className={styles.overlay}>
+              <div
+                className={styles.field}
+                onClick={openDatePicker}
+                style={{ boxShadow: inputFocus && '0 1rem 3rem -1rem #1e1e38' }}
+              >
+                <label>Check-in</label>
+                <input
+                  readOnly
+                  placeholder="Add dates"
+                  value={state[0].startDate as any}
+                />
+              </div>
+
+              <div className={styles.field}>
+                <label>Check-out</label>
+                <input
+                  disabled
+                  placeholder="Add dates"
+                  value={state[0].endDate as any}
+                />
+              </div>
+
+              <div className={styles.field}>
+                <label>Guests</label>
+                <span className="guestNumber">
+                  {numberOfChildren || numberOfAdults ? (
+                    <p>{numberOfAdults + numberOfChildren} guests</p>
+                  ) : (
+                    <p className="empty">Add guests</p>
+                  )}
+                </span>
+              </div>
+            </div>
+
             <button
               type="submit"
               disabled={
@@ -142,13 +187,13 @@ export default function Header({ placeholder }) {
             </button>
           </form>
         )}
-
+        {/* 
         {inputFocus && (
           <Filters
             handleSubmit={handleSubmit as any}
             closeMobileFilters={closeMobileFilters}
           />
-        )}
+        )} */}
 
         {/* End Dynamic Input Search */}
 

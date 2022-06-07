@@ -6,7 +6,6 @@
   width: 100%;
   z-index: 10;
   transition: background 0.2s, border-bottom 0.2s;
-  
 
   .overlay {
     position: absolute;
@@ -23,12 +22,13 @@
     label,
     input,
     .guestNumber {
+      cursor: pointer;
       background: none;
       font-size: 14px;
       border: none;
       line-height: 1.5;
       display: block;
-      color: var(--dark);
+      color: var(--dark-text);
       outline: none;
       white-space: nowrap;
       overflow: hidden;
@@ -39,7 +39,7 @@
       font-weight: 700;
 
       &::placeholder {
-        color: var(--dark);
+        color: var(--dark-text);
         font-weight: 400;
         opacity: 0.5;
       }
@@ -47,12 +47,13 @@
     .guestNumber {
       font-weight: 700;
       .empty {
-        color: var(--dark);
+        color: var(--dark-text);
         font-weight: 400;
         opacity: 0.5;
       }
     }
     .field {
+      cursor: pointer;
       width: 100%;
       padding: 0.5rem 1.5rem;
       border-radius: 99px;
@@ -68,14 +69,14 @@
         content: '';
         width: 2px;
         height: 2rem;
-        background: var(--gray);
+        // background: var(--gray);
         border-radius: 2px;
-        
+
         transition: transform 0.2s;
       }
       &:hover,
       &:focus-within {
-        background: var(--light);
+        background-color: var(--gray-200);
       }
 
       &:last-of-type {
@@ -161,6 +162,8 @@
     box-shadow: 0 1rem 3rem -1rem #1e1e38;
     transition: all 0.2s;
     transform-origin: center;
+
+    color: var(--dark-text);
 
     & * {
       transition: all 0.2s;

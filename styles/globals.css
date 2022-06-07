@@ -8,13 +8,14 @@
 
 :root {
   --dark-text: #000000;
-  --light-text: #FFF;
-  --primary-color: #2AB59C;
+  --light-text: #fff;
+  --primary-color: #2ab59c;
   --yellow: #ffffd6;
   --dark: #2e2e48;
   --brown: #3f3f1a;
   --light: #fafafc;
   --gray: #d5d5d5;
+  --gray-200: #efeff5;
   --gray-600: #828282;
   --gray-400: #979797;
   --white: #fff;
@@ -24,7 +25,7 @@
 }
 
 body {
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
   background: var(--light);
   color: var(--dark);
   line-height: 1.5;
@@ -57,7 +58,7 @@ button {
   border-radius: 0.66rem;
   transition: all 0.2s;
   box-shadow: 0 0.5rem 1.5rem -0.5rem currentColor;
-  
+
   font-weight: 600;
 }
 .btn.btn-dark {
