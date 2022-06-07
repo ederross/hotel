@@ -151,9 +151,9 @@ const RoomDetails = () => {
             <h4 className={styles.customSubtitle}>Confira</h4>
             <h2 className={styles.customTitle}>Serviços disponíveis</h2>
             <div className={styles.gridHolder}>
+              {/* <CardService />
               <CardService />
-              <CardService />
-              <CardService />
+              <CardService /> */}
             </div>
           </section>
         </div>
@@ -161,6 +161,8 @@ const RoomDetails = () => {
     </>
   );
 };
+
+
 
 const ImageComponent = ({ index, url }) => {
   const [loading, setLoading] = useState(true);
@@ -173,7 +175,7 @@ const ImageComponent = ({ index, url }) => {
         objectFit="cover"
         src={`${url}`}
         quality={100}
-        style={{ objectFit: 'contain', position: 'relative' }}
+       
         onLoadingComplete={() => setLoading(false)}
       />
     </div>
