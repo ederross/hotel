@@ -1,15 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import styles from './styles.module.scss';
-import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
-import SingleBedOutlinedIcon from '@mui/icons-material/SingleBedOutlined';
-import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 
-import {
-  SignalWifi4BarOutlined,
-  TvOutlined,
-  LocalPhoneOutlined,
-} from '@mui/icons-material';
+import { ChevronLeft, ChevronRight } from 'react-feather';
+
 import Image from 'next/image';
 import styled from 'styled-components';
 
@@ -36,10 +30,27 @@ const CardService = () => {
     return () => imagesRefCurr.removeEventListener('scroll', handleScroll);
   }, []);
 
+  console.log(currSlide + ' ' + imgSrc.length)
+
   return (
     <>
-      <CardDiv>
-        <div className={styles.container}>
+      <div className={styles.container}>
+        <CarouselHolder>
+          {currSlide > 0 && (
+            <div
+              className="btnGoBack"
+              onClick={() => scrollToImage(currSlide - 1)}
+            >
+              <ChevronLeft width={18} height={18} />
+            </div>
+          )}
+
+          {(imgSrc.length - 1) !== currSlide   && (
+            <div className="btnGo" onClick={() => scrollToImage(currSlide + 1)}>
+              <ChevronRight width={18} height={18} />
+            </div>
+          )}
+
           <div ref={imagesRef} className="carousel">
             {imgSrc.map((url, index) => (
               <ImageComponent key={index} url={url} index={0} />
@@ -59,32 +70,32 @@ const CardService = () => {
               ))}
             </div>
           )}
+        </CarouselHolder>
 
-          <div className={styles.typeServiceContainer}>
-            <h5>Aluguel</h5>
+        <div className={styles.typeServiceContainer}>
+          <h5>Aluguel</h5>
+        </div>
+
+        <h2>Passeio de balão</h2>
+
+        <p>
+          Air Fun Balonismo está há 28 Anos no mercado passeio de Balão em
+          Boituva. Faça sua reserva. Passeio de Balão com {'...'}Ler mais
+        </p>
+
+        <div className={styles.priceAndControlsContainerHolder}>
+          <div className={styles.pricesInfos}>
+            <h4>
+              R$ 100 <span>por dia</span>
+            </h4>
           </div>
-
-          <h2>Passeio de balão</h2>
-
-          <p>
-            Air Fun Balonismo está há 28 Anos no mercado passeio de Balão em
-            Boituva. Faça sua reserva. Passeio de Balão com {'...'}Ler mais
-          </p>
-
-          <div className={styles.priceAndControlsContainerHolder}>
-            <div className={styles.pricesInfos}>
-              <h4>
-                R$ 100 <span>por dia</span>
-              </h4>
-            </div>
-            <div className={styles.addButtons}>
-              <button disabled>-</button>
-              <h5>0</h5>
-              <button>+</button>
-            </div>
+          <div className={styles.addButtons}>
+            <button disabled>-</button>
+            <h5>0</h5>
+            <button>+</button>
           </div>
         </div>
-      </CardDiv>
+      </div>
     </>
   );
 };
@@ -104,11 +115,69 @@ const ImageComponent = ({ index, url }) => {
   );
 };
 
-const CardDiv = styled.div`
-  display: flex;
-  flex-direction: column;
+const CarouselHolder = styled.div`
+  .btnGo {
+    cursor: pointer;
+    z-index: 99;
+    position: absolute;
+    top: 20%;
+    right: 16px;
 
-  position: relative;
+    display: none;
+    align-self: flex-start;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+
+    transition: 0.2s ease-in-out;
+    box-shadow: 0 0.2rem 0.2rem rgb(165, 165, 165);
+    width: 28px;
+    height: 28px;
+    border-radius: 100%;
+
+    background-color: var(--light-text);
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0.2rem 0.2rem rgb(135, 135, 135);
+    }
+  }
+
+  .btnGoBack {
+    cursor: pointer;
+    z-index: 99;
+    position: absolute;
+    top: 20%;
+    left: 0;
+
+    display: none;
+    align-self: flex-start;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+
+    transition: 0.2s ease-in-out;
+    box-shadow: 0 0.2rem 0.2rem rgb(165, 165, 165);
+    width: 28px;
+    height: 28px;
+    border-radius: 100%;
+
+    background-color: var(--light-text);
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0.2rem 0.2rem rgb(135, 135, 135);
+    }
+  }
+
+  &:hover {
+    .btnGo,
+    .btnGoBack {
+      display: flex;
+    }
+  }
 
   .carousel {
     position: relative;

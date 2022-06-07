@@ -1,12 +1,15 @@
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import styled from 'styled-components';
 import styles from './styles.module.scss';
 
+import { ChevronLeft } from 'react-feather';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
 import SingleBedOutlinedIcon from '@mui/icons-material/SingleBedOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
+import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
 
 import {
   SignalWifi4BarOutlined,
@@ -23,6 +26,8 @@ const imgSrc = [
 ];
 
 const RoomDetails = () => {
+  const router = useRouter();
+
   const imagesRef = useRef(null);
   const [currSlide, setCurrSlide] = useState(0);
 
@@ -48,8 +53,16 @@ const RoomDetails = () => {
       </Head>
       <header></header>
       <main className={styles.mainBox}>
+        <div className={styles.btnGoBackDesk}>
+          <ChevronLeft width={18} height={18} />
+        </div>
+
         <div className={styles.contentBox}>
           <CarouselHolder>
+            <div className={styles.btnGoBack}>
+              <ChevronLeft width={18} height={18} />
+            </div>
+
             <div ref={imagesRef} className="carousel">
               {imgSrc.map((url, index) => (
                 <ImageComponent key={index} url={url} index={0} />
@@ -151,18 +164,31 @@ const RoomDetails = () => {
             <h4 className={styles.customSubtitle}>Confira</h4>
             <h2 className={styles.customTitle}>Serviços disponíveis</h2>
             <div className={styles.gridHolder}>
-              {/* <CardService />
               <CardService />
-              <CardService /> */}
+              <CardService />
+              <CardService />
             </div>
           </section>
         </div>
       </main>
+
+      <div className={styles.offersControlContainer}>
+        <div className={styles.leftSide}>
+          <h4>
+            R$ 98 <span>2 noites</span>{' '}
+          </h4>
+          <u>
+            <h6>Ver 2 ofertas</h6>
+          </u>
+        </div>
+
+        <div className={styles.rightSide}>
+          <button>Reservar</button>
+        </div>
+      </div>
     </>
   );
 };
-
-
 
 const ImageComponent = ({ index, url }) => {
   const [loading, setLoading] = useState(true);
@@ -170,12 +196,13 @@ const ImageComponent = ({ index, url }) => {
   return (
     <div className={`img ${loading ? 'loading' : null}`}>
       <Image
-        priority
+        // priority
         layout="fill"
         objectFit="cover"
         src={`${url}`}
         quality={100}
-       
+        // loading={'lazy'}
+
         onLoadingComplete={() => setLoading(false)}
       />
     </div>

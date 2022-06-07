@@ -1,4 +1,9 @@
 .container {
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+
   font-family: 'DM Sans' !important;
   img {
     width: 100%;
@@ -6,11 +11,13 @@
     object-fit: cover;
   }
 
+  
+
   .typeServiceContainer {
     display: flex;
     padding-top: 0.5rem;
-    
-    h5{
+
+    h5 {
       padding: 0.5rem 0;
     }
   }
