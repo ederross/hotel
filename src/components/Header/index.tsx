@@ -169,6 +169,40 @@ export default function Header({ placeholder }) {
         </div>
 
         {/* Start Dynamic Input Search */}
+        {!inputFocus && isSmallScreen && (
+          <>
+            <form className={styles.search}>
+              <input
+                type="text"
+                ref={primaryLocationRef}
+                placeholder={placeholder ? placeholder : 'Encontrar hospedagem'}
+                onFocus={openDatePicker}
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                required
+              />
+              <button
+                type="submit"
+                disabled={
+                  inputFocus &&
+                  !(
+                    location &&
+                    checkInDate &&
+                    checkOutDate &&
+                    (numberOfAdults || numberOfChildren)
+                  )
+                }
+                onClick={handleSubmit}
+                aria-label="search places"
+              >
+                <Search />
+                <span>Search</span>
+              </button>
+            </form>
+          </>
+        )}
+
+        {/* Start Dynamic Input Search */}
         {!isSmallScreen && (
           <form className={styles.search}>
             <input
@@ -256,7 +290,6 @@ export default function Header({ placeholder }) {
                   <Container>
                     <DateRangePicker
                       onChange={(item) => setState([item.selection] as any)}
-                      // showSelectionPreview={true}
                       moveRangeOnFirstSelection={false}
                       months={2}
                       ranges={state}
@@ -458,51 +491,16 @@ const Container = styled.div`
     background: var(--dark);
   }
   .rdrDayNumber span {
-    color: var(--dark);
+    color: var(--dark-text);
   }
   .rdrDayPassive .rdrDayNumber span {
-    color: var(--dark);
+    color: var(--dark-text);
     opacity: 0.33;
   }
   .rdrDayToday .rdrDayNumber span:after {
-    background: var(--red);
+    background: var(--primary-color);
   }
 
-  /* @media (max-width: 36rem) {
-    padding-top: 7.5rem;
-    overflow: scroll;
-    height: 100vh;
-
-    .rdrCalendarWrapper {
-      font-size: 11px;
-    }
-
-    .inner {
-      height: 100%;
-      max-height: unset;
-      overflow: scroll;
-      padding-bottom: 10rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: fit-content;
-    }
-    h4 {
-      width: 100%;
-    }
-    .close {
-      top: auto;
-      bottom: -3.5rem;
-      right: 0;
-      margin: 0 auto;
-      display: block;
-      position: relative;
-    }
-    .inputs {
-      flex-direction: column;
-      gap: 1rem;
-    }
-  } */
   @media (min-width: 768px) {
     .rdrDefinedRangesWrapper {
       font-size: 13px;
@@ -511,15 +509,6 @@ const Container = styled.div`
       font-size: 13px;
     }
   }
-
-  /* @media (min-width: 868px) {
-    .rdrDefinedRangesWrapper {
-      font-size: 13px;
-    }
-    .rdrCalendarWrapper {
-      font-size: 13px;
-    }
-  } */
 
   @media (min-width: 1024px) {
     .rdrDefinedRangesWrapper {
@@ -538,10 +527,4 @@ const Container = styled.div`
       font-size: 16px;
     }
   }
-
-  /* @media (min-width: 36rem) and (max-width: 48rem) {
-    .rdrCalendarWrapper {
-      margin: 0 auto;
-    }
-  } */
 `;

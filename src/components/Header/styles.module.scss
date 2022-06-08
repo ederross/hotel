@@ -306,11 +306,11 @@
     }
   }
 
-  @media (min-width: 36rem) and (max-width: 62.5rem) {
-    .headerInner {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
+  // @media (min-width: 36rem) and (max-width: 62.5rem) {
+  //   .headerInner {
+  //     grid-template-columns: 1fr 1fr ;
+  //   }
+  // }
 
   &.scrolled:not(.inputFocus) {
     background: var(--light);
