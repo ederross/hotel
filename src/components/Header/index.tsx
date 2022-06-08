@@ -16,6 +16,7 @@ import 'react-date-range/dist/theme/default.css';
 import * as locales from 'react-date-range/dist/locale';
 import { addDays, isWeekend, format } from 'date-fns';
 import CardEventType2 from '../cardsEvents/CardEventType2';
+// import { useWindowSize } from '../utils/UseWindowSize';
 
 export default function Header({ placeholder }) {
   const router = useRouter();
@@ -27,7 +28,18 @@ export default function Header({ placeholder }) {
   const primaryLocationRef = useRef(null);
   const secondaryLocationRef = useRef(null);
 
-  const isSmallScreen = useMediaQuery('(max-width: 868px)');
+  // const isSmallScreen = useMediaQuery('(max-width: 868px)');
+
+  const size = useWindowSize();
+
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    // You now have access to `window`
+    setIsSmallScreen(size.width >= 868 ? false : true);
+  }, []);
+
+  console.log(size.width + ' ' + isSmallScreen);
 
   //form data
 
@@ -94,29 +106,29 @@ export default function Header({ placeholder }) {
     setTimeout(() => closeMobileFilters(), 100);
   };
 
-  useEffect(() => {
-    const handleClick = (event) => {
-      if (!headerRef.current.contains(event.target)) {
-        closeMobileFilters();
-      }
-    };
+  // useEffect(() => {
+  //   const handleClick = (event) => {
+  //     if (!headerRef.current.contains(event.target)) {
+  //       closeMobileFilters();
+  //     }
+  //   };
 
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
-  }, []);
+  //   document.addEventListener('click', handleClick);
+  //   return () => document.removeEventListener('click', handleClick);
+  // }, []);
 
-  useEffect(() => {
-    const onScroll = () => {
-      if (window.scrollY > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-    window.addEventListener('scroll', onScroll);
+  // useEffect(() => {
+  //   const onScroll = () => {
+  //     if (window.scrollY > 10) {
+  //       setScrolled(true);
+  //     } else {
+  //       setScrolled(false);
+  //     }
+  //   };
+  //   window.addEventListener('scroll', onScroll);
 
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  //   return () => window.removeEventListener('scroll', onScroll);
+  // }, []);
 
   function customDayContent(day) {
     let extraDot = null;
@@ -176,7 +188,7 @@ export default function Header({ placeholder }) {
         </div>
 
         {/* Start Dynamic Input Search */}
-        {!inputFocus && isSmallScreen && (
+        {!inputFocus && size.width <= 868 && (
           <>
             <form className={styles.search}>
               <input
@@ -210,7 +222,7 @@ export default function Header({ placeholder }) {
         )}
 
         {/* Start Dynamic Input Search */}
-        {!isSmallScreen && (
+        {size.width >= 868 && (
           <form className={styles.search}>
             <input
               type="text"
@@ -279,7 +291,7 @@ export default function Header({ placeholder }) {
           </form>
         )}
 
-        {!isSmallScreen && inputFocus && (
+        {size.width >= 868 && inputFocus && (
           <div className={styles.controlsFullContainer}>
             <div className={styles.controlsContainerHolder}>
               <div
@@ -346,7 +358,7 @@ export default function Header({ placeholder }) {
                       <SwiperSlide style={{ width: 'auto' }}>
                         <CardEventType2 />
                       </SwiperSlide>
-                       <SwiperSlide style={{ width: 'auto' }}>
+                      <SwiperSlide style={{ width: 'auto' }}>
                         <CardEventType2 />
                       </SwiperSlide>
                     </Swiper> */}
@@ -356,7 +368,7 @@ export default function Header({ placeholder }) {
             </div>
           </div>
         )}
-        {inputFocus && (
+        {size.width <= 868 && inputFocus && (
           <div
             onClick={closeDatePickerWeb}
             style={{
@@ -371,7 +383,7 @@ export default function Header({ placeholder }) {
           ></div>
         )}
 
-        {isSmallScreen && inputFocus && (
+        {size.width <= 868 && inputFocus && (
           <Filters
             handleSubmit={handleSubmit as any}
             closeMobileFilters={closeMobileFilters}
@@ -392,6 +404,42 @@ export default function Header({ placeholder }) {
       </div>
     </header>
   );
+}
+
+// Hook
+function useWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+
+  function handleResize() {
+    // Set window width/height to state
+    setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  }
+  useEffect(() => {
+    // only execute all the code below in client side
+    if (typeof window !== 'undefined') {
+      // Handler to call on window resize
+
+      handleResize();
+
+      // Add event listener
+      window.addEventListener('resize', handleResize);
+
+      // Call handler right away so state gets updated with initial window size
+      handleResize();
+
+      // Remove event listener on cleanup
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []); // Empty array ensures that effect is only run on mount
+  return windowSize;
 }
 
 const Container = styled.div`
