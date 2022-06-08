@@ -21,10 +21,8 @@
     height: 90vh;
   }
 
-
   .heroInner {
     display: flex;
-    align-items: center;
     justify-content: center;
     max-width: var(--containerWidth);
     margin: 0 auto;
@@ -39,5 +37,9 @@
     font-size: clamp(2.5rem, 5.5vw, 2.6rem);
     line-height: normal;
     margin-bottom: 1.5rem;
+  }
+
+  p{
+    margin-bottom: 2rem;
   }
 }

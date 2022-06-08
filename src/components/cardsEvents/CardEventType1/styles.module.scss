@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+
+  width: 236px;
+  @media screen and(min-width:400px) {
+    width: 312px;
+  }
+
+  min-height: 212px;
+
+  font-family: 'DM Sans' !important;
+
+  h2 {
+    margin: 0.8rem 0;
+    margin-bottom: 0.5rem;
+
+    font-size: 1.5rem;
+
+    line-height: normal;
+
+    font-weight: 600;
+  }
+
+  p {
+    margin-bottom: 1rem;
+
+    text-align: justify;
+
+    line-height: normal;
+
+    color: var(--gray-600);
+    font-weight: 400;
+    font-size: 0.85rem;
+
+    span {
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+  }
+
+  h3 {
+    color: var(--primary-color);
+  }
+}

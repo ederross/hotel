@@ -16,7 +16,7 @@ import 'react-date-range/dist/theme/default.css';
 import * as locales from 'react-date-range/dist/locale';
 import { addDays, isWeekend, format } from 'date-fns';
 import CardEventType2 from '../cardsEvents/CardEventType2';
-// import { useWindowSize } from '../utils/UseWindowSize';
+import { useWindowSize } from '../../hooks/UseWindowSize';
 
 export default function Header({ placeholder }) {
   const router = useRouter();
@@ -400,41 +400,6 @@ export default function Header({ placeholder }) {
   );
 }
 
-// Hook
-function useWindowSize() {
-  // Initialize state with undefined width/height so server and client renders match
-  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-  const [windowSize, setWindowSize] = useState({
-    width: undefined,
-    height: undefined,
-  });
-
-  function handleResize() {
-    // Set window width/height to state
-    setWindowSize({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
-  }
-  useEffect(() => {
-    // only execute all the code below in client side
-    if (typeof window !== 'undefined') {
-      // Handler to call on window resize
-
-      handleResize();
-
-      // Add event listener
-      window.addEventListener('resize', handleResize);
-
-      // Call handler right away so state gets updated with initial window size
-      handleResize();
-
-      // Remove event listener on cleanup
-      return () => window.removeEventListener('resize', handleResize);
-    }
-  }, []); // Empty array ensures that effect is only run on mount
-  return windowSize;
-}
 
 const Container = styled.div`
   display: flex;

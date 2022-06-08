@@ -1,9 +1,17 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 
+import styles from './home.module.scss';
+
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import CardEventType2 from '../components/cardsEvents/CardEventType2';
+import CardEventType1 from '../components/cardsEvents/CardEventType1';
+import { useWindowSize } from '../hooks/UseWindowSize';
+
 export default function Home() {
+  const { width } = useWindowSize();
+
   return (
     <>
       <Head>
@@ -16,7 +24,50 @@ export default function Home() {
         <Header placeholder="Sua Hospedagem" />
         <Hero />
 
-       
+        <section className={styles.eventsContainer}>
+          <h2 className={styles.title}>
+            Confira nossos <br /> <span>eventos</span> próximos
+          </h2>
+
+          <div className={styles.scrollContainer}>
+            <Swiper
+              spaceBetween={16}
+              slidesPerView={'auto'}
+              freeMode={true}
+              style={{
+                paddingLeft:
+                  width >= 320 && width < 524
+                    ? '1rem'
+                    : width >= 524 && width < 1024
+                    ? '2rem'
+                    : width >= 628 && width < 1024
+                    ? '2rem'
+                    : width >= 1024 && width < 1280
+                    ? '4rem'
+                    : '8rem',
+                paddingRight: 16,
+                paddingBottom: 16,
+                marginBottom: 48,
+              }}
+            >
+              <SwiperSlide style={{ width: 'auto', marginRight: '1rem' }}>
+                <CardEventType1 />
+              </SwiperSlide>
+              <SwiperSlide style={{ width: 'auto', marginRight: '1rem' }}>
+                <CardEventType1 />
+              </SwiperSlide>
+              <SwiperSlide style={{ width: 'auto', marginRight: '1rem' }}>
+                <CardEventType1 />
+              </SwiperSlide>
+              <SwiperSlide style={{ width: 'auto', marginRight: '1rem' }}>
+                <CardEventType1 />
+              </SwiperSlide>
+              <SwiperSlide style={{ width: 'auto', marginRight: '1rem' }}>
+                <CardEventType1 />
+              </SwiperSlide>
+            </Swiper>
+          </div>
+        </section>
       </main>
     </>
   );

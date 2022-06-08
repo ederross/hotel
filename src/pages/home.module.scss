@@ -1,0 +1,41 @@
+.eventsContainer {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+
+
+  padding-bottom: 2.2rem;
+  border-bottom: 1px solid var(--gray);
+}
+
+.title {
+  font-size: 1.8rem;
+  margin: 2rem 1rem;
+
+  @media screen and (min-width: 524px) {
+    font-size: 2rem;
+    margin: 2rem 2rem;
+  }
+  @media screen and (min-width: 568px) {
+    font-size: 2.5rem;
+  }
+  @media screen and (min-width: 628px) {
+    margin: 3rem 2rem;
+  }
+
+  @media screen and (min-width: 1024px) {
+    margin: 3rem 4rem;
+    font-size: 2.8rem;
+  }
+  
+  @media screen and (min-width: 1280px) {
+    margin: 3rem 8rem;
+    font-size: 2.8rem;
+  }
+
+
+  span {
+    color: var(--primary-color);
+  }
+}
