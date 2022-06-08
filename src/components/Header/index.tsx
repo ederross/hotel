@@ -7,12 +7,15 @@ import { useRouter } from 'next/router';
 import styles from './styles.module.scss';
 import Filters from '../Filters';
 
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+
 import { DateRange, DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
 import * as locales from 'react-date-range/dist/locale';
 import { addDays, isWeekend, format } from 'date-fns';
+import CardEventType2 from '../cardsEvents/CardEventType2';
 
 export default function Header({ placeholder }) {
   const router = useRouter();
@@ -164,7 +167,11 @@ export default function Header({ placeholder }) {
         ${inputFocus ? styles.inputFocus : null}`}
     >
       <div className={styles.headerInner}>
-        <div className={styles.logo} onClick={() => router.push('/')}>
+        <div
+          className={styles.logo}
+          style={{ color: inputFocus ? 'black' : 'white' }}
+          onClick={() => router.push('/')}
+        >
           <span>hotel</span>
         </div>
 
@@ -284,7 +291,7 @@ export default function Header({ placeholder }) {
                   style={{
                     flex: 1,
                     width: '100%',
-                    paddingBottom: 100,
+                    paddingBottom: 50,
                   }}
                 >
                   <Container>
@@ -301,18 +308,49 @@ export default function Header({ placeholder }) {
                       inputRanges={[]}
                       staticRanges={[]}
                       dayContentRenderer={customDayContent}
+                      minDate={new Date()}
+                      rangeColors={['var(--primary-color)']}
                     />
                   </Container>
 
                   <h4>Próximos Eventos</h4>
                   <div
                     style={{
+                      flex: 1,
                       width: '100%',
-                      height: 200,
-                      background: 'red',
+                      minHeight: 200,
+                      height: 'auto',
                       paddingTop: '1rem',
                     }}
-                  ></div>
+                  >
+                    {/* <Swiper
+                      spaceBetween={16}
+                      slidesPerView={'auto'}
+                      freeMode={true}
+                      style={{
+                        paddingLeft: 0,
+                        paddingRight: 48,
+                        paddingBottom: 16,
+                        marginBottom: 48,
+                      }}
+                    >
+                      <SwiperSlide style={{ width: 'auto' }}>
+                        <CardEventType2 />
+                      </SwiperSlide>
+                      <SwiperSlide style={{ width: 'auto' }}>
+                        <CardEventType2 />
+                      </SwiperSlide>
+                      <SwiperSlide style={{ width: 'auto' }}>
+                        <CardEventType2 />
+                      </SwiperSlide>
+                      <SwiperSlide style={{ width: 'auto' }}>
+                        <CardEventType2 />
+                      </SwiperSlide>
+                       <SwiperSlide style={{ width: 'auto' }}>
+                        <CardEventType2 />
+                      </SwiperSlide>
+                    </Swiper> */}
+                  </div>
                 </div>
               </div>
             </div>
@@ -343,7 +381,9 @@ export default function Header({ placeholder }) {
         {/* End Dynamic Input Search */}
 
         <div className={styles.profile}>
-          <a href="#">Carrinho</a>
+          <a href="#" style={{ color: inputFocus ? 'black' : 'white' }}>
+            Minha reserva
+          </a>
           <div className={styles.user}>
             <Menu className={styles.menu} />
             <User className={styles.userIcon} />

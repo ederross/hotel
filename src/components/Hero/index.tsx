@@ -5,7 +5,7 @@ export default function Hero() {
     <section className={`${styles.heroSection}`} >
       <div className={styles.heroInner}>
         <span>
-          <h1>Precisa de um quarto? Perfeito.</h1>
+          <h1>Hotel Blue. Sua estadia perfeita.</h1>
           <a href="#" className={`${'btn'}`}>
             Explorar Quartos
           </a>

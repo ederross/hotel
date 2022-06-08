@@ -127,6 +127,7 @@
         position: absolute;
         top: 172px;
         min-width: 800px;
+        max-width: 1000px;
         z-index: 9;
         height: 600px;
         background: white;
@@ -135,6 +136,7 @@
         padding: 2rem 3rem;
         flex-direction: column;
         overflow: auto;
+        color: var(--dark-text);
 
         @media screen and (min-width: 1024px) {
           .controlsContainerHolder {
