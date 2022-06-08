@@ -1,3 +1,20 @@
+.sectionContainer {
+  padding: 2rem 1rem;
+
+  @media screen and (min-width: 524px) {
+    padding: 2rem 2rem;
+  }
+  @media screen and (min-width: 628px) {
+    padding: 3rem 2rem;
+  }
+  @media screen and (min-width: 1024px) {
+    padding: 3rem 4rem;
+  }
+  @media screen and (min-width: 1280px) {
+    padding: 3rem 8rem;
+  }
+}
+
 .title {
   font-size: 1.8rem;
   margin: 2rem 1rem;
@@ -43,29 +60,30 @@
 }
 .hotelPhotosContainer {
   display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 2rem 1rem;
-
+  align-self: center;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  
 
-  .container {
-    display: flex;
-    flex-direction: column;
+  @media screen and (min-width: 512px) {
+    flex-direction: row;
+  }
 
+  @media screen and (min-width:  612px) {
+   height: 400px;
+  }
+
+  .imgSlideContainer {
     width: 100%;
-    
+    height: 100%;
 
     @media screen and (min-width: 512px) {
-      flex-direction: row;
+      width: 50%;
     }
+  }
 
-    @media screen and (min-width:  612px) {
-     height: 400px;
-    }
-
-    .imgDescriptionContainer {
+  .imgDescriptionContainer {
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -80,6 +98,7 @@
       border-bottom-right-radius: 1rem;
 
       @media screen and (min-width: 512px) {
+        width: 50%;
         border-top-right-radius: 1rem;
         border-bottom-right-radius: 1rem;
         border-bottom-left-radius: 0;
@@ -92,6 +111,22 @@
         line-height: normal;
         font-size: 1.2rem;
       }
+    }
+}
+
+.clientsContainer {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+
+  border-top: 1px solid var(--gray);
+
+  .scrollContainer {
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
     }
   }
 }

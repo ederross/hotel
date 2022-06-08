@@ -12,8 +12,9 @@ const CardService = () => {
   return (
     <>
       <div className={styles.container}>
-        <CarouselHolder data={imagesData} />
-
+        <div style={{ height: 232 }}>
+          <CarouselHolder data={imagesData} />
+        </div>
         <div className={styles.typeServiceContainer}>
           <h5>Aluguel</h5>
         </div>

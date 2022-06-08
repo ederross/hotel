@@ -7,9 +7,10 @@ import ImageComponent from '../ImageComponent';
 
 interface ICaroselHolder {
   data: string[];
+  showArrows?: boolean;
 }
 
-const CarouselHolder = ({ data }: ICaroselHolder) => {
+const CarouselHolder = ({ data, showArrows = true }: ICaroselHolder) => {
   const imagesRef = useRef(null);
   const [currSlide, setCurrSlide] = useState(0);
 
@@ -28,23 +29,33 @@ const CarouselHolder = ({ data }: ICaroselHolder) => {
 
   return (
     <CarouselHolderStyles>
-      {currSlide > 0 && (
-        <div className="btnGoBack" onClick={() => scrollToImage(currSlide - 1)}>
-          <ChevronLeft width={18} height={18} />
+      {showArrows && (
+        <div className="arrowContainer">
+          {currSlide > 0 && (
+            <div
+              className="arrowBtnLeft"
+              onClick={() => scrollToImage(currSlide - 1)}
+            >
+              <ChevronLeft width={18} height={18} />
+            </div>
+          )}
+
+          {currSlide < data.length - 1 && (
+            <div
+              className="arrowBtnRight"
+              onClick={() => scrollToImage(currSlide + 1)}
+            >
+              <ChevronRight width={18} height={18} />
+            </div>
+          )}
         </div>
       )}
-
-      {data.length - 1 !== currSlide && (
-        <div className="btnGo" onClick={() => scrollToImage(currSlide + 1)}>
-          <ChevronRight width={18} height={18} />
-        </div>
-      )}
-
       <div ref={imagesRef} className="carousel">
         {data.map((url, index) => (
           <ImageComponent key={index} url={url} index={0} />
         ))}
       </div>
+
       {data?.length > 1 && (
         <div className="scroller">
           {data.map((img, idx) => (
@@ -67,20 +78,18 @@ export default CarouselHolder;
 
 const CarouselHolderStyles = styled.div`
   transition: all 0.2s ease-in-out;
+  height: 100%;
 
-  .btnGo {
+  .arrowBtnLeft {
+    z-index: 999;
     cursor: pointer;
-    z-index: 99;
     position: absolute;
-    top: 20%;
-    right: 16px;
-
-    display: none;
-    align-self: flex-start;
-    justify-content: center;
+    display: flex;
+    top: 22%;
+    left: 5%;
     align-items: center;
-    margin-left: 1rem;
-    margin-bottom: 1rem;
+    justify-content: center;
+    width: fit-content;
 
     transition: 0.2s ease-in-out;
     box-shadow: 0 0.2rem 0.2rem rgb(165, 165, 165);
@@ -98,19 +107,16 @@ const CarouselHolderStyles = styled.div`
     }
   }
 
-  .btnGoBack {
+  .arrowBtnRight {
+    z-index: 999;
     cursor: pointer;
-    z-index: 99;
     position: absolute;
-    top: 20%;
-    left: 0;
-
-    display: none;
-    align-self: flex-start;
-    justify-content: center;
+    display: flex;
+    top: 22%;
+    right: 5%;
     align-items: center;
-    margin-left: 1rem;
-    margin-bottom: 1rem;
+    justify-content: center;
+    width: fit-content;
 
     transition: 0.2s ease-in-out;
     box-shadow: 0 0.2rem 0.2rem rgb(165, 165, 165);
@@ -125,20 +131,14 @@ const CarouselHolderStyles = styled.div`
       opacity: 1;
       transform: scale(1.2);
       box-shadow: 0 0.2rem 0.2rem rgb(135, 135, 135);
-    }
-  }
-
-  &:hover {
-    .btnGo,
-    .btnGoBack {
-      display: flex;
     }
   }
 
   .carousel {
     position: relative;
     width: 100%;
-    height: 232px;
+    min-height: 232px;
+    height: 100%;
     display: fixed;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
@@ -170,7 +170,7 @@ const CarouselHolderStyles = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
+    position: relative;
     z-index: 2;
     width: fit-content;
     left: 50%;
@@ -187,7 +187,7 @@ const CarouselHolderStyles = styled.div`
       background: #fff;
       opacity: 0.5;
       transition: all 0.2s;
-      margin: 1rem 0.25rem;
+      margin: 1rem 0.25rem 0;
       border-radius: 50%;
       cursor: pointer;
       box-shadow: 0 0.1rem 0.2rem #002;

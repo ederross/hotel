@@ -24,7 +24,9 @@ const CardRoom = () => {
     <>
       <CardDiv>
         <div className={styles.container}>
-          <CarouselHolder data={imagesData} />
+          <div style={{ height: 232 }}>
+            <CarouselHolder data={imagesData} />
+          </div>
           <div className={styles.iconsContainerHolder}>
             <div className={styles.iconWithNumberContainer}>
               <BedOutlinedIcon fontSize={'small'} />

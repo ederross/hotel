@@ -1,43 +1,66 @@
 import Head from 'next/head';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
+import CarouselHolder from '../components/common/CarouselHolder';
 
 import styles from './home.module.scss';
 
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
-import CardEventType2 from '../components/cardsEvents/CardEventType2';
+import CardClient from '../components/CardClient';
 import CardEventType1 from '../components/cardsEvents/CardEventType1';
 import { useWindowSize } from '../hooks/UseWindowSize';
-import styled from 'styled-components';
-import { ChevronLeft, ChevronRight } from 'react-feather';
-import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 
-const imgSrc = [
+const imageData = [
   'https://images.unsplash.com/photo-1604156788856-2ce5f2171cce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
   'https://images.unsplash.com/photo-1559686043-aef1bbc98d19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
   'https://images.unsplash.com/photo-1514923995763-768e52f5af87?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
 ];
 
+const clientData = [
+  {
+    url: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
+    name: 'Paulo Roberto',
+    description:
+      'Um lugar muito lindo. E com pessoas queridas, empáticas, incríveis e especiais.',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
+    name: 'Paula Roberta',
+    description:
+      'Um lugar muito lindo. E com pessoas queridas, empáticas, incríveis e especiais.',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1529068755536-a5ade0dcb4e8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=881&q=80',
+    name: 'Paulo Roberto',
+    description:
+      'Um lugar muito lindo. E com pessoas queridas, empáticas, incríveis e especiais.',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1519625594242-7db544018926?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
+    name: 'Paula Roberta',
+    description:
+      'Um lugar muito lindo. E com pessoas queridas, empáticas, incríveis e especiais.',
+  },
+];
+
 export default function Home() {
   const { width } = useWindowSize();
 
-  const imagesRef = useRef(null);
-  const [currSlide, setCurrSlide] = useState(0);
-
-  const scrollToImage = (index) => {
-    imagesRef.current.scrollLeft = imagesRef.current.offsetWidth * index;
+  const swiperStyle = {
+    paddingLeft:
+      width >= 320 && width < 524
+        ? '1rem'
+        : width >= 524 && width < 1024
+        ? '2rem'
+        : width >= 628 && width < 1024
+        ? '2rem'
+        : width >= 1024 && width < 1280
+        ? '4rem'
+        : '8rem',
+    paddingRight: 16,
+    paddingBottom: 16,
+    marginBottom: 48,
   };
-
-  const handleScroll = (e) =>
-    setCurrSlide(Math.round(e.target.scrollLeft / e.target.offsetWidth));
-
-  useEffect(() => {
-    const imagesRefCurr = imagesRef.current;
-    imagesRefCurr.addEventListener('scroll', handleScroll);
-    return () => imagesRefCurr.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <>
       <Head>
@@ -60,21 +83,7 @@ export default function Home() {
               spaceBetween={16}
               slidesPerView={'auto'}
               freeMode={true}
-              style={{
-                paddingLeft:
-                  width >= 320 && width < 524
-                    ? '1rem'
-                    : width >= 524 && width < 1024
-                    ? '2rem'
-                    : width >= 628 && width < 1024
-                    ? '2rem'
-                    : width >= 1024 && width < 1280
-                    ? '4rem'
-                    : '8rem',
-                paddingRight: 16,
-                paddingBottom: 16,
-                marginBottom: 48,
-              }}
+              style={swiperStyle}
             >
               <SwiperSlide style={{ width: 'auto', marginRight: '1rem' }}>
                 <CardEventType1 />
@@ -94,48 +103,11 @@ export default function Home() {
             </Swiper>
           </div>
         </section>
-
-        <section className={styles.hotelPhotosContainer}>
-          <div className={styles.container}>
-            <CarouselHolder>
-              {currSlide > 0 && (
-                <div
-                  className="btnGoBack"
-                  onClick={() => scrollToImage(currSlide - 1)}
-                >
-                  <ChevronLeft width={18} height={18} />
-                </div>
-              )}
-
-              {imgSrc.length - 1 !== currSlide && (
-                <div
-                  className="btnGo"
-                  onClick={() => scrollToImage(currSlide + 1)}
-                >
-                  <ChevronRight width={18} height={18} />
-                </div>
-              )}
-
-              <div ref={imagesRef} className="carousel">
-                {imgSrc.map((url, index) => (
-                  <ImageComponent key={index} url={url} index={0} />
-                ))}
-              </div>
-              {imgSrc?.length > 1 && (
-                <div className="scroller">
-                  {imgSrc.map((img, idx) => (
-                    <span
-                      key={idx}
-                      className={currSlide === idx ? 'active' : null}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        scrollToImage(idx);
-                      }}
-                    ></span>
-                  ))}
-                </div>
-              )}
-            </CarouselHolder>
+        <section className={styles.sectionContainer}>
+          <div className={styles.hotelPhotosContainer}>
+            <div className={styles.imgSlideContainer}>
+              <CarouselHolder showArrows={false} data={imageData} />
+            </div>
             <div className={styles.imgDescriptionContainer}>
               <div>
                 <h3>hotel</h3>
@@ -146,208 +118,29 @@ export default function Home() {
             </div>
           </div>
         </section>
+        <section className={styles.clientsContainer}>
+          <h2 className={styles.title} style={{ textAlign: 'center' }}>
+            Confira o que nossos
+            <br />
+            clientes estão dizendo
+          </h2>
+
+          <div className={`${styles.scrollContainer} ${styles.grabbable}`}>
+            <Swiper
+              spaceBetween={16}
+              slidesPerView={'auto'}
+              freeMode={true}
+              style={swiperStyle}
+            >
+              {clientData.map((item, index) => (
+                <SwiperSlide style={{ width: 'auto', marginRight: '2rem' }}>
+                  <CardClient key={index} data={item} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </section>
       </main>
     </>
   );
 }
-
-const ImageComponent = ({ index, url }) => {
-  const [loading, setLoading] = useState(true);
-
-  return (
-    <div className={`img ${loading ? 'loading' : null}`}>
-      <Image
-        layout="fill"
-        objectFit="cover"
-        src={`${url}`}
-        onLoadingComplete={() => setLoading(false)}
-      />
-    </div>
-  );
-};
-
-const CarouselHolder = styled.div`
-  flex: 1;
-
-  @media screen and (min-width: 612px) {
-    flex: 2;
-  }
-
-  transition: all 0.2s ease-in-out;
-
-  .btnGo {
-    cursor: pointer;
-    z-index: 99;
-    position: absolute;
-    top: 200px;
-    right: 16px;
-
-    display: none;
-    align-self: flex-start;
-    justify-content: center;
-    align-items: center;
-    margin-left: 1rem;
-    margin-bottom: 1rem;
-
-    transition: 0.2s ease-in-out;
-    box-shadow: 0 0.2rem 0.2rem rgb(165, 165, 165);
-    width: 28px;
-    height: 28px;
-    border-radius: 100%;
-
-    background-color: var(--light-text);
-    opacity: 0.8;
-
-    &:hover {
-      opacity: 1;
-      transform: scale(1.2);
-      box-shadow: 0 0.2rem 0.2rem rgb(135, 135, 135);
-    }
-  }
-
-  .btnGoBack {
-    cursor: pointer;
-    z-index: 99;
-    position: absolute;
-    top: 20%;
-    left: 0;
-
-    display: none;
-    align-self: flex-start;
-    justify-content: center;
-    align-items: center;
-    margin-left: 1rem;
-    margin-bottom: 1rem;
-
-    transition: 0.2s ease-in-out;
-    box-shadow: 0 0.2rem 0.2rem rgb(165, 165, 165);
-    width: 28px;
-    height: 28px;
-    border-radius: 100%;
-
-    background-color: var(--light-text);
-    opacity: 0.8;
-
-    &:hover {
-      opacity: 1;
-      transform: scale(1.2);
-      box-shadow: 0 0.2rem 0.2rem rgb(135, 135, 135);
-    }
-  }
-
-  &:hover {
-    .btnGo,
-    .btnGoBack {
-      display: flex;
-    }
-  }
-
-  .carousel {
-    position: relative;
-    width: 100%;
-    height: 232px;
-    display: fixed;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-
-    @media screen and (min-width: 512px) {
-      border-top-left-radius: 1rem;
-      border-bottom-left-radius: 1rem;
-      border-bottom-right-radius: 0;
-      border-top-right-radius: 0;
-    }
-
-    @media screen and (min-width: 612px) {
-      height: 400px;
-    }
-
-    overflow: scroll;
-    transition: all 0.2s;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-
-    &::-webkit-scrollbar {
-      display: none;
-      -webkit-appearance: none;
-    }
-
-    .img {
-      flex: 0 0 100%;
-      padding-bottom: 66.67%;
-      position: relative;
-      scroll-snap-align: start;
-      width: 100%;
-      height: 236px;
-      max-width: 100%;
-      max-height: 400px;
-
-      @media screen and (min-width: 612px) {
-        height: 400px;
-      }
-
-      &.loading {
-        animation: shimmer 2s infinite;
-        background: linear-gradient(
-          to right,
-          #eff1f3 4%,
-          #e2e2e2 25%,
-          #eff1f3 36%
-        );
-        background-size: 1000px 100%;
-      }
-    }
-
-    img {
-      transition: transform 0.2s;
-    }
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
-  }
-
-  .scroller {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    z-index: 2;
-    width: fit-content;
-    left: 50%;
-
-    @media screen and (min-width: 512px) {
-      left: 25%;
-    }
-    @media screen and (min-width: 612px) {
-      left: 30%;
-    }
-
-    transform: translate(-50%, -2rem);
-
-    &::-webkit-scrollbar {
-      display: none;
-      -webkit-appearance: none;
-    }
-    span {
-      display: block;
-      width: 0.3rem;
-      height: 0.3rem;
-      background: #fff;
-      opacity: 0.5;
-      transition: all 0.2s;
-      margin: 1rem 0.25rem;
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: 0 0.1rem 0.2rem #002;
-    }
-    span.active {
-      opacity: 1;
-      transform: scale(1.2);
-    }
-  }
-`;
