@@ -4,9 +4,17 @@
   overflow: hidden;
   width: 100%;
 
-
-  padding-bottom: 2.2rem;
   border-bottom: 1px solid var(--gray);
+
+  .scrollContainer {
+    cursor: grab;
+
+    &:active {
+        cursor: grabbing;
+    }
+
+   
+  }
 }
 
 .title {
@@ -28,12 +36,11 @@
     margin: 3rem 4rem;
     font-size: 2.8rem;
   }
-  
+
   @media screen and (min-width: 1280px) {
     margin: 3rem 8rem;
     font-size: 2.8rem;
   }
-
 
   span {
     color: var(--primary-color);

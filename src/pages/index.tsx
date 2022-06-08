@@ -29,7 +29,7 @@ export default function Home() {
             Confira nossos <br /> <span>eventos</span> próximos
           </h2>
 
-          <div className={styles.scrollContainer}>
+          <div className={`${styles.scrollContainer} ${styles.grabbable}`}>
             <Swiper
               spaceBetween={16}
               slidesPerView={'auto'}
