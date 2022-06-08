@@ -400,7 +400,6 @@ export default function Header({ placeholder }) {
   );
 }
 
-
 const Container = styled.div`
   display: flex;
   justify-content: center;
