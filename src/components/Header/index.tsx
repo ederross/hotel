@@ -28,18 +28,8 @@ export default function Header({ placeholder }) {
   const primaryLocationRef = useRef(null);
   const secondaryLocationRef = useRef(null);
 
-  // const isSmallScreen = useMediaQuery('(max-width: 868px)');
-
+  // Window Sizes
   const size = useWindowSize();
-
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-
-  useEffect(() => {
-    // You now have access to `window`
-    setIsSmallScreen(size.width >= 868 ? false : true);
-  }, []);
-
-  console.log(size.width + ' ' + isSmallScreen);
 
   //form data
 
@@ -62,7 +52,7 @@ export default function Header({ placeholder }) {
     setInputFocus(true);
     document.body.style.overflow = 'hidden';
     setTimeout(() => {
-      if (!isSmallScreen && secondaryLocationRef.current) {
+      if (!(size.width >= 868) && secondaryLocationRef.current) {
         secondaryLocationRef.current.focus();
       }
     }, 10);
@@ -117,18 +107,22 @@ export default function Header({ placeholder }) {
   //   return () => document.removeEventListener('click', handleClick);
   // }, []);
 
-  // useEffect(() => {
-  //   const onScroll = () => {
-  //     if (window.scrollY > 10) {
-  //       setScrolled(true);
-  //     } else {
-  //       setScrolled(false);
-  //     }
-  //   };
-  //   window.addEventListener('scroll', onScroll);
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.scrollY > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', onScroll);
 
-  //   return () => window.removeEventListener('scroll', onScroll);
-  // }, []);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    console.log('IsScrolling? ', scrolled)
+  }, [scrolled])
 
   function customDayContent(day) {
     let extraDot = null;
@@ -368,7 +362,7 @@ export default function Header({ placeholder }) {
             </div>
           </div>
         )}
-        {size.width <= 868 && inputFocus && (
+        {size.width >= 868 && inputFocus && (
           <div
             onClick={closeDatePickerWeb}
             style={{

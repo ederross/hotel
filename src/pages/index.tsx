@@ -13,8 +13,10 @@ export default function Home() {
       </Head>
 
       <main>
-        <Header placeholder="Sua Hospedagem"/>
+        <Header placeholder="Sua Hospedagem" />
         <Hero />
+
+       
       </main>
     </>
   );
