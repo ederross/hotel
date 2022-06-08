@@ -1,15 +1,15 @@
+import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'react-feather';
 import styled from 'styled-components';
-import ImageComponent from '../../common/ImageComponent';
 
-import styles from './styles.module.scss';
+import { ChevronLeft, ChevronRight } from 'react-feather';
+import ImageComponent from '../ImageComponent';
 
-const imgSrc = [
-  'https://images.unsplash.com/photo-1604156788856-2ce5f2171cce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-];
+interface ICaroselHolder {
+  data: string[];
+}
 
-const CardEventType1: React.FC = () => {
+const CarouselHolder = ({ data }: ICaroselHolder) => {
   const imagesRef = useRef(null);
   const [currSlide, setCurrSlide] = useState(0);
 
@@ -27,59 +27,45 @@ const CardEventType1: React.FC = () => {
   }, []);
 
   return (
-    <>
-      <div className={styles.container}>
-        <CarouselHolder>
-          {currSlide > 0 && (
-            <div
-              className="btnGoBack"
-              onClick={() => scrollToImage(currSlide - 1)}
-            >
-              <ChevronLeft width={18} height={18} />
-            </div>
-          )}
+    <CarouselHolderStyles>
+      {currSlide > 0 && (
+        <div className="btnGoBack" onClick={() => scrollToImage(currSlide - 1)}>
+          <ChevronLeft width={18} height={18} />
+        </div>
+      )}
 
-          {imgSrc.length - 1 !== currSlide && (
-            <div className="btnGo" onClick={() => scrollToImage(currSlide + 1)}>
-              <ChevronRight width={18} height={18} />
-            </div>
-          )}
+      {data.length - 1 !== currSlide && (
+        <div className="btnGo" onClick={() => scrollToImage(currSlide + 1)}>
+          <ChevronRight width={18} height={18} />
+        </div>
+      )}
 
-          <div ref={imagesRef} className="carousel">
-            {imgSrc.map((url, index) => (
-              <ImageComponent key={index} url={url} index={0} />
-            ))}
-          </div>
-          {imgSrc?.length > 1 && (
-            <div className="scroller">
-              {imgSrc.map((img, idx) => (
-                <span
-                  key={idx}
-                  className={currSlide === idx ? 'active' : null}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    scrollToImage(idx);
-                  }}
-                ></span>
-              ))}
-            </div>
-          )}
-        </CarouselHolder>
-
-        <h2>Passeio de balão</h2>
-
-        <p>
-          Air Fun Balonismo está há 28 Anos no mercado passeio de Balão em
-          Boituva. Faça sua reserva{'...'} <span>Ler mais</span>
-        </p>
-
-        <h3>23 Out - 28 Out</h3>
+      <div ref={imagesRef} className="carousel">
+        {data.map((url, index) => (
+          <ImageComponent key={index} url={url} index={0} />
+        ))}
       </div>
-    </>
+      {data?.length > 1 && (
+        <div className="scroller">
+          {data.map((img, idx) => (
+            <span
+              key={idx}
+              className={currSlide === idx ? 'active' : null}
+              onClick={(e) => {
+                e.stopPropagation();
+                scrollToImage(idx);
+              }}
+            ></span>
+          ))}
+        </div>
+      )}
+    </CarouselHolderStyles>
   );
 };
 
-const CarouselHolder = styled.div`
+export default CarouselHolder;
+
+const CarouselHolderStyles = styled.div`
   transition: all 0.2s ease-in-out;
 
   .btnGo {
@@ -152,7 +138,7 @@ const CarouselHolder = styled.div`
   .carousel {
     position: relative;
     width: 100%;
-    height: 196px;
+    height: 232px;
     display: fixed;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
@@ -212,5 +198,3 @@ const CarouselHolder = styled.div`
     }
   }
 `;
-
-export default CardEventType1;

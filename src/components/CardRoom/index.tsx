@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 
 import styles from './styles.module.scss';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
@@ -10,56 +10,21 @@ import {
   TvOutlined,
   LocalPhoneOutlined,
 } from '@mui/icons-material';
-import Image from 'next/image';
 import styled from 'styled-components';
+import CarouselHolder from '../common/CarouselHolder';
 
-const imgSrc = [
+const imagesData = [
   'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
   'https://images.unsplash.com/photo-1591088398332-8a7791972843?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
   'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1157&q=80',
 ];
 
 const CardRoom = () => {
-  const imagesRef = useRef(null);
-  const [currSlide, setCurrSlide] = useState(0);
-
-  const scrollToImage = (index) => {
-    imagesRef.current.scrollLeft = imagesRef.current.offsetWidth * index;
-  };
-
-  const handleScroll = (e) =>
-    setCurrSlide(Math.round(e.target.scrollLeft / e.target.offsetWidth));
-
-  useEffect(() => {
-    const imagesRefCurr = imagesRef.current;
-    imagesRefCurr.addEventListener('scroll', handleScroll);
-    return () => imagesRefCurr.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <>
       <CardDiv>
         <div className={styles.container}>
-          <div ref={imagesRef} className="carousel">
-            {imgSrc.map((url, index) => (
-              <ImageComponent key={index} url={url} index={0} />
-            ))}
-          </div>
-          {imgSrc?.length > 1 && (
-            <div className="scroller">
-              {imgSrc.map((img, idx) => (
-                <span
-                  key={idx}
-                  className={currSlide === idx ? 'active' : null}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    scrollToImage(idx);
-                  }}
-                ></span>
-              ))}
-            </div>
-          )}
-
+          <CarouselHolder data={imagesData} />
           <div className={styles.iconsContainerHolder}>
             <div className={styles.iconWithNumberContainer}>
               <BedOutlinedIcon fontSize={'small'} />
@@ -118,23 +83,6 @@ const CardRoom = () => {
         </div>
       </CardDiv>
     </>
-  );
-};
-
-const ImageComponent = ({ index, url }) => {
-  const [loading, setLoading] = useState(true);
-
-  return (
-    <div className={`img ${loading ? 'loading' : null}`}>
-      <Image
-        layout="fill"
-        objectFit="cover"
-       
-        src={`${url}`}
-        onLoadingComplete={() => setLoading(false)}
-
-      />
-    </div>
   );
 };
 
