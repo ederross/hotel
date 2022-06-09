@@ -24,6 +24,12 @@
       background-color: var(--light-text);
     }
 
+    .carouselContainer {
+      @media screen and (min-width: 848px) {
+        display: none;
+      }
+    }
+
     .imgsBox {
       display: none;
       min-width: 100%;

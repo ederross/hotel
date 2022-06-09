@@ -46,7 +46,7 @@ export const SocialContainer = styled.div`
   p {
     color: var(--gray);
     font-weight: 400;
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin: 1.5rem 0 2rem;
   }
 
@@ -126,9 +126,43 @@ export const InformationContainer = styled.div`
   .link {
     color: var(--gray);
     font-weight: 400;
-    font-size: 1rem;
+    font-size: 0.85rem;
     line-height: normal;
     margin: 0.2rem 0 0;
     cursor: pointer;
+    transition: all 0.3s ease;
+
+    :hover {
+      color: #eee;
+      text-decoration: underline;
+    }
+  }
+`;
+
+export const CopyrightContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 4rem 0 0;
+  width: 100%;
+  text-align: center;
+
+  @media screen and (min-width: 628px) {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  h4 {
+    color: var(--gray);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: var(--gray-400);
+    font-size: 0.7rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
   }
 `;

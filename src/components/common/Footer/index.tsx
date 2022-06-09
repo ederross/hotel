@@ -6,6 +6,7 @@ import {
 } from '@mui/icons-material';
 import {
   ContactContainer,
+  CopyrightContainer,
   FooterContainer,
   InformationContainer,
   SocialContainer,
@@ -58,6 +59,10 @@ const Footer = ({}: IFooter) => {
           </a>
         </InformationContainer>
       </div>
+      <CopyrightContainer>
+        <h4>© 2022 Exemplo. Todos os direitos reservados</h4>
+        <p>Lorem ipsum dolor sit amet. Sectus actus dolor.</p>
+      </CopyrightContainer>
     </FooterContainer>
   );
 };

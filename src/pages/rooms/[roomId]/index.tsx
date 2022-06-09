@@ -18,8 +18,10 @@ import {
 } from '@mui/icons-material';
 import Head from 'next/head';
 import CardService from '../../../components/CardService';
+import CarouselHolder from '../../../components/common/CarouselHolder';
+import Footer from '../../../components/common/Footer';
 
-const imgSrc = [
+const imageData = [
   'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
   'https://images.unsplash.com/photo-1591088398332-8a7791972843?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
   'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1157&q=80',
@@ -27,22 +29,6 @@ const imgSrc = [
 
 const RoomDetails = () => {
   const router = useRouter();
-
-  const imagesRef = useRef(null);
-  const [currSlide, setCurrSlide] = useState(0);
-
-  const scrollToImage = (index) => {
-    imagesRef.current.scrollLeft = imagesRef.current.offsetWidth * index;
-  };
-
-  const handleScroll = (e) =>
-    setCurrSlide(Math.round(e.target.scrollLeft / e.target.offsetWidth));
-
-  useEffect(() => {
-    const imagesRefCurr = imagesRef.current;
-    imagesRefCurr.addEventListener('scroll', handleScroll);
-    return () => imagesRefCurr.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
     <>
@@ -58,31 +44,9 @@ const RoomDetails = () => {
         </div>
 
         <div className={styles.contentBox}>
-          <CarouselHolder>
-            <div className={styles.btnGoBack}>
-              <ChevronLeft width={18} height={18} />
-            </div>
-
-            <div ref={imagesRef} className="carousel">
-              {imgSrc.map((url, index) => (
-                <ImageComponent key={index} url={url} index={0} />
-              ))}
-            </div>
-            {imgSrc?.length > 1 && (
-              <div className="scroller">
-                {imgSrc.map((img, idx) => (
-                  <span
-                    key={idx}
-                    className={currSlide === idx ? 'active' : null}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      scrollToImage(idx);
-                    }}
-                  ></span>
-                ))}
-              </div>
-            )}
-          </CarouselHolder>
+          <div className={styles.carouselContainer}>
+            <CarouselHolder data={imageData} />
+          </div>
 
           <div className={styles.imgsBox}>
             <div
@@ -186,119 +150,9 @@ const RoomDetails = () => {
           <button>Reservar</button>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
-
-const ImageComponent = ({ index, url }) => {
-  const [loading, setLoading] = useState(true);
-
-  return (
-    <div className={`img ${loading ? 'loading' : null}`}>
-      <Image
-        // priority
-        layout="fill"
-        objectFit="cover"
-        src={`${url}`}
-        quality={100}
-        // loading={'lazy'}
-
-        onLoadingComplete={() => setLoading(false)}
-      />
-    </div>
-  );
-};
-
-const CarouselHolder = styled.div`
-  @media screen and (min-width: 848px) {
-    display: none;
-  }
-
-  .carousel {
-    @media screen and (min-width: 848px) {
-      display: none;
-    }
-
-    position: relative;
-    width: 100%;
-    min-height: 232px;
-    display: fixed;
-    overflow: scroll;
-    transition: all 0.2s;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-
-    &::-webkit-scrollbar {
-      display: none;
-      -webkit-appearance: none;
-    }
-    .img {
-      flex: 0 0 100%;
-      padding-bottom: 66.67%;
-      position: relative;
-      scroll-snap-align: start;
-
-      &.loading {
-        animation: shimmer 2s infinite;
-        background: linear-gradient(
-          to right,
-          #eff1f3 4%,
-          #e2e2e2 25%,
-          #eff1f3 36%
-        );
-        background-size: 1000px 100%;
-      }
-    }
-
-    img {
-      transition: transform 0.2s;
-    }
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
-  }
-
-  .scroller {
-    @media screen and (min-width: 848px) {
-      display: none;
-    }
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    z-index: 2;
-    width: fit-content;
-    left: 50%;
-    transform: translate(-50%, -2rem);
-
-    &::-webkit-scrollbar {
-      display: none;
-      -webkit-appearance: none;
-    }
-    span {
-      display: block;
-      width: 0.3rem;
-      height: 0.3rem;
-      background: #fff;
-      opacity: 0.5;
-      transition: all 0.2s;
-      margin: 1rem 0.25rem;
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: 0 0.1rem 0.2rem #002;
-    }
-    span.active {
-      opacity: 1;
-      transform: scale(1.2);
-    }
-  }
-`;
 
 export default RoomDetails;
