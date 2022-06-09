@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import CardClient from '../components/CardClient';
 import CardEventType1 from '../components/cardsEvents/CardEventType1';
 import { useWindowSize } from '../hooks/UseWindowSize';
+import Footer from '../components/common/Footer';
 
 const imageData = [
   'https://images.unsplash.com/photo-1604156788856-2ce5f2171cce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
@@ -136,13 +137,18 @@ export default function Home() {
               style={swiperStyle}
             >
               {clientData.map((item, index) => (
-                <SwiperSlide style={{ width: 'auto', marginRight: '2rem' }}>
-                  <CardClient key={index} data={item} />
+                <SwiperSlide
+                  key={index}
+                  style={{ width: 'auto', marginRight: '2rem' }}
+                >
+                  <CardClient data={item} />
                 </SwiperSlide>
               ))}
             </Swiper>
           </div>
         </section>
+
+        <Footer />
       </main>
     </>
   );
