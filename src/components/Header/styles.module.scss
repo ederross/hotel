@@ -328,10 +328,11 @@
       color: var(--primary-color);
     }
     .user {
-      box-shadow: 0 0 0 2px var(--gray);
+      box-shadow: 0 0 0 2px var(--gray-150);
     }
     form {
-      box-shadow: 0 0 0 2px var(--gray);
+      border: 1px solid var(--gray-150);
+      box-shadow: rgb(0 0 0 / 8%) 0px 1px 2px, rgb(0 0 0 / 5%) 0px 4px 12px;
       transform: translate(-50%, 0.125rem) scale(0.83);
       width: 480px;
       & > button {
@@ -346,9 +347,11 @@
       padding-bottom: 1rem;
 
       form {
-        padding: 0;
+        padding: 0.5rem;
         box-shadow: none;
-        background: var(--gray);
+        
+        background: var(--light-text);
+        box-shadow: rgb(0 0 0 / 8%) 0px 1px 2px, rgb(0 0 0 / 5%) 0px 4px 12px;
       }
     }
 
