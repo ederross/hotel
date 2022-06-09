@@ -9,7 +9,7 @@ flex-direction: column;
 position: relative;
 
 .arrowBtnLeft {
-  z-index: 999;
+  z-index: 1;
   cursor: pointer;
   position: absolute;
   display: flex;
@@ -36,7 +36,7 @@ position: relative;
 }
 
 .arrowBtnRight {
-  z-index: 999;
+  z-index: 1;
   cursor: pointer;
   position: absolute;
   display: flex;

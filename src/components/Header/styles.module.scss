@@ -317,7 +317,7 @@
   &.scrolled:not(.inputFocus) {
     background: var(--light);
     color: var(--dark);
-    border-bottom: 2px solid var(--gray);
+    border-bottom: 1px solid var(--gray-150);
 
     .overlay {
       opacity: 0;
