@@ -47,7 +47,7 @@ const CardEventType1: React.FC = () => {
 
           <div ref={imagesRef} className="carousel">
             {imgSrc.map((url, index) => (
-              <ImageComponent key={index} url={url} index={0} />
+              <ImageComponent key={index} url={url} />
             ))}
           </div>
           {imgSrc?.length > 1 && (
@@ -65,14 +65,11 @@ const CardEventType1: React.FC = () => {
             </div>
           )}
         </CarouselHolder>
-
         <h2>Passeio de balão</h2>
-
         <p>
           Air Fun Balonismo está há 28 Anos no mercado passeio de Balão em
           Boituva. Faça sua reserva{'...'} <span>Ler mais</span>
         </p>
-
         <h3>23 Out - 28 Out</h3>
       </div>
     </>

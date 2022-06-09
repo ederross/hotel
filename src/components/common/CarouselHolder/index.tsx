@@ -144,7 +144,8 @@ const CarouselHolderStyles = styled.div`
     height: 100%;
     display: fixed;
 
-    overflow: scroll;
+    overflow-x: scroll;
+    overflow-y: hidden;
     transition: all 0.2s;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;

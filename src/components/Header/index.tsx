@@ -175,7 +175,7 @@ export default function Header({ placeholder }) {
       <div className={styles.headerInner}>
         <div
           className={styles.logo}
-          style={{ color: inputFocus ? 'black' : 'white' }}
+          style={{ color: inputFocus || scrolled ? 'black' : 'white' }}
           onClick={() => router.push('/')}
         >
           <span>hotel</span>
@@ -387,7 +387,7 @@ export default function Header({ placeholder }) {
         {/* End Dynamic Input Search */}
 
         <div className={styles.profile}>
-          <a href="#" style={{ color: inputFocus ? 'black' : 'white' }}>
+          <a href="#" style={{ color: inputFocus || scrolled ? 'black' : 'white' }}>
             Minha reserva
           </a>
           <div className={styles.user}>
