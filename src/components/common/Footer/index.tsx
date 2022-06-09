@@ -18,7 +18,7 @@ const Footer = ({}: IFooter) => {
     <FooterContainer>
       <div className="topContainer">
         <SocialContainer>
-          <h1>Hotel</h1>
+          <h2>Hotel</h2>
           <p>
             Lorem ipsum dolor amet, consectetur adipiscing elit. Eget nisl nunc
             quam ac sed turpis volutpat. Cursus sed massa non nisi, placerat.
@@ -31,7 +31,7 @@ const Footer = ({}: IFooter) => {
         </SocialContainer>
 
         <ContactContainer>
-          <h1>Contato</h1>
+          <h2>Contato</h2>
           <div className="row">
             <EmailRounded style={{ color: '#fff' }} />
             <p>hello@email.com</p>
@@ -49,7 +49,7 @@ const Footer = ({}: IFooter) => {
         </ContactContainer>
 
         <InformationContainer>
-          <h1>Informações</h1>
+          <h2>Informações</h2>
           <a href="">
             <p className="link">{'Termos & Condições'}</p>
           </a>

@@ -37,16 +37,16 @@ export const SocialContainer = styled.div`
     width: 30%;
   }
 
-  h1 {
+  h2 {
     color: var(--white);
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 500;
   }
 
   p {
     color: var(--gray);
     font-weight: 400;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     margin: 1.5rem 0 2rem;
   }
 
@@ -71,16 +71,16 @@ export const ContactContainer = styled.div`
     width: 30%;
   }
 
-  h1 {
+  h2 {
     color: var(--white);
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 500;
   }
 
   p {
     color: var(--gray);
     font-weight: 400;
-    font-size: 1rem;
+    font-size: 0.7rem;
     margin: 1.5rem 0 2rem;
   }
 
@@ -93,7 +93,7 @@ export const ContactContainer = styled.div`
     p {
       margin: 0;
       color: var(--gray);
-      font-size: 1rem;
+      font-size: 0.7rem;
       margin-left: 1rem;
       line-height: normal;
     }
@@ -116,9 +116,9 @@ export const InformationContainer = styled.div`
     width: 20%;
   }
 
-  h1 {
+  h2 {
     color: var(--white);
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 500;
     margin-bottom: 1rem;
   }
@@ -142,10 +142,10 @@ export const InformationContainer = styled.div`
 export const CopyrightContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   margin: 4rem 0 0;
   width: 100%;
-  text-align: center;
+  text-align: left;
 
   @media screen and (min-width: 628px) {
     align-items: flex-start;
