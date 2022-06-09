@@ -103,10 +103,11 @@ export default function Home() {
             </Swiper>
           </div>
         </section>
-        <section className={styles.sectionContainer}>
+        
+        <section className={styles.slidesSection}>
           <div className={styles.hotelPhotosContainer}>
             <div className={styles.imgSlideContainer}>
-              <CarouselHolder showArrows={false} data={imageData} />
+              <CarouselHolder showArrows={true} data={imageData} />
             </div>
             <div className={styles.imgDescriptionContainer}>
               <div>
@@ -118,6 +119,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+
         <section className={styles.clientsContainer}>
           <h2 className={styles.title} style={{ textAlign: 'center' }}>
             Confira o que nossos

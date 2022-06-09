@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
@@ -52,7 +51,7 @@ const CarouselHolder = ({ data, showArrows = true }: ICaroselHolder) => {
       )}
       <div ref={imagesRef} className="carousel">
         {data.map((url, index) => (
-          <ImageComponent key={index} url={url} index={0} />
+          <ImageComponent key={index} url={url} />
         ))}
       </div>
 
@@ -80,12 +79,16 @@ const CarouselHolderStyles = styled.div`
   transition: all 0.2s ease-in-out;
   height: 100%;
 
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
   .arrowBtnLeft {
     z-index: 999;
     cursor: pointer;
     position: absolute;
     display: flex;
-    top: 22%;
+    top: 50%;
     left: 5%;
     align-items: center;
     justify-content: center;
@@ -112,7 +115,7 @@ const CarouselHolderStyles = styled.div`
     cursor: pointer;
     position: absolute;
     display: flex;
-    top: 22%;
+    top: 50%;
     right: 5%;
     align-items: center;
     justify-content: center;
@@ -140,8 +143,7 @@ const CarouselHolderStyles = styled.div`
     min-height: 232px;
     height: 100%;
     display: fixed;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
+
     overflow: scroll;
     transition: all 0.2s;
     scroll-behavior: smooth;
@@ -174,7 +176,8 @@ const CarouselHolderStyles = styled.div`
     z-index: 2;
     width: fit-content;
     left: 50%;
-    transform: translate(-50%, -2rem);
+    margin-top: -2rem;
+    transform: translate(-50%, 0);
 
     &::-webkit-scrollbar {
       display: none;

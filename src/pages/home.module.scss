@@ -1,20 +1,3 @@
-.sectionContainer {
-  padding: 2rem 1rem;
-
-  @media screen and (min-width: 524px) {
-    padding: 2rem 2rem;
-  }
-  @media screen and (min-width: 628px) {
-    padding: 3rem 2rem;
-  }
-  @media screen and (min-width: 1024px) {
-    padding: 3rem 4rem;
-  }
-  @media screen and (min-width: 1280px) {
-    padding: 3rem 8rem;
-  }
-}
-
 .title {
   font-size: 1.8rem;
   margin: 2rem 1rem;
@@ -42,6 +25,7 @@
     color: var(--primary-color);
   }
 }
+
 .eventsContainer {
   display: flex;
   flex-direction: column;
@@ -58,38 +42,84 @@
     }
   }
 }
-.hotelPhotosContainer {
-  display: flex;
-  align-self: center;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  
 
-  @media screen and (min-width: 512px) {
-    flex-direction: row;
+.slidesSection {
+  padding: 2rem 1rem;
+
+  @media screen and (min-width: 524px) {
+    padding: 2rem 2rem;
+  }
+  @media screen and (min-width: 628px) {
+    padding: 3rem 4rem;
   }
 
-  @media screen and (min-width:  612px) {
-   height: 400px;
+  @media screen and (min-width: 728px) {
+    padding: 3rem 8rem;
   }
 
-  .imgSlideContainer {
+  @media screen and (min-width: 1024px) {
+    padding: 3rem 8rem;
+  }
+  @media screen and (min-width: 1280px) {
+    padding: 3rem 8rem;
+  }
+
+  .hotelPhotosContainer {
+    display: flex;
+    align-self: center;
     width: 100%;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
 
     @media screen and (min-width: 512px) {
-      width: 50%;
+      flex-direction: row;
+      height: 328px;
     }
-  }
 
-  .imgDescriptionContainer {
+    @media screen and (min-width: 612px) {
+      height: 400px;
+    }
+
+    @media screen and (min-width: 1280px) {
+      height: 600px;
+    }
+
+    .imgSlideContainer {
+      display: flex;
+      flex-direction: column;
+
+      position: relative;
+
+      width: 100%;
+      height: 100%;
+
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+
+      overflow: hidden;
+
+      @media screen and (min-width: 512px) {
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        border-top-right-radius: 0;
+      }
+
+      @media screen and (min-width: 512px) {
+        width: 50%;
+      }
+    }
+
+    .imgDescriptionContainer {
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 2rem;
+
+      @media screen and (min-width: 1024px) {
+        padding: 4rem;
+      }
 
       text-align: left;
       background-color: var(--dark-text);
@@ -106,12 +136,25 @@
 
       h3 {
         margin-bottom: 0.5rem;
+        font-weight: 400;
       }
       h2 {
         line-height: normal;
         font-size: 1.2rem;
+
+        @media screen and (min-width: 524px) {
+          font-size: 1.2rem;
+        }
+        @media screen and (min-width: 728px) {
+          font-size: 1.5rem;
+        }
+
+        @media screen and (min-width: 1280px) {
+          font-size: 2rem;
+        }
       }
     }
+  }
 }
 
 .clientsContainer {

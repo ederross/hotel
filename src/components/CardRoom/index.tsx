@@ -22,9 +22,9 @@ const imagesData = [
 const CardRoom = () => {
   return (
     <>
-      <CardDiv>
+      {/* <CardDiv> */}
         <div className={styles.container}>
-          <div style={{ height: 232 }}>
+          <div className={styles.containerCarousel}>
             <CarouselHolder data={imagesData} />
           </div>
           <div className={styles.iconsContainerHolder}>
@@ -83,100 +83,10 @@ const CardRoom = () => {
             </div>
           </div>
         </div>
-      </CardDiv>
+      {/* </CardDiv> */}
     </>
   );
 };
 
-const CardDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  position: relative;
-
-  .carousel {
-    position: relative;
-    width: 100%;
-    height: 232px;
-    display: fixed;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-    overflow: scroll;
-    transition: all 0.2s;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-
-    &::-webkit-scrollbar {
-      display: none;
-      -webkit-appearance: none;
-    }
-    .img {
-      flex: 0 0 100%;
-      padding-bottom: 66.67%;
-      position: relative;
-      scroll-snap-align: start;
-      width: 100%;
-      height: 232px;
-      max-width: 100%;
-      max-height: 232px;
-
-      &.loading {
-        animation: shimmer 2s infinite;
-        background: linear-gradient(
-          to right,
-          #eff1f3 4%,
-          #e2e2e2 25%,
-          #eff1f3 36%
-        );
-        background-size: 1000px 100%;
-      }
-    }
-
-    img {
-      transition: transform 0.2s;
-    }
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
-  }
-
-  .scroller {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    z-index: 2;
-    width: fit-content;
-    left: 50%;
-    transform: translate(-50%, -2rem);
-
-    &::-webkit-scrollbar {
-      display: none;
-      -webkit-appearance: none;
-    }
-    span {
-      display: block;
-      width: 0.3rem;
-      height: 0.3rem;
-      background: #fff;
-      opacity: 0.5;
-      transition: all 0.2s;
-      margin: 1rem 0.25rem;
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: 0 0.1rem 0.2rem #002;
-    }
-    span.active {
-      opacity: 1;
-      transform: scale(1.2);
-    }
-  }
-`;
 
 export default CardRoom;
