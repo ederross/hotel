@@ -1,21 +1,17 @@
 import styled from 'styled-components';
-import { Search, Globe, Menu, User } from 'react-feather';
+import { Search, Menu, User } from 'react-feather';
 import { useRef, useEffect, useState } from 'react';
-import { useMediaQuery } from '@react-hook/media-query';
 import { useRouter } from 'next/router';
 
 import styles from './styles.module.scss';
 import Filters from '../Filters';
 
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
-
-import { DateRange, DateRangePicker } from 'react-date-range';
+import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
 import * as locales from 'react-date-range/dist/locale';
-import { addDays, isWeekend, format } from 'date-fns';
-import CardEventType2 from '../cardsEvents/CardEventType2';
+import { addDays, format } from 'date-fns';
 import { useWindowSize } from '../../hooks/UseWindowSize';
 
 export default function Header({ placeholder }) {
