@@ -1,11 +1,12 @@
 import Head from 'next/head';
+import { GetStaticProps } from 'next';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import CarouselHolder from '../components/common/CarouselHolder';
 
 import styles from './home.module.scss';
 
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import CardClient from '../components/CardClient';
 import CardEventType1 from '../components/cardsEvents/CardEventType1';
 import { useWindowSize } from '../hooks/UseWindowSize';
@@ -44,8 +45,10 @@ const clientData = [
   },
 ];
 
-export default function Home() {
+export default function Home(props ) {
   const { width } = useWindowSize();
+
+  console.log(props);
 
   const swiperStyle = {
     paddingLeft:
@@ -104,7 +107,7 @@ export default function Home() {
             </Swiper>
           </div>
         </section>
-        
+
         <section className={styles.slidesSection}>
           <div className={styles.hotelPhotosContainer}>
             <div className={styles.imgSlideContainer}>
@@ -120,7 +123,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
 
         <section className={styles.clientsContainer}>
           <h2 className={styles.title} style={{ textAlign: 'center' }}>
@@ -153,3 +155,34 @@ export default function Home() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const base_url = 'http://book.hospeda.in';
+  const officeDetails = await fetch(base_url + '/offices/office1').then(
+    (response) => response.json()
+  );
+  const design = await fetch(base_url + '/offices/office1/design').then(
+    (response) => response.json()
+  );
+  const reviews = await fetch(base_url + '/offices/office1/reviews').then(
+    (response) => response.json()
+  );
+  const events = await fetch(base_url + '/offices/office1/events').then(
+    (response) => response.json()
+  );
+  const images = await fetch(base_url + '/offices/office1/images').then(
+    (response) => response.json()
+  );
+  
+
+  return {
+    props: {
+      officeDetails,
+      design,
+      reviews,
+      events,
+      images
+    },
+    revalidate: 600,
+  };
+};
