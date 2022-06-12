@@ -20,7 +20,7 @@ import Head from 'next/head';
 import CardService from '../../components/CardService';
 import CarouselHolder from '../../components/common/CarouselHolder';
 import Footer from '../../components/common/Footer';
-import { GetStaticPaths } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
 const imageData = [
   'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
@@ -163,5 +163,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: false,
   };
 };
+
+
+export const getStaticProps: GetStaticProps = async () => {
+ 
+
+  return {
+    props: {
+      
+    },
+    revalidate: 600,
+  };
+};
+
 
 export default RoomDetails;
