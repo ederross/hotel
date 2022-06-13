@@ -7,6 +7,7 @@
 }
 
 :root {
+  --bg: #ffffff;
   --dark-text: #000000;
   --light-text: #fff;
   --primary-color: #2ab59c;

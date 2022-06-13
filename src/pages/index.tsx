@@ -115,7 +115,7 @@ export default function Home(props ) {
             </div>
             <div className={styles.imgDescriptionContainer}>
               <div>
-                <h3>hotel</h3>
+                <h3>{props?.officeDetails?.officeName}</h3>
                 <h2>
                   Piscinas e uma vista incrível da natureza para a família.
                 </h2>
@@ -183,6 +183,6 @@ export const getStaticProps: GetStaticProps = async () => {
       events,
       images
     },
-    revalidate: 600,
+    revalidate: 60 * 60 / 4,
   };
 };
