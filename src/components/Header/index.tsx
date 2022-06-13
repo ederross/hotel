@@ -116,10 +116,6 @@ export default function Header({ placeholder }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    console.log('IsScrolling? ', scrolled)
-  }, [scrolled])
-
   function customDayContent(day) {
     let extraDot = null;
     // if (isWeekend(day)) {

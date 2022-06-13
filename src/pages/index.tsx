@@ -11,6 +11,9 @@ import CardClient from '../components/CardClient';
 import CardEventType1 from '../components/cardsEvents/CardEventType1';
 import { useWindowSize } from '../hooks/UseWindowSize';
 import Footer from '../components/common/Footer';
+import { useRouter } from 'next/router';
+import { FormattedMessage, useIntl } from 'react-intl';
+import Link from 'next/link';
 
 const imageData = [
   'https://images.unsplash.com/photo-1604156788856-2ce5f2171cce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
@@ -45,10 +48,21 @@ const clientData = [
   },
 ];
 
-export default function Home(props ) {
+export default function Home({
+  dir,
+  officeDetails,
+  design,
+  reviews,
+  events,
+  images,
+}) {
   const { width } = useWindowSize();
 
-  console.log(props);
+  const { locales } = useRouter();
+
+  const intl = useIntl();
+
+  console.log(officeDetails);
 
   const swiperStyle = {
     paddingLeft:
@@ -73,13 +87,24 @@ export default function Home(props ) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main dir={dir}>
         <Header placeholder="Sua Hospedagem" />
         <Hero />
 
+        <div className={styles.languages}>
+          {[...locales].sort().map((locale) => (
+            <Link key={locale} href="/" locale={locale}>
+              {locale}
+            </Link>
+          ))}
+        </div>
+
         <section className={styles.eventsContainer}>
           <h2 className={styles.title}>
-            Confira nossos <br /> <span>eventos</span> próximos
+            <FormattedMessage
+              id="page.home.section.event.title"
+              values={{ b: (chunks) => <b>{chunks}</b> }}
+            />
           </h2>
 
           <div className={`${styles.scrollContainer} ${styles.grabbable}`}>
@@ -115,7 +140,7 @@ export default function Home(props ) {
             </div>
             <div className={styles.imgDescriptionContainer}>
               <div>
-                <h3>{props?.officeDetails?.officeName}</h3>
+                <h3>{officeDetails?.officeName}</h3>
                 <h2>
                   Piscinas e uma vista incrível da natureza para a família.
                 </h2>
@@ -173,7 +198,6 @@ export const getStaticProps: GetStaticProps = async () => {
   const images = await fetch(base_url + '/offices/office1/images').then(
     (response) => response.json()
   );
-  
 
   return {
     props: {
@@ -181,8 +205,8 @@ export const getStaticProps: GetStaticProps = async () => {
       design,
       reviews,
       events,
-      images
+      images,
     },
-    revalidate: 60 * 60 / 4,
+    revalidate: (60 * 60) / 4,
   };
 };
