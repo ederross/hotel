@@ -7,14 +7,15 @@ import CarouselHolder from '../components/common/CarouselHolder';
 import styles from './home.module.scss';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import CardClient from '../components/CardClient';
 import CardEventType1 from '../components/cardsEvents/CardEventType1';
 import { useWindowSize } from '../hooks/UseWindowSize';
 import Footer from '../components/common/Footer';
 import { OfficeDetails } from '../../data/officeDetails';
 import { EventsHome } from '../../data/events';
 import { Design } from '../../data/design';
-import { useEffect } from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+import CardClient from '../components/CardClient';
 interface IHomeProps {
   officeDetails: OfficeDetails;
   design: Design;
@@ -25,6 +26,7 @@ interface IHomeProps {
 
 export default function Home(props: IHomeProps) {
   const { width } = useWindowSize();
+  const { t } = useTranslation('common');
 
   const swiperStyle = {
     paddingLeft:
@@ -56,7 +58,11 @@ export default function Home(props: IHomeProps) {
 
         <section className={styles.eventsContainer}>
           <h2 className={styles.title}>
-            Confira nossos <br /> <span>eventos</span> próximos
+            {/* <FormattedMessage
+              id="page.home.section.event.title"
+              values={{ b: (chunks) => <b>{chunks}</b> }}
+            /> */}
+            {t('EDER_NAME')}
           </h2>
 
           <div className={`${styles.scrollContainer} ${styles.grabbable}`}>
@@ -126,7 +132,7 @@ export default function Home(props: IHomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const base_url = 'http://book.hospeda.in';
   const officeDetails = await fetch(base_url + '/offices/office1').then(
     (response) => response.json()
@@ -151,8 +157,9 @@ export const getStaticProps: GetStaticProps = async () => {
       reviews,
       events,
       images,
+      ...(await serverSideTranslations(locale, ['common'])),
     },
-    revalidate: (60 * 60) / 4,
+    revalidate: 60,
   };
 };
 

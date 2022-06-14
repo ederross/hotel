@@ -3,10 +3,23 @@ import '../../styles/globals.css';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { useRouter } from 'next/router';
+
+import { appWithTranslation } from 'next-i18next';
+import nextI18nConfig from '../../next-i18next.config';
+
 
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  const { locale } = useRouter();
+
+  return (
+    <>
+      {/* <IntlProvider locale={locale} messages={messages[locale]}> */}
+      <Component {...pageProps} />
+      {/* </IntlProvider> */}
+    </>
+  );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp, nextI18nConfig);

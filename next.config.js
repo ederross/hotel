@@ -1,13 +1,17 @@
 /** @type {import('next').NextConfig} */
+
+const { i18n } = require('./next-i18next.config')
+
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['a0.muscache.com','images.unsplash.com'],
+    domains: ['a0.muscache.com', 'images.unsplash.com'],
   },
   compiler: {
     // Enables the styled-components SWC transform
-    styledComponents: true
-  }
-}
+    styledComponents: true,
+  },
+  i18n,
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

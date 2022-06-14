@@ -172,7 +172,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       officeDetails,
     },
-    revalidate: (60 * 60) / 4,
+    revalidate: 60,
   };
 };
 
