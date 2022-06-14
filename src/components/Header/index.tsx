@@ -13,12 +13,19 @@ import 'react-date-range/dist/theme/default.css';
 import * as locales from 'react-date-range/dist/locale';
 import { addDays, format } from 'date-fns';
 import { useWindowSize } from '../../hooks/UseWindowSize';
+import { Design } from '../../../data/design';
 
-export default function Header({ placeholder }) {
+interface IHeader {
+  placeholder: string;
+  design: Design;
+}
+
+export default function Header({ placeholder, design }: IHeader) {
   const router = useRouter();
 
   const navRef = useRef(null);
   const headerRef = useRef(null);
+  const [logoError, setLogoError] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [inputFocus, setInputFocus] = useState(false);
   const primaryLocationRef = useRef(null);
@@ -117,8 +124,8 @@ export default function Header({ placeholder }) {
   }, []);
 
   useEffect(() => {
-    console.log('IsScrolling? ', scrolled)
-  }, [scrolled])
+    console.log('IsScrolling? ', scrolled);
+  }, [scrolled]);
 
   function customDayContent(day) {
     let extraDot = null;
@@ -174,7 +181,15 @@ export default function Header({ placeholder }) {
           style={{ color: inputFocus || scrolled ? 'black' : 'white' }}
           onClick={() => router.push('/')}
         >
-          <span>hotel</span>
+          {!logoError ? (
+            <img
+              src={design?.logoUrl}
+              alt={design?.browserTitle}
+              onError={() => setLogoError(true)}
+            />
+          ) : (
+            <span>{design?.browserTitle}</span>
+          )}
         </div>
 
         {/* Start Dynamic Input Search */}
@@ -383,7 +398,10 @@ export default function Header({ placeholder }) {
         {/* End Dynamic Input Search */}
 
         <div className={styles.profile}>
-          <a href="#" style={{ color: inputFocus || scrolled ? 'black' : 'white' }}>
+          <a
+            href="#"
+            style={{ color: inputFocus || scrolled ? 'black' : 'white' }}
+          >
             Minha reserva
           </a>
           <div className={styles.user}>

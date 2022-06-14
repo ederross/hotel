@@ -5,13 +5,22 @@ import styled from 'styled-components';
 import styles from './styles.module.scss';
 
 interface IImageComponent {
-  url: string;
+  url: string | null;
   style?: React.CSSProperties;
   className?: string;
+  alt?: string;
+  title?: string;
 }
 
-const ImageComponent = ({ url, style, className }: IImageComponent) => {
+const ImageComponent = ({
+  url,
+  style,
+  className,
+  alt,
+  title,
+}: IImageComponent) => {
   const [loading, setLoading] = useState(true);
+  const [photo, setPhoto] = useState(url);
 
   return (
     <div className={styles.img}>
@@ -20,7 +29,10 @@ const ImageComponent = ({ url, style, className }: IImageComponent) => {
         style={style}
         layout="fill"
         objectFit="cover"
-        src={`${url}`}
+        alt={alt}
+        title={title}
+        src={`${photo}`}
+        onError={() => setPhoto('/icons/avatar.svg')}
         onLoadingComplete={() => setLoading(false)}
       />
     </div>

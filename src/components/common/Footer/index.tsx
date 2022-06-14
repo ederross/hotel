@@ -11,18 +11,20 @@ import {
   InformationContainer,
   SocialContainer,
 } from './styles';
-interface IFooter {}
+import { OfficeDetails } from '../../../../data/officeDetails';
+interface IFooterProps {
+  officeDetails: OfficeDetails;
+}
 
-const Footer = ({}: IFooter) => {
+const Footer = (props: IFooterProps) => {
+  const address = props?.officeDetails?.address;
+
   return (
     <FooterContainer>
       <div className="topContainer">
         <SocialContainer>
-          <h2>Hotel</h2>
-          <p>
-            Lorem ipsum dolor amet, consectetur adipiscing elit. Eget nisl nunc
-            quam ac sed turpis volutpat. Cursus sed massa non nisi, placerat.
-          </p>
+          <h2>{props?.officeDetails?.officeName}</h2>
+          <p>{props?.officeDetails?.officeDescription}</p>
           <div className="row">
             {socialData.map((item, index) => (
               <div className="socialCircle" key={index} title={item.name}></div>
@@ -36,16 +38,24 @@ const Footer = ({}: IFooter) => {
             <EmailRounded style={{ color: '#fff' }} />
             <p>hello@email.com</p>
           </div>
-          <div className="row">
-            <PhoneAndroidRounded style={{ color: '#fff' }} />
-            <p>+91 98765 43210</p>
-          </div>
-          <div className="row">
-            <PinDropRounded style={{ color: '#fff' }} />
-            <p>
-              Rua Engenheiro Niemeyer, 215, Centro Joinville - SC | 89201-130
-            </p>
-          </div>
+          {props?.officeDetails?.contacts.map((item, index) => (
+            <div key={index} className="row">
+              <PhoneAndroidRounded style={{ color: '#fff' }} />
+              <p>
+                +{item.countryPhoneCode} {item.phoneNumber}
+              </p>
+            </div>
+          ))}
+          {address && (
+            <div className="row">
+              <PinDropRounded style={{ color: '#fff' }} />
+              <p>
+                {address?.streetName}, {address?.streetNumber},{' '}
+                {address?.additionalInfo} - {address?.stateCode} |{' '}
+                {address?.postalCode}
+              </p>
+            </div>
+          )}
         </ContactContainer>
 
         <InformationContainer>

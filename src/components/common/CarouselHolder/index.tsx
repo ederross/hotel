@@ -5,7 +5,7 @@ import ImageComponent from '../ImageComponent';
 import { CarouselHolderStyles } from './styles';
 
 interface ICaroselHolder {
-  data: string[];
+  data: string[] | null;
   showArrows?: boolean;
 }
 

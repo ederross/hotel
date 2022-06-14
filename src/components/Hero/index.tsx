@@ -1,12 +1,19 @@
+import { OfficeDetails } from '../../../data/officeDetails';
 import styles from './styles.module.scss';
 
-export default function Hero() {
+interface IHeroProps {
+  officeDetails: OfficeDetails;
+}
+
+const Hero = ({ officeDetails }: IHeroProps) => {
   return (
-    <section className={`${styles.heroSection}`} >
+    <section className={`${styles.heroSection}`}>
       <div className={styles.heroInner}>
         <span>
-          <p>Hotel Central Parque</p>
-          <h1>A melhor vista da cidade</h1>
+          <p>{officeDetails?.officeName}</p>
+          <h1>
+            {officeDetails?.officeDescription || 'A melhor vista da cidade'}
+          </h1>
           <a href="#" className={`${'btn'}`}>
             Explorar Quartos
           </a>
@@ -14,4 +21,6 @@ export default function Hero() {
       </div>
     </section>
   );
-}
+};
+
+export default Hero;
