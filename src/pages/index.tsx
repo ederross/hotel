@@ -102,7 +102,7 @@ export default function Home({
               id="page.home.section.event.title"
               values={{ b: (chunks) => <b>{chunks}</b> }}
             /> */}
-            {t('OBJECT_TYPE')}
+            {t('EDER_NAME')}
           </h2>
 
           <div className={`${styles.scrollContainer} ${styles.grabbable}`}>
@@ -207,7 +207,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       reviews,
       events,
       images,
-      ...await serverSideTranslations(locale, ['common', 'footer']),
+      ...await serverSideTranslations(locale, ['common']),
     },
     revalidate: 60,
   };
