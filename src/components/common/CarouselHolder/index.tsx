@@ -5,8 +5,14 @@ import ImageComponent from '../ImageComponent';
 import { CarouselHolderStyles } from './styles';
 
 interface ICaroselHolder {
-  data: string[] | null;
+  data: imageData[] | null;
   showArrows?: boolean;
+}
+
+interface imageData {
+  url: string;
+  title: string;
+  alt: string;
 }
 
 const CarouselHolder = ({ data, showArrows = true }: ICaroselHolder) => {
@@ -50,8 +56,13 @@ const CarouselHolder = ({ data, showArrows = true }: ICaroselHolder) => {
         </div>
       )}
       <div ref={imagesRef} className="carousel">
-        {data.map((url, index) => (
-          <ImageComponent key={index} url={url} />
+        {data.map((image, index) => (
+          <ImageComponent
+            key={index}
+            url={image?.url}
+            title={image?.title}
+            alt={image?.alt}
+          />
         ))}
       </div>
 

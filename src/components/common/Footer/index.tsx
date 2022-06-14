@@ -23,7 +23,7 @@ const Footer = (props: IFooterProps) => {
     <FooterContainer>
       <div className="topContainer">
         <SocialContainer>
-          <h2>{props?.officeDetails?.officeName}</h2>
+          <h3>{props?.officeDetails?.officeName}</h3>
           <p>{props?.officeDetails?.officeDescription}</p>
           <div className="row">
             {socialData.map((item, index) => (
@@ -33,7 +33,7 @@ const Footer = (props: IFooterProps) => {
         </SocialContainer>
 
         <ContactContainer>
-          <h2>Contato</h2>
+          <h3>Contato</h3>
           <div className="row">
             <EmailRounded style={{ color: '#fff' }} />
             <p>hello@email.com</p>
@@ -59,12 +59,12 @@ const Footer = (props: IFooterProps) => {
         </ContactContainer>
 
         <InformationContainer>
-          <h2>Informações</h2>
-          <a href="">
+          <h3>Informações</h3>
+          <a href="/terms-and-conditions" title={'Termos & Condições'}>
             <p className="link">{'Termos & Condições'}</p>
           </a>
           <br />
-          <a href="" className="link">
+          <a href="/privacy-police" title={'Política de Privacidade'}>
             <p className="link">{'Política de Privacidade'}</p>
           </a>
         </InformationContainer>

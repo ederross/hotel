@@ -37,7 +37,7 @@ export const SocialContainer = styled.div`
     width: 30%;
   }
 
-  h2 {
+  h3 {
     color: var(--white);
     font-size: 1rem;
     font-weight: 500;
@@ -71,7 +71,7 @@ export const ContactContainer = styled.div`
     width: 30%;
   }
 
-  h2 {
+  h3 {
     color: var(--white);
     font-size: 1rem;
     font-weight: 500;
@@ -116,7 +116,7 @@ export const InformationContainer = styled.div`
     width: 20%;
   }
 
-  h2 {
+  h3 {
     color: var(--white);
     font-size: 1rem;
     font-weight: 500;

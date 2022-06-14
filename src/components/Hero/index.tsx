@@ -14,7 +14,7 @@ const Hero = ({ officeDetails }: IHeroProps) => {
           <h1>
             {officeDetails?.officeDescription || 'A melhor vista da cidade'}
           </h1>
-          <a href="#" className={`${'btn'}`}>
+          <a href="/search" className={`${'btn'}`} title={'Explorar quartos'}>
             Explorar Quartos
           </a>
         </span>

@@ -185,6 +185,7 @@ export default function Header({ placeholder, design }: IHeader) {
             <img
               src={design?.logoUrl}
               alt={design?.browserTitle}
+              title={design?.browserTitle}
               onError={() => setLogoError(true)}
             />
           ) : (
@@ -399,6 +400,7 @@ export default function Header({ placeholder, design }: IHeader) {
 
         <div className={styles.profile}>
           <a
+            title="Minha reserva"
             href="#"
             style={{ color: inputFocus || scrolled ? 'black' : 'white' }}
           >
