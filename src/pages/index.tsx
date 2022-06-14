@@ -26,13 +26,6 @@ interface IHomeProps {
 export default function Home(props: IHomeProps) {
   const { width } = useWindowSize();
 
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.innerText = props?.design?.css;
-    const head = document.getElementsByTagName('head')[0];
-    head.appendChild(style);
-  }, []);
-
   const swiperStyle = {
     paddingLeft:
       width >= 320 && width < 524

@@ -21,15 +21,13 @@ import CardService from '../../components/CardService';
 import CarouselHolder from '../../components/common/CarouselHolder';
 import Footer from '../../components/common/Footer';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { OfficeDetails } from '../../../data/officeDetails';
 
-const imageData = [
-  'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-  'https://images.unsplash.com/photo-1591088398332-8a7791972843?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
-  'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1157&q=80',
-];
+interface IRoomDetailsProps {
+  officeDetails: OfficeDetails;
+}
 
-const RoomDetails = () => {
-
+const RoomDetails = (props: IRoomDetailsProps) => {
   return (
     <>
       <Head>
@@ -150,7 +148,7 @@ const RoomDetails = () => {
           <button>Reservar</button>
         </div>
       </div>
-      <Footer />
+      <Footer officeDetails={props.officeDetails} />
     </>
   );
 };
@@ -164,17 +162,36 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-
 export const getStaticProps: GetStaticProps = async () => {
- 
+  const base_url = 'http://book.hospeda.in';
+  const officeDetails = await fetch(base_url + '/offices/office1').then(
+    (response) => response.json()
+  );
 
   return {
     props: {
-      
+      officeDetails,
     },
-    revalidate: 600,
+    revalidate: (60 * 60) / 4,
   };
 };
 
-
 export default RoomDetails;
+
+const imageData = [
+  {
+    url: 'https://images.unsplash.com/photo-1604156788856-2ce5f2171cce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    title: 'balões',
+    alt: 'balões',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1559686043-aef1bbc98d19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    title: 'balões',
+    alt: 'balões',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1514923995763-768e52f5af87?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
+    title: 'balões',
+    alt: 'balões',
+  },
+];
