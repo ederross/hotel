@@ -4,16 +4,21 @@ import Header from '../components/Header';
 import Hero from '../components/Hero';
 import CarouselHolder from '../components/common/CarouselHolder';
 
+
 import styles from './home.module.scss';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import CardClient from '../components/CardClient';
 import CardEventType1 from '../components/cardsEvents/CardEventType1';
 import { useWindowSize } from '../hooks/UseWindowSize';
 import Footer from '../components/common/Footer';
 import { useRouter } from 'next/router';
-import { FormattedMessage, useIntl } from 'react-intl';
-import Link from 'next/link';
+
+
+// Translate I18N required
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next';
+import { useState } from 'react';
+import CardClient from '../components/CardClient';
 
 const imageData = [
   'https://images.unsplash.com/photo-1604156788856-2ce5f2171cce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
@@ -57,10 +62,10 @@ export default function Home({
   images,
 }) {
   const { width } = useWindowSize();
+  const router = useRouter()
+  const { t } = useTranslation('common')
+  const [counter, setCounter] = useState(1)
 
-  const { locales } = useRouter();
-
-  const intl = useIntl();
 
   console.log(officeDetails);
 
@@ -91,20 +96,13 @@ export default function Home({
         <Header placeholder="Sua Hospedagem" />
         <Hero />
 
-        <div className={styles.languages}>
-          {[...locales].sort().map((locale) => (
-            <Link key={locale} href="/" locale={locale}>
-              {locale}
-            </Link>
-          ))}
-        </div>
-
         <section className={styles.eventsContainer}>
           <h2 className={styles.title}>
-            <FormattedMessage
+            {/* <FormattedMessage
               id="page.home.section.event.title"
               values={{ b: (chunks) => <b>{chunks}</b> }}
-            />
+            /> */}
+            {t('OBJECT_TYPE')}
           </h2>
 
           <div className={`${styles.scrollContainer} ${styles.grabbable}`}>
@@ -181,7 +179,10 @@ export default function Home({
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+
+
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const base_url = 'http://book.hospeda.in';
   const officeDetails = await fetch(base_url + '/offices/office1').then(
     (response) => response.json()
@@ -206,7 +207,8 @@ export const getStaticProps: GetStaticProps = async () => {
       reviews,
       events,
       images,
+      ...await serverSideTranslations(locale, ['common', 'footer']),
     },
-    revalidate: (60 * 60) / 4,
+    revalidate: 60,
   };
 };

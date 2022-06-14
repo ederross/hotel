@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+
+const { i18n } = require('./next-i18next.config')
+
 const nextConfig = {
   reactStrictMode: true,
   images: {
@@ -8,13 +11,7 @@ const nextConfig = {
     // Enables the styled-components SWC transform
     styledComponents: true,
   },
-  i18n: {
-    // The locales you want to support in your app
-    locales: ['pt', 'en'],
-    // The default locale you want to be used when visiting a non-locale prefixed path e.g. `/hello`
-    defaultLocale: 'pt',
-  
-  },
+  i18n,
 };
 
 module.exports = nextConfig;

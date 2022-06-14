@@ -29,7 +29,6 @@ const imageData = [
 ];
 
 const RoomDetails = () => {
-
   return (
     <>
       <Head>
@@ -164,17 +163,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-
 export const getStaticProps: GetStaticProps = async () => {
- 
-
   return {
-    props: {
-      
-    },
-    revalidate: 600,
+    props: {},
+    revalidate: 60,
   };
 };
-
 
 export default RoomDetails;
