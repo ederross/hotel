@@ -7,6 +7,7 @@ import { CarouselHolderStyles } from './styles';
 interface ICaroselHolder {
   data: imageData[] | null;
   showArrows?: boolean;
+  setSelected?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface imageData {
@@ -15,7 +16,11 @@ interface imageData {
   alt: string;
 }
 
-const CarouselHolder = ({ data, showArrows = true }: ICaroselHolder) => {
+const CarouselHolder = ({
+  data,
+  showArrows = true,
+  setSelected,
+}: ICaroselHolder) => {
   const imagesRef = useRef(null);
   const [currSlide, setCurrSlide] = useState(0);
 
@@ -31,6 +36,10 @@ const CarouselHolder = ({ data, showArrows = true }: ICaroselHolder) => {
     imagesRefCurr.addEventListener('scroll', handleScroll);
     return () => imagesRefCurr.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    setSelected && setSelected(currSlide);
+  }, [currSlide]);
 
   return (
     <CarouselHolderStyles>
@@ -56,7 +65,7 @@ const CarouselHolder = ({ data, showArrows = true }: ICaroselHolder) => {
         </div>
       )}
       <div ref={imagesRef} className="carousel">
-        {data.map((image, index) => (
+        {data?.map((image, index) => (
           <ImageComponent
             key={index}
             url={image?.url}
@@ -68,7 +77,7 @@ const CarouselHolder = ({ data, showArrows = true }: ICaroselHolder) => {
 
       {data?.length > 1 && (
         <div className="scroller">
-          {data.map((img, idx) => (
+          {data?.map((img, idx) => (
             <span
               key={idx}
               className={currSlide === idx ? 'active' : null}

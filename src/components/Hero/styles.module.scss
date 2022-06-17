@@ -8,7 +8,8 @@
     ),
     url(/images/hero/bg.jpg);
   background-position: center;
-  background-size: cover, cover;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
   height: fit-content;
   color: var(--light);
   padding: 10rem var(--sidePadding) 6rem;

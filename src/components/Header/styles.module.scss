@@ -165,6 +165,11 @@
       font-size: 1.15rem;
       margin-left: 0.5rem;
     }
+
+    img {
+      max-height: 48px;
+      object-fit: contain;
+    }
   }
   .profile {
     justify-content: flex-end;

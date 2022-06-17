@@ -26,7 +26,7 @@ const Footer = (props: IFooterProps) => {
           <h3>{props?.officeDetails?.officeName}</h3>
           <p>{props?.officeDetails?.officeDescription}</p>
           <div className="row">
-            {socialData.map((item, index) => (
+            {socialData?.map((item, index) => (
               <div className="socialCircle" key={index} title={item.name}></div>
             ))}
           </div>

@@ -16,12 +16,14 @@ import { Design } from '../../data/design';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import CardClient from '../components/CardClient';
+import { HotelImages } from '../../data/images';
+import HotelImagesSlider from '../components/HotelImagesSlider';
 interface IHomeProps {
   officeDetails: OfficeDetails;
   design: Design;
   reviews: any[];
   events: EventsHome[];
-  images: any[];
+  images: HotelImages[];
 }
 
 export default function Home(props: IHomeProps) {
@@ -54,7 +56,7 @@ export default function Home(props: IHomeProps) {
 
       <main>
         <Header design={props.design} placeholder="Sua Hospedagem" />
-        <Hero officeDetails={props.officeDetails} />
+        <Hero officeDetails={props.officeDetails} design={props.design} />
 
         <section className={styles.eventsContainer}>
           <h2 className={styles.title}>
@@ -84,21 +86,7 @@ export default function Home(props: IHomeProps) {
           </div>
         </section>
 
-        <section className={styles.slidesSection}>
-          <div className={styles.hotelPhotosContainer}>
-            <div className={styles.imgSlideContainer}>
-              <CarouselHolder showArrows={true} data={imageData} />
-            </div>
-            <div className={styles.imgDescriptionContainer}>
-              <div>
-                <h3>{props?.officeDetails?.officeName}</h3>
-                <h2>
-                  Piscinas e uma vista incrível da natureza para a família.
-                </h2>
-              </div>
-            </div>
-          </div>
-        </section>
+        <HotelImagesSlider images={props?.images} />
 
         <section className={styles.clientsContainer}>
           <h2 className={styles.title} style={{ textAlign: 'center' }}>

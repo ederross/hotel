@@ -183,6 +183,7 @@ export default function Header({ placeholder, design }: IHeader) {
               alt={design?.browserTitle}
               title={design?.browserTitle}
               onError={() => setLogoError(true)}
+              draggable={false}
             />
           ) : (
             <span>{design?.browserTitle}</span>
