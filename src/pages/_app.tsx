@@ -9,11 +9,14 @@ import { appWithTranslation } from 'next-i18next';
 import nextI18nConfig from '../../next-i18next.config';
 import moment from 'moment';
 import 'moment/locale/pt-br';
+import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { locale } = useRouter();
 
-  moment.locale(locale);
+  useEffect(() => {
+    moment.locale(locale);
+  }, [locale]);
 
   return (
     <>

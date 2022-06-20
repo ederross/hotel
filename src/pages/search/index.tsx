@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import styles from './search.module.scss';
 import { HotelOutlined, AttractionsOutlined } from '@mui/icons-material';
 import CardRoom from '../../components/CardRoom';
-const Search = () => {
+import { useRouter } from 'next/router';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetServerSideProps } from 'next';
+import { URLSearchParams } from 'url';
+
+const Search = ({ searchResult }: any) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log('[resultado]:', searchResult);
+  }, [searchResult]);
+
   return (
     <>
       <Head>
@@ -18,14 +29,16 @@ const Search = () => {
 
           <div style={{ flex: 1, paddingTop: 16 }}>
             <h2>
-              <span>03</span> quartos com <span>06</span> serviços foram
-              encontrados
+              <span>{`${
+                searchResult.length < 10 && searchResult.length > 0 ? '0' : ''
+              }${searchResult.length}`}</span>{' '}
+              quartos com <span>06</span> serviços foram encontrados
             </h2>
           </div>
           <div className={styles.filtersMobileSection}>
             <div
               style={{
-                borderBottom: '6px solid black'
+                borderBottom: '6px solid black',
               }}
               className={styles.filterButtonContainer}
             >
@@ -42,12 +55,9 @@ const Search = () => {
           </div>
         </section>
         <section className={styles.contentResultContainer}>
-          <CardRoom />
-          <CardRoom />
-          <CardRoom />
-          <CardRoom />
-          <CardRoom />
-          <CardRoom />
+          {searchResult?.map((room, index) => (
+            <CardRoom key={index} room={room} />
+          ))}
         </section>
       </main>
     </>
@@ -55,3 +65,42 @@ const Search = () => {
 };
 
 export default Search;
+
+export const getServerSideProps: GetServerSideProps = async ({
+  locale,
+  query,
+}) => {
+  const base_url = 'http://book.hospeda.in';
+
+  const { startDate, endDate, adults, children }: any = query;
+
+  try {
+    const searchResult = await fetch(
+      base_url +
+        '/booking/room-search/?' +
+        new URLSearchParams({
+          officeId: 'office1',
+          startDate,
+          endDate,
+          adults,
+          children,
+        })
+    ).then((response) => response.json());
+
+    return {
+      props: {
+        searchResult: searchResult || [],
+        ...(await serverSideTranslations(locale, ['common'])),
+      },
+    };
+  } catch (error) {
+    console.log('ERRO', error);
+
+    return {
+      props: {
+        searchResult: [],
+        ...(await serverSideTranslations(locale, ['common'])),
+      },
+    };
+  }
+};

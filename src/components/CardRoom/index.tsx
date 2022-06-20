@@ -11,8 +11,20 @@ import {
   LocalPhoneOutlined,
 } from '@mui/icons-material';
 import CarouselHolder from '../common/CarouselHolder';
+import { Room } from '../../../data/room';
 
-const CardRoom = () => {
+interface ICardRoom {
+  room: Room;
+}
+
+const CardRoom = ({ room }: ICardRoom) => {
+  // const imageData = room?.images?.map((i) => {
+  //   return {
+  //     alt: i.subTitle,
+  //     title: i.subTitle,
+  //     url: i.imageUrl,
+  //   };
+  // });
   return (
     <>
       {/* <CardDiv> */}
@@ -31,11 +43,11 @@ const CardRoom = () => {
           </div>
           <div className={styles.iconWithNumberContainer}>
             <PersonOutlinedIcon fontSize={'small'} />
-            <h5>5</h5>
+            <h5>{room?.objectDetails?.maxOccupancy}</h5>
           </div>
         </div>
 
-        <h2>Quarto Estofado suíte Deluxe</h2>
+        <h2>{room?.objectName}</h2>
 
         <p>
           Ar-condicionado, cama box, TV a cabo, mesa de trabalho, frigobar...{' '}

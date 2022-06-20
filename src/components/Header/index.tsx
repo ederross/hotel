@@ -43,10 +43,11 @@ export default function Header({ placeholder, design }: IHeader) {
   //form data
 
   const [location, setLocation] = useState('');
-  const [checkInDate, setCheckInDate] = useState('');
-  const [checkOutDate, setCheckOutDate] = useState('');
-  const [numberOfAdults, setNumberOfAdults] = useState(0);
+  const [checkInDate, setCheckInDate] = useState('2022-05-25');
+  const [checkOutDate, setCheckOutDate] = useState('2022-05-30');
+  const [numberOfAdults, setNumberOfAdults] = useState(2);
   const [numberOfChildren, setNumberOfChildren] = useState(0);
+  const [childrenAges, setChildrenAges] = useState();
 
   //Data Picker
   const [state, setState] = useState([
@@ -95,12 +96,12 @@ export default function Header({ placeholder, design }: IHeader) {
     // }
     router.push({
       pathname: '/search',
-      // query: {
-      //   location: location,
-      //   checkIn: checkInDate.toString(),
-      //   checkOut: checkOutDate.toString(),
-      //   guests: numberOfChildren + numberOfAdults,
-      // },
+      query: {
+        startDate: checkInDate.toString(),
+        endDate: checkOutDate.toString(),
+        adults: numberOfAdults,
+        children: numberOfChildren,
+      },
     });
     setTimeout(() => closeMobileFilters(), 100);
   };
@@ -261,7 +262,9 @@ export default function Header({ placeholder, design }: IHeader) {
                   {numberOfChildren || numberOfAdults ? (
                     <p>
                       {numberOfAdults + numberOfChildren}{' '}
-                      {t('GUEST', { count: numberOfAdults + numberOfChildren })}
+                      {t('GUEST', {
+                        count: numberOfAdults + numberOfChildren,
+                      })}
                     </p>
                   ) : (
                     <p className="empty">{t('HOW-MANY')}?</p>
