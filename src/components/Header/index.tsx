@@ -263,12 +263,12 @@ export default function Header({ placeholder, design }: IHeader) {
               </div>
 
               <div className={styles.field}>
-                <label>Guests</label>
+                <label>Hóspedes</label>
                 <span className="guestNumber">
                   {numberOfChildren || numberOfAdults ? (
-                    <p>{numberOfAdults + numberOfChildren} guests</p>
+                    <p>{numberOfAdults + numberOfChildren} hóspedes</p>
                   ) : (
-                    <p className="empty">Add guests</p>
+                    <p className="empty">Quantos?</p>
                   )}
                 </span>
               </div>

@@ -1,16 +1,11 @@
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-
-import styled from 'styled-components';
+import React, { useEffect, useRef, useState } from 'react'; 
 import styles from './styles.module.scss';
 
 import { ChevronLeft } from 'react-feather';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
 import SingleBedOutlinedIcon from '@mui/icons-material/SingleBedOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
-import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
-
 import {
   SignalWifi4BarOutlined,
   TvOutlined,
@@ -148,7 +143,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
           <button>Reservar</button>
         </div>
       </div>
-      <Footer officeDetails={props.officeDetails} />
+      {/* <Footer officeDetails={props.officeDetails} /> */}
     </>
   );
 };
@@ -158,7 +153,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: [],
-    fallback: false,
+    fallback: true,
   };
 };
 
@@ -176,7 +171,6 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-export default RoomDetails;
 
 const imageData = [
   {
@@ -195,3 +189,6 @@ const imageData = [
     alt: 'balões',
   },
 ];
+
+
+export default RoomDetails;

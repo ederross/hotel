@@ -38,7 +38,7 @@ const Footer = (props: IFooterProps) => {
             <EmailRounded style={{ color: '#fff' }} />
             <p>hello@email.com</p>
           </div>
-          {props?.officeDetails?.contacts.map((item, index) => (
+          {props?.officeDetails?.contacts?.map((item, index) => (
             <div key={index} className="row">
               <PhoneAndroidRounded style={{ color: '#fff' }} />
               <p>

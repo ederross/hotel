@@ -114,7 +114,7 @@ export default function Home(props: IHomeProps) {
           </div>
         </section>
 
-        <Footer officeDetails={props.officeDetails} />
+        <Footer officeDetails={props?.officeDetails} />
       </main>
     </>
   );
