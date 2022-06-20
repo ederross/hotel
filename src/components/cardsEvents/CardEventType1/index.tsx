@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
 import { EventsHome } from '../../../../data/events';
 
@@ -9,6 +10,7 @@ interface ICardEventType1 {
 }
 
 const CardEventType1 = ({ event }: ICardEventType1) => {
+  const { t } = useTranslation('common');
   const [imageError, setImageError] = useState(false);
 
   const eventStart = new Date(event?.startDate);
@@ -35,7 +37,7 @@ const CardEventType1 = ({ event }: ICardEventType1) => {
         <h4>{event?.eventName}</h4>
         <p>
           {event?.eventDescription}
-          {'...'} <span>Ler mais</span>
+          {'...'} <span>{t('READ-MORE')}</span>
         </p>
         <h3>{eventDate}</h3>
       </div>

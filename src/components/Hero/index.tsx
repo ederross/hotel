@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { Design } from '../../../data/design';
 import { OfficeDetails } from '../../../data/officeDetails';
 import styles from './styles.module.scss';
@@ -8,6 +9,7 @@ interface IHeroProps {
 }
 
 const Hero = ({ officeDetails, design }: IHeroProps) => {
+  const { t } = useTranslation('common');
   return (
     <section
       className={`${styles.heroSection}`}
@@ -24,10 +26,10 @@ const Hero = ({ officeDetails, design }: IHeroProps) => {
         <span>
           <p>{officeDetails?.officeName}</p>
           <h1>
-            {officeDetails?.officeDescription || 'A melhor vista da cidade'}
+            {officeDetails?.officeDescription || t('THE-BEST-VIEW-IN-THE-CITY')}
           </h1>
-          <a href="/search" className={`${'btn'}`} title={'Explorar quartos'}>
-            Explorar Quartos
+          <a href="/search" className={`${'btn'}`} title={t('EXPLORE-ROOMS')}>
+            {t('EXPLORE-ROOMS')}
           </a>
         </span>
       </div>

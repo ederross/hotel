@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 
-import styles from './styles.module.scss';
+import styles from './mobileFilters.module.scss';
 
-import { DateRange, DateRangePicker } from 'react-date-range';
+import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-import { addDays, isWeekend, format } from 'date-fns';
+import { isWeekend, format } from 'date-fns';
 
 import * as locales from 'react-date-range/dist/locale';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
-import { FreeMode } from 'swiper';
 import CardEventType2 from '../cardsEvents/CardEventType2';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
 interface IFilters {
   closeMobileFilters: () => void;
@@ -20,6 +21,8 @@ interface IFilters {
 
 const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
   const swiper = useSwiper();
+  const { locale } = useRouter();
+  const { t } = useTranslation('common');
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -66,18 +69,18 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
           }}
         >
           <button onClick={closeMobileFilters} className={styles.btnClose}>
-            Fechar
+            {t('CLOSE')}
           </button>
 
           <Container>
-            <h2>Selecione as datas de Check-in {'&'} Check-out</h2>
+            <h2>{t('SELECT-CHECK-IN-&-CHECK-OUT-DATES')}</h2>
             <DateRange
               editableDateInputs={true}
               onChange={(item) => setState([item?.selection] as any)}
               moveRangeOnFirstSelection={false}
               ranges={state}
               months={1}
-              locale={locales['pt']}
+              locale={locales[locale]}
               dayContentRenderer={customDayContent}
               direction={'vertical'}
               minDate={new Date()}
@@ -88,7 +91,7 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
           <div className={styles.divisor}></div>
 
           <div className={styles.eventsContainer}>
-            <h3>Próximos Eventos</h3>
+            <h3>{t('NEXT-EVENTS')}</h3>
             <Swiper
               spaceBetween={16}
               slidesPerView={'auto'}
@@ -112,12 +115,12 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
           <div className={styles.divisor}></div>
 
           <div className={styles.guestsContainer}>
-            <h3>Hóspedes</h3>
+            <h3>{t('GUEST_MANY')}</h3>
           </div>
 
           <div className={styles.buttonContainer}>
             <button onClick={handleSubmit} className={styles.searchButton}>
-              Pesquisar
+              {t('SEARCH')}
             </button>
           </div>
         </div>

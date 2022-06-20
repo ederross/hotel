@@ -55,7 +55,7 @@ export default function Home(props: IHomeProps) {
       </Head>
 
       <main>
-        <Header design={props.design} placeholder="Sua Hospedagem" />
+        <Header design={props.design} placeholder={t('YOUR-HOSTING')} />
         <Hero officeDetails={props.officeDetails} design={props.design} />
 
         <section className={styles.eventsContainer}>
@@ -64,7 +64,7 @@ export default function Home(props: IHomeProps) {
               id="page.home.section.event.title"
               values={{ b: (chunks) => <b>{chunks}</b> }}
             /> */}
-            {t('EDER_NAME')}
+            {t('CHECK-OUT-OUR-UPCOMING-EVENTS')}
           </h2>
 
           <div className={`${styles.scrollContainer} ${styles.grabbable}`}>
@@ -89,10 +89,16 @@ export default function Home(props: IHomeProps) {
         <HotelImagesSlider images={props?.images} />
 
         <section className={styles.clientsContainer}>
-          <h2 className={styles.title} style={{ textAlign: 'center' }}>
-            Confira o que nossos
-            <br />
-            clientes estão dizendo
+          <h2
+            className={styles.title}
+            style={{
+              textAlign: 'center',
+              minWidth: 220,
+              maxWidth: '40vw',
+              alignSelf: 'center',
+            }}
+          >
+            {t('SEE-WHAT-OUR-CUSTOMERS-ARE-SAYING')}
           </h2>
 
           <div className={`${styles.scrollContainer} ${styles.grabbable}`}>
