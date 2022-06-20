@@ -59,13 +59,7 @@ export default function Home(props: IHomeProps) {
         <Hero officeDetails={props.officeDetails} design={props.design} />
 
         <section className={styles.eventsContainer}>
-          <h2 className={styles.title}>
-            {/* <FormattedMessage
-              id="page.home.section.event.title"
-              values={{ b: (chunks) => <b>{chunks}</b> }}
-            /> */}
-            {t('CHECK-OUT-OUR-UPCOMING-EVENTS')}
-          </h2>
+          <h2 className={styles.title}>{t('CHECK-OUT-OUR-UPCOMING-EVENTS')}</h2>
 
           <div className={`${styles.scrollContainer} ${styles.grabbable}`}>
             <Swiper
@@ -156,21 +150,3 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     revalidate: 60,
   };
 };
-
-const imageData = [
-  {
-    url: 'https://images.unsplash.com/photo-1604156788856-2ce5f2171cce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    title: 'balões',
-    alt: 'balões',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1559686043-aef1bbc98d19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    title: 'balões',
-    alt: 'balões',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1514923995763-768e52f5af87?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
-    title: 'balões',
-    alt: 'balões',
-  },
-];

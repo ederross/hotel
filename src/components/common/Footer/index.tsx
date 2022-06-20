@@ -66,8 +66,8 @@ const Footer = (props: IFooterProps) => {
             <p className="link">{t('TERMS-AND-CONDITIONS')}</p>
           </a>
           <br />
-          <a href="/privacy-police" title={t('PRIVACY_POLICIES')}>
-            <p className="link">{t('PRIVACY_POLICIES')}</p>
+          <a href="/privacy-police" title={t('PRIVACY-POLICIES')}>
+            <p className="link">{t('PRIVACY-POLICIES')}</p>
           </a>
         </InformationContainer>
       </div>
