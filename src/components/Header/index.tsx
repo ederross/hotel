@@ -22,8 +22,10 @@ interface IHeader {
 }
 
 export default function Header({ placeholder, design }: IHeader) {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
   const router = useRouter();
+
+  const locale = router?.locale;
 
   const navRef = useRef(null);
   const headerRef = useRef(null);
@@ -35,6 +37,8 @@ export default function Header({ placeholder, design }: IHeader) {
 
   // Window Sizes
   const size = useWindowSize();
+
+  const handleLang = (lang: string) => router.push('/', '/', { locale: lang });
 
   //form data
 

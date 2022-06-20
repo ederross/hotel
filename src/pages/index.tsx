@@ -45,6 +45,7 @@ export default function Home(props: IHomeProps) {
     paddingBottom: 16,
     marginBottom: 48,
   };
+
   return (
     <>
       <Head>
