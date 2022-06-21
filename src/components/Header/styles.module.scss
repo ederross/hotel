@@ -89,13 +89,27 @@
     transform: scale(0);
   }
 
-  .user,
+  .cart,
   .profile,
   .logo,
   .globe,
   nav {
     display: flex;
     align-items: center;
+  }
+
+  .globe {
+    display: flex;
+    justify-content: center;
+    height: 1.8rem;
+    width: 1.8rem;
+    border-radius: 200px;
+    transition: all 0.4s;
+
+    &:hover {
+      padding: 0.25rem;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
   }
 
   .headerInner {
@@ -135,7 +149,6 @@
         display: flex;
         padding: 2rem 3rem;
         flex-direction: column;
-        overflow: auto;
         color: var(--dark-text);
 
         @media screen and (min-width: 1024px) {
@@ -181,21 +194,20 @@
     .themeToggle {
       margin-right: 1.5rem;
     }
-    .userIcon {
-      background: #2e2e48;
-      border-radius: 99px;
-      height: 1.5rem;
-      width: 1.5rem;
-      color: #fafafc;
+    .cartIcon {
+      height: 1.4rem;
+      width: 1.4rem;
+      color: #fff;
     }
-    .user {
-      background: #fafafc;
-      border-radius: 99px;
-      padding: 0.25rem 0.25rem 0.25rem 0.5rem;
-    }
-    .menu {
-      color: #2e2e48;
-      margin-right: 0.5rem;
+    .cart {
+      cursor: pointer;
+      border-radius: 200px;
+      padding: 0.25rem;
+      transition: all 0.4s;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
     }
   }
 
@@ -251,7 +263,8 @@
       font-weight: 700;
       font-size: 1rem;
       overflow: hidden;
-      z-index: 2;
+      z-index: 0;
+      //
       transition: all 0.4s;
 
       &:hover:not(:disabled) {
@@ -333,8 +346,13 @@
     .logo svg {
       color: var(--primary-color);
     }
-    .user {
-      box-shadow: 0 0 0 2px var(--gray-150);
+
+    .globeIcon {
+      color: black !important;
+    }
+
+    .cartIcon {
+      color: black !important;
     }
     form {
       cursor: pointer;
@@ -343,12 +361,10 @@
       transform: translate(-50%, 0.125rem) scale(0.83);
       width: 480px;
 
-
-      
       transition: all 0.4s ease-in-out;
 
       &:hover {
-        box-shadow:  rgb(0 0 0 / 10%) 0px 1px 2px, rgb(0 0 0 / 15%) 0px 4px 12px;
+        box-shadow: rgb(0 0 0 / 10%) 0px 1px 2px, rgb(0 0 0 / 15%) 0px 4px 12px;
       }
 
       & > button {

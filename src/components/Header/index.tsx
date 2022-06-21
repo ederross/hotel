@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import { Search, Menu, User } from 'react-feather';
+import { Search, Menu, User, Globe } from 'react-feather';
 import { useRef, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
@@ -9,12 +8,15 @@ import Filters from './MobileFilters';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+
 import { addDays, format } from 'date-fns';
 import { useWindowSize } from '../../hooks/UseWindowSize';
 import { Design } from '../../../data/design';
 import { useTranslation } from 'next-i18next';
 import WebFilters from './WebFilters';
 import moment from 'moment';
+import LanguageSwitcher from '../LanguageSwitcher';
 
 interface IHeader {
   placeholder: string;
@@ -25,8 +27,6 @@ export default function Header({ placeholder, design }: IHeader) {
   const { t, i18n } = useTranslation('common');
   const router = useRouter();
 
-  const locale = router?.locale;
-
   const navRef = useRef(null);
   const headerRef = useRef(null);
   const [logoError, setLogoError] = useState(false);
@@ -34,14 +34,12 @@ export default function Header({ placeholder, design }: IHeader) {
   const [inputFocus, setInputFocus] = useState(false);
   const primaryLocationRef = useRef(null);
   const secondaryLocationRef = useRef(null);
+  const [openLanguageSwitcher, setOpenLanguageSwitcher] = useState(false);
 
   // Window Sizes
   const size = useWindowSize();
 
-  const handleLang = (lang: string) => router.push('/', '/', { locale: lang });
-
   //form data
-
   const [location, setLocation] = useState('');
   const [checkInDate, setCheckInDate] = useState('2022-05-25');
   const [checkOutDate, setCheckOutDate] = useState('2022-05-30');
@@ -66,6 +64,15 @@ export default function Header({ placeholder, design }: IHeader) {
         secondaryLocationRef.current.focus();
       }
     }, 10);
+  };
+
+  const handleOpenLanguageSwitcher = () => {
+    document.body.style.overflow = 'hidden';
+    setOpenLanguageSwitcher(true);
+  };
+  const handleCloseLanguageSwitcher = () => {
+    document.body.style.overflow = 'initial';
+    setOpenLanguageSwitcher(!openLanguageSwitcher);
   };
 
   const closeDatePickerWeb = () => {
@@ -186,7 +193,7 @@ export default function Header({ placeholder, design }: IHeader) {
           )}
         </div>
 
-        {/* Start Dynamic Input Search */}
+        {/* Mobile Start Dynamic Input Search */}
         {!inputFocus && size.width <= 868 && (
           <>
             <form className={styles.search}>
@@ -220,7 +227,7 @@ export default function Header({ placeholder, design }: IHeader) {
           </>
         )}
 
-        {/* Start Dynamic Input Search */}
+        {/* Web Start Dynamic Input Search */}
         {size.width >= 868 && (
           <form className={styles.search}>
             <input
@@ -308,20 +315,23 @@ export default function Header({ placeholder, design }: IHeader) {
             closeMobileFilters={closeMobileFilters}
           />
         )}
+        {openLanguageSwitcher && <LanguageSwitcher handleCloseLanguageSwitcher={handleCloseLanguageSwitcher}/>}
 
         {/* End Dynamic Input Search */}
 
         <div className={styles.profile}>
-          <a
-            title="Minha reserva"
-            href="#"
-            style={{ color: inputFocus || scrolled ? 'black' : 'white' }}
-          >
-            {t('CART')}
+          <a href="#" className={styles.globe} onClick={handleOpenLanguageSwitcher}>
+            <Globe
+              className={styles.globeIcon}
+              style={{ color: inputFocus ? 'black' : 'white' }}
+            />
           </a>
-          <div className={styles.user}>
-            <Menu className={styles.menu} />
-            <User className={styles.userIcon} />
+          <div className={styles.cart}>
+            {/* <Menu className={styles.menu} /> */}
+            <ShoppingBagOutlinedIcon
+              className={styles.cartIcon}
+              style={{ color: inputFocus ? 'black' : 'white' }}
+            />
           </div>
         </div>
       </div>

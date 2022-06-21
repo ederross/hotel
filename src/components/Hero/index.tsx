@@ -1,4 +1,5 @@
 import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
 import { Design } from '../../../data/design';
 import { OfficeDetails } from '../../../data/officeDetails';
 import styles from './styles.module.scss';
@@ -28,9 +29,11 @@ const Hero = ({ officeDetails, design }: IHeroProps) => {
           <h1>
             {officeDetails?.officeDescription || t('THE-BEST-VIEW-IN-THE-CITY')}
           </h1>
-          <a href="/search" className={`${'btn'}`} title={t('EXPLORE-ROOMS')}>
-            {t('EXPLORE-ROOMS')}
-          </a>
+          <Link href={'/'}>
+            <a className={`${'btn'}`} title={t('EXPLORE-ROOMS')}>
+              {t('EXPLORE-ROOMS')}
+            </a>
+          </Link>
         </span>
       </div>
     </section>

@@ -16,8 +16,12 @@ const CardClient = ({ data }: ICardClient) => {
   return (
     <>
       <div className={styles.container}>
-        <img
-          className={styles.img}
+        <Image
+          className={styles.img}  
+          width={'100%'}
+          height={272}
+          objectFit={'cover'}
+          
           alt={data.reviewerName}
           title={data.reviewerName}
           src={
@@ -28,7 +32,7 @@ const CardClient = ({ data }: ICardClient) => {
           onError={() => setError(true)}
         />
         <h4>{data.reviewerName}</h4>
-        <p>"{data.reviewerDescription}"</p>
+        <p>{data.reviewerDescription}</p>
       </div>
     </>
   );

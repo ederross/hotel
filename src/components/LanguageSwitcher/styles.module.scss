@@ -1,0 +1,105 @@
+.modalContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  padding-top: 4rem;
+
+  @media screen and (min-width: 668px) {
+    padding: 2rem;
+  }
+
+  .modal {
+    display: flex;
+    flex-direction: column;
+
+    overflow: auto;
+    z-index: 99;
+    position: relative;
+    bottom: 0;
+
+    background-color: rgba(255, 255, 255);
+    width: 100%;
+    height: 100%;
+    max-width: 1032px;
+    border-radius: 12px;
+    box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
+
+    color: rgba(0, 0, 0);
+
+    .modalHeader {
+      display: flex;
+      align-items: center;
+      //   justify-content: flex-end;
+      padding: 2rem;
+
+      width: 100%;
+      min-height: 36px;
+      border-bottom: 1px solid var(--gray-150);
+
+      .closeButton {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+      }
+    }
+    h3 {
+      margin-top: 1rem;
+      margin-left: 2rem;
+      margin-right: 1rem;
+
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+    .contentContainer {
+      display: flex;
+      flex-wrap: wrap;
+
+      padding: 1.5rem 2rem;
+
+      .languageSwitcherButton {
+        cursor: pointer;
+
+        margin-right: 9px;
+        margin-bottom: 9px;
+
+        display: flex;
+        flex-direction: column;
+        padding: 12px 12px;
+
+        background-color: var(--light-text);
+        width: 100%;
+
+        @media screen and (min-width: 500px) {
+            width: 25%;
+        }
+
+        border-radius: 0.5rem;
+
+        transition: all 0.4s;
+
+        &:hover {
+          background-color: rgb(244, 244, 244);
+        }
+
+        h4 {
+          font-size: 0.875rem;
+          font-weight: 400;
+          margin-bottom: 0.2rem;
+        }
+        h5 {
+          font-size: 0.875rem;
+          font-weight: 400;
+          color: var(--gray-400);
+        }
+      }
+    }
+  }
+}
