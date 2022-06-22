@@ -28,7 +28,10 @@ const LanguageSwitcher = ({
       <div className={styles.modalContainer}>
         <div className={styles.modal}>
           <div className={styles.modalHeader}>
-            <CloseOutlined className={styles.closeButton} />
+            <CloseOutlined
+              onClick={handleCloseLanguageSwitcher}
+              className={styles.closeButton}
+            />
           </div>{' '}
           <h3>Escolha um idioma e uma região</h3>
           <div className={styles.contentContainer}>

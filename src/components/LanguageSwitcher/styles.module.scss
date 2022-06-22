@@ -52,8 +52,12 @@
     }
     h3 {
       margin-top: 1rem;
-      margin-left: 2rem;
+      margin-left: 1rem;
       margin-right: 1rem;
+
+      @media screen and (min-width: 568px) {
+        margin-left: 2rem;
+      }
 
       font-size: 1.5rem;
       font-weight: 500;
@@ -62,7 +66,11 @@
       display: flex;
       flex-wrap: wrap;
 
-      padding: 1.5rem 2rem;
+      padding: 1.5rem 1rem;
+
+      @media screen and (min-width: 568px) {
+        padding: 1.5rem 2rem;
+      }
 
       .languageSwitcherButton {
         cursor: pointer;
@@ -77,8 +85,8 @@
         background-color: var(--light-text);
         width: 100%;
 
-        @media screen and (min-width: 500px) {
-            width: 25%;
+        @media screen and (min-width: 568px) {
+          width: 25%;
         }
 
         border-radius: 0.5rem;

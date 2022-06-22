@@ -31,7 +31,9 @@ export default function Header({ placeholder, design }: IHeader) {
   const headerRef = useRef(null);
   const [logoError, setLogoError] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [inputFocus, setInputFocus] = useState(false);
+  const [inputCalendars, setInputCalendars] = useState(false);
+  const [isCalendarVisible, setIsCalendarVisible] = useState(false);
+  const [inputGuest, setInputGuest] = useState(false);
   const primaryLocationRef = useRef(null);
   const secondaryLocationRef = useRef(null);
   const [openLanguageSwitcher, setOpenLanguageSwitcher] = useState(false);
@@ -48,7 +50,7 @@ export default function Header({ placeholder, design }: IHeader) {
   const [childrenAges, setChildrenAges] = useState();
 
   //Data Picker
-  const [state, setState] = useState([
+  const [dateState, setDateState] = useState([
     {
       startDate: new Date(),
       endDate: addDays(new Date(), 0),
@@ -57,7 +59,22 @@ export default function Header({ placeholder, design }: IHeader) {
   ]);
 
   const openDatePicker = () => {
-    setInputFocus(true);
+    setInputCalendars(true);
+    setIsCalendarVisible(true)
+    setInputGuest(false);
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => {
+      if (!(size.width >= 868) && secondaryLocationRef.current) {
+        secondaryLocationRef.current.focus();
+      }
+    }, 10);
+  };
+
+  const openGuestSelector = () => {
+    setInputGuest(true);
+    setInputCalendars(true);
+    setIsCalendarVisible(false);
+
     document.body.style.overflow = 'hidden';
     setTimeout(() => {
       if (!(size.width >= 868) && secondaryLocationRef.current) {
@@ -76,7 +93,7 @@ export default function Header({ placeholder, design }: IHeader) {
   };
 
   const closeDatePickerWeb = () => {
-    setInputFocus(false);
+    setInputCalendars(false);
     setLocation('');
     setNumberOfChildren(0);
     setNumberOfAdults(0);
@@ -86,7 +103,7 @@ export default function Header({ placeholder, design }: IHeader) {
   };
 
   const closeMobileFilters = () => {
-    setInputFocus(false);
+    setInputCalendars(false);
     setLocation('');
     setNumberOfChildren(0);
     setNumberOfAdults(0);
@@ -128,37 +145,11 @@ export default function Header({ placeholder, design }: IHeader) {
 
   function customDayContent(day) {
     let extraDot = null;
-    // if (isWeekend(day)) {
-    //   extraDot = (
-    //     <div
-    //       style={{
-    //         height: '5px',
-    //         width: '5px',
-    //         borderRadius: '100%',
-    //         background: 'red',
-    //         position: 'absolute',
-    //         top: 2,
-    //         right: 2,
-    //       }}
-    //     />
-    //   );
-    // }
     return (
       <>
         <div>
           {extraDot}
-
           <span>{format(day, 'd')}</span>
-          {/* <span
-            style={{
-              fontSize: 10,
-              position: 'absolute',
-              bottom: -20,
-              right: '55%',
-            }}
-          >
-            999
-          </span> */}
         </div>
       </>
     );
@@ -168,16 +159,16 @@ export default function Header({ placeholder, design }: IHeader) {
     <header
       ref={headerRef}
       className={` ${styles.headerSection} ${
-        scrolled || inputFocus || router.pathname !== '/'
+        scrolled || inputCalendars || router.pathname !== '/'
           ? styles.scrolled
           : null
       }
-        ${inputFocus ? styles.inputFocus : null}`}
+        ${inputCalendars ? styles.inputFocus : null}`}
     >
       <div className={styles.headerInner}>
         <div
           className={styles.logo}
-          style={{ color: inputFocus || scrolled ? 'black' : 'white' }}
+          style={{ color: inputCalendars || scrolled ? 'black' : 'white' }}
           onClick={() => router.push('/')}
         >
           {!logoError ? (
@@ -194,7 +185,7 @@ export default function Header({ placeholder, design }: IHeader) {
         </div>
 
         {/* Mobile Start Dynamic Input Search */}
-        {!inputFocus && size.width <= 868 && (
+        {!inputCalendars && size.width <= 868 && (
           <>
             <form className={styles.search}>
               <input
@@ -209,7 +200,7 @@ export default function Header({ placeholder, design }: IHeader) {
               <button
                 type="submit"
                 disabled={
-                  inputFocus &&
+                  inputCalendars &&
                   !(
                     location &&
                     checkInDate &&
@@ -244,13 +235,13 @@ export default function Header({ placeholder, design }: IHeader) {
               <div
                 className={styles.field}
                 onClick={openDatePicker}
-                style={{ boxShadow: inputFocus && '0 1rem 3rem -1rem #1e1e38' }}
+                style={{ boxShadow: isCalendarVisible && inputCalendars && '0 1rem 3rem -1rem #1e1e38' }}
               >
                 <label>{t('CHECK-IN')}</label>
                 <input
                   readOnly
                   placeholder="Add dates"
-                  value={moment(state[0].startDate).format('ll')}
+                  value={moment(dateState[0].startDate).format('ll')}
                 />
               </div>
 
@@ -259,11 +250,15 @@ export default function Header({ placeholder, design }: IHeader) {
                 <input
                   disabled
                   placeholder="Add dates"
-                  value={moment(state[0].endDate).format('ll')}
+                  value={moment(dateState[0].endDate).format('ll')}
                 />
               </div>
 
-              <div className={styles.field}>
+              <div
+                className={styles.field}
+                onClick={openGuestSelector}
+                style={{ boxShadow: inputCalendars && inputGuest && '0 1rem 3rem -1rem #1e1e38' }}
+              >
                 <label>{t('GUEST_MANY')}</label>
                 <span className="guestNumber">
                   {numberOfChildren || numberOfAdults ? (
@@ -283,7 +278,7 @@ export default function Header({ placeholder, design }: IHeader) {
             <button
               type="submit"
               disabled={
-                inputFocus &&
+                inputCalendars &&
                 !(
                   location &&
                   checkInDate &&
@@ -300,37 +295,47 @@ export default function Header({ placeholder, design }: IHeader) {
           </form>
         )}
 
-        {size.width >= 868 && inputFocus && (
+        {size.width >= 868 && inputCalendars && (
           <WebFilters
             closeDatePickerWeb={closeDatePickerWeb}
             customDayContent={customDayContent}
-            state={state}
-            setState={setState}
+            dateState={dateState}
+            setDateState={setDateState}
+            isCalendarVisible={isCalendarVisible}
+            inputGuest={inputGuest}
           />
         )}
 
-        {size.width <= 868 && inputFocus && (
+        {size.width <= 868 && inputCalendars && (
           <Filters
             handleSubmit={handleSubmit as any}
             closeMobileFilters={closeMobileFilters}
           />
         )}
-        {openLanguageSwitcher && <LanguageSwitcher handleCloseLanguageSwitcher={handleCloseLanguageSwitcher}/>}
+        {openLanguageSwitcher && (
+          <LanguageSwitcher
+            handleCloseLanguageSwitcher={handleCloseLanguageSwitcher}
+          />
+        )}
 
         {/* End Dynamic Input Search */}
 
         <div className={styles.profile}>
-          <a href="#" className={styles.globe} onClick={handleOpenLanguageSwitcher}>
+          <a
+            href="#"
+            className={styles.globe}
+            onClick={handleOpenLanguageSwitcher}
+          >
             <Globe
               className={styles.globeIcon}
-              style={{ color: inputFocus ? 'black' : 'white' }}
+              style={{ color: inputCalendars ? 'black' : 'white' }}
             />
           </a>
           <div className={styles.cart}>
             {/* <Menu className={styles.menu} /> */}
             <ShoppingBagOutlinedIcon
               className={styles.cartIcon}
-              style={{ color: inputFocus ? 'black' : 'white' }}
+              style={{ color: inputCalendars ? 'black' : 'white' }}
             />
           </div>
         </div>

@@ -9,19 +9,23 @@ import { useRouter } from 'next/router';
 interface IWebFilters {
   closeDatePickerWeb: () => void;
   customDayContent: (day: any) => JSX.Element;
-  state: {
+  dateState: {
     startDate: Date;
     endDate: Date;
     key: string;
   }[];
-  setState: any;
+  setDateState: any;
+  isCalendarVisible: boolean;
+  inputGuest: boolean;
 }
 
 const WebFilters = ({
   closeDatePickerWeb,
   customDayContent,
-  setState,
-  state,
+  setDateState,
+  dateState,
+  isCalendarVisible,
+  inputGuest,
 }: IWebFilters) => {
   const { locale } = useRouter();
   const { t } = useTranslation('common');
@@ -42,35 +46,39 @@ const WebFilters = ({
                 paddingBottom: 50,
               }}
             >
-              <Container>
-                <DateRangePicker
-                  onChange={(item) => setState([item.selection] as any)}
-                  moveRangeOnFirstSelection={false}
-                  months={2}
-                  ranges={state}
-                  direction="horizontal"
-                  showDateDisplay={false}
-                  editableDateInputs={false}
-                  showMonthAndYearPickers={false}
-                  locale={locales[locale === 'ptBR' ? 'pt' : locale]}
-                  inputRanges={[]}
-                  staticRanges={[]}
-                  dayContentRenderer={customDayContent}
-                  minDate={new Date()}
-                  rangeColors={['var(--primary-color)']}
-                />
-              </Container>
+              {isCalendarVisible && (
+                <>
+                  <Container>
+                    <DateRangePicker
+                      onChange={(item) => setDateState([item.selection] as any)}
+                      moveRangeOnFirstSelection={false}
+                      months={2}
+                      ranges={dateState}
+                      direction="horizontal"
+                      showDateDisplay={false}
+                      editableDateInputs={false}
+                      showMonthAndYearPickers={false}
+                      locale={locales[locale === 'ptBR' ? 'pt' : locale]}
+                      inputRanges={[]}
+                      staticRanges={[]}
+                      dayContentRenderer={customDayContent}
+                      minDate={new Date()}
+                      rangeColors={['var(--primary-color)']}
+                    />
+                  </Container>
 
-              <h4>{t('NEXT-EVENTS')}</h4>
-              <div
-                style={{
-                  flex: 1,
-                  width: '100%',
-                  minHeight: 200,
-                  height: 'auto',
-                  paddingTop: '1rem',
-                }}
-              ></div>
+                  <h4>{t('NEXT-EVENTS')}</h4>
+                  <div
+                    style={{
+                      flex: 1,
+                      width: '100%',
+                      minHeight: 200,
+                      height: 'auto',
+                      paddingTop: '1rem',
+                    }}
+                  ></div>
+                </>
+              )}
             </div>
           </div>
         </div>
