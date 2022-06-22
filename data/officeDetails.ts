@@ -1,6 +1,7 @@
 export interface OfficeDetails {
   officeName: string;
   officeDescription: string;
+  officeSlogan: string;
   propertyClassTypeCode: number;
   segmentTypeCode: number;
   locationTypeCode: number;

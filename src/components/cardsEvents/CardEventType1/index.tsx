@@ -26,7 +26,7 @@ const CardEventType1 = ({ event }: ICardEventType1) => {
       <div className={styles.container}>
         <img
           src={
-            !event.imageUrl || !imageError
+            !event.imageUrl || imageError
               ? 'images/empty_image.png'
               : event?.imageUrl
           }

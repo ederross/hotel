@@ -18,6 +18,8 @@ import { useTranslation } from 'next-i18next';
 import CardClient from '../components/CardClient';
 import { HotelImages } from '../../data/images';
 import HotelImagesSlider from '../components/HotelImagesSlider';
+import { URLSearchParams } from 'url';
+import moment from 'moment';
 interface IHomeProps {
   officeDetails: OfficeDetails;
   design: Design;
@@ -108,7 +110,7 @@ export default function Home(props: IHomeProps) {
                   key={index}
                   style={{ width: 'auto', marginRight: '2rem' }}
                 >
-                  <CardClient data={item} />
+                  <CardClient data={item} index={index} />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -132,9 +134,14 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const reviews = await fetch(base_url + '/offices/office1/reviews').then(
     (response) => response.json()
   );
-  const events = await fetch(base_url + '/offices/office1/events').then(
-    (response) => response.json()
-  );
+  const events = await fetch(
+    base_url +
+      '/offices/office1/events/?' +
+      new URLSearchParams({
+        startDate: moment().format('YYYY-MM-DD'),
+        endDate: moment().add(2, 'M').format('YYYY-MM-DD'),
+      })
+  ).then((response) => response.json());
   const images = await fetch(base_url + '/offices/office1/images').then(
     (response) => response.json()
   );
