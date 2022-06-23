@@ -120,15 +120,27 @@
       font-family: 'DM Sans';
 
       button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--light-text);
         cursor: pointer;
         height: 42px;
         width: 42px;
         border-radius: 100%;
-        border: none;
+        border: 1px solid var(--gray-150);
+
+        .removeIcon {
+          font-size: 14px;
+        }
+
+        .addIcon {
+          font-size: 14px;
+        }
       }
-      h5 {
-        padding: 0 0.5rem;
-      }
+        h5 {
+          padding: 0 0.5rem;
+        }
     }
   }
 }

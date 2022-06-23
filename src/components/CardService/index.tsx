@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import CarouselHolder from '../common/CarouselHolder';
-import { Add } from '@mui/icons-material';
+import { Add, RemoveOutlined } from '@mui/icons-material';
 
 const CardService = () => {
   return (
@@ -28,7 +28,9 @@ const CardService = () => {
             </h4>
           </div>
           <div className={styles.addButtons}>
-            <button disabled>-</button>
+            <button disabled>
+              <RemoveOutlined className={styles.removeIcon} />
+            </button>
             <h5>0</h5>
             <button>
               <Add className={styles.addIcon} />

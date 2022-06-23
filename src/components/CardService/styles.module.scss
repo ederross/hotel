@@ -79,7 +79,7 @@
         font-weight: 500;
       }
     }
-
+ 
     .addButtons {
       flex: 1;
       display: flex;
@@ -88,16 +88,22 @@
       font-family: 'DM Sans';
 
       button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--light-text);
         cursor: pointer;
         height: 42px;
         width: 42px;
         border-radius: 100%;
-        border: none;
+        border: 1px solid var(--gray-150);
+
+        .removeIcon {
+          font-size: 16px;
+        }
 
         .addIcon {
-          margin: 0;
-          padding: 0;
-          font-size: 20px;
+          font-size: 16px;
         }
       }
         h5 {

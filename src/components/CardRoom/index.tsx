@@ -9,6 +9,8 @@ import {
   SignalWifi4BarOutlined,
   TvOutlined,
   LocalPhoneOutlined,
+  RemoveOutlined,
+  Add,
 } from '@mui/icons-material';
 import CarouselHolder from '../common/CarouselHolder';
 import { Room } from '../../../data/room';
@@ -82,9 +84,13 @@ const CardRoom = ({ room }: ICardRoom) => {
               </u> */}
           </div>
           <div className={styles.addButtons}>
-            <button disabled>-</button>
+            <button disabled>
+              <RemoveOutlined className={styles.removeIcon} />
+            </button>
             <h5>0</h5>
-            <button>+</button>
+            <button>
+              <Add className={styles.addIcon} />
+            </button>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { DateRangePicker } from 'react-date-range';
 import * as locales from 'react-date-range/dist/locale';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
-import { Add } from '@mui/icons-material';
+import { Add, RemoveOutlined } from '@mui/icons-material';
 
 interface IWebFilters {
   closeDatePickerWeb: () => void;
@@ -41,7 +41,7 @@ const WebFilters = ({
             left: inputGuest && '50%',
             height: inputGuest && 'auto',
             paddingTop: inputGuest && '4rem',
-            transform: inputGuest && 'translate(-16%, 16%)'
+            transform: inputGuest && 'translate(-8%, 8%)',
           }}
         >
           <div
@@ -91,16 +91,35 @@ const WebFilters = ({
               )}
 
               {inputGuest && (
-                <div className={styles.adultsContainer}>
-                  <h4>Adultos</h4>
-                  <div className={styles.addButtons}>
-                    <button disabled>-</button>
-                    <h5>0</h5>
-                    <button>
-                      <Add className={styles.addIcon} />
-                    </button>
+                <>
+                  <div className={styles.guestsContainer}>
+                    <h4>Adultos</h4>
+                    <div className={styles.addButtons}>
+                      <button disabled>
+                        <RemoveOutlined className={styles.removeIcon} />
+                      </button>
+                      <h5>0</h5>
+                      <button>
+                        <Add className={styles.addIcon} />
+                      </button>
+                    </div>
                   </div>
-                </div>
+                  <div
+                    className={styles.guestsContainer}
+                    style={{ marginTop: '1.5rem', border: 'none' }}
+                  >
+                    <h4>Crianças</h4>
+                    <div className={styles.addButtons}>
+                      <button disabled>
+                        <RemoveOutlined className={styles.removeIcon} />
+                      </button>
+                      <h5>0</h5>
+                      <button>
+                        <Add className={styles.addIcon} />
+                      </button>
+                    </div>
+                  </div>
+                </>
               )}
             </div>
           </div>
@@ -115,7 +134,7 @@ const WebFilters = ({
           width: '100vw',
           height: '100vh',
           zIndex: -2,
-          background: 'rgba(0,0,0,0.5)',
+          background: 'rgba(0,0,0,0.4)',
         }}
       ></div>
     </>

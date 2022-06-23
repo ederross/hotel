@@ -1,4 +1,8 @@
 .mainBox {
+
+  margin: 0 auto;
+  max-width: 1568px;
+  align-self: center;
   .btnGoBackDesk {
     display: none;
   }
@@ -94,7 +98,6 @@
       border-bottom: 1px solid #dadada;
 
       color: white;
-      // border-radius: 16px;
 
       .infoBox {
         display: flex;
@@ -149,7 +152,7 @@
           }
 
           @media (min-width: 768px) {
-            font-size: 0.8rem;
+            font-size: 16px;
           }
         }
 

@@ -57,66 +57,70 @@ export default function Home(props: IHomeProps) {
         <link rel="icon" href={props?.design?.favIconUrl} />
       </Head>
 
-      <main style={{ backgroundColor: 'rgba(255,255,255)' }}>
+      <main>
         <Header design={props.design} placeholder={t('YOUR-HOSTING')} />
         <Hero officeDetails={props.officeDetails} design={props.design} />
+        
+        
+        <div className={styles.mainBox}>
+          <section className={styles.eventsContainer}>
+            <h2 className={styles.title}>
+              {t('CHECK-OUT-OUR-UPCOMING-EVENTS')}
+            </h2>
 
-        <section className={styles.eventsContainer}>
-          <h2 className={styles.title}>{t('CHECK-OUT-OUR-UPCOMING-EVENTS')}</h2>
+            <div className={`${styles.scrollContainer} ${styles.grabbable}`}>
+              <Swiper
+                spaceBetween={16}
+                slidesPerView={'auto'}
+                freeMode={true}
+                style={swiperStyle}
+              >
+                {props?.events?.map((item, index) => (
+                  <SwiperSlide
+                    key={index}
+                    style={{ width: 'auto', marginRight: '1rem' }}
+                  >
+                    <CardEventType1 event={item} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          </section>
 
-          <div className={`${styles.scrollContainer} ${styles.grabbable}`}>
-            <Swiper
-              spaceBetween={16}
-              slidesPerView={'auto'}
-              freeMode={true}
-              style={swiperStyle}
+          <HotelImagesSlider images={props?.images} />
+
+          <section className={styles.clientsContainer}>
+            <h2
+              className={styles.title}
+              style={{
+                textAlign: 'center',
+                minWidth: 220,
+                maxWidth: '40vw',
+                alignSelf: 'center',
+              }}
             >
-              {props?.events?.map((item, index) => (
-                <SwiperSlide
-                  key={index}
-                  style={{ width: 'auto', marginRight: '1rem' }}
-                >
-                  <CardEventType1 event={item} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        </section>
+              {t('SEE-WHAT-OUR-CUSTOMERS-ARE-SAYING')}
+            </h2>
 
-        <HotelImagesSlider images={props?.images} />
-
-        <section className={styles.clientsContainer}>
-          <h2
-            className={styles.title}
-            style={{
-              textAlign: 'center',
-              minWidth: 220,
-              maxWidth: '40vw',
-              alignSelf: 'center',
-            }}
-          >
-            {t('SEE-WHAT-OUR-CUSTOMERS-ARE-SAYING')}
-          </h2>
-
-          <div className={`${styles.scrollContainer} ${styles.grabbable}`}>
-            <Swiper
-              spaceBetween={16}
-              slidesPerView={'auto'}
-              freeMode={true}
-              style={swiperStyle}
-            >
-              {props?.reviews?.map((item, index) => (
-                <SwiperSlide
-                  key={index}
-                  style={{ width: 'auto', marginRight: '2rem' }}
-                >
-                  <CardClient data={item} index={index} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        </section>
-
+            <div className={`${styles.scrollContainer} ${styles.grabbable}`}>
+              <Swiper
+                spaceBetween={16}
+                slidesPerView={'auto'}
+                freeMode={true}
+                style={swiperStyle}
+              >
+                {props?.reviews?.map((item, index) => (
+                  <SwiperSlide
+                    key={index}
+                    style={{ width: 'auto', marginRight: '2rem' }}
+                  >
+                    <CardClient data={item} index={index} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          </section>
+        </div>
         <Footer officeDetails={props?.officeDetails} />
       </main>
     </>

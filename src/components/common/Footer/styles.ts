@@ -30,6 +30,11 @@ export const FooterContainer = styled.div`
   }
 `;
 
+export const ContainerHolder = styled.div`
+  max-width: 1568px;
+  margin: 0 auto;
+`;
+
 export const SocialContainer = styled.div`
   margin: 2rem 0;
   width: 100%;
