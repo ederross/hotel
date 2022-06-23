@@ -1,4 +1,4 @@
-import { Search, Menu, User, Globe } from 'react-feather';
+import { Search, Globe } from 'react-feather';
 import { useRef, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
@@ -24,10 +24,9 @@ interface IHeader {
 }
 
 export default function Header({ placeholder, design }: IHeader) {
-  const { t, i18n } = useTranslation('common');
+  const { t } = useTranslation('common');
   const router = useRouter();
 
-  const navRef = useRef(null);
   const headerRef = useRef(null);
   const [logoError, setLogoError] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -60,7 +59,7 @@ export default function Header({ placeholder, design }: IHeader) {
 
   const openDatePicker = () => {
     setInputCalendars(true);
-    setIsCalendarVisible(true)
+    setIsCalendarVisible(true);
     setInputGuest(false);
     document.body.style.overflow = 'hidden';
     setTimeout(() => {
@@ -164,6 +163,7 @@ export default function Header({ placeholder, design }: IHeader) {
           : null
       }
         ${inputCalendars ? styles.inputFocus : null}`}
+      style={{ position: router.pathname !== '/' ? 'relative' : 'fixed' }}
     >
       <div className={styles.headerInner}>
         <div
@@ -185,7 +185,7 @@ export default function Header({ placeholder, design }: IHeader) {
         </div>
 
         {/* Mobile Start Dynamic Input Search */}
-        {!inputCalendars && size.width <= 868 && (
+        {!inputCalendars && size.width <= 568 && (
           <>
             <form className={styles.search}>
               <input
@@ -219,7 +219,7 @@ export default function Header({ placeholder, design }: IHeader) {
         )}
 
         {/* Web Start Dynamic Input Search */}
-        {size.width >= 868 && (
+        {size.width >= 568 && (
           <form className={styles.search}>
             <input
               type="text"
@@ -235,7 +235,12 @@ export default function Header({ placeholder, design }: IHeader) {
               <div
                 className={styles.field}
                 onClick={openDatePicker}
-                style={{ boxShadow: isCalendarVisible && inputCalendars && '0 1rem 3rem -1rem #1e1e38' }}
+                style={{
+                  boxShadow:
+                    isCalendarVisible &&
+                    inputCalendars &&
+                    '0 1rem 3rem -1rem #1e1e38',
+                }}
               >
                 <label>{t('CHECK-IN')}</label>
                 <input
@@ -257,7 +262,10 @@ export default function Header({ placeholder, design }: IHeader) {
               <div
                 className={styles.field}
                 onClick={openGuestSelector}
-                style={{ boxShadow: inputCalendars && inputGuest && '0 1rem 3rem -1rem #1e1e38' }}
+                style={{
+                  boxShadow:
+                    inputCalendars && inputGuest && '0 1rem 3rem -1rem #1e1e38',
+                }}
               >
                 <label>{t('GUEST_MANY')}</label>
                 <span className="guestNumber">

@@ -27,7 +27,7 @@ const Hero = ({ officeDetails, design }: IHeroProps) => {
         <span>
           <p>{officeDetails?.officeName}</p>
           <h1>
-            {officeDetails?.officeSlogan.substring(0, 42) ||
+            {officeDetails?.officeSlogan?.substring(0, 42) ||
               t('THE-BEST-VIEW-IN-THE-CITY')}
           </h1>
           <Link href={'/'}>

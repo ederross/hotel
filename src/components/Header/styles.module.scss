@@ -34,6 +34,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     input {
       width: 100%;
       font-weight: 700;
@@ -115,8 +116,12 @@
   .headerInner {
     max-width: var(--containerWidth);
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    // display: grid;
+    // grid-template-columns: 1fr 1fr;
+    display: flex;
+    justify-content: space-between;
+
+
 
     .controlsFullContainer {
       display: flex;
@@ -334,7 +339,7 @@
   // }
 
   &.scrolled:not(.inputFocus) {
-    background: var(--light);
+    background: var(--light-text);
     color: var(--dark);
     border-bottom: 1px solid var(--gray-150);
 
@@ -354,12 +359,14 @@
     .cartIcon {
       color: black !important;
     }
+    
     form {
       cursor: pointer;
+      background-color: var(--light-text);
       border: 1px solid var(--gray-150);
       box-shadow: rgb(0 0 0 / 8%) 0px 1px 2px, rgb(0 0 0 / 5%) 0px 4px 12px;
       transform: translate(-50%, 0.125rem) scale(0.83);
-      width: 480px;
+      width: 412px;
 
       transition: all 0.4s ease-in-out;
 
@@ -388,14 +395,14 @@
     }
 
     @media (min-width: 36rem) and (max-width: 62.5rem) {
-      .profile {
-        opacity: 0;
-        pointer-events: none;
-      }
+      // .profile {
+      //   opacity: 0;
+      //   pointer-events: none;
+      // }
       form {
         left: auto;
         right: 0;
-        transform: translate(0, 0.125rem) scale(0.83);
+        // transform: translate(0, 0.125rem) scale(0.83);
         width: 50%;
       }
     }

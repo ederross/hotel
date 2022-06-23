@@ -57,7 +57,7 @@ export default function Home(props: IHomeProps) {
         <link rel="icon" href={props?.design?.favIconUrl} />
       </Head>
 
-      <main>
+      <main style={{ backgroundColor: 'rgba(255,255,255)' }}>
         <Header design={props.design} placeholder={t('YOUR-HOSTING')} />
         <Hero officeDetails={props.officeDetails} design={props.design} />
 

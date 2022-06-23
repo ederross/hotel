@@ -1,4 +1,8 @@
 .mainBox {
+  .btnGoBackDesk {
+    display: none;
+  }
+
   .contentBox {
     display: flex;
     flex-direction: column;
@@ -33,7 +37,7 @@
     .imgsBox {
       display: none;
       min-width: 100%;
-      height: 256px;
+      height: 26px;
       color: white;
 
       @media screen and (min-width: 528px) {
@@ -109,7 +113,7 @@
 
             h5 {
               padding: 0 0.2rem;
-
+              font-size: 0.7rem;
               font-weight: 600;
             }
           }
@@ -125,7 +129,7 @@
           font-weight: 600;
 
           @media (min-width: 768px) {
-            font-size: 2.5rem;
+            font-size: 2rem;
           }
         }
 
@@ -144,7 +148,7 @@
           }
 
           @media (min-width: 768px) {
-            font-size: 1rem;
+            font-size: 0.8rem;
           }
         }
 
@@ -164,7 +168,7 @@
               padding: 0 0.2rem;
 
               font-weight: 600;
-              font-size: 0.75rem;
+              font-size: 0.7rem;
             }
           }
         }
@@ -327,7 +331,7 @@
     flex: 1;
     height: auto;
     align-items: center;
-    padding-top: 2rem;
+    // padding-top: 2rem;
     padding-left: 1rem;
     padding-right: 1rem;
 
@@ -362,7 +366,7 @@
       .imgsBox {
         display: flex;
         min-width: 100%;
-        height: 456px;
+        height: 356px;
         color: white;
         border-radius: 16px;
         padding: 0 1rem;
@@ -454,7 +458,7 @@
     height: auto;
     align-items: center;
     background-color: #fff;
-    padding-top: 4rem;
+    padding-top: 1rem;
     padding-left: 10rem;
     padding-right: 10rem;
   }

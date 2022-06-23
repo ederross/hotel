@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import CarouselHolder from '../common/CarouselHolder';
+import { Add } from '@mui/icons-material';
 
 const CardService = () => {
   return (
@@ -29,7 +30,9 @@ const CardService = () => {
           <div className={styles.addButtons}>
             <button disabled>-</button>
             <h5>0</h5>
-            <button>+</button>
+            <button>
+              <Add className={styles.addIcon} />
+            </button>
           </div>
         </div>
       </div>
