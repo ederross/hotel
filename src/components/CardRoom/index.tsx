@@ -53,7 +53,7 @@ const CardRoom = ({ room }: ICardRoom) => {
 
         <p>
           Ar-condicionado, cama box, TV a cabo, mesa de trabalho, frigobar...{' '}
-          <span>Ler mais</span>
+          {/* <span>Ler mais</span> */}
         </p>
 
         <div className={styles.amenitiesContainer}>

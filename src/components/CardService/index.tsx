@@ -18,7 +18,7 @@ const CardService = () => {
 
         <p>
           Air Fun Balonismo está há 28 Anos no mercado passeio de Balão em
-          Boituva. Faça sua reserva. Passeio de Balão com {'...'}Ler mais
+          Boituva. Faça sua reserva. Passeio de Balão com...
         </p>
 
         <div className={styles.priceAndControlsContainerHolder}>

@@ -16,9 +16,6 @@ const Search = ({ searchResult, officeDetails, design }: any) => {
 
   const { t } = useTranslation('common');
 
-  useEffect(() => {
-    console.log('[resultado]:', searchResult);
-  }, [searchResult]);
 
   return (
     <>
@@ -33,7 +30,7 @@ const Search = ({ searchResult, officeDetails, design }: any) => {
           <div style={{ flex: 1, paddingTop: 1 }}>
             <h2>
               <span>{`${
-                searchResult.length < 10 && searchResult.length > 0 ? '0' : ''
+                searchResult?.length < 10 && searchResult.length > 0 ? '0' : ''
               }${searchResult.length}`}</span>{' '}
               quartos com <span>06</span> serviços foram encontrados
             </h2>
@@ -58,9 +55,9 @@ const Search = ({ searchResult, officeDetails, design }: any) => {
           </div>
         </section>
         <section className={styles.contentResultContainer}>
-          {searchResult?.map((room, index) => (
+          {/* {!!searchResult && searchResult?.map((room, index) => (
             <CardRoom key={index} room={room} />
-          ))}
+          ))} */}
         </section>
 
         <Footer officeDetails={officeDetails} />
