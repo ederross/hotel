@@ -10,12 +10,18 @@ import { URLSearchParams } from 'url';
 import Header from '../../components/Header';
 import { useTranslation } from 'next-i18next';
 import Footer from '../../components/common/Footer';
+import { OfficeDetails } from '../../../data/officeDetails';
+import { Design } from '../../../data/design';
 
-const Search = ({ searchResult, officeDetails, design }: any) => {
+interface ISearch {
+  searchResult: any;
+  officeDetails: OfficeDetails;
+  design: Design;
+}
+
+const Search = ({ searchResult, officeDetails, design }: ISearch) => {
   const router = useRouter();
-
   const { t } = useTranslation('common');
-
 
   return (
     <>
@@ -26,39 +32,53 @@ const Search = ({ searchResult, officeDetails, design }: any) => {
       </Head>
       <main>
         <Header design={design} placeholder={t('YOUR-HOSTING')} />
-        <section className={styles.filterInfo}>
-          <div style={{ flex: 1, paddingTop: 1 }}>
-            <h2>
-              <span>{`${
-                searchResult?.length < 10 && searchResult.length > 0 ? '0' : ''
-              }${searchResult.length}`}</span>{' '}
-              quartos com <span>06</span> serviços foram encontrados
-            </h2>
-          </div>
-          <div className={styles.filtersMobileSection}>
-            <div
-              style={{
-                borderBottom: '6px solid black',
-              }}
-              className={styles.filterButtonContainer}
-            >
-              <HotelOutlined style={{ marginBottom: '0.2rem' }} />
-              <h4>Quartos</h4>
-            </div>
-            <div
-              style={{ opacity: 0.35, paddingBottom: '1.4rem' }}
-              className={styles.filterButtonContainer}
-            >
-              <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
-              <h4>Serviços</h4>
-            </div>
-          </div>
-        </section>
-        <section className={styles.contentResultContainer}>
-          {/* {!!searchResult && searchResult?.map((room, index) => (
-            <CardRoom key={index} room={room} />
-          ))} */}
-        </section>
+        {!searchResult || searchResult?.errors ? (
+          <>
+            <section className={styles.filterInfo}>
+              <div style={{ flex: 1, paddingTop: 1 }}>
+                <h2>Nenhum resultado foi encontrado...</h2>
+              </div>
+            </section>
+          </>
+        ) : (
+          <>
+            <section className={styles.filterInfo}>
+              <div style={{ flex: 1, paddingTop: 1 }}>
+                <h2>
+                  <span>{`${
+                    searchResult?.length < 10 && searchResult.length > 0
+                      ? '0'
+                      : ''
+                  }${searchResult.length}`}</span>{' '}
+                  quartos com <span>06</span> serviços foram encontrados
+                </h2>
+              </div>
+              <div className={styles.filtersMobileSection}>
+                <div
+                  style={{
+                    borderBottom: '6px solid black',
+                  }}
+                  className={styles.filterButtonContainer}
+                >
+                  <HotelOutlined style={{ marginBottom: '0.2rem' }} />
+                  <h4>Quartos</h4>
+                </div>
+                <div
+                  style={{ opacity: 0.35, paddingBottom: '1.4rem' }}
+                  className={styles.filterButtonContainer}
+                >
+                  <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
+                  <h4>Serviços</h4>
+                </div>
+              </div>
+            </section>
+            <section className={styles.contentResultContainer}>
+              {searchResult?.map((room, index) => (
+                <CardRoom key={index} room={room} />
+              ))}
+            </section>
+          </>
+        )}
 
         <Footer officeDetails={officeDetails} />
       </main>
@@ -95,11 +115,15 @@ export const getServerSideProps: GetServerSideProps = async ({
           adults,
           children,
         })
-    ).then((response) => response.json());
+    )
+      .then((response) => response.json())
+      .catch(() => {
+        return false;
+      });
 
     return {
       props: {
-        searchResult: searchResult || [],
+        searchResult: searchResult,
         officeDetails,
         design,
         ...(await serverSideTranslations(locale, ['common'])),
@@ -110,7 +134,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     return {
       props: {
-        searchResult: [],
+        searchResult: false,
         ...(await serverSideTranslations(locale, ['common'])),
       },
     };

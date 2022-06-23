@@ -15,7 +15,7 @@ import Head from 'next/head';
 import CardService from '../../components/CardService';
 import CarouselHolder from '../../components/common/CarouselHolder';
 import Footer from '../../components/common/Footer';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { OfficeDetails } from '../../../data/officeDetails';
 import Header from '../../components/Header';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -230,3 +230,42 @@ const imageData = [
 ];
 
 export default RoomDetails;
+
+// export const getServerSideProps: GetServerSideProps = async ({
+//   locale,
+//   query,
+// }) => {
+//   const base_url = 'http://book.hospeda.in';
+
+//   const { id }: any = query;
+
+//   try {
+//     const searchResult = await fetch(
+//       base_url +
+//         '/booking/room-search/?' +
+//         new URLSearchParams({
+//           officeId: 'office1',
+//         })
+//     )
+//       .then((response) => response.json())
+//       .catch(() => {
+//         return false;
+//       });
+
+//     return {
+//       props: {
+//         searchResult: searchResult,
+//         ...(await serverSideTranslations(locale, ['common'])),
+//       },
+//     };
+//   } catch (error) {
+//     console.log('ERRO', error);
+
+//     return {
+//       props: {
+//         searchResult: false,
+//         ...(await serverSideTranslations(locale, ['common'])),
+//       },
+//     };
+//   }
+// };
