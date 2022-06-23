@@ -1,10 +1,11 @@
 import React from 'react';
 import { Container } from './styles';
-import styles from './styles.module.scss';
+import styles from './webFilters.module.scss';
 import { DateRangePicker } from 'react-date-range';
 import * as locales from 'react-date-range/dist/locale';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { Add } from '@mui/icons-material';
 
 interface IWebFilters {
   closeDatePickerWeb: () => void;
@@ -33,7 +34,16 @@ const WebFilters = ({
   return (
     <>
       <div className={styles.controlsFullContainer}>
-        <div className={styles.controlsContainerHolder}>
+        <div
+          className={styles.controlsContainerHolder}
+          style={{
+            minWidth: inputGuest && 500,
+            left: inputGuest && '50%',
+            height: inputGuest && 'auto',
+            paddingTop: inputGuest && '4rem',
+            transform: inputGuest && 'translate(-16%, 16%)'
+          }}
+        >
           <div
             style={{
               position: 'relative',
@@ -78,6 +88,19 @@ const WebFilters = ({
                     }}
                   ></div>
                 </>
+              )}
+
+              {inputGuest && (
+                <div className={styles.adultsContainer}>
+                  <h4>Adultos</h4>
+                  <div className={styles.addButtons}>
+                    <button disabled>-</button>
+                    <h5>0</h5>
+                    <button>
+                      <Add className={styles.addIcon} />
+                    </button>
+                  </div>
+                </div>
               )}
             </div>
           </div>

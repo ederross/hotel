@@ -1,0 +1,86 @@
+.controlsContainerHolder {
+  overflow: auto;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 4%), 0 8px 16px rgb(0 0 0 / 15%);
+  align-self: center;
+  position: absolute;
+  top: 172px;
+  min-width: 800px;
+  max-width: 1000px;
+  z-index: 9;
+  height: 600px;
+  background: white;
+  border-radius: 1rem;
+  display: flex;
+  padding: 2rem 3rem;
+  flex-direction: column;
+  color: var(--dark-text);
+  
+ 
+
+  @media screen and (min-width: 1024px) {
+    .controlsContainerHolder {
+      min-width: 1000px;
+    }
+  }
+
+  @media screen and (width: 820px) and (height: 1180px) {
+    .controlsContainerHolder {
+      min-width: 200px;
+    }
+  }
+
+
+  .adultsContainer {
+    display:flex;
+    align-items: center;
+
+    h4 {
+        font-weight: 500;
+    }
+
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--gray-150);
+    
+    .addButtons {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-family: 'DM Sans';
+  
+        button {
+          cursor: pointer;
+          height: 42px;
+          width: 42px;
+          border-radius: 100%;
+          border: none;
+  
+          .addIcon {
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+          }
+        }
+          h5 {
+            padding: 0 0.5rem;
+          }
+      }
+  }
+}
+
+.controlsFullContainer {
+  display: flex;
+  flex-direction: column;
+  z-index: -1;
+  position: absolute;
+  margin: 0;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 216px;
+  background: white;
+
+  // @media screen and (min-width: 868px) {
+  //   display: flex;
+  // }
+}

@@ -123,56 +123,11 @@
 
 
 
-    .controlsFullContainer {
-      display: flex;
-      flex-direction: column;
-      z-index: -1;
-      position: absolute;
-      margin: 0;
-      left: 0;
-      top: 0;
-      width: 100vw;
-      height: 200px;
-      background: white;
-
-      // @media screen and (min-width: 868px) {
-      //   display: flex;
-      // }
-
-      .controlsContainerHolder {
-        overflow: auto;
-        box-shadow: 0 0 0 1px rgb(0 0 0 / 4%), 0 8px 16px rgb(0 0 0 / 15%);
-        align-self: center;
-        position: absolute;
-        top: 172px;
-        min-width: 800px;
-        max-width: 1000px;
-        z-index: 9;
-        height: 600px;
-        background: white;
-        border-radius: 1rem;
-        display: flex;
-        padding: 2rem 3rem;
-        flex-direction: column;
-        color: var(--dark-text);
-
-        @media screen and (min-width: 1024px) {
-          .controlsContainerHolder {
-            min-width: 1000px;
-          }
-        }
-
-        @media screen and (width: 820px) and (height: 1180px) {
-          .controlsContainerHolder {
-            min-width: 200px;
-          }
-        }
-      }
-    }
+   
   }
 
   .logo {
-    // cursor: pointer;
+    cursor: pointer;
     svg {
       height: 2rem;
       color: #fafafc;
@@ -306,9 +261,9 @@
     .overlay {
       display: none;
     }
-    .headerInner {
-      grid-template-columns: 1fr;
-    }
+    // .headerInner {
+    //   grid-template-columns: 1fr;
+    // }
     form {
       position: relative;
       transform: none !important;

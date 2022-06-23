@@ -163,7 +163,10 @@ export default function Header({ placeholder, design }: IHeader) {
           : null
       }
         ${inputCalendars ? styles.inputFocus : null}`}
-      style={{ position: router.pathname !== '/' ? 'relative' : 'fixed' }}
+      style={{
+        display: router.pathname !== '/' && size.width <= 868 && 'none',
+        position: router.pathname !== '/' ? 'relative' : 'fixed',
+      }}
     >
       <div className={styles.headerInner}>
         <div
@@ -185,7 +188,7 @@ export default function Header({ placeholder, design }: IHeader) {
         </div>
 
         {/* Mobile Start Dynamic Input Search */}
-        {!inputCalendars && size.width <= 568 && (
+        {!inputCalendars && size.width <= 868 && (
           <>
             <form className={styles.search}>
               <input
@@ -219,7 +222,7 @@ export default function Header({ placeholder, design }: IHeader) {
         )}
 
         {/* Web Start Dynamic Input Search */}
-        {size.width >= 568 && (
+        {size.width >= 868 && (
           <form className={styles.search}>
             <input
               type="text"
