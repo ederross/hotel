@@ -134,7 +134,7 @@ const WebFilters = ({
           width: '100vw',
           height: '100vh',
           zIndex: -2,
-          background: 'rgba(0,0,0,0.4)',
+          background: 'rgba(0,0,0,0.6)',
         }}
       ></div>
     </>

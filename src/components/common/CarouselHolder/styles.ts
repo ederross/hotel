@@ -3,16 +3,25 @@ import styled from "styled-components";
 export const CarouselHolderStyles = styled.div`
 transition: all 0.2s ease-in-out;
 height: 100%;
-
+cursor: pointer;
 display: flex;
 flex-direction: column;
 position: relative;
+
+&:hover {
+  .arrowBtnLeft {
+    display: flex;
+  }
+  .arrowBtnRight {
+    display: flex;
+  }
+}
 
 .arrowBtnLeft {
   z-index: 1;
   cursor: pointer;
   position: absolute;
-  display: flex;
+  display: none;
   top: 50%;
   left: 5%;
   align-items: center;
@@ -39,7 +48,7 @@ position: relative;
   z-index: 1;
   cursor: pointer;
   position: absolute;
-  display: flex;
+  display: none;
   top: 50%;
   right: 5%;
   align-items: center;

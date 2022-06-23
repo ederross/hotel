@@ -22,6 +22,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import moment from 'moment';
 import { Design } from '../../../data/design';
 import { useTranslation } from 'next-i18next';
+import { useWindowSize } from '../../hooks/UseWindowSize';
 
 interface IRoomDetailsProps {
   officeDetails: OfficeDetails;
@@ -30,6 +31,9 @@ interface IRoomDetailsProps {
 
 const RoomDetails = (props: IRoomDetailsProps) => {
   const { t } = useTranslation('common');
+
+  // Window Sizes
+  const size = useWindowSize();
 
   return (
     <>
@@ -45,6 +49,12 @@ const RoomDetails = (props: IRoomDetailsProps) => {
         </div>
 
         <div className={styles.contentBox}>
+          {size.width < 868 && (
+            <div className={styles.btnGoBack}>
+              <ChevronLeft width={18} height={18} />
+            </div>
+          )}
+
           <div className={styles.carouselContainer}>
             <CarouselHolder data={imageData} />
           </div>

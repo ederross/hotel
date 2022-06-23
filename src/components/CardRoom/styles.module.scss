@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-
+  cursor: pointer;
   position: relative;
 
   font-family: 'DM Sans' !important;
@@ -87,7 +87,7 @@
   .priceAndControlsContainerHolder {
     display: flex;
     height: auto;
-
+    cursor: default;
     .pricesInfos {
       flex: 1;
       display: flex;

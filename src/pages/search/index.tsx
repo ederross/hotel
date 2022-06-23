@@ -7,9 +7,14 @@ import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
 import { URLSearchParams } from 'url';
+import Header from '../../components/Header';
+import { useTranslation } from 'next-i18next';
+import Footer from '../../components/common/Footer';
 
-const Search = ({ searchResult }: any) => {
+const Search = ({ searchResult, officeDetails, design }: any) => {
   const router = useRouter();
+
+  const { t } = useTranslation('common');
 
   useEffect(() => {
     console.log('[resultado]:', searchResult);
@@ -23,11 +28,9 @@ const Search = ({ searchResult }: any) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <header className={styles.headerSection}></header>
+        <Header design={design} placeholder={t('YOUR-HOSTING')} />
         <section className={styles.filterInfo}>
-          <div style={{ minHeight: 132, maxHeight: 132, width: '100%' }}></div>
-
-          <div style={{ flex: 1, paddingTop: 16 }}>
+          <div style={{ flex: 1, paddingTop: 1 }}>
             <h2>
               <span>{`${
                 searchResult.length < 10 && searchResult.length > 0 ? '0' : ''
@@ -59,6 +62,8 @@ const Search = ({ searchResult }: any) => {
             <CardRoom key={index} room={room} />
           ))}
         </section>
+
+        <Footer officeDetails={officeDetails} />
       </main>
     </>
   );
@@ -75,6 +80,14 @@ export const getServerSideProps: GetServerSideProps = async ({
   const { startDate, endDate, adults, children }: any = query;
 
   try {
+    const officeDetails = await fetch(base_url + '/offices/office1').then(
+      (response) => response.json()
+    );
+
+    const design = await fetch(base_url + '/offices/office1/design').then(
+      (response) => response.json()
+    );
+
     const searchResult = await fetch(
       base_url +
         '/booking/room-search/?' +
@@ -90,6 +103,8 @@ export const getServerSideProps: GetServerSideProps = async ({
     return {
       props: {
         searchResult: searchResult || [],
+        officeDetails,
+        design,
         ...(await serverSideTranslations(locale, ['common'])),
       },
     };
