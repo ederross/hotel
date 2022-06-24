@@ -55,9 +55,9 @@ const Search = ({ searchResult, officeDetails, design }: any) => {
           </div>
         </section>
         <section className={styles.contentResultContainer}>
-          {/* {!!searchResult && searchResult?.map((room, index) => (
+          {!!searchResult && searchResult?.map((room, index) => (
             <CardRoom key={index} room={room} />
-          ))} */}
+          ))}
         </section>
 
         <Footer officeDetails={officeDetails} />

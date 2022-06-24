@@ -43,12 +43,16 @@ const RoomDetails = (props: IRoomDetailsProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header design={props.design} placeholder={t('YOUR-HOSTING')} />
+
       <main className={styles.mainBox}>
         {/* <div className={styles.btnGoBackDesk}>
           <ChevronLeft width={18} height={18} />
         </div> */}
 
         <div className={styles.contentBox}>
+
+
+          
           {size.width < 868 && (
             <div className={styles.btnGoBack}>
               <ChevronLeft width={18} height={18} />

@@ -83,9 +83,9 @@ button {
 section:not(.hero) {
   margin: 3rem var(--sidePadding) 0;
 } */
-section:last-of-type {
+/* section:last-of-type {
   margin-bottom: 3rem;
-}
+} */
 section h2 {
   font-weight: 800;
   font-size: 1.75rem;
