@@ -37,7 +37,8 @@ const CardEventType1 = ({ event }: ICardEventType1) => {
         <h4>{event?.eventName}</h4>
         <p>
           {event?.eventDescription}
-          {'...'} <span>{t('READ-MORE')}</span>
+          {'...'}
+          {/* <span>{t('READ-MORE')}</span> */}
         </p>
         <h3>{eventDate}</h3>
       </div>
