@@ -14,12 +14,14 @@ import {
 } from '@mui/icons-material';
 import CarouselHolder from '../common/CarouselHolder';
 import { Room } from '../../../data/room';
+import { useRouter } from 'next/router';
 
 interface ICardRoom {
   room: Room;
 }
 
 const CardRoom = ({ room }: ICardRoom) => {
+  const router = useRouter();
   const imageData = room?.images?.map((i) => {
     return {
       alt: i.subTitle,
@@ -27,10 +29,14 @@ const CardRoom = ({ room }: ICardRoom) => {
       url: i.imageUrl,
     };
   });
+
+  const handleDetails = () => {
+    router.push(`/rooms/${room?.objectId}`);
+  };
+
   return (
     <>
-    
-      <a className={styles.container}>
+      <a className={styles.container} onClick={handleDetails}>
         <div className={styles.containerCarousel}>
           <CarouselHolder data={imageData} />
         </div>
@@ -94,7 +100,6 @@ const CardRoom = ({ room }: ICardRoom) => {
           </div>
         </div>
       </a>
-      
     </>
   );
 };
