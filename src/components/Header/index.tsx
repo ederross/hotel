@@ -9,6 +9,7 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
 
 import { addDays, format } from 'date-fns';
 import { useWindowSize } from '../../hooks/UseWindowSize';
@@ -146,7 +147,11 @@ export default function Header({ design }: IHeader) {
       }
         ${inputCalendars ? styles.inputFocus : null}`}
       style={{
-        display: router.pathname !== '/' && size.width <= 868 && 'none',
+        display:
+          router.pathname !== '/' &&
+          router.pathname !== '/search' &&
+          size.width <= 868 &&
+          'none',
         position:
           router.pathname !== '/' && router.pathname !== '/search'
             ? 'relative'
@@ -175,7 +180,21 @@ export default function Header({ design }: IHeader) {
         {/* Mobile Start Dynamic Input Search */}
         {!inputCalendars && size.width <= 868 && (
           <>
-            <form onClick={openDatePicker}>
+            <form
+              onClick={openDatePicker}
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                paddingLeft: 12,
+              }}
+            >
+              <div
+               className={styles.btnGoBack}
+              >
+                {router.pathname === '/search' && (
+                  <ChevronLeftOutlinedIcon style={{}} />
+                )}
+              </div>
               <p className={styles.searchPlaceholder}>{dynamicPlaceholder}</p>
               <button
                 type="submit"
@@ -198,7 +217,7 @@ export default function Header({ design }: IHeader) {
         )}
 
         {/* Web Start Dynamic Input Search */}
-        {size.width >= 868 && (
+        {size.width > 868 && (
           <form
             className={styles.search}
             onClick={

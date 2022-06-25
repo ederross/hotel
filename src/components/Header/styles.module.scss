@@ -121,9 +121,6 @@
     display: flex;
     justify-content: space-between;
 
-
-
-   
   }
 
   .logo {
@@ -175,7 +172,7 @@
     position: absolute;
     transform: translate(-50%, 150%);
     left: 50%;
-    top: -1rem;
+    top: -0.67rem;
     background: var(--light);
     padding: 0.5rem;
     border-radius: 99px;
@@ -284,6 +281,16 @@
         height: 1rem;
         width: 1rem;
       }
+
+      .btnGoBack {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 36px;
+        border-radius: 200px;
+        background-color: var(--gray-150);
+      }
     }
   }
 
@@ -297,6 +304,7 @@
     background: var(--light-text);
     color: var(--dark);
     border-bottom: 1px solid var(--gray-150);
+
 
     .overlay {
       opacity: 0;
@@ -314,7 +322,7 @@
     .cartIcon {
       color: black !important;
     }
-    
+
     form {
       cursor: pointer;
       background-color: var(--light-text);
@@ -331,6 +339,13 @@
 
       & > button {
         max-width: 3rem;
+
+        width: 42px;
+        height: 36px;
+
+        @media screen and (min-width: 848px) {
+          width: unset;
+        }
       }
       & > button span {
         opacity: 0;
@@ -381,5 +396,15 @@
     width: 85%;
     margin-left: 1rem;
     color: var(--gray-600);
+    font-size: 16px;
+    
+
+    @media screen and (max-width: 868px) {
+      font-size: 12px;
+    }
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
   }
 }

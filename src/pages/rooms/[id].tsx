@@ -1,8 +1,7 @@
-import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './styles.module.scss';
 
-import { ChevronLeft } from 'react-feather';
+import { ChevronDown, ChevronLeft } from 'react-feather';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
 import SingleBedOutlinedIcon from '@mui/icons-material/SingleBedOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
@@ -10,12 +9,13 @@ import {
   SignalWifi4BarOutlined,
   TvOutlined,
   LocalPhoneOutlined,
+  RemoveOutlined,
+  Add,
 } from '@mui/icons-material';
 import Head from 'next/head';
 import CardService from '../../components/CardService';
 import CarouselHolder from '../../components/common/CarouselHolder';
-import Footer from '../../components/common/Footer';
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { OfficeDetails } from '../../../data/officeDetails';
 import Header from '../../components/Header';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -23,6 +23,8 @@ import moment from 'moment';
 import { Design } from '../../../data/design';
 import { useTranslation } from 'next-i18next';
 import { useWindowSize } from '../../hooks/UseWindowSize';
+
+import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 
 interface IRoomDetailsProps {
   officeDetails: OfficeDetails;
@@ -134,18 +136,54 @@ const RoomDetails = (props: IRoomDetailsProps) => {
             <div className={styles.ctaBoxHolder}>
               <div className={styles.ctaBox}>
                 {imageData.map((item, index) => (
-                  <div
-                    className={styles.ctaItem}
-                    onClick={() => setCtaSelected(index)}
-                  >
-                    <h3>Lorem ipsum {index}</h3>
-                    {ctaSelected === index && (
-                      <div>
-                        <h4>TEXTO DO CTA {index}</h4>
+                  <>
+                    <div
+                      key={index}
+                      className={styles.ctaItem}
+                      onClick={() => setCtaSelected(index)}
+                    >
+                      <div className={styles.ctaItemHeader}>
+                        <h3>Oferta {index}</h3>
+                        {ctaSelected !== index && (
+                          <>
+                            <div className={styles.ctaItemHeaderNotSelected}>
+                              <h4>R$ 128</h4>
+                              <ExpandMoreOutlinedIcon
+                                className={styles.chevronDownIcon}
+                              />
+                            </div>
+                          </>
+                        )}
+                        {ctaSelected === index && (
+                          <h4>
+                            2 noites <span>R$ 128</span>
+                          </h4>
+                        )}{' '}
                       </div>
-                    )}
-                  </div>
+                      {ctaSelected === index && (
+                        <div className={styles.ctaItemContent}>
+                          <ul>
+                            <li>Não reembolsável</li>
+                            <li>Café da manhã incluso</li>
+                            <li>All included</li>
+                          </ul>
+
+                          <div className={styles.addButtons}>
+                            <button disabled>
+                              <RemoveOutlined className={styles.removeIcon} />
+                            </button>
+                            <h5>0</h5>
+                            <button>
+                              <Add className={styles.addIcon} />
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </>
                 ))}
+
+                <button className={styles.confirmBtn}>Confirmar</button>
               </div>
             </div>
           </div>
