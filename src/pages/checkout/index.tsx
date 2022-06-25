@@ -2,6 +2,7 @@ import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import React from 'react';
+import { ChevronLeft } from 'react-feather';
 
 import styles from './styles.module.scss';
 
@@ -14,11 +15,26 @@ const Checkout = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.mainBox}>
+        <div className={styles.mobHeader}>
+          <div className={styles.btnGoBack}>
+            <ChevronLeft width={18} height={18} />
+          </div>
+
+          <h2>Checkout</h2>
+        </div>
+
+        <div className={styles.mobTotalPrice}>
+          <div>
+            <h4>Total(BRL)</h4>
+          </div>
+          <div>
+            <h3>R$ 98,00</h3>
+          </div>
+        </div>
+
         <div className={styles.contentBox}>
           <div className={styles.content}>
             <div className={styles.infoBox}>
-              <h2>Checkout</h2>
-
               <h3>Sua hospedagem</h3>
 
               <div className={styles.infoHolder}>
@@ -94,7 +110,84 @@ const Checkout = () => {
           </div>
 
           <div className={styles.mobPersonalDataContainer}>
+            <h6>Informe</h6>
+            <h3>Dados pessoais</h3>
 
+            <input
+              type="text"
+              className={styles.defaultInput}
+              placeholder="Nome"
+            />
+            <input
+              type="text"
+              className={styles.defaultInput}
+              placeholder="E-mail"
+            />
+            <input
+              type="text"
+              className={styles.defaultInput}
+              placeholder="Telefone"
+            />
+            <input
+              type="text"
+              className={styles.defaultInput}
+              placeholder="CPF"
+            />
+
+            <h6 style={{ marginTop: '1rem' }}>Informe</h6>
+            <h3>Forma de pagamento</h3>
+
+            <input
+              type="text"
+              className={styles.defaultInput}
+              placeholder="Cartão de crédito"
+            />
+            <input
+              type="text"
+              className={styles.defaultInput}
+              placeholder="Parcelamento"
+            />
+
+            <div className={styles.cardInfoHolder}>
+              <input
+                placeholder={'Número do cartão'}
+                className={styles.cardNumberInput}
+                type="text"
+              />
+              <div style={{ display: 'flex', width: '100%' }}>
+                <input
+                  type="text"
+                  placeholder={'Validade'}
+                  className={styles.validityInput}
+                />
+                <input
+                  type="text"
+                  placeholder={'CVV'}
+                  className={styles.cvvInput}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.mobPoliticsContainer}>
+            <h3>Políticas</h3>
+          </div>
+
+          <div className={styles.mobConfirmContainer}>
+            <h6>
+              Ao clicar no botão abaixo, concordo com as seguintes políticas:{' '}
+              <strong>
+                {' '}
+                <u>
+                  Políticas de Reserva, Política de Reembolso e Remarcação de
+                  Reserva.
+                </u>
+              </strong>
+            </h6>
+
+            <button className={styles.confirmBtn}>
+              Confirmar
+            </button>
           </div>
         </div>
       </main>

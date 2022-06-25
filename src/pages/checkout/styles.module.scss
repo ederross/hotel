@@ -5,6 +5,56 @@
 
   font-family: 'DM Sans';
 
+  .mobHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 112px;
+    background: linear-gradient(
+      90.72deg,
+      var(--primary-color) 23.93%,
+      #0a7763 138.27%
+    );
+
+    h2 {
+      font-weight: 500;
+      color: var(--light-text);
+    }
+
+    .btnGoBack {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 99;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0.2rem 0.2rem #002;
+
+      width: 36px;
+      height: 36px;
+      border-radius: 100%;
+
+      background-color: var(--light-text);
+    }
+  }
+
+  .mobTotalPrice {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--dark-text);
+    padding: 2rem 1rem;
+
+    h3 {
+      color: var(--light-text);
+    }
+    h4 {
+      color: var(--light-text);
+    }
+  }
+
   .contentBox {
     display: flex;
     flex-direction: column;
@@ -147,7 +197,7 @@
         justify-content: flex-end;
 
         h5 {
-          font-weight: 500;
+          font-weight: 800;
           font-size: 16px;
         }
       }
@@ -163,6 +213,104 @@
       padding-bottom: 1rem;
 
       border-bottom: 5px solid #dadada;
+
+      h6 {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--gray-400);
+      }
+
+      h3 {
+        margin-bottom: 1rem;
+        font-size: 1.05rem;
+        font-weight: 500;
+      }
+
+      .defaultInput {
+        border: 2px solid var(--gray-150);
+        border-radius: 8px;
+        padding: 1rem 1rem;
+
+        margin-bottom: 0.5rem;
+      }
+
+      .cardInfoHolder {
+        display: flex;
+        flex-direction: column;
+
+        .cardNumberInput {
+          border: 2px solid var(--gray-150);
+          padding: 1rem 1rem;
+          border-top-left-radius: 1rem;
+          border-top-right-radius: 1rem;
+          border-bottom: none;
+        }
+
+        .validityInput {
+          border: 2px solid var(--gray-150);
+          padding: 1rem 1rem;
+          border-bottom-left-radius: 1rem;
+          border-right: none;
+          width: 50%;
+        }
+
+        .cvvInput {
+          width: 50%;
+          border: 2px solid var(--gray-150);
+          padding: 1rem 1rem;
+          border-bottom-right-radius: 1rem;
+        }
+      }
+    }
+
+    .mobPoliticsContainer {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-height: auto;
+      padding: 0 1rem;
+      padding-bottom: 1rem;
+
+      border-bottom: 5px solid #dadada;
+    }
+
+    .mobConfirmContainer {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-height: auto;
+      padding: 0 1rem;
+      padding-bottom: 1rem;
+
+      h6 {
+        font-weight: 500;
+        font-size: 0.7rem;
+      }
+
+      .confirmBtn {
+        margin-top: 1rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        padding: 16px;
+        border-radius: 0.5rem;
+        width: 100%;
+        height: 64px;
+        background: linear-gradient(
+          90.72deg,
+          var(--primary-color) 23.93%,
+          #0a7763 138.27%
+        );
+
+        font-size: 1rem;
+        font-weight: 500;
+
+        color: var(--light-text);
+      }
     }
   }
 }
