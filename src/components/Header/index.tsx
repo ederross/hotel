@@ -202,7 +202,11 @@ export default function Header({ design }: IHeader) {
           <form
             className={styles.search}
             onClick={
-              scrolled || router.pathname !== '/' ? openDatePicker : () => {}
+              (scrolled || router.pathname !== '/') &&
+              !inputCalendars &&
+              !inputGuest
+                ? openDatePicker
+                : () => {}
             }
           >
             <p className={styles.searchPlaceholder}>{dynamicPlaceholder}</p>
