@@ -14,6 +14,8 @@ interface IWebFilters {
     startDate: Date;
     endDate: Date;
     key: string;
+    adults: number;
+    children: number;
   }[];
   setDateState: any;
   isCalendarVisible: boolean;
@@ -30,6 +32,9 @@ const WebFilters = ({
 }: IWebFilters) => {
   const { locale } = useRouter();
   const { t } = useTranslation('common');
+
+  const handleUpdateState = (props: Object) =>
+    setDateState([{ ...dateState[0], ...props }]);
 
   return (
     <>
@@ -60,7 +65,11 @@ const WebFilters = ({
                 <>
                   <Container>
                     <DateRangePicker
-                      onChange={(item) => setDateState([item.selection] as any)}
+                      onChange={(item) =>
+                        setDateState([
+                          { ...dateState[0], ...item.selection },
+                        ] as any)
+                      }
                       moveRangeOnFirstSelection={false}
                       months={2}
                       ranges={dateState}
@@ -93,13 +102,22 @@ const WebFilters = ({
               {inputGuest && (
                 <>
                   <div className={styles.guestsContainer}>
-                    <h4>Adultos</h4>
+                    <h4>{t('adult_many')}</h4>
                     <div className={styles.addButtons}>
-                      <button disabled>
+                      <button
+                        disabled={dateState[0].adults < 2}
+                        onClick={() =>
+                          handleUpdateState({ adults: dateState[0].adults - 1 })
+                        }
+                      >
                         <RemoveOutlined className={styles.removeIcon} />
                       </button>
-                      <h5>0</h5>
-                      <button>
+                      <h5>{dateState[0].adults}</h5>
+                      <button
+                        onClick={() =>
+                          handleUpdateState({ adults: dateState[0].adults + 1 })
+                        }
+                      >
                         <Add className={styles.addIcon} />
                       </button>
                     </div>
@@ -108,13 +126,26 @@ const WebFilters = ({
                     className={styles.guestsContainer}
                     style={{ marginTop: '1.5rem', border: 'none' }}
                   >
-                    <h4>Crianças</h4>
+                    <h4>{t('children_many')}</h4>
                     <div className={styles.addButtons}>
-                      <button disabled>
+                      <button
+                        disabled={dateState[0].children <= 0}
+                        onClick={() =>
+                          handleUpdateState({
+                            children: dateState[0].children - 1,
+                          })
+                        }
+                      >
                         <RemoveOutlined className={styles.removeIcon} />
                       </button>
-                      <h5>0</h5>
-                      <button>
+                      <h5>{dateState[0].children}</h5>
+                      <button
+                        onClick={() =>
+                          handleUpdateState({
+                            children: dateState[0].children + 1,
+                          })
+                        }
+                      >
                         <Add className={styles.addIcon} />
                       </button>
                     </div>

@@ -19,11 +19,10 @@ import moment from 'moment';
 import LanguageSwitcher from '../LanguageSwitcher';
 
 interface IHeader {
-  placeholder: string;
   design: Design;
 }
 
-export default function Header({ placeholder, design }: IHeader) {
+export default function Header({ design }: IHeader) {
   const { t } = useTranslation('common');
   const router = useRouter();
 
@@ -33,40 +32,36 @@ export default function Header({ placeholder, design }: IHeader) {
   const [inputCalendars, setInputCalendars] = useState(false);
   const [isCalendarVisible, setIsCalendarVisible] = useState(false);
   const [inputGuest, setInputGuest] = useState(false);
-  const primaryLocationRef = useRef(null);
-  const secondaryLocationRef = useRef(null);
   const [openLanguageSwitcher, setOpenLanguageSwitcher] = useState(false);
+
+  const { startDate, endDate, adults, children }: any = router.query;
 
   // Window Sizes
   const size = useWindowSize();
 
-  //form data
-  const [location, setLocation] = useState('');
-  const [checkInDate, setCheckInDate] = useState('2022-05-25');
-  const [checkOutDate, setCheckOutDate] = useState('2022-05-30');
-  const [numberOfAdults, setNumberOfAdults] = useState(2);
-  const [numberOfChildren, setNumberOfChildren] = useState(0);
-  const [childrenAges, setChildrenAges] = useState();
-
   //Data Picker
   const [dateState, setDateState] = useState([
     {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 0),
+      startDate: startDate ? new Date(`${startDate}T00:00`) : new Date(),
+      endDate: endDate ? new Date(`${endDate}T00:00`) : addDays(new Date(), 3),
+      adults: parseInt(adults) || 1,
+      children: parseInt(children) || 0,
       key: 'selection',
     },
   ]);
+
+  //form data
+  const checkInDate = moment(dateState[0].startDate).format('YYYY-MM-DD');
+  const checkOutDate = moment(dateState[0].endDate).format('YYYY-MM-DD');
+  const numberOfAdults = dateState[0].adults;
+  const numberOfChildren = dateState[0].children;
+  const [childrenAges, setChildrenAges] = useState();
 
   const openDatePicker = () => {
     setInputCalendars(true);
     setIsCalendarVisible(true);
     setInputGuest(false);
     document.body.style.overflow = 'hidden';
-    setTimeout(() => {
-      if (!(size.width >= 868) && secondaryLocationRef.current) {
-        secondaryLocationRef.current.focus();
-      }
-    }, 10);
   };
 
   const openGuestSelector = () => {
@@ -75,11 +70,6 @@ export default function Header({ placeholder, design }: IHeader) {
     setIsCalendarVisible(false);
 
     document.body.style.overflow = 'hidden';
-    setTimeout(() => {
-      if (!(size.width >= 868) && secondaryLocationRef.current) {
-        secondaryLocationRef.current.focus();
-      }
-    }, 10);
   };
 
   const handleOpenLanguageSwitcher = () => {
@@ -91,42 +81,23 @@ export default function Header({ placeholder, design }: IHeader) {
     setOpenLanguageSwitcher(!openLanguageSwitcher);
   };
 
-  const closeDatePickerWeb = () => {
+  const closeFilters = () => {
     setInputCalendars(false);
-    setLocation('');
-    setNumberOfChildren(0);
-    setNumberOfAdults(0);
-    setCheckInDate('');
-    setCheckOutDate('');
-    document.body.style.overflow = 'initial';
-  };
-
-  const closeMobileFilters = () => {
-    setInputCalendars(false);
-    setLocation('');
-    setNumberOfChildren(0);
-    setNumberOfAdults(0);
-    setCheckInDate('');
-    setCheckOutDate('');
     document.body.style.overflow = 'initial';
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (!location) {
-    //   primaryLocationRef.current.focus();
-    //   return;
-    // }
     router.push({
       pathname: '/search',
       query: {
-        startDate: checkInDate.toString(),
-        endDate: checkOutDate.toString(),
+        startDate: checkInDate,
+        endDate: checkOutDate,
         adults: numberOfAdults,
         children: numberOfChildren,
       },
     });
-    setTimeout(() => closeMobileFilters(), 100);
+    setTimeout(() => closeFilters(), 100);
   };
 
   useEffect(() => {
@@ -154,6 +125,17 @@ export default function Header({ placeholder, design }: IHeader) {
     );
   }
 
+  const filterString = `${moment(dateState[0].startDate).format(
+    'DD'
+  )} - ${moment(dateState[0].endDate).format('ll')} | ${
+    numberOfAdults + numberOfChildren
+  } ${t('GUEST', {
+    count: numberOfAdults + numberOfChildren,
+  })}`;
+
+  const dynamicPlaceholder =
+    router.pathname === '/search' ? filterString : t('YOUR-HOSTING');
+
   return (
     <header
       ref={headerRef}
@@ -165,7 +147,10 @@ export default function Header({ placeholder, design }: IHeader) {
         ${inputCalendars ? styles.inputFocus : null}`}
       style={{
         display: router.pathname !== '/' && size.width <= 868 && 'none',
-        position: router.pathname !== '/' ? 'relative' : 'fixed',
+        position:
+          router.pathname !== '/' && router.pathname !== '/search'
+            ? 'relative'
+            : 'fixed',
       }}
     >
       <div className={styles.headerInner}>
@@ -190,22 +175,13 @@ export default function Header({ placeholder, design }: IHeader) {
         {/* Mobile Start Dynamic Input Search */}
         {!inputCalendars && size.width <= 868 && (
           <>
-            <form className={styles.search}>
-              <input
-                type="text"
-                ref={primaryLocationRef}
-                placeholder={placeholder || t('YOUR-HOSTING')}
-                onFocus={openDatePicker}
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                required
-              />
+            <form onClick={openDatePicker}>
+              <p className={styles.searchPlaceholder}>{dynamicPlaceholder}</p>
               <button
                 type="submit"
                 disabled={
                   inputCalendars &&
                   !(
-                    location &&
                     checkInDate &&
                     checkOutDate &&
                     (numberOfAdults || numberOfChildren)
@@ -223,17 +199,13 @@ export default function Header({ placeholder, design }: IHeader) {
 
         {/* Web Start Dynamic Input Search */}
         {size.width >= 868 && (
-          <form className={styles.search}>
-            <input
-              type="text"
-              ref={primaryLocationRef}
-              placeholder={placeholder || t('YOUR-HOSTING')}
-              onFocus={openDatePicker}
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              required
-            />
-
+          <form
+            className={styles.search}
+            onClick={
+              scrolled || router.pathname !== '/' ? openDatePicker : () => {}
+            }
+          >
+            <p className={styles.searchPlaceholder}>{dynamicPlaceholder}</p>
             <div className={styles.overlay}>
               <div
                 className={styles.field}
@@ -288,16 +260,8 @@ export default function Header({ placeholder, design }: IHeader) {
 
             <button
               type="submit"
-              disabled={
-                inputCalendars &&
-                !(
-                  location &&
-                  checkInDate &&
-                  checkOutDate &&
-                  (numberOfAdults || numberOfChildren)
-                )
-              }
-              onClick={handleSubmit}
+              disabled={!(checkInDate && checkOutDate && numberOfAdults > 0)}
+              onClick={scrolled ? openDatePicker : handleSubmit}
               aria-label="search places"
             >
               <Search />
@@ -308,7 +272,7 @@ export default function Header({ placeholder, design }: IHeader) {
 
         {size.width >= 868 && inputCalendars && (
           <WebFilters
-            closeDatePickerWeb={closeDatePickerWeb}
+            closeDatePickerWeb={closeFilters}
             customDayContent={customDayContent}
             dateState={dateState}
             setDateState={setDateState}
@@ -320,7 +284,7 @@ export default function Header({ placeholder, design }: IHeader) {
         {size.width <= 868 && inputCalendars && (
           <Filters
             handleSubmit={handleSubmit as any}
-            closeMobileFilters={closeMobileFilters}
+            closeMobileFilters={closeFilters}
           />
         )}
         {openLanguageSwitcher && (

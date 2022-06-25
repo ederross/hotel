@@ -1,13 +1,5 @@
-.headerSection {
-  position: fixed;
-  top: 0;
-  color: #fafafc;
-  padding: 0 var(--sidePadding);
-  height: 84px;
-  width: 100%;
-  z-index: 10;
-  transition: background 0.2s, border-bottom 0.2s;
-  //   background: red;
+.mainContainer {
+  padding: 6rem 0 0;
 }
 
 .filterInfo {
