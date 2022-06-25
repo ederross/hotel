@@ -8,6 +8,10 @@ export const CarouselHolderStyles = styled.div`
   flex-direction: column;
   position: relative;
 
+  
+  border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+
   &:hover {
     .arrowBtnLeft {
       display: flex;
