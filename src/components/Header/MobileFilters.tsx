@@ -133,7 +133,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  font-family: 'DM Sans';
+  /* font-family: 'DM Sans'; */
   font-weight: bold;
   padding: 0 1rem;
 

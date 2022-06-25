@@ -4,9 +4,6 @@
   cursor: pointer;
   position: relative;
   justify-content: space-between;
-  font-family: 'DM Sans' !important;
-
-
 
   .containerCarousel {
     height: 232px;
@@ -33,7 +30,7 @@
 
       h5 {
         padding: 0 0.2rem;
-        font-size: 0.70rem;
+        font-size: 0.7rem;
         font-weight: 600;
       }
     }
@@ -79,7 +76,7 @@
         margin: 8px 0;
 
         font-weight: 600;
-        font-size: 0.60rem;
+        font-size: 0.6rem;
       }
     }
   }
@@ -92,7 +89,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      font-family: 'DM Sans';
+      // font-family: 'DM Sans';
 
       h4 {
         margin-bottom: 0.5rem;
@@ -117,7 +114,6 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      font-family: 'DM Sans';
 
       button {
         display: flex;
@@ -138,9 +134,9 @@
           font-size: 14px;
         }
       }
-        h5 {
-          padding: 0 0.5rem;
-        }
+      h5 {
+        padding: 0 0.5rem;
+      }
     }
   }
 }

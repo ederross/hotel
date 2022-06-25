@@ -28,7 +28,7 @@
 }
 
 body {
-  font-family: 'Epilogue', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   background: var(--light);
   color: var(--dark);
   line-height: 1.5;
@@ -80,13 +80,7 @@ button {
 .btn:active {
   transform: scale(0.95);
 }
-/* 
-section:not(.hero) {
-  margin: 3rem var(--sidePadding) 0;
-} */
-/* section:last-of-type {
-  margin-bottom: 3rem;
-} */
+
 section h2 {
   font-weight: 800;
   font-size: 1.75rem;
