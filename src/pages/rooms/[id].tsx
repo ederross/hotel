@@ -229,7 +229,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   // pegar os quartos mais vistos e colocar nos paths
 
-  const ids = ['13', '2', '3', '4', '5']; // Example
+  const ids = ['13', '14', '15', '16', '17']; // Example
   const paths = ids.map((id) => ({
     params: { id },
   }));
