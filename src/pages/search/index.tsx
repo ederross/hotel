@@ -22,7 +22,8 @@ interface ISearch {
 const Search = ({ searchResult, officeDetails, design }: ISearch) => {
   const router = useRouter();
   const { t } = useTranslation('common');
-
+  const { startDate, endDate, adults, children }: any = router.query;
+  
   return (
     <>
       <Head>
