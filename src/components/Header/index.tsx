@@ -40,22 +40,24 @@ export default function Header({ placeholder, design }: IHeader) {
   // Window Sizes
   const size = useWindowSize();
 
-  //form data
-  const [location, setLocation] = useState('');
-  const [checkInDate, setCheckInDate] = useState('2022-05-25');
-  const [checkOutDate, setCheckOutDate] = useState('2022-05-30');
-  const [numberOfAdults, setNumberOfAdults] = useState(2);
-  const [numberOfChildren, setNumberOfChildren] = useState(0);
-  const [childrenAges, setChildrenAges] = useState();
-
   //Data Picker
   const [dateState, setDateState] = useState([
     {
       startDate: new Date(),
-      endDate: addDays(new Date(), 0),
+      endDate: addDays(new Date(), 3),
+      adults: 1,
+      children: 0,
       key: 'selection',
     },
   ]);
+
+  //form data
+  const [location, setLocation] = useState('');
+  const checkInDate = moment(dateState[0].startDate).format('YYYY-MM-DD');
+  const checkOutDate = moment(dateState[0].endDate).format('YYYY-MM-DD');
+  const numberOfAdults = dateState[0].adults;
+  const numberOfChildren = dateState[0].children;
+  const [childrenAges, setChildrenAges] = useState();
 
   const openDatePicker = () => {
     setInputCalendars(true);
@@ -91,42 +93,23 @@ export default function Header({ placeholder, design }: IHeader) {
     setOpenLanguageSwitcher(!openLanguageSwitcher);
   };
 
-  const closeDatePickerWeb = () => {
+  const closeFilters = () => {
     setInputCalendars(false);
-    setLocation('');
-    setNumberOfChildren(0);
-    setNumberOfAdults(0);
-    setCheckInDate('');
-    setCheckOutDate('');
-    document.body.style.overflow = 'initial';
-  };
-
-  const closeMobileFilters = () => {
-    setInputCalendars(false);
-    setLocation('');
-    setNumberOfChildren(0);
-    setNumberOfAdults(0);
-    setCheckInDate('');
-    setCheckOutDate('');
     document.body.style.overflow = 'initial';
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (!location) {
-    //   primaryLocationRef.current.focus();
-    //   return;
-    // }
     router.push({
       pathname: '/search',
       query: {
-        startDate: checkInDate.toString(),
-        endDate: checkOutDate.toString(),
+        startDate: checkInDate,
+        endDate: checkOutDate,
         adults: numberOfAdults,
         children: numberOfChildren,
       },
     });
-    setTimeout(() => closeMobileFilters(), 100);
+    setTimeout(() => closeFilters(), 100);
   };
 
   useEffect(() => {
@@ -190,22 +173,13 @@ export default function Header({ placeholder, design }: IHeader) {
         {/* Mobile Start Dynamic Input Search */}
         {!inputCalendars && size.width <= 868 && (
           <>
-            <form className={styles.search}>
-              <input
-                type="text"
-                ref={primaryLocationRef}
-                placeholder={placeholder || t('YOUR-HOSTING')}
-                onFocus={openDatePicker}
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                required
-              />
+            <form>
+              <p className={styles.searchPlaceholder}>{t('YOUR-HOSTING')}</p>
               <button
                 type="submit"
                 disabled={
                   inputCalendars &&
                   !(
-                    location &&
                     checkInDate &&
                     checkOutDate &&
                     (numberOfAdults || numberOfChildren)
@@ -224,16 +198,7 @@ export default function Header({ placeholder, design }: IHeader) {
         {/* Web Start Dynamic Input Search */}
         {size.width >= 868 && (
           <form className={styles.search}>
-            <input
-              type="text"
-              ref={primaryLocationRef}
-              placeholder={placeholder || t('YOUR-HOSTING')}
-              onFocus={openDatePicker}
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              required
-            />
-
+            <p className={styles.searchPlaceholder}>{t('YOUR-HOSTING')}</p>
             <div className={styles.overlay}>
               <div
                 className={styles.field}
@@ -288,15 +253,7 @@ export default function Header({ placeholder, design }: IHeader) {
 
             <button
               type="submit"
-              disabled={
-                inputCalendars &&
-                !(
-                  location &&
-                  checkInDate &&
-                  checkOutDate &&
-                  (numberOfAdults || numberOfChildren)
-                )
-              }
+              disabled={!(checkInDate && checkOutDate && numberOfAdults > 0)}
               onClick={handleSubmit}
               aria-label="search places"
             >
@@ -308,7 +265,7 @@ export default function Header({ placeholder, design }: IHeader) {
 
         {size.width >= 868 && inputCalendars && (
           <WebFilters
-            closeDatePickerWeb={closeDatePickerWeb}
+            closeDatePickerWeb={closeFilters}
             customDayContent={customDayContent}
             dateState={dateState}
             setDateState={setDateState}
@@ -320,7 +277,7 @@ export default function Header({ placeholder, design }: IHeader) {
         {size.width <= 868 && inputCalendars && (
           <Filters
             handleSubmit={handleSubmit as any}
-            closeMobileFilters={closeMobileFilters}
+            closeMobileFilters={closeFilters}
           />
         )}
         {openLanguageSwitcher && (

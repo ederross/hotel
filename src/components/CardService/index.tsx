@@ -2,8 +2,13 @@ import React from 'react';
 import styles from './styles.module.scss';
 import CarouselHolder from '../common/CarouselHolder';
 import { Add, RemoveOutlined } from '@mui/icons-material';
+import { Service } from '../../../data/services';
 
-const CardService = () => {
+interface ICardService {
+  service: Service;
+}
+
+const CardService = ({ service }: ICardService) => {
   return (
     <>
       <div className={styles.container}>
@@ -14,12 +19,9 @@ const CardService = () => {
           <h5>Aluguel</h5>
         </div>
 
-        <h2>Passeio de balão</h2>
+        <h2>{service.serviceName}</h2>
 
-        <p>
-          Air Fun Balonismo está há 28 Anos no mercado passeio de Balão em
-          Boituva. Faça sua reserva. Passeio de Balão com...
-        </p>
+        <p>{service.serviceDescription}</p>
 
         <div className={styles.priceAndControlsContainerHolder}>
           <div className={styles.pricesInfos}>
