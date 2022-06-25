@@ -149,7 +149,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
                       }}
                       onClick={() => setCtaSelected(index)}
                     >
-                      <div className={styles.ctaItemHeader}>
+                      <div key={index} className={styles.ctaItemHeader}>
                         <h3>Oferta {index}</h3>
                         {ctaSelected !== index && (
                           <>
@@ -229,10 +229,11 @@ const RoomDetails = (props: IRoomDetailsProps) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   // pegar os quartos mais vistos e colocar nos paths
 
-  return {
-    paths: [],
-    fallback: true,
-  };
+  const ids = ['13', '2', '3', '4', '5']; // Example
+  const paths = ids.map((id) => ({
+    params: { id },
+  }));
+  return { paths, fallback: false };
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
