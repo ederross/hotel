@@ -25,6 +25,7 @@ import { useTranslation } from 'next-i18next';
 import { useWindowSize } from '../../hooks/UseWindowSize';
 
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
+import Footer from '../../components/common/Footer';
 
 interface IRoomDetailsProps {
   officeDetails: OfficeDetails;
@@ -140,6 +141,12 @@ const RoomDetails = (props: IRoomDetailsProps) => {
                     <div
                       key={index}
                       className={styles.ctaItem}
+                      style={{
+                        borderBottom:
+                          imageData.length - 1 !== index
+                            ? '1px solid var(--gray-150)'
+                            : 'none',
+                      }}
                       onClick={() => setCtaSelected(index)}
                     >
                       <div className={styles.ctaItemHeader}>
@@ -214,7 +221,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
           <button>Reservar</button>
         </div>
       </div>
-      {/* <Footer officeDetails={props.officeDetails} /> */}
+      <Footer officeDetails={props.officeDetails} />
     </>
   );
 };

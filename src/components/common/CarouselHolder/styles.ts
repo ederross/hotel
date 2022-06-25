@@ -7,7 +7,7 @@ export const CarouselHolderStyles = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  
+
   &:hover {
     .arrowBtnLeft {
       display: flex;
@@ -78,8 +78,7 @@ export const CarouselHolderStyles = styled.div`
     height: 100%;
     display: fixed;
 
-
-    background-color:red;
+    background-color: rgb(135, 135, 135, 0.2);
 
     overflow-x: scroll;
     overflow-y: hidden;
@@ -116,7 +115,6 @@ export const CarouselHolderStyles = styled.div`
     left: 50%;
     margin-top: -2rem;
     transform: translate(-50%, 0);
-
 
     &::-webkit-scrollbar {
       display: none;

@@ -1,7 +1,5 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
-import styled from 'styled-components';
-
 import styles from './styles.module.scss';
 
 interface IImageComponent {
@@ -25,7 +23,7 @@ const ImageComponent = ({
   return (
     <div className={styles.img}>
       <Image
-        className={className}
+        className={`${className}` + `${loading ? styles.loading : null}`}
         style={style}
         layout="fill"
         objectFit="cover"

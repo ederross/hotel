@@ -84,11 +84,14 @@ const Search = ({
                 <CardRoom key={index} room={room} />
               ))}
             </section>
-            <h2>Serviços</h2>
-            <section className={styles.contentResultContainer}>
-              {servicesResult?.map((service, index) => (
-                <CardService key={index} service={service} />
-              ))}
+            <section className={styles.serviceResultContainer}>
+              <h4 className={styles.subtitle}>Confira</h4>
+              <h2 className={styles.title}>Serviços disponíveis</h2>
+              <div className={styles.contentResultContainer}>
+                {servicesResult?.map((service, index) => (
+                  <CardService key={index} service={service} />
+                ))}
+              </div>
             </section>
           </>
         )}

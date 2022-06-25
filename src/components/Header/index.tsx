@@ -84,6 +84,7 @@ export default function Header({ design }: IHeader) {
 
   const closeFilters = () => {
     setInputCalendars(false);
+    setInputGuest(false);
     document.body.style.overflow = 'initial';
   };
 
@@ -180,17 +181,8 @@ export default function Header({ design }: IHeader) {
         {/* Mobile Start Dynamic Input Search */}
         {!inputCalendars && size.width <= 868 && (
           <>
-            <form
-              onClick={openDatePicker}
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                paddingLeft: 12,
-              }}
-            >
-              <div
-               className={styles.btnGoBack}
-              >
+            <form onClick={openDatePicker}>
+              <div className={styles.btnGoBack}>
                 {router.pathname === '/search' && (
                   <ChevronLeftOutlinedIcon style={{}} />
                 )}

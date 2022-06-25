@@ -1,21 +1,25 @@
 .img {
-    flex: 0 0 100%;
-    padding-bottom: 66.67%;
-    position: relative;
-    scroll-snap-align: start;
-    width: 100%;
-    min-height: 236px;
-    max-width: 100%;
-    max-height: 100%;
+  flex: 0 0 100%;
+  padding-bottom: 66.67%;
+  position: relative;
+  scroll-snap-align: start;
+  width: 100%;
+  min-height: 236px;
+  max-width: 100%;
+  max-height: 100%;
 
-    &.loading {
-      animation: shimmer 2s infinite;
-      background: linear-gradient(
-        to right,
-        #eff1f3 4%,
-        #e2e2e2 25%,
-        #eff1f3 36%
-      );
-      background-size: 1000px 100%;
+  &.loading {
+    animation: shimmer 2s infinite;
+    background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);
+    background-size: 1000px 100%;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
     }
   }
+}
