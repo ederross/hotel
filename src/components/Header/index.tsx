@@ -181,33 +181,39 @@ export default function Header({ design }: IHeader) {
         {/* Mobile Start Dynamic Input Search */}
         {!inputCalendars && size.width <= 868 && (
           <>
-            <form onClick={openDatePicker}>
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
               {router.pathname === '/search' && (
                 <div className={styles.btnGoBack}>
-                  <ChevronLeftOutlinedIcon
-                    onClick={() => router.back()}
-                    style={{}}
-                  />
+                  <ChevronLeftOutlinedIcon />
                 </div>
               )}
-              <p className={styles.searchPlaceholder}>{dynamicPlaceholder}</p>
-              <button
-                type="submit"
-                disabled={
-                  inputCalendars &&
-                  !(
-                    checkInDate &&
-                    checkOutDate &&
-                    (numberOfAdults || numberOfChildren)
-                  )
-                }
-                onClick={handleSubmit}
-                aria-label="search places"
-              >
-                <Search />
-                <span>{t('SEARCH')}</span>
-              </button>
-            </form>
+              <form onClick={openDatePicker}>
+                <p className={styles.searchPlaceholder}>{dynamicPlaceholder}</p>
+                <button
+                  type="submit"
+                  disabled={
+                    inputCalendars &&
+                    !(
+                      checkInDate &&
+                      checkOutDate &&
+                      (numberOfAdults || numberOfChildren)
+                    )
+                  }
+                  onClick={handleSubmit}
+                  aria-label="search places"
+                >
+                  <Search />
+                  <span>{t('SEARCH')}</span>
+                </button>
+              </form>
+            </div>
           </>
         )}
 

@@ -120,7 +120,6 @@
     // grid-template-columns: 1fr 1fr;
     display: flex;
     justify-content: space-between;
-
   }
 
   .logo {
@@ -184,6 +183,8 @@
     box-shadow: 0 1rem 3rem -1rem #1e1e38;
     transition: all 0.2s;
     transform-origin: center;
+
+    justify-content: space-between;
 
     color: var(--dark-text);
 
@@ -261,10 +262,21 @@
     // .headerInner {
     //   grid-template-columns: 1fr;
     // }
+
+    .btnGoBack {
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 200px;
+      border: 2px solid var(--gray-150);
+    }
     form {
       position: relative;
       transform: none !important;
-      width: 100% !important;
+      width: 70% !important;
       left: unset;
       top: 0;
       margin: 0;
@@ -281,17 +293,6 @@
         height: 1rem;
         width: 1rem;
       }
-
-      .btnGoBack {
-        z-index: 999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 48px;
-        height: 36px;
-        border-radius: 200px;
-        border: 2px solid var(--gray-150);
-      }
     }
   }
 
@@ -305,7 +306,6 @@
     background: var(--light-text);
     color: var(--dark);
     border-bottom: 1px solid var(--gray-150);
-
 
     .overlay {
       opacity: 0;
@@ -340,13 +340,6 @@
 
       & > button {
         max-width: 3rem;
-
-        width: 42px;
-        height: 36px;
-
-        @media screen and (min-width: 848px) {
-          width: unset;
-        }
       }
       & > button span {
         opacity: 0;
@@ -398,7 +391,6 @@
     margin-left: 1rem;
     color: var(--gray-600);
     font-size: 18px;
-    
 
     @media screen and (max-width: 868px) {
       font-size: 14px;
