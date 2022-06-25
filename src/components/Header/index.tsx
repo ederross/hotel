@@ -190,7 +190,7 @@ export default function Header({ design }: IHeader) {
               }}
             >
               {router.pathname === '/search' && (
-                <div className={styles.btnGoBack}>
+                <div className={styles.btnGoBack} onClick={() => router.back()}>
                   <ChevronLeftOutlinedIcon />
                 </div>
               )}

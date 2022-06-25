@@ -90,8 +90,11 @@ const CardRoom = ({ room }: ICardRoom) => {
               </u> */}
           </div>
           <div className={styles.addButtons}>
-            <button disabled>
-              <RemoveOutlined className={styles.removeIcon} />
+            <button disabled style={{ backgroundColor: 'var(--gray-150)' }}>
+              <RemoveOutlined
+                className={styles.removeIcon}
+                style={{ color: '#474747' }}
+              />
             </button>
             <h5>0</h5>
             <button>
