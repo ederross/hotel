@@ -182,11 +182,14 @@ export default function Header({ design }: IHeader) {
         {!inputCalendars && size.width <= 868 && (
           <>
             <form onClick={openDatePicker}>
-              <div className={styles.btnGoBack}>
-                {router.pathname === '/search' && (
-                  <ChevronLeftOutlinedIcon style={{}} />
-                )}
-              </div>
+              {router.pathname === '/search' && (
+                <div className={styles.btnGoBack}>
+                  <ChevronLeftOutlinedIcon
+                    onClick={() => router.back()}
+                    style={{}}
+                  />
+                </div>
+              )}
               <p className={styles.searchPlaceholder}>{dynamicPlaceholder}</p>
               <button
                 type="submit"

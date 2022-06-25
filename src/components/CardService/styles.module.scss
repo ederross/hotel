@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
   position: relative;
 
@@ -52,6 +53,7 @@
   .priceAndControlsContainerHolder {
     display: flex;
     height: auto;
+    
 
     .pricesInfos {
       flex: 1;

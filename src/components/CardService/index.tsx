@@ -21,7 +21,11 @@ const CardService = ({ service }: ICardService) => {
 
         <h2>{service.serviceName}</h2>
 
-        <p>{service.serviceDescription}</p>
+        <p>
+          {service.serviceDescription.length < 1
+            ? 'Ainda não existe uma descrição para esse serviço'
+            : service.serviceDescription}
+        </p>
 
         <div className={styles.priceAndControlsContainerHolder}>
           <div className={styles.pricesInfos}>

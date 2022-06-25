@@ -283,6 +283,7 @@
       }
 
       .btnGoBack {
+        z-index: 999;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -400,7 +401,7 @@
     
 
     @media screen and (max-width: 868px) {
-      font-size: 12px;
+      font-size: 14px;
     }
     white-space: nowrap;
     overflow: hidden;

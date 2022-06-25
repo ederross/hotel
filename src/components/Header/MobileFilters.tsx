@@ -33,21 +33,21 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
 
   function customDayContent(day) {
     let extraDot = null;
-    if (isWeekend(day)) {
-      extraDot = (
-        <div
-          style={{
-            height: '5px',
-            width: '5px',
-            borderRadius: '100%',
-            background: 'red',
-            position: 'absolute',
-            top: 2,
-            right: 2,
-          }}
-        />
-      );
-    }
+    // if (isWeekend(day)) {
+    //   extraDot = (
+    //     <div
+    //       style={{
+    //         height: '5px',
+    //         width: '5px',
+    //         borderRadius: '100%',
+    //         background: 'red',
+    //         position: 'absolute',
+    //         top: 2,
+    //         right: 2,
+    //       }}
+    //     />
+    //   );
+    // }
     return (
       <>
         <div>
@@ -80,7 +80,7 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
               moveRangeOnFirstSelection={false}
               ranges={state}
               months={1}
-              locale={locales[locale]}
+              locale={locales[locale === 'ptBR' ? 'pt' : locale]}
               dayContentRenderer={customDayContent}
               direction={'vertical'}
               minDate={new Date()}
