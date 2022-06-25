@@ -58,7 +58,7 @@ export default function Home(props: IHomeProps) {
       </Head>
 
       <main>
-        <Header design={props.design} placeholder={t('YOUR-HOSTING')} />
+        <Header design={props.design}/>
         <Hero officeDetails={props.officeDetails} design={props.design} />
         
         
