@@ -185,7 +185,8 @@ export default function Header({ design }: IHeader) {
               style={{
                 width: '100%',
                 display: 'flex',
-                justifyContent: 'space-between',
+                justifyContent:
+                  router.pathname === '/search' ? 'space-between' : 'center',
                 alignItems: 'center',
               }}
             >
@@ -194,7 +195,10 @@ export default function Header({ design }: IHeader) {
                   <ChevronLeftOutlinedIcon />
                 </div>
               )}
-              <form onClick={openDatePicker}>
+              <form
+                onClick={openDatePicker}
+                style={{ width: router.pathname !== '/search' ? '100%' : '70%'}}
+              >
                 <p className={styles.searchPlaceholder}>{dynamicPlaceholder}</p>
                 <button
                   type="submit"

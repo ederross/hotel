@@ -58,10 +58,9 @@ export default function Home(props: IHomeProps) {
       </Head>
 
       <main>
-        <Header design={props.design}/>
+        <Header design={props.design} />
         <Hero officeDetails={props.officeDetails} design={props.design} />
-        
-        
+
         <div className={styles.mainBox}>
           <section className={styles.eventsContainer}>
             <h2 className={styles.title}>
@@ -102,8 +101,8 @@ export default function Home(props: IHomeProps) {
               {t('SEE-WHAT-OUR-CUSTOMERS-ARE-SAYING')}
             </h2>
 
-            <div className={`${styles.scrollContainer} ${styles.grabbable}`}>
-              <Swiper
+            <div className={`${styles.scrollContainer}`}>
+              {/* <Swiper
                 spaceBetween={16}
                 slidesPerView={'auto'}
                 freeMode={true}
@@ -114,10 +113,15 @@ export default function Home(props: IHomeProps) {
                     key={index}
                     style={{ width: 'auto', marginRight: '2rem' }}
                   >
-                    <CardClient data={item} index={index} />
+                    
                   </SwiperSlide>
                 ))}
-              </Swiper>
+              </Swiper> */}
+              <div className={styles.clientsCardContainer}>
+                {props?.reviews?.map((item, index) => (
+                  <CardClient data={item} index={index} />
+                ))}
+              </div>
             </div>
           </section>
         </div>

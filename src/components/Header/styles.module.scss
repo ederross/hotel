@@ -276,7 +276,8 @@
     form {
       position: relative;
       transform: none !important;
-      width: 70% !important;
+      width: 70%;
+      max-width: 362px;
       left: unset;
       top: 0;
       margin: 0;

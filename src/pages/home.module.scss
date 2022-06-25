@@ -54,16 +54,15 @@
 .clientsContainer {
   display: flex;
   flex-direction: column;
+
   overflow: hidden;
   width: 100%;
 
   border-top: 1px solid var(--gray);
 
-  .scrollContainer {
-    cursor: grab;
-
-    &:active {
-      cursor: grabbing;
-    }
+  .clientsCardContainer {
+    display: flex;
+    overflow: auto;
+    padding-bottom: 8rem;
   }
 }
