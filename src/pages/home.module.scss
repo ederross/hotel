@@ -54,8 +54,7 @@
 .clientsContainer {
   display: flex;
   flex-direction: column;
-
-  overflow: hidden;
+  overflow-x: auto;
   width: 100%;
 
   border-top: 1px solid var(--gray);
@@ -63,6 +62,10 @@
   .clientsCardContainer {
     display: flex;
     overflow: auto;
-    padding-bottom: 8rem;
+
+    /* Removes the horizontal scrolbar */
+    .albums-cards-container::-webkit-scrollbar {
+      display: none;
+    }
   }
 }

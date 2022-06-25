@@ -101,7 +101,7 @@ export default function Home(props: IHomeProps) {
               {t('SEE-WHAT-OUR-CUSTOMERS-ARE-SAYING')}
             </h2>
 
-            <div className={`${styles.scrollContainer}`}>
+           
               {/* <Swiper
                 spaceBetween={16}
                 slidesPerView={'auto'}
@@ -122,7 +122,7 @@ export default function Home(props: IHomeProps) {
                   <CardClient data={item} index={index} />
                 ))}
               </div>
-            </div>
+           
           </section>
         </div>
         <Footer officeDetails={props?.officeDetails} />
