@@ -39,8 +39,8 @@ const Search = ({
       <Head>
         <title>Hotel - Pesquisa</title>
       </Head>
-      <main>
-        <Header design={design} placeholder={t('YOUR-HOSTING')} />
+      <main className={styles.mainContainer}>
+        <Header design={design} />
         {!searchResult || searchResult?.errors ? (
           <>
             <section className={styles.filterInfo}>

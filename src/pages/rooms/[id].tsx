@@ -27,6 +27,7 @@ import { useWindowSize } from '../../hooks/UseWindowSize';
 interface IRoomDetailsProps {
   officeDetails: OfficeDetails;
   design: Design;
+  servicesResult: any;
 }
 
 const RoomDetails = (props: IRoomDetailsProps) => {
@@ -50,9 +51,6 @@ const RoomDetails = (props: IRoomDetailsProps) => {
         </div> */}
 
         <div className={styles.contentBox}>
-
-
-          
           {size.width < 868 && (
             <div className={styles.btnGoBack}>
               <ChevronLeft width={18} height={18} />
@@ -143,9 +141,9 @@ const RoomDetails = (props: IRoomDetailsProps) => {
             <h4 className={styles.customSubtitle}>Confira</h4>
             <h2 className={styles.customTitle}>Serviços disponíveis</h2>
             <div className={styles.gridHolder}>
-              <CardService />
-              <CardService />
-              <CardService />
+              {props?.servicesResult?.map((service, index) => (
+                <CardService key={index} service={service} />
+              ))}
             </div>
           </section>
         </div>
@@ -190,6 +188,15 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const reviews = await fetch(base_url + '/offices/office1/reviews').then(
     (response) => response.json()
   );
+
+  const servicesResult = await fetch(
+    base_url +
+      '/booking/services/?' +
+      new URLSearchParams({
+        officeId: 'office1',
+      })
+  ).then((response) => response.json());
+
   const events = await fetch(
     base_url +
       '/offices/office1/events/?' +
@@ -204,6 +211,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
   return {
     props: {
+      servicesResult,
       officeDetails,
       design,
       reviews,
@@ -234,42 +242,3 @@ const imageData = [
 ];
 
 export default RoomDetails;
-
-// export const getServerSideProps: GetServerSideProps = async ({
-//   locale,
-//   query,
-// }) => {
-//   const base_url = 'http://book.hospeda.in';
-
-//   const { id }: any = query;
-
-//   try {
-//     const searchResult = await fetch(
-//       base_url +
-//         '/booking/room-search/?' +
-//         new URLSearchParams({
-//           officeId: 'office1',
-//         })
-//     )
-//       .then((response) => response.json())
-//       .catch(() => {
-//         return false;
-//       });
-
-//     return {
-//       props: {
-//         searchResult: searchResult,
-//         ...(await serverSideTranslations(locale, ['common'])),
-//       },
-//     };
-//   } catch (error) {
-//     console.log('ERRO', error);
-
-//     return {
-//       props: {
-//         searchResult: false,
-//         ...(await serverSideTranslations(locale, ['common'])),
-//       },
-//     };
-//   }
-// };
