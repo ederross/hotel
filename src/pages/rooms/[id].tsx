@@ -26,6 +26,8 @@ import { useWindowSize } from '../../hooks/UseWindowSize';
 
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import Footer from '../../components/common/Footer';
+import OffersRoomModal from '../../components/OffersRoomModal';
+import OffersAccordion from '../../components/OffersAccordion';
 
 interface IRoomDetailsProps {
   officeDetails: OfficeDetails;
@@ -35,7 +37,17 @@ interface IRoomDetailsProps {
 
 const RoomDetails = (props: IRoomDetailsProps) => {
   const { t } = useTranslation('common');
-  const [ctaSelected, setCtaSelected] = useState(0);
+  const [openOffersModal, setOpenOffersModal] = useState(false);
+
+  const handleOpenMobileOffersModal = () => {
+    if (document.body.style.overflow === 'hidden') {
+      setOpenOffersModal(false);
+      document.body.style.overflow = 'initial';
+    } else {
+      document.body.style.overflow = 'hidden';
+      setOpenOffersModal(true);
+    }
+  };
 
   // Window Sizes
   const size = useWindowSize();
@@ -136,60 +148,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
 
             <div className={styles.ctaBoxHolder}>
               <div className={styles.ctaBox}>
-                {imageData.map((item, index) => (
-                  <>
-                    <div
-                      key={index}
-                      className={styles.ctaItem}
-                      style={{
-                        borderBottom:
-                          imageData.length - 1 !== index
-                            ? '1px solid var(--gray-150)'
-                            : 'none',
-                      }}
-                      onClick={() => setCtaSelected(index)}
-                    >
-                      <div key={index} className={styles.ctaItemHeader}>
-                        <h3>Oferta {index}</h3>
-                        {ctaSelected !== index && (
-                          <>
-                            <div className={styles.ctaItemHeaderNotSelected}>
-                              <h4>R$ 128</h4>
-                              <ExpandMoreOutlinedIcon
-                                className={styles.chevronDownIcon}
-                              />
-                            </div>
-                          </>
-                        )}
-                        {ctaSelected === index && (
-                          <h4>
-                            2 noites <span>R$ 128</span>
-                          </h4>
-                        )}{' '}
-                      </div>
-                      {ctaSelected === index && (
-                        <div className={styles.ctaItemContent}>
-                          <ul>
-                            <li>Não reembolsável</li>
-                            <li>Café da manhã incluso</li>
-                            <li>All included</li>
-                          </ul>
-
-                          <div className={styles.addButtons}>
-                            <button disabled>
-                              <RemoveOutlined className={styles.removeIcon} />
-                            </button>
-                            <h5>0</h5>
-                            <button>
-                              <Add className={styles.addIcon} />
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </>
-                ))}
-
+                <OffersAccordion />
                 <button className={styles.confirmBtn}>Confirmar</button>
               </div>
             </div>
@@ -206,13 +165,17 @@ const RoomDetails = (props: IRoomDetailsProps) => {
           </section>
         </div>
       </main>
-
+      {size.width < 868 && openOffersModal && (
+        <OffersRoomModal
+          handleOpenMobileOffersModal={handleOpenMobileOffersModal}
+        />
+      )}
       <div className={styles.offersControlContainer}>
         <div className={styles.leftSide}>
           <h4>
             R$ 98 <span>2 noites</span>{' '}
           </h4>
-          <u>
+          <u onClick={() => handleOpenMobileOffersModal()}>
             <h6>Ver 2 ofertas</h6>
           </u>
         </div>
@@ -221,6 +184,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
           <button>Reservar</button>
         </div>
       </div>
+
       <Footer officeDetails={props.officeDetails} />
     </>
   );

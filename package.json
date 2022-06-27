@@ -17,6 +17,7 @@
     "@types/react-date-range": "^1.4.3",
     "@types/swiper": "^6.0.0",
     "date-fns": "^2.28.0",
+    "framer-motion": "^6.3.16",
     "i18next-chained-backend": "^3.0.2",
     "i18next-http-backend": "^1.4.1",
     "i18next-localstorage-backend": "^3.1.3",
