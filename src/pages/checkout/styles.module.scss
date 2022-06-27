@@ -5,6 +5,109 @@
 
   // font-family: 'DM Sans';
 
+  .webPaymentInfos {
+    display: none;
+    flex-direction: column;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 36px;
+    width: 40%;
+    min-width: 480px;
+    max-height: 760px;
+    color: var(--black);
+    border-radius: 0.5rem;
+    padding: 2rem 1.5rem;
+
+    -webkit-box-shadow: 0px 5px 8px -1px rgba(164, 164, 164, 0.53);
+    box-shadow: 0px 5px 8px -1px rgba(164, 164, 164, 0.53);
+
+
+    h3 {
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: var(--gray-with-blue-400);
+    }
+
+    
+    .priceInformation {
+      border-top: 1px solid #dadada;
+      border-bottom: 1px solid #dadada;
+      padding: 1rem 0;
+      margin-bottom:2rem;
+
+      h4 {
+        margin-bottom: 1rem;
+      }
+
+      h5 {
+        font-size: 0.8rem;
+        font-weight: 400;
+        color: var(--gray-with-blue-400);
+        margin: 0.3rem 0;
+      }
+    }
+
+    .row {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .roomContainer {
+     display: flex;
+     flex-direction: column;
+     width: 100%;
+     margin: 0.5rem 0;
+
+
+      h4 {
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--dark);
+      }
+
+      h5 {
+        font-size: 0.75rem;
+        font-weight: 400;
+        color: var(--gray-with-blue-400);
+      }
+
+      h6 {
+        font-size: 0.7rem;
+        font-weight: 400;
+        color: var(--gray-with-blue-400);
+      }
+
+    }
+    .confirmBtn {
+      margin-top: 1rem;
+
+     
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      padding: 16px;
+      border-radius: 0.5rem;
+      width: 100%;
+      height: 64px;
+      background: linear-gradient(
+        90.72deg,
+        var(--primary-color) 23.93%,
+        #0a7763 138.27%
+      );
+
+      font-size: 1rem;
+      font-weight: 500;
+
+      color: var(--light-text);
+    }
+
+    @media screen and (min-width: 868px) {
+      display: flex;
+    }
+  }
+
   .mobHeader {
     display: flex;
     align-items: center;
@@ -272,9 +375,9 @@
       }
     }
 
-    .mobPoliticsContainer {
+    .webPoliticsContainer {
       margin-top: 5rem;
-      display: flex;
+      display: none;
       flex-direction: column;
       width: 100%;
       min-height: auto;
@@ -334,6 +437,84 @@
           font-weight: 400;
           max-width: 600px;
         }
+      }
+
+      @media screen and (min-width: 868px) {
+        display: flex;
+      }
+    }
+
+    .mobPoliticsContainer {
+      margin-top: 5rem;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-height: auto;
+      padding: 2rem 1rem;
+
+      border-top: 1.5px solid #dadada;
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      h3 {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        font-weight: 500;
+      }
+
+      h5 {
+        font-size: 0.8rem;
+        color: var(--gray-400);
+        font-weight: 450;
+      }
+
+      a {
+        color: var(--dark-text);
+        font-weight: 500;
+        text-decoration: underline;
+      }
+
+      h6 {
+        font-size: 0.8rem;
+        color: var(--gray-400);
+        font-weight: 400;
+        max-width: 600px;
+      }
+
+      .policyCardContainer {
+        margin: 2rem 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .policyCard {
+        width: 100%;
+        height: 100%;
+        padding: 1.2rem 1rem;
+        border: 1.5px var(--gray-400) solid;
+
+        h3 {
+          margin-bottom: 0.5rem;
+          font-size: 0.8rem;
+          font-weight: 500;
+        }
+
+        p {
+          font-size: 0.7rem;
+          color: var(--gray-400);
+          font-weight: 400;
+          max-width: 600px;
+        }
+      }
+
+      @media screen and (min-width: 868px) {
+        display: none;
       }
     }
 
@@ -410,8 +591,6 @@
         .infoBox {
           flex: 1.5;
           color: #000;
-
-          padding-right: 4rem;
         }
 
         .ctaBoxHolder {
@@ -438,109 +617,6 @@
           }
         }
       }
-    }
-  }
-
-  .webPaymentInfos {
-    display: none;
-    flex-direction: column;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 36px;
-    width: 40%;
-    min-width: 480px;
-    max-height: 760px;
-    color: var(--black);
-    border-radius: 0.5rem;
-    padding: 2rem 1.5rem;
-
-    -webkit-box-shadow: 0px 5px 8px -1px rgba(164, 164, 164, 0.53);
-    box-shadow: 0px 5px 8px -1px rgba(164, 164, 164, 0.53);
-
-
-    h3 {
-      font-size: 0.7rem;
-      font-weight: 400;
-      color: var(--gray-with-blue-400);
-    }
-
-    
-    .priceInformation {
-      border-top: 1px solid #dadada;
-      border-bottom: 1px solid #dadada;
-      padding: 1rem 0;
-      margin-bottom:2rem;
-
-      h4 {
-        margin-bottom: 1rem;
-      }
-
-      h5 {
-        font-size: 0.8rem;
-        font-weight: 400;
-        color: var(--gray-with-blue-400);
-        margin: 0.3rem 0;
-      }
-    }
-
-    .row {
-      display: flex;
-      width: 100%;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .roomContainer {
-     display: flex;
-     flex-direction: column;
-     width: 100%;
-     margin: 0.5rem 0;
-
-
-      h4 {
-        font-size: 0.8rem;
-        font-weight: 500;
-        color: var(--dark);
-      }
-
-      h5 {
-        font-size: 0.75rem;
-        font-weight: 400;
-        color: var(--gray-with-blue-400);
-      }
-
-      h6 {
-        font-size: 0.7rem;
-        font-weight: 400;
-        color: var(--gray-with-blue-400);
-      }
-
-    }
-    .confirmBtn {
-      margin-top: 1rem;
-
-     
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: none;
-      padding: 16px;
-      border-radius: 0.5rem;
-      width: 100%;
-      height: 64px;
-      background: linear-gradient(
-        90.72deg,
-        var(--primary-color) 23.93%,
-        #0a7763 138.27%
-      );
-
-      font-size: 1rem;
-      font-weight: 500;
-
-      color: var(--light-text);
-    }
-
-    @media screen and (min-width: 868px) {
-      display: flex;
     }
   }
 

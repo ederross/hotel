@@ -2,9 +2,8 @@ import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import React from 'react';
-import { ChevronLeft } from 'react-feather';
+import React, { useState } from 'react';
+import { ChevronLeft, ChevronDown, ChevronUp } from 'react-feather';
 import Footer from '../../components/common/Footer';
 import Header from '../../components/Header';
 import { currency } from '../../utils/currency';
@@ -13,6 +12,8 @@ import styles from './styles.module.scss';
 
 const Checkout = ({ officeDetails, design }: any) => {
   const { t } = useTranslation();
+
+  const [policy, setPolicy] = useState(0);
   return (
     <>
       <Head>
@@ -226,7 +227,7 @@ const Checkout = ({ officeDetails, design }: any) => {
               </div>
             </div>
           </div>
-          <div className={styles.mobPoliticsContainer}>
+          <div className={styles.webPoliticsContainer}>
             <h3>Políticas</h3>
             <h5>
               Está reserva não é reembolsável.{' '}
@@ -277,6 +278,79 @@ const Checkout = ({ officeDetails, design }: any) => {
               ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet Lorem
               ipsum dolor sit ametLorem ipsum dolor sit amet
             </h6>
+          </div>
+
+          <div className={styles.mobPoliticsContainer}>
+            <h3>Políticas</h3>
+            <h5>
+              Está reserva não é reembolsável.{' '}
+              <a title="Políticas de reembolso" href="">
+                Saiba mais
+              </a>
+            </h5>
+            <h5>
+              Nossa Política de Causas de Força Maior não cobre interrupções de
+              viagem causadas pela COVID-19.{' '}
+              <a title="Política de Causas de Força Maior" href="">
+                Saiba mais
+              </a>
+            </h5>
+            <div className={styles.policyCardContainer}>
+              <div className={styles.policyCard} onClick={() => setPolicy(0)}>
+                <div className={styles.row}>
+                  <h3>Regras da casa</h3>
+                  {policy === 0 ? (
+                    <ChevronUp width={18} height={18} />
+                  ) : (
+                    <ChevronDown width={18} height={18} />
+                  )}
+                </div>
+                {policy === 0 && (
+                  <p>
+                    Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem
+                    ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
+                    dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor
+                    sit amet
+                  </p>
+                )}
+              </div>
+              <div className={styles.policyCard} onClick={() => setPolicy(1)}>
+                <div className={styles.row}>
+                  <h3>Saúde {'&'} segurança</h3>
+                  {policy === 1 ? (
+                    <ChevronUp width={18} height={18} />
+                  ) : (
+                    <ChevronDown width={18} height={18} />
+                  )}
+                </div>
+                {policy === 1 && (
+                  <p>
+                    Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem
+                    ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
+                    dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor
+                    sit amet
+                  </p>
+                )}
+              </div>
+              <div className={styles.policyCard} onClick={() => setPolicy(2)}>
+                <div className={styles.row}>
+                  <h3>Política de cancelamento</h3>
+                  {policy === 2 ? (
+                    <ChevronUp width={18} height={18} />
+                  ) : (
+                    <ChevronDown width={18} height={18} />
+                  )}
+                </div>
+                {policy === 2 && (
+                  <p>
+                    Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem
+                    ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
+                    dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor
+                    sit amet
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
 
           <div className={styles.mobConfirmContainer}>
