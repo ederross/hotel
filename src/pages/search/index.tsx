@@ -111,7 +111,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const { startDate, endDate, adults, children }: any = query;
 
-  try {
+  
     const officeDetails = await fetch(base_url + '/offices/office1').then(
       (response) => response.json()
     );
@@ -146,22 +146,12 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     return {
       props: {
-        servicesResult: servicesResult,
-        searchResult: searchResult,
+        servicesResult,
+        searchResult,
         officeDetails,
         design,
         ...(await serverSideTranslations(locale, ['common'])),
       },
     };
-  } catch (error) {
-    console.log('[Search error]:', error);
-
-    return {
-      props: {
-        servicesResult: false,
-        searchResult: false,
-        ...(await serverSideTranslations(locale, ['common'])),
-      },
-    };
-  }
+ 
 };
