@@ -42,13 +42,13 @@
 
   border-bottom: 1px solid var(--gray);
 
-  .scrollContainer {
-    cursor: grab;
+  // .scrollContainer {
+  //   cursor: grab;
 
-    &:active {
-      cursor: grabbing;
-    }
-  }
+  //   &:active {
+  //     cursor: grabbing;
+  //   }
+  // }
 }
 
 .clientsContainer {
