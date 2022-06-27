@@ -4,6 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronDown, ChevronUp } from 'react-feather';
+import { CheckoutSucessModal } from '../../components/CheckoutSucessModal';
 import Footer from '../../components/common/Footer';
 import Header from '../../components/Header';
 import { currency } from '../../utils/currency';
@@ -14,6 +15,17 @@ const Checkout = ({ officeDetails, design }: any) => {
   const { t } = useTranslation();
 
   const [policy, setPolicy] = useState(0);
+  const [successModalVisible, setSuccessModalVisible] = useState(false);
+
+  const handleOpenCheckoutSucessModal = () => {
+    document.body.style.overflow = 'hidden';
+    setSuccessModalVisible(true);
+  };
+  const handleCloseCheckoutSucessModal = () => {
+    document.body.style.overflow = 'initial';
+    setSuccessModalVisible(!successModalVisible);
+  };
+
   return (
     <>
       <Head>
@@ -223,7 +235,12 @@ const Checkout = ({ officeDetails, design }: any) => {
                   <h4>Total (BRL)</h4>
                   <h4>{currency(2298)}</h4>
                 </div>
-                <button className={styles.confirmBtn}>Confirmar</button>
+                <button
+                  className={styles.confirmBtn}
+                  onClick={handleOpenCheckoutSucessModal}
+                >
+                  Confirmar
+                </button>
               </div>
             </div>
           </div>
@@ -365,11 +382,21 @@ const Checkout = ({ officeDetails, design }: any) => {
               </strong>
             </h6>
 
-            <button className={styles.confirmBtn}>Confirmar</button>
+            <button
+              className={styles.confirmBtn}
+              onClick={handleOpenCheckoutSucessModal}
+            >
+              Confirmar
+            </button>
           </div>
         </div>
       </main>
       <Footer officeDetails={officeDetails} />
+      {successModalVisible && (
+        <CheckoutSucessModal
+          handleCloseCheckoutSucessModal={handleCloseCheckoutSucessModal}
+        />
+      )}
     </>
   );
 };
