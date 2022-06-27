@@ -6,10 +6,21 @@
   min-height: 216px;
   margin: 2rem 1rem 0;
 
+  @media screen and (min-width: 1280px) {
+    min-width: 312px;
+    max-width: 312px;
+    min-height: 312px;
+  }
+
   .img {
     position: relative;
     width: 100%;
     height: 216px;
+
+    @media screen and (min-width: 1280px) {
+      height: 312px;
+    }
+    
     object-fit: cover;
     object-position: center;
     border-radius: 100%;

@@ -57,14 +57,27 @@
   overflow-x: auto;
   width: 100%;
 
+  h2 {
+    text-align: center;
+    max-width: 80%;
+    align-self: center;
+
+    @media screen and (min-width: 1280px) {
+      max-width: 30%;
+    }
+  }
+
   border-top: 1px solid var(--gray);
 
   .clientsCardContainer {
     display: flex;
     overflow: auto;
+    @media screen and(min-width: 768px) {
+      align-self: center;
+    }
 
     /* Removes the horizontal scrolbar */
-    .albums-cards-container::-webkit-scrollbar {
+    &::-webkit-scrollbar {
       display: none;
     }
   }

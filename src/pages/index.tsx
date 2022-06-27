@@ -89,20 +89,11 @@ export default function Home(props: IHomeProps) {
           <HotelImagesSlider images={props?.images} />
 
           <section className={styles.clientsContainer}>
-            <h2
-              className={styles.title}
-              style={{
-                textAlign: 'center',
-                minWidth: 220,
-                maxWidth: '40vw',
-                alignSelf: 'center',
-              }}
-            >
+            <h2 className={`${styles.title}`}>
               {t('SEE-WHAT-OUR-CUSTOMERS-ARE-SAYING')}
             </h2>
 
-           
-              {/* <Swiper
+            {/* <Swiper
                 spaceBetween={16}
                 slidesPerView={'auto'}
                 freeMode={true}
@@ -117,12 +108,11 @@ export default function Home(props: IHomeProps) {
                   </SwiperSlide>
                 ))}
               </Swiper> */}
-              <div className={styles.clientsCardContainer}>
-                {props?.reviews?.map((item, index) => (
-                  <CardClient data={item} index={index} />
-                ))}
-              </div>
-           
+            <div className={styles.clientsCardContainer}>
+              {props?.reviews?.map((item, index) => (
+                <CardClient key={index} data={item} index={index} />
+              ))}
+            </div>
           </section>
         </div>
         <Footer officeDetails={props?.officeDetails} />
