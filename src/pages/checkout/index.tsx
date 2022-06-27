@@ -6,17 +6,19 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { ChevronLeft } from 'react-feather';
 import Footer from '../../components/common/Footer';
+import Header from '../../components/Header';
 import { currency } from '../../utils/currency';
 
 import styles from './styles.module.scss';
 
-const Checkout = ({ officeDetails }: any) => {
+const Checkout = ({ officeDetails, design }: any) => {
   const { t } = useTranslation();
   return (
     <>
       <Head>
         <title>Hotel | Checkout</title>
       </Head>
+      <Header design={design} />
       <main className={styles.mainBox}>
         <div className={styles.mobHeader}>
           <div className={styles.btnGoBack}>
@@ -38,6 +40,7 @@ const Checkout = ({ officeDetails }: any) => {
         <div className={styles.contentBox}>
           <div className={styles.mainContainer}>
             <div className={styles.inputsContainer}>
+              <h2>Checkout</h2>
               <div className={styles.content}>
                 <div className={styles.infoBox}>
                   <h3>Sua hospedagem</h3>
@@ -195,25 +198,85 @@ const Checkout = ({ officeDetails }: any) => {
                   </div>
                 ))}
               </div>
+              <div className={styles.priceInformation}>
+                <h4>Informações de preço</h4>
+                <div className={styles.row}>
+                  <h5>Hospedagem 18 noites</h5>
+                  <h5>{currency(98)}</h5>
+                </div>
+                <div className={styles.row}>
+                  <h5>Serviços</h5>
+                  <h5>{currency(98)}</h5>
+                </div>
+                <div className={styles.row}>
+                  <h5>Taxas</h5>
+                  <h5>{currency(98)}</h5>
+                </div>
+                <div className={styles.row}>
+                  <h5>Impostos</h5>
+                  <h5>{currency(98)}</h5>
+                </div>
+              </div>
               <div>
-                <h6>
-                  Ao clicar no botão abaixo, concordo com as seguintes
-                  políticas:{' '}
-                  <strong>
-                    {' '}
-                    <u>
-                      Políticas de Reserva, Política de Reembolso e Remarcação
-                      de Reserva.
-                    </u>
-                  </strong>
-                </h6>
-
+                <div className={styles.row}>
+                  <h4>Total (BRL)</h4>
+                  <h4>{currency(2298)}</h4>
+                </div>
                 <button className={styles.confirmBtn}>Confirmar</button>
               </div>
             </div>
           </div>
           <div className={styles.mobPoliticsContainer}>
             <h3>Políticas</h3>
+            <h5>
+              Está reserva não é reembolsável.{' '}
+              <a title="Políticas de reembolso" href="">
+                Saiba mais
+              </a>
+            </h5>
+            <h5>
+              Nossa Política de Causas de Força Maior não cobre interrupções de
+              viagem causadas pela COVID-19.{' '}
+              <a title="Política de Causas de Força Maior" href="">
+                Saiba mais
+              </a>
+            </h5>
+            <div className={styles.policyCardContainer}>
+              <div className={styles.policyCard}>
+                <h3>Regras da casa</h3>
+                <p>
+                  Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem
+                  ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
+                  dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor
+                  sit amet
+                </p>
+              </div>
+              <div className={styles.policyCard}>
+                <h3>Saúde {'&'} segurança</h3>
+                <p>
+                  Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem
+                  ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
+                  dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor
+                  sit amet
+                </p>
+              </div>
+              <div className={styles.policyCard}>
+                <h3>Política de cancelamento</h3>
+                <p>
+                  Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem
+                  ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
+                  dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor
+                  sit amet
+                </p>
+              </div>
+            </div>
+
+            <h6>
+              Lorem ipsum dolor sit amet. Lorem Ipsum dolor Lorem ipsum dolor
+              sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit
+              ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet Lorem
+              ipsum dolor sit ametLorem ipsum dolor sit amet
+            </h6>
           </div>
 
           <div className={styles.mobConfirmContainer}>
@@ -244,9 +307,14 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     (response) => response.json()
   );
 
+  const design = await fetch(base_url + '/offices/office1/design').then(
+    (response) => response.json()
+  );
+
   return {
     props: {
       officeDetails,
+      design,
       ...(await serverSideTranslations(locale, ['common'])),
     },
     revalidate: 60,
