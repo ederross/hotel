@@ -67,7 +67,7 @@ export default function Home(props: IHomeProps) {
               {t('CHECK-OUT-OUR-UPCOMING-EVENTS')}
             </h2>
 
-            <div className={`${styles.scrollContainer} ${styles.grabbable}`}>
+            <div className={`${styles.scrollContainer}`}>
               <Swiper
                 spaceBetween={16}
                 slidesPerView={'auto'}
