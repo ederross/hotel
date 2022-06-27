@@ -47,8 +47,11 @@ const CarouselHolder = ({
         <div className="arrowContainer">
           {currSlide > 0 && (
             <div
+              id="arrowLeft"
               className="arrowBtnLeft"
-              onClick={() => scrollToImage(currSlide - 1)}
+              onClick={(e) => {
+                e.stopPropagation(), scrollToImage(currSlide - 1);
+              }}
             >
               <ChevronLeft width={18} height={18} />
             </div>
@@ -57,7 +60,9 @@ const CarouselHolder = ({
           {currSlide < data.length - 1 && (
             <div
               className="arrowBtnRight"
-              onClick={() => scrollToImage(currSlide + 1)}
+              onClick={(e) => {
+                e.stopPropagation(), scrollToImage(currSlide + 1);
+              }}
             >
               <ChevronRight width={18} height={18} />
             </div>
