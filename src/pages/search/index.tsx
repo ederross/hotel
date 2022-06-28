@@ -125,7 +125,7 @@ const Search = ({
           </section>
         </>
         {/* )} */}
-        <Footer officeDetails={officeDetails} />
+        {/* <Footer officeDetails={officeDetails} /> */}
       </main>
     </>
   );
@@ -142,13 +142,13 @@ export const getServerSideProps: GetServerSideProps = async ({
   // const { startDate, endDate, adults, children }: any = query;
 
   // try {
-    const officeDetails = await fetch(base_url + '/offices/office1').then(
-      (response) => response.json()
-    );
+    // const officeDetails = await fetch(base_url + '/offices/office1').then(
+    //   (response) => response.json()
+    // );
 
-    const design = await fetch(base_url + '/offices/office1/design').then(
-      (response) => response.json()
-    );
+    // const design = await fetch(base_url + '/offices/office1/design').then(
+    //   (response) => response.json()
+    // );
 
     // const servicesResult = await fetch(
     //   base_url +
@@ -178,8 +178,8 @@ export const getServerSideProps: GetServerSideProps = async ({
       props: {
         // servicesResult: servicesResult,
         // searchResult: searchResult,
-        officeDetails,
-        design,
+        // officeDetails,
+        // design,
         ...(await serverSideTranslations(locale, ['common'])),
       },
     };
