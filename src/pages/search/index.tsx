@@ -68,6 +68,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         searchResult: searchResult,
         officeDetails,
         design,
+        fallback: true,
         ...(await serverSideTranslations(locale, ['common'])),
       },
     };
