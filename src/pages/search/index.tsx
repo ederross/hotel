@@ -13,7 +13,8 @@ import Footer from '../../components/common/Footer';
 import { OfficeDetails } from '../../../data/officeDetails';
 import { Design } from '../../../data/design';
 import CardService from '../../components/CardService';
-
+import { mockSearchResults } from '../../../mock/mockSearchResult';
+import { mockServicesResults } from '../../../mock/mockServicesResult';
 interface ISearch {
   servicesResult: any;
   searchResult: any;
@@ -38,34 +39,34 @@ export const getServerSideProps: GetServerSideProps = async ({
       (response) => response.json()
     );
 
-    const servicesResult = await fetch(
-      base_url +
-        '/booking/services/?' +
-        new URLSearchParams({
-          officeId: 'office1',
-        })
-    ).then((response) => response.json());
+    // const servicesResult = await fetch(
+    //   base_url +
+    //     '/booking/services/?' +
+    //     new URLSearchParams({
+    //       officeId: 'office1',
+    //     })
+    // ).then((response) => response.json());
 
-    const searchResult = await fetch(
-      base_url +
-        '/booking/room-search/?' +
-        new URLSearchParams({
-          officeId: 'office1',
-          startDate,
-          endDate,
-          adults,
-          children,
-        })
-    )
-      .then((response) => response.json())
-      .catch(() => {
-        return false;
-      });
+    // const searchResult = await fetch(
+    //   base_url +
+    //     '/booking/room-search/?' +
+    //     new URLSearchParams({
+    //       officeId: 'office1',
+    //       startDate,
+    //       endDate,
+    //       adults,
+    //       children,
+    //     })
+    // )
+    //   .then((response) => response.json())
+    //   .catch(() => {
+    //     return false;
+    //   });
 
     return {
       props: {
-        servicesResult: servicesResult,
-        searchResult: searchResult,
+        servicesResult: mockServicesResults,
+        searchResult: mockSearchResults,
         officeDetails,
         design,
         fallback: true,
