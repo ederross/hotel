@@ -5,7 +5,7 @@ import { HotelOutlined, AttractionsOutlined } from '@mui/icons-material';
 import CardRoom from '../../components/CardRoom';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, GetStaticProps } from 'next';
 import { URLSearchParams } from 'url';
 import Header from '../../components/Header';
 import { useTranslation } from 'next-i18next';
@@ -22,68 +22,49 @@ interface ISearch {
   design: Design;
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  locale,
-  query,
-}) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const base_url = 'http://book.hospeda.in';
+  const officeDetails = await fetch(base_url + '/offices/office1').then(
+    (response) => response.json()
+  );
+  const design = await fetch(base_url + '/offices/office1/design').then(
+    (response) => response.json()
+  );
 
-  const { startDate, endDate, adults, children }: any = query;
+  // const servicesResult = await fetch(
+  //   base_url +
+  //     '/booking/services/?' +
+  //     new URLSearchParams({
+  //       officeId: 'office1',
+  //     })
+  // ).then((response) => response.json());
 
-  try {
-    const officeDetails = await fetch(base_url + '/offices/office1').then(
-      (response) => response.json()
-    );
+  // const searchResult = await fetch(
+  //   base_url +
+  //     '/booking/room-search/?' +
+  //     new URLSearchParams({
+  //       officeId: 'office1',
+  //       startDate,
+  //       endDate,
+  //       adults,
+  //       children,
+  //     })
+  // )
+  //   .then((response) => response.json())
+  //   .catch(() => {
+  //     return false;
+  //   });
 
-    const design = await fetch(base_url + '/offices/office1/design').then(
-      (response) => response.json()
-    );
-
-    // const servicesResult = await fetch(
-    //   base_url +
-    //     '/booking/services/?' +
-    //     new URLSearchParams({
-    //       officeId: 'office1',
-    //     })
-    // ).then((response) => response.json());
-
-    // const searchResult = await fetch(
-    //   base_url +
-    //     '/booking/room-search/?' +
-    //     new URLSearchParams({
-    //       officeId: 'office1',
-    //       startDate,
-    //       endDate,
-    //       adults,
-    //       children,
-    //     })
-    // )
-    //   .then((response) => response.json())
-    //   .catch(() => {
-    //     return false;
-    //   });
-
-    return {
-      props: {
-        servicesResult: mockServicesResults,
-        searchResult: mockSearchResults,
-        officeDetails,
-        design,
-        fallback: true,
-        ...(await serverSideTranslations(locale, ['common'])),
-      },
-    };
-  } catch (error) {
-    console.log('[Search error]:', error);
-
-    return {
-      props: {
-        servicesResult: false,
-        searchResult: false,
-        ...(await serverSideTranslations(locale, ['common'])),
-      },
-    };
-  }
+  return {
+    props: {
+      servicesResult: mockServicesResults,
+      searchResult: mockSearchResults,
+      officeDetails,
+      design,
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+    revalidate: 60,
+  };
 };
 
 const Search = ({
