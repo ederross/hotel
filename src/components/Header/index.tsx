@@ -92,12 +92,12 @@ export default function Header({ design }: IHeader) {
     e.preventDefault();
     router.push({
       pathname: '/search',
-      query: {
-        startDate: checkInDate,
-        endDate: checkOutDate,
-        adults: numberOfAdults,
-        children: numberOfChildren,
-      },
+      // query: {
+      //   startDate: checkInDate,
+      //   endDate: checkOutDate,
+      //   adults: numberOfAdults,
+      //   children: numberOfChildren,
+      // },
     });
     // setTimeout(() => closeFilters(), 100);
     closeFilters();
