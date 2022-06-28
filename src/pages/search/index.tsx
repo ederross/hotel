@@ -34,6 +34,36 @@ const Search = ({
   const formattedNumber = (number: number) =>
     number < 10 && number > 0 ? `0${number}` : '';
 
+  const handleApi = async () => {
+    const base_url = 'http://book.hospeda.in';
+    const servicesResult = await fetch(
+      base_url +
+        '/booking/services/?' +
+        new URLSearchParams({
+          officeId: 'office1',
+        })
+    ).then((response) => console.log(response.json()));
+
+    const searchResult = await fetch(
+      base_url +
+        '/booking/room-search/?' +
+        new URLSearchParams({
+          officeId: 'office1',
+          startDate,
+          endDate,
+          adults,
+          children,
+        })
+    )
+      .then((response) => console.log(response.json()))
+      .catch(() => {
+        return false;
+      });
+  };
+  useEffect(() => {
+    handleApi();
+  }, []);
+
   return (
     <>
       <Head>
@@ -50,50 +80,50 @@ const Search = ({
             </section>
           </>
         ) : ( */}
-          <>
-            <section className={styles.filterInfo}>
-              <div style={{ flex: 1, paddingTop: 1 }}>
-                {/* <h2>
+        <>
+          <section className={styles.filterInfo}>
+            <div style={{ flex: 1, paddingTop: 1 }}>
+              {/* <h2>
                   <span>{formattedNumber(searchResult?.length || 0)}</span>{' '}
                   quartos com{' '}
                   <span>{formattedNumber(servicesResult?.length || 0)}</span>{' '}
                   serviços foram encontrados
                 </h2> */}
+            </div>
+            <div className={styles.filtersMobileSection}>
+              <div
+                style={{
+                  borderBottom: '6px solid black',
+                }}
+                className={styles.filterButtonContainer}
+              >
+                <HotelOutlined style={{ marginBottom: '0.2rem' }} />
+                <h4>Quartos</h4>
               </div>
-              <div className={styles.filtersMobileSection}>
-                <div
-                  style={{
-                    borderBottom: '6px solid black',
-                  }}
-                  className={styles.filterButtonContainer}
-                >
-                  <HotelOutlined style={{ marginBottom: '0.2rem' }} />
-                  <h4>Quartos</h4>
-                </div>
-                <div
-                  style={{ opacity: 0.35, paddingBottom: '1.4rem' }}
-                  className={styles.filterButtonContainer}
-                >
-                  <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
-                  <h4>Serviços</h4>
-                </div>
+              <div
+                style={{ opacity: 0.35, paddingBottom: '1.4rem' }}
+                className={styles.filterButtonContainer}
+              >
+                <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
+                <h4>Serviços</h4>
               </div>
-            </section>
-            <section className={styles.contentResultContainer}>
-              {/* {searchResult?.map((room, index) => (
+            </div>
+          </section>
+          <section className={styles.contentResultContainer}>
+            {/* {searchResult?.map((room, index) => (
                 <CardRoom key={index} room={room} />
               ))} */}
-            </section>
-            <section className={styles.serviceResultContainer}>
-              <h4 className={styles.subtitle}>Confira</h4>
-              <h2 className={styles.title}>Serviços disponíveis</h2>
-              <div className={styles.contentResultContainer}>
-                {/* {servicesResult?.map((service, index) => (
+          </section>
+          <section className={styles.serviceResultContainer}>
+            <h4 className={styles.subtitle}>Confira</h4>
+            <h2 className={styles.title}>Serviços disponíveis</h2>
+            <div className={styles.contentResultContainer}>
+              {/* {servicesResult?.map((service, index) => (
                   <CardService key={index} service={service} />
                 ))} */}
-              </div>
-            </section>
-          </>
+            </div>
+          </section>
+        </>
         {/* )} */}
         <Footer officeDetails={officeDetails} />
       </main>
@@ -109,9 +139,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   const base_url = 'http://book.hospeda.in';
 
-  const { startDate, endDate, adults, children }: any = query;
+  // const { startDate, endDate, adults, children }: any = query;
 
-  try {
+  // try {
     const officeDetails = await fetch(base_url + '/offices/office1').then(
       (response) => response.json()
     );
@@ -153,15 +183,15 @@ export const getServerSideProps: GetServerSideProps = async ({
         ...(await serverSideTranslations(locale, ['common'])),
       },
     };
-  } catch (error) {
-    console.log('[Search error]:', error);
+  // } catch (error) {
+  //   console.log('[Search error]:', error);
 
-    return {
-      props: {
-        servicesResult: false,
-        searchResult: false,
-        ...(await serverSideTranslations(locale, ['common'])),
-      },
-    };
-  }
+  //   return {
+  //     props: {
+  //       servicesResult: false,
+  //       searchResult: false,
+  //       ...(await serverSideTranslations(locale, ['common'])),
+  //     },
+  //   };
+  // }
 };
