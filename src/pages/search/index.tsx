@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import styles from './search.module.scss';
 import { HotelOutlined, AttractionsOutlined } from '@mui/icons-material';
@@ -21,108 +21,82 @@ interface ISearch {
   design: Design;
 }
 
+export const getServerSideProps: GetServerSideProps = async ({
+  locale,
+  query,
+}) => {
+  const base_url = 'http://book.hospeda.in';
 
-// export const getServerSideProps: GetServerSideProps = async ({
-//   locale,
-//   query,
-// }) => {
-  // const base_url = 'http://book.hospeda.in';
+  const { startDate, endDate, adults, children }: any = query;
 
-  // const { startDate, endDate, adults, children }: any = query;
+  try {
+    const officeDetails = await fetch(base_url + '/offices/office1').then(
+      (response) => response.json()
+    );
 
-  // try {
-    // const officeDetails = await fetch(base_url + '/offices/office1').then(
-    //   (response) => response.json()
-    // );
+    const design = await fetch(base_url + '/offices/office1/design').then(
+      (response) => response.json()
+    );
 
-    // const design = await fetch(base_url + '/offices/office1/design').then(
-    //   (response) => response.json()
-    // );
+    const servicesResult = await fetch(
+      base_url +
+        '/booking/services/?' +
+        new URLSearchParams({
+          officeId: 'office1',
+        })
+    ).then((response) => response.json());
 
-    // const servicesResult = await fetch(
-    //   base_url +
-    //     '/booking/services/?' +
-    //     new URLSearchParams({
-    //       officeId: 'office1',
-    //     })
-    // ).then((response) => response.json());
+    const searchResult = await fetch(
+      base_url +
+        '/booking/room-search/?' +
+        new URLSearchParams({
+          officeId: 'office1',
+          startDate,
+          endDate,
+          adults,
+          children,
+        })
+    )
+      .then((response) => response.json())
+      .catch(() => {
+        return false;
+      });
 
-    // const searchResult = await fetch(
-    //   base_url +
-    //     '/booking/room-search/?' +
-    //     new URLSearchParams({
-    //       officeId: 'office1',
-    //       startDate,
-    //       endDate,
-    //       adults,
-    //       children,
-    //     })
-    // )
-    //   .then((response) => response.json())
-    //   .catch(() => {
-    //     return false;
-    //   });
+    return {
+      props: {
+        servicesResult: servicesResult,
+        searchResult: searchResult,
+        officeDetails,
+        design,
+        ...(await serverSideTranslations(locale, ['common'])),
+      },
+    };
+  } catch (error) {
+    console.log('[Search error]:', error);
 
-    // return {
-    //   props: {
-        // servicesResult: servicesResult,
-        // searchResult: searchResult,
-        // officeDetails,
-        // design,
-    //     ...(await serverSideTranslations(locale, ['common'])),
-    //   },
-    // };
-  // } catch (error) {
-  //   console.log('[Search error]:', error);
+    return {
+      props: {
+        servicesResult: false,
+        searchResult: false,
+        ...(await serverSideTranslations(locale, ['common'])),
+      },
+    };
+  }
+};
 
-  //   return {
-  //     props: {
-  //       servicesResult: false,
-  //       searchResult: false,
-  //       ...(await serverSideTranslations(locale, ['common'])),
-  //     },
-  //   };
-  // }
-// };
-
-
-const Search = (s) => {
+const Search = ({
+  searchResult,
+  servicesResult,
+  officeDetails,
+  design,
+}: ISearch) => {
   const router = useRouter();
   const { t } = useTranslation('common');
+  const [selectedTab, setSelectedTab] = useState('rooms');
   const { startDate, endDate, adults, children }: any = router.query;
 
   const formattedNumber = (number: number) =>
     number < 10 && number > 0 ? `0${number}` : '';
-
-  // const handleApi = async () => {
-  //   const base_url = 'http://book.hospeda.in';
-  //   const servicesResult = await fetch(
-  //     base_url +
-  //       '/booking/services/?' +
-  //       new URLSearchParams({
-  //         officeId: 'office1',
-  //       })
-  //   ).then((response) => console.log(response.json()));
-
-  //   const searchResult = await fetch(
-  //     base_url +
-  //       '/booking/room-search/?' +
-  //       new URLSearchParams({
-  //         officeId: 'office1',
-  //         startDate,
-  //         endDate,
-  //         adults,
-  //         children,
-  //       })
-  //   )
-  //     .then((response) => console.log(response.json()))
-  //     .catch(() => {
-  //       return false;
-  //     });
-  // };
-  // useEffect(() => {
-  //   handleApi();
-  // }, []);
 
   return (
     <>
@@ -130,8 +104,8 @@ const Search = (s) => {
         <title>Hotel - Pesquisa</title>
       </Head>
       <main className={styles.mainContainer}>
-        {/* <Header design={design} /> */}
-        {/* {!searchResult || searchResult?.errors ? (
+        <Header design={design} />
+        {!searchResult || searchResult?.errors ? (
           <>
             <section className={styles.filterInfo}>
               <div style={{ flex: 1, paddingTop: 1 }}>
@@ -139,53 +113,91 @@ const Search = (s) => {
               </div>
             </section>
           </>
-        ) : ( */}
-        <>
-          <section className={styles.filterInfo}>
-            <div style={{ flex: 1, paddingTop: 1 }}>
-              {/* <h2>
+        ) : (
+          <>
+            <section className={styles.filterInfo}>
+              <div style={{ flex: 1, paddingTop: 1 }}>
+                <h2>
                   <span>{formattedNumber(searchResult?.length || 0)}</span>{' '}
                   quartos com{' '}
                   <span>{formattedNumber(servicesResult?.length || 0)}</span>{' '}
                   serviços foram encontrados
-                </h2> */}
-            </div>
-            <div className={styles.filtersMobileSection}>
-              <div
-                style={{
-                  borderBottom: '6px solid black',
-                }}
-                className={styles.filterButtonContainer}
-              >
-                <HotelOutlined style={{ marginBottom: '0.2rem' }} />
-                <h4>Quartos</h4>
+                </h2>
               </div>
-              <div
-                style={{ opacity: 0.35, paddingBottom: '1.4rem' }}
-                className={styles.filterButtonContainer}
-              >
-                <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
-                <h4>Serviços</h4>
+              <div className={styles.filtersMobileSection}>
+                <div
+                  style={
+                    selectedTab === 'rooms'
+                      ? {
+                          borderBottom: '6px solid black',
+                        }
+                      : { opacity: 0.35, paddingBottom: '1.4rem' }
+                  }
+                  className={styles.filterButtonContainer}
+                  onClick={() => setSelectedTab('rooms')}
+                >
+                  <HotelOutlined style={{ marginBottom: '0.2rem' }} />
+                  <h4>Quartos</h4>
+                </div>
+                <div
+                  style={
+                    selectedTab === 'services'
+                      ? {
+                          borderBottom: '6px solid black',
+                        }
+                      : { opacity: 0.35, paddingBottom: '1.4rem' }
+                  }
+                  className={styles.filterButtonContainer}
+                  onClick={() => setSelectedTab('services')}
+                >
+                  <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
+                  <h4>Serviços</h4>
+                </div>
               </div>
+            </section>
+            <div className={styles.webResults}>
+              <section className={styles.contentResultContainer}>
+                {searchResult?.map((room, index) => (
+                  <CardRoom key={index} room={room} />
+                ))}
+              </section>
+              <section className={styles.serviceResultContainer}>
+                <h4 className={styles.subtitle}>Confira</h4>
+                <h2 className={styles.title}>Serviços disponíveis</h2>
+                <div className={styles.contentResultContainer}>
+                  {servicesResult?.map((service, index) => (
+                    <CardService key={index} service={service} />
+                  ))}
+                </div>
+              </section>
             </div>
-          </section>
-          <section className={styles.contentResultContainer}>
-            {/* {searchResult?.map((room, index) => (
-                <CardRoom key={index} room={room} />
-              ))} */}
-          </section>
-          <section className={styles.serviceResultContainer}>
-            <h4 className={styles.subtitle}>Confira</h4>
-            <h2 className={styles.title}>Serviços disponíveis</h2>
-            <div className={styles.contentResultContainer}>
-              {/* {servicesResult?.map((service, index) => (
-                  <CardService key={index} service={service} />
-                ))} */}
+            <div className={styles.mobileResults}>
+              {selectedTab === 'rooms' && (
+                <section className={styles.serviceResultContainer}>
+                  <h4 className={styles.subtitle}>Confira</h4>
+                  <h2 className={styles.title}>Quartos disponíveis</h2>
+                  <div className={styles.contentResultContainer}>
+                    {searchResult?.map((room, index) => (
+                      <CardRoom key={index} room={room} />
+                    ))}
+                  </div>
+                </section>
+              )}
+              {selectedTab === 'services' && (
+                <section className={styles.serviceResultContainer}>
+                  <h4 className={styles.subtitle}>Confira</h4>
+                  <h2 className={styles.title}>Serviços disponíveis</h2>
+                  <div className={styles.contentResultContainer}>
+                    {servicesResult?.map((service, index) => (
+                      <CardService key={index} service={service} />
+                    ))}
+                  </div>
+                </section>
+              )}
             </div>
-          </section>
-        </>
-        {/* )} */}
-        {/* <Footer officeDetails={officeDetails} /> */}
+          </>
+        )}
+        <Footer officeDetails={officeDetails} />
       </main>
     </>
   );
