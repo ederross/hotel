@@ -40,11 +40,14 @@ export default function Header({ design }: IHeader) {
   // Window Sizes
   const size = useWindowSize();
 
+  const defaultEndDate = new Date();
+  defaultEndDate.setDate(defaultEndDate.getDate() + 1);
+
   //Data Picker
   const [dateState, setDateState] = useState([
     {
       startDate: startDate ? new Date(`${startDate}T00:00`) : new Date(),
-      endDate: endDate ? new Date(`${endDate}T00:00`) : addDays(new Date(), 3),
+      endDate: endDate ? new Date(`${endDate}T00:00`) : defaultEndDate,
       adults: parseInt(adults) || 1,
       children: parseInt(children) || 0,
       key: 'selection',
@@ -241,12 +244,16 @@ export default function Header({ design }: IHeader) {
               <div
                 className={styles.field}
                 onClick={openDatePicker}
-                style={{
-                  boxShadow:
-                    isCalendarVisible &&
-                    inputCalendars &&
-                    '0 1rem 3rem -1rem #1e1e38',
-                }}
+                style={
+                  checkInDate !== checkOutDate
+                    ? {
+                        boxShadow:
+                          isCalendarVisible &&
+                          inputCalendars &&
+                          '0 1rem 3rem -1rem #1e1e38',
+                      }
+                    : {}
+                }
               >
                 <label>{t('checkIn')}</label>
                 <input
@@ -256,12 +263,29 @@ export default function Header({ design }: IHeader) {
                 />
               </div>
 
-              <div className={styles.field}>
+              <div
+                className={styles.field}
+                style={
+                  checkInDate === checkOutDate
+                    ? {
+                        boxShadow:
+                          isCalendarVisible &&
+                          inputCalendars &&
+                          '0 1rem 3rem -1rem #1e1e38',
+                      }
+                    : {}
+                }
+                onClick={openDatePicker}
+              >
                 <label>{t('checkOut')}</label>
                 <input
                   disabled
                   placeholder="Add dates"
-                  value={moment(dateState[0].endDate).format('ll')}
+                  value={
+                    dateState[0].endDate
+                      ? moment(dateState[0].endDate).format('ll')
+                      : `${t('when')}?`
+                  }
                 />
               </div>
 
