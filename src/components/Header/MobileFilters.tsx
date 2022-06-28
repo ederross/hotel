@@ -70,11 +70,11 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
           }}
         >
           <button onClick={closeMobileFilters} className={styles.btnClose}>
-            {t('CLOSE')}
+            {t('close')}
           </button>
 
           <Container>
-            <h2>{t('SELECT-CHECK-IN-&-CHECK-OUT-DATES')}</h2>
+            <h2>{t('selectCheckInCheckOutDates')}</h2>
             <DateRange
               editableDateInputs={true}
               onChange={(item) => setState([item?.selection] as any)}
@@ -92,7 +92,7 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
           <div className={styles.divisor}></div>
 
           <div className={styles.eventsContainer}>
-            <h3>{t('NEXT-EVENTS')}</h3>
+            <h3>{t('nextEvents')}</h3>
             <Swiper
               spaceBetween={16}
               slidesPerView={'auto'}
@@ -147,7 +147,7 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
           <div className={styles.childrenAgeContainer}>
             <h4 className={styles.title}>{t('selectAge')}</h4>
             <div className={styles.sideToSideAgeControllerContainer}>
-              <h4>{t('children_many')}</h4>
+              <h4>{t('children_other')}</h4>
               <select name="pets" id="pet-select">
                 <option value="">{t('age')}</option>
                 <option value="one">1</option>

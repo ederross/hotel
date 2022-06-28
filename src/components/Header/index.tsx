@@ -131,7 +131,7 @@ export default function Header({ design }: IHeader) {
     'DD'
   )} - ${moment(dateState[0].endDate).format('ll')} | ${
     numberOfAdults + numberOfChildren
-  } ${t('guest', {
+  } ${t('guest_other', {
     count: numberOfAdults + numberOfChildren,
   })}`;
 
@@ -197,7 +197,9 @@ export default function Header({ design }: IHeader) {
               )}
               <form
                 onClick={openDatePicker}
-                style={{ width: router.pathname !== '/search' ? '100%' : '70%'}}
+                style={{
+                  width: router.pathname !== '/search' ? '100%' : '70%',
+                }}
               >
                 <p className={styles.searchPlaceholder}>{dynamicPlaceholder}</p>
                 <button
@@ -272,9 +274,8 @@ export default function Header({ design }: IHeader) {
               >
                 <label>{t('guest_other')}</label>
                 <span className="guestNumber">
-                  {numberOfChildren || numberOfAdults ? (
+                  {numberOfChildren > 0 || numberOfAdults > 0 ? (
                     <p>
-                      {numberOfAdults + numberOfChildren}{' '}
                       {t('guestWithCount_other', {
                         count: numberOfAdults + numberOfChildren,
                       })}
