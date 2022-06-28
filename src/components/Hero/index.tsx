@@ -28,11 +28,11 @@ const Hero = ({ officeDetails, design }: IHeroProps) => {
           <p>{officeDetails?.officeName}</p>
           <h1>
             {officeDetails?.officeSlogan?.substring(0, 42) ||
-              t('THE-BEST-VIEW-IN-THE-CITY')}
+              t('theBestViewInTheCity')}
           </h1>
           <Link href={'/'}>
-            <a className={`${'btn'}`} title={t('EXPLORE-ROOMS')}>
-              {t('EXPLORE-ROOMS')}
+            <a className={`${'btn'}`} title={t('exploreRooms')}>
+              {t('exploreRooms')}
             </a>
           </Link>
         </span>

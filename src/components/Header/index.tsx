@@ -131,12 +131,12 @@ export default function Header({ design }: IHeader) {
     'DD'
   )} - ${moment(dateState[0].endDate).format('ll')} | ${
     numberOfAdults + numberOfChildren
-  } ${t('GUEST', {
+  } ${t('guest', {
     count: numberOfAdults + numberOfChildren,
   })}`;
 
   const dynamicPlaceholder =
-    router.pathname === '/search' ? filterString : t('YOUR-HOSTING');
+    router.pathname === '/search' ? filterString : t('yourHosting');
 
   return (
     <header
@@ -214,7 +214,7 @@ export default function Header({ design }: IHeader) {
                   aria-label="search places"
                 >
                   <Search />
-                  <span>{t('SEARCH')}</span>
+                  <span>{t('search')}</span>
                 </button>
               </form>
             </div>
@@ -280,7 +280,7 @@ export default function Header({ design }: IHeader) {
                       })}
                     </p>
                   ) : (
-                    <p className="empty">{t('HOW-MANY')}?</p>
+                    <p className="empty">{t('howMany')}?</p>
                   )}
                 </span>
               </div>

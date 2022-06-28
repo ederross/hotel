@@ -86,7 +86,7 @@ const WebFilters = ({
                     />
                   </Container>
 
-                  <h4>{t('NEXT-EVENTS')}</h4>
+                  <h4>{t('nextEvents')}</h4>
                   <div
                     style={{
                       flex: 1,
@@ -102,7 +102,7 @@ const WebFilters = ({
               {inputGuest && (
                 <>
                   <div className={styles.guestsContainer}>
-                    <h4>{t('adult_many')}</h4>
+                    <h4>{t('adult_other')}</h4>
                     <div className={styles.addButtons}>
                       <button
                         disabled={dateState[0].adults < 2}
@@ -126,7 +126,7 @@ const WebFilters = ({
                     className={styles.guestsContainer}
                     style={{ marginTop: '1.5rem', border: 'none' }}
                   >
-                    <h4>{t('children_many')}</h4>
+                    <h4>{t('children_other')}</h4>
                     <div className={styles.addButtons}>
                       <button
                         disabled={dateState[0].children <= 0}
@@ -154,7 +154,7 @@ const WebFilters = ({
                   <div className={styles.childrenAgeContainer}>
                     <h4 className={styles.title}>{t('selectAge')}</h4>
                     <div className={styles.sideToSideAgeControllerContainer}>
-                      <h4>{t('kid')}</h4>
+                      <h4>{t('children_one')}</h4>
                       <select name="pets" id="pet-select">
                         <option value="">Idade</option>
                         <option value="one">1</option>
@@ -167,6 +167,7 @@ const WebFilters = ({
           </div>
         </div>
       </div>
+
       <div
         onClick={closeDatePickerWeb}
         style={{

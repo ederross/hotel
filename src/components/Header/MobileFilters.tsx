@@ -114,13 +114,13 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
           </div>
 
           <div className={styles.divisor}></div>
-          <h3>{t('GUEST_MANY')}</h3>
+          <h3>{t('guest_other')}</h3>
 
           <div
             className={styles.guestsContainer}
             style={{ marginTop: '1.5rem', border: 'none' }}
           >
-            <h4>{t('adult_many')}</h4>
+            <h4>{t('adult_other')}</h4>
             <div className={styles.addRemoveButtons}>
               <button>
                 <RemoveOutlined className={styles.removeIcon} />
@@ -132,7 +132,7 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
             </div>
           </div>
           <div className={styles.guestsContainer} style={{ border: 'none' }}>
-            <h4>{t('children_many')}</h4>
+            <h4>{t('children_other')}</h4>
             <div className={styles.addRemoveButtons}>
               <button>
                 <RemoveOutlined className={styles.removeIcon} />
@@ -149,7 +149,7 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
             <div className={styles.sideToSideAgeControllerContainer}>
               <h4>{t('children_many')}</h4>
               <select name="pets" id="pet-select">
-                <option value="">Idade</option>
+                <option value="">{t('age')}</option>
                 <option value="one">1</option>
               </select>
             </div>
@@ -157,7 +157,7 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
 
           <div className={styles.buttonContainer}>
             <button onClick={handleSubmit} className={styles.searchButton}>
-              {t('SEARCH')}
+              {t('search')}
             </button>
           </div>
         </div>

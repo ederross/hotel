@@ -41,7 +41,7 @@ const Footer = (props: IFooterProps) => {
           </SocialContainer>
 
           <ContactContainer>
-            <h3>{t('CONTACT')}</h3>
+            <h3>{t('contact')}</h3>
             <div className="row">
               <EmailRounded style={{ color: '#fff' }} />
               <p>contac@finehost.com</p>
@@ -67,19 +67,19 @@ const Footer = (props: IFooterProps) => {
           </ContactContainer>
 
           <InformationContainer>
-            <h3>{t('INFORMATION_MANY')}</h3>
-            <a href="/terms-and-conditions" title={t('TERMS-AND-CONDITIONS')}>
-              <p className="link">{t('TERMS-AND-CONDITIONS')}</p>
+            <h3>{t('information_other')}</h3>
+            <a href="/terms-and-conditions" title={t('termsAndConditions')}>
+              <p className="link">{t('termsAndConditions')}</p>
             </a>
             <br />
-            <a href="/privacy-police" title={t('PRIVACY-POLICIES')}>
-              <p className="link">{t('PRIVACY-POLICIES')}</p>
+            <a href="/privacy-police" title={t('privacyPolicies')}>
+              <p className="link">{t('privacyPolicies')}</p>
             </a>
           </InformationContainer>
         </div>
         <CopyrightContainer>
           <h4>
-            © {new Date().getFullYear()} FINEHOST. {t('ALL-RIGHTS-RESERVED')}
+            © {new Date().getFullYear()} FINEHOST. {t('allRightsReserved')}
           </h4>
           <p>Lorem ipsum dolor sit amet. Sectus actus dolor.</p>
         </CopyrightContainer>
