@@ -40,7 +40,7 @@ const Search = ({
         <title>Hotel - Pesquisa</title>
       </Head>
       <main className={styles.mainContainer}>
-        <Header design={design} />
+        {/* <Header design={design} /> */}
         {/* {!searchResult || searchResult?.errors ? (
           <>
             <section className={styles.filterInfo}>
