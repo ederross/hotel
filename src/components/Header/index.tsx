@@ -99,7 +99,8 @@ export default function Header({ design }: IHeader) {
         children: numberOfChildren,
       },
     });
-    setTimeout(() => closeFilters(), 100);
+    // setTimeout(() => closeFilters(), 100);
+    closeFilters();
   };
 
   useEffect(() => {
