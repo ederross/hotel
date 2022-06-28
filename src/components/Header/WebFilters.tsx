@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { Container } from './styles';
 import styles from './webFilters.module.scss';
 import { DateRangePicker } from 'react-date-range';
@@ -20,6 +20,9 @@ interface IWebFilters {
   setDateState: any;
   isCalendarVisible: boolean;
   inputGuest: boolean;
+  numberOfChildren: number;
+  childrenAges: number[];
+  setChildrenAges: Dispatch<SetStateAction<number[]>>;
 }
 
 const WebFilters = ({
@@ -29,6 +32,9 @@ const WebFilters = ({
   dateState,
   isCalendarVisible,
   inputGuest,
+  numberOfChildren,
+  childrenAges,
+  setChildrenAges,
 }: IWebFilters) => {
   const { locale } = useRouter();
   const { t } = useTranslation('common');
@@ -151,16 +157,29 @@ const WebFilters = ({
                     </div>
                   </div>
 
-                  <div className={styles.childrenAgeContainer}>
-                    <h4 className={styles.title}>{t('selectAge')}</h4>
-                    <div className={styles.sideToSideAgeControllerContainer}>
-                      <h4>{t('children_one')}</h4>
-                      <select name="pets" id="pet-select">
-                        <option value="">Idade</option>
-                        <option value="one">1</option>
-                      </select>
+                  {numberOfChildren > 0 && (
+                    <div className={styles.childrenAgeContainer}>
+                      <h4 className={styles.title}>{t('selectAge')}</h4>
+                      {[...Array(numberOfChildren)].map((_, index) => (
+                        <div
+                          key={index}
+                          className={styles.sideToSideAgeControllerContainer}
+                        >
+                          <h4>
+                            {t('children_one')} {index + 1}
+                          </h4>
+                          <select name="pets" id="pet-select">
+                            <option value="">Idade</option>
+                            {[...Array(17)].map((_, index) => (
+                              <option key={index} value="one">
+                                {index + 1}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      ))}
                     </div>
-                  </div>
+                  )}
                 </>
               )}
             </div>

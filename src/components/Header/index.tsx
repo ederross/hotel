@@ -56,7 +56,7 @@ export default function Header({ design }: IHeader) {
   const checkOutDate = moment(dateState[0].endDate).format('YYYY-MM-DD');
   const numberOfAdults = dateState[0].adults;
   const numberOfChildren = dateState[0].children;
-  const [childrenAges, setChildrenAges] = useState();
+  const [childrenAges, setChildrenAges] = useState<number[]>([]);
 
   const openDatePicker = () => {
     setInputCalendars(true);
@@ -308,6 +308,9 @@ export default function Header({ design }: IHeader) {
             setDateState={setDateState}
             isCalendarVisible={isCalendarVisible}
             inputGuest={inputGuest}
+            childrenAges={childrenAges}
+            setChildrenAges={setChildrenAges}
+            numberOfChildren={numberOfChildren}
           />
         )}
 
