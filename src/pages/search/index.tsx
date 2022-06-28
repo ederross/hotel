@@ -34,35 +34,35 @@ const Search = ({
   const formattedNumber = (number: number) =>
     number < 10 && number > 0 ? `0${number}` : '';
 
-  const handleApi = async () => {
-    const base_url = 'http://book.hospeda.in';
-    const servicesResult = await fetch(
-      base_url +
-        '/booking/services/?' +
-        new URLSearchParams({
-          officeId: 'office1',
-        })
-    ).then((response) => console.log(response.json()));
+  // const handleApi = async () => {
+  //   const base_url = 'http://book.hospeda.in';
+  //   const servicesResult = await fetch(
+  //     base_url +
+  //       '/booking/services/?' +
+  //       new URLSearchParams({
+  //         officeId: 'office1',
+  //       })
+  //   ).then((response) => console.log(response.json()));
 
-    const searchResult = await fetch(
-      base_url +
-        '/booking/room-search/?' +
-        new URLSearchParams({
-          officeId: 'office1',
-          startDate,
-          endDate,
-          adults,
-          children,
-        })
-    )
-      .then((response) => console.log(response.json()))
-      .catch(() => {
-        return false;
-      });
-  };
-  useEffect(() => {
-    handleApi();
-  }, []);
+  //   const searchResult = await fetch(
+  //     base_url +
+  //       '/booking/room-search/?' +
+  //       new URLSearchParams({
+  //         officeId: 'office1',
+  //         startDate,
+  //         endDate,
+  //         adults,
+  //         children,
+  //       })
+  //   )
+  //     .then((response) => console.log(response.json()))
+  //     .catch(() => {
+  //       return false;
+  //     });
+  // };
+  // useEffect(() => {
+  //   handleApi();
+  // }, []);
 
   return (
     <>
