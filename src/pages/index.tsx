@@ -64,7 +64,7 @@ export default function Home(props: IHomeProps) {
         <div className={styles.mainBox}>
           <section className={styles.eventsContainer}>
             <h2 className={styles.title}>
-              {t('CHECK-OUT-OUR-UPCOMING-EVENTS')}
+              {t('checkOutOurUpcomingEvents')}
             </h2>
 
             <div className={`${styles.scrollContainer}`}>
@@ -90,7 +90,7 @@ export default function Home(props: IHomeProps) {
 
           <section className={styles.clientsContainer}>
             <h2 className={`${styles.title}`}>
-              {t('SEE-WHAT-OUR-CUSTOMERS-ARE-SAYING')}
+              {t('seeWhatOurCostumersAreSaying')}
             </h2>
 
             {/* <Swiper

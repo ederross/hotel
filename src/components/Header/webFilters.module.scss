@@ -14,8 +14,6 @@
   padding: 2rem 3rem;
   flex-direction: column;
   color: var(--dark-text);
-  
- 
 
   @media screen and (min-width: 1024px) {
     .controlsContainerHolder {
@@ -29,49 +27,82 @@
     }
   }
 
-
   .guestsContainer {
-    display:flex;
+    display: flex;
     align-items: center;
-    
 
     h4 {
-        font-weight: 500;
+      font-weight: 500;
     }
 
     padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--gray-150);
-    
-    .addButtons {
-        flex: 1;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        // font-family: 'DM Sans';
-  
-        button {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: var(--light-text);
-          cursor: pointer;
-          height: 42px;
-          width: 42px;
-          border-radius: 100%;
-          border: 1px solid var(--gray-150);
 
-          .removeIcon {
-            font-size: 16px;
-          }
-  
-          .addIcon {
-            font-size: 16px;
-          }
+    .addButtons {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      // font-family: 'DM Sans';
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--light-text);
+        cursor: pointer;
+        height: 42px;
+        width: 42px;
+        border-radius: 100%;
+        border: 1px solid var(--gray-150);
+
+        .removeIcon {
+          font-size: 16px;
         }
-          h5 {
-            padding: 0 0.5rem;
-          }
+
+        .addIcon {
+          font-size: 16px;
+        }
       }
+      h5 {
+        padding: 0 0.5rem;
+      }
+    }
+  }
+
+  .childrenAgeContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+
+    .title {
+      align-self: flex-end;
+      color: var(--gray-400);
+      font-weight: 500;
+    }
+
+    .sideToSideAgeControllerContainer {
+      margin-top: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--gray-150);
+
+      h4 {
+        color: var(--dark-text);
+        font-weight: 500;
+      }
+
+      select {
+        cursor: pointer;
+        color: var(--primary-color);
+        border: none;
+        font-weight: 500;
+        font-size: 1rem;
+
+      }
+    }
   }
 }
 

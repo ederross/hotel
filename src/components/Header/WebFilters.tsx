@@ -150,6 +150,17 @@ const WebFilters = ({
                       </button>
                     </div>
                   </div>
+
+                  <div className={styles.childrenAgeContainer}>
+                    <h4 className={styles.title}>{t('selectAge')}</h4>
+                    <div className={styles.sideToSideAgeControllerContainer}>
+                      <h4>{t('kid')}</h4>
+                      <select name="pets" id="pet-select">
+                        <option value="">Idade</option>
+                        <option value="one">1</option>
+                      </select>
+                    </div>
+                  </div>
                 </>
               )}
             </div>

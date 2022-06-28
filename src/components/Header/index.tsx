@@ -245,7 +245,7 @@ export default function Header({ design }: IHeader) {
                     '0 1rem 3rem -1rem #1e1e38',
                 }}
               >
-                <label>{t('CHECK-IN')}</label>
+                <label>{t('checkIn')}</label>
                 <input
                   readOnly
                   placeholder="Add dates"
@@ -254,7 +254,7 @@ export default function Header({ design }: IHeader) {
               </div>
 
               <div className={styles.field}>
-                <label>{t('CHECK-OUT')}</label>
+                <label>{t('checkOut')}</label>
                 <input
                   disabled
                   placeholder="Add dates"
@@ -270,12 +270,12 @@ export default function Header({ design }: IHeader) {
                     inputCalendars && inputGuest && '0 1rem 3rem -1rem #1e1e38',
                 }}
               >
-                <label>{t('GUEST_MANY')}</label>
+                <label>{t('guest_other')}</label>
                 <span className="guestNumber">
                   {numberOfChildren || numberOfAdults ? (
                     <p>
                       {numberOfAdults + numberOfChildren}{' '}
-                      {t('GUEST', {
+                      {t('guestWithCount_other', {
                         count: numberOfAdults + numberOfChildren,
                       })}
                     </p>
@@ -293,7 +293,7 @@ export default function Header({ design }: IHeader) {
               aria-label="search places"
             >
               <Search />
-              <span>{t('SEARCH')}</span>
+              <span>{t('search')}</span>
             </button>
           </form>
         )}

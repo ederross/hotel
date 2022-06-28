@@ -13,6 +13,7 @@ import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import CardEventType2 from '../cardsEvents/CardEventType2';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { Add, RemoveOutlined } from '@mui/icons-material';
 
 interface IFilters {
   closeMobileFilters: () => void;
@@ -113,9 +114,45 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
           </div>
 
           <div className={styles.divisor}></div>
+          <h3>{t('GUEST_MANY')}</h3>
 
-          <div className={styles.guestsContainer}>
-            <h3>{t('GUEST_MANY')}</h3>
+          <div
+            className={styles.guestsContainer}
+            style={{ marginTop: '1.5rem', border: 'none' }}
+          >
+            <h4>{t('adult_many')}</h4>
+            <div className={styles.addRemoveButtons}>
+              <button>
+                <RemoveOutlined className={styles.removeIcon} />
+              </button>
+              <h5>0</h5>
+              <button>
+                <Add className={styles.addIcon} />
+              </button>
+            </div>
+          </div>
+          <div className={styles.guestsContainer} style={{ border: 'none' }}>
+            <h4>{t('children_many')}</h4>
+            <div className={styles.addRemoveButtons}>
+              <button>
+                <RemoveOutlined className={styles.removeIcon} />
+              </button>
+              <h5>0</h5>
+              <button>
+                <Add className={styles.addIcon} />
+              </button>
+            </div>
+          </div>
+
+          <div className={styles.childrenAgeContainer}>
+            <h4 className={styles.title}>{t('selectAge')}</h4>
+            <div className={styles.sideToSideAgeControllerContainer}>
+              <h4>{t('children_many')}</h4>
+              <select name="pets" id="pet-select">
+                <option value="">Idade</option>
+                <option value="one">1</option>
+              </select>
+            </div>
           </div>
 
           <div className={styles.buttonContainer}>

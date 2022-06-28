@@ -61,15 +61,91 @@
     }
   }
 
-  .guestsContainer {
-    width: 100%;
-    min-height: 200px;
+  h3 {
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    color: var(--dark-text);
+  }
 
-    h3 {
-      padding: 0 1rem;
-      margin-bottom: 1rem;
-      font-weight: 500;
+  .guestsContainer {
+    display: flex;
+
+    padding: 0 1rem;
+    align-items: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--gray-150);
+
+    h4 {
       color: var(--dark-text);
+      font-weight: 500;
+    }
+
+    .addRemoveButtons {
+      flex: 1;
+      display: flex;
+      width: 100%;
+      justify-content: flex-end;
+      align-items: center;
+      // font-family: 'DM Sans';
+
+      button {
+        color: var(--dark-text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--light-text);
+        cursor: pointer;
+        height: 42px;
+        width: 42px;
+        border-radius: 100%;
+        border: 1px solid var(--gray-150);
+
+        .removeIcon {
+          font-size: 16px;
+        }
+
+        .addIcon {
+          font-size: 16px;
+        }
+      }
+      h5 {
+        color: var(--dark-text);
+        padding: 0 0.5rem;
+      }
+    }
+  }
+
+  .childrenAgeContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem;
+
+    .title {
+      align-self: flex-end;
+      color: var(--gray-400);
+      font-weight: 500;
+    }
+
+    .sideToSideAgeControllerContainer {
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--gray-150);
+
+      h4 {
+        color: var(--dark-text);
+        font-weight: 500;
+      }
+
+      select {
+        color: var(--primary-color);
+        border: none;
+        font-weight: 500;
+        font-size: 1rem;
+      }
     }
   }
 
