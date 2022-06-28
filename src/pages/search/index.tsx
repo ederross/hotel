@@ -21,6 +21,71 @@ interface ISearch {
   design: Design;
 }
 
+
+export const getServerSideProps: GetServerSideProps = async ({
+  locale,
+  query,
+}) => {
+  const base_url = 'http://book.hospeda.in';
+
+  // const { startDate, endDate, adults, children }: any = query;
+
+  // try {
+    // const officeDetails = await fetch(base_url + '/offices/office1').then(
+    //   (response) => response.json()
+    // );
+
+    // const design = await fetch(base_url + '/offices/office1/design').then(
+    //   (response) => response.json()
+    // );
+
+    // const servicesResult = await fetch(
+    //   base_url +
+    //     '/booking/services/?' +
+    //     new URLSearchParams({
+    //       officeId: 'office1',
+    //     })
+    // ).then((response) => response.json());
+
+    // const searchResult = await fetch(
+    //   base_url +
+    //     '/booking/room-search/?' +
+    //     new URLSearchParams({
+    //       officeId: 'office1',
+    //       startDate,
+    //       endDate,
+    //       adults,
+    //       children,
+    //     })
+    // )
+    //   .then((response) => response.json())
+    //   .catch(() => {
+    //     return false;
+    //   });
+
+    return {
+      props: {
+        // servicesResult: servicesResult,
+        // searchResult: searchResult,
+        // officeDetails,
+        // design,
+        ...(await serverSideTranslations(locale, ['common'])),
+      },
+    };
+  // } catch (error) {
+  //   console.log('[Search error]:', error);
+
+  //   return {
+  //     props: {
+  //       servicesResult: false,
+  //       searchResult: false,
+  //       ...(await serverSideTranslations(locale, ['common'])),
+  //     },
+  //   };
+  // }
+};
+
+
 const Search = ({
   searchResult,
   servicesResult,
@@ -132,66 +197,3 @@ const Search = ({
 };
 
 export default Search;
-
-export const getServerSideProps: GetServerSideProps = async ({
-  locale,
-  query,
-}) => {
-  const base_url = 'http://book.hospeda.in';
-
-  // const { startDate, endDate, adults, children }: any = query;
-
-  // try {
-    // const officeDetails = await fetch(base_url + '/offices/office1').then(
-    //   (response) => response.json()
-    // );
-
-    // const design = await fetch(base_url + '/offices/office1/design').then(
-    //   (response) => response.json()
-    // );
-
-    // const servicesResult = await fetch(
-    //   base_url +
-    //     '/booking/services/?' +
-    //     new URLSearchParams({
-    //       officeId: 'office1',
-    //     })
-    // ).then((response) => response.json());
-
-    // const searchResult = await fetch(
-    //   base_url +
-    //     '/booking/room-search/?' +
-    //     new URLSearchParams({
-    //       officeId: 'office1',
-    //       startDate,
-    //       endDate,
-    //       adults,
-    //       children,
-    //     })
-    // )
-    //   .then((response) => response.json())
-    //   .catch(() => {
-    //     return false;
-    //   });
-
-    return {
-      props: {
-        // servicesResult: servicesResult,
-        // searchResult: searchResult,
-        // officeDetails,
-        // design,
-        ...(await serverSideTranslations(locale, ['common'])),
-      },
-    };
-  // } catch (error) {
-  //   console.log('[Search error]:', error);
-
-  //   return {
-  //     props: {
-  //       servicesResult: false,
-  //       searchResult: false,
-  //       ...(await serverSideTranslations(locale, ['common'])),
-  //     },
-  //   };
-  // }
-};
