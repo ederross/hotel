@@ -41,7 +41,7 @@ const Search = ({
       </Head>
       <main className={styles.mainContainer}>
         <Header design={design} />
-        {!searchResult || searchResult?.errors ? (
+        {/* {!searchResult || searchResult?.errors ? (
           <>
             <section className={styles.filterInfo}>
               <div style={{ flex: 1, paddingTop: 1 }}>
@@ -49,16 +49,16 @@ const Search = ({
               </div>
             </section>
           </>
-        ) : (
+        ) : ( */}
           <>
             <section className={styles.filterInfo}>
               <div style={{ flex: 1, paddingTop: 1 }}>
-                <h2>
+                {/* <h2>
                   <span>{formattedNumber(searchResult?.length || 0)}</span>{' '}
                   quartos com{' '}
                   <span>{formattedNumber(servicesResult?.length || 0)}</span>{' '}
                   serviços foram encontrados
-                </h2>
+                </h2> */}
               </div>
               <div className={styles.filtersMobileSection}>
                 <div
@@ -80,21 +80,21 @@ const Search = ({
               </div>
             </section>
             <section className={styles.contentResultContainer}>
-              {searchResult?.map((room, index) => (
+              {/* {searchResult?.map((room, index) => (
                 <CardRoom key={index} room={room} />
-              ))}
+              ))} */}
             </section>
             <section className={styles.serviceResultContainer}>
               <h4 className={styles.subtitle}>Confira</h4>
               <h2 className={styles.title}>Serviços disponíveis</h2>
               <div className={styles.contentResultContainer}>
-                {servicesResult?.map((service, index) => (
+                {/* {servicesResult?.map((service, index) => (
                   <CardService key={index} service={service} />
-                ))}
+                ))} */}
               </div>
             </section>
           </>
-        )}
+        {/* )} */}
         <Footer officeDetails={officeDetails} />
       </main>
     </>
