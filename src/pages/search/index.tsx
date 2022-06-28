@@ -22,11 +22,11 @@ interface ISearch {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async ({
-  locale,
-  query,
-}) => {
-  const base_url = 'http://book.hospeda.in';
+// export const getServerSideProps: GetServerSideProps = async ({
+//   locale,
+//   query,
+// }) => {
+  // const base_url = 'http://book.hospeda.in';
 
   // const { startDate, endDate, adults, children }: any = query;
 
@@ -63,15 +63,15 @@ export const getServerSideProps: GetServerSideProps = async ({
     //     return false;
     //   });
 
-    return {
-      props: {
+    // return {
+    //   props: {
         // servicesResult: servicesResult,
         // searchResult: searchResult,
         // officeDetails,
         // design,
-        ...(await serverSideTranslations(locale, ['common'])),
-      },
-    };
+    //     ...(await serverSideTranslations(locale, ['common'])),
+    //   },
+    // };
   // } catch (error) {
   //   console.log('[Search error]:', error);
 
@@ -83,15 +83,10 @@ export const getServerSideProps: GetServerSideProps = async ({
   //     },
   //   };
   // }
-};
+// };
 
 
-const Search = ({
-  searchResult,
-  servicesResult,
-  officeDetails,
-  design,
-}: ISearch) => {
+const Search = (s) => {
   const router = useRouter();
   const { t } = useTranslation('common');
   const { startDate, endDate, adults, children }: any = router.query;
