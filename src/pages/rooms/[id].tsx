@@ -149,7 +149,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
             <div className={styles.ctaBoxHolder}>
               <div className={styles.ctaBox}>
                 <OffersAccordion />
-                <button className={styles.confirmBtn}>Confirmar</button>
+                <button className={styles.confirmBtn}>Reservar</button>
               </div>
             </div>
           </div>

@@ -166,11 +166,11 @@ const WebFilters = ({
                           className={styles.sideToSideAgeControllerContainer}
                         >
                           <h4>
-                            {t('children_one')} {index + 1}
+                          {index + 1}º  {t('children_one')} 
                           </h4>
                           <select name="pets" id="pet-select">
-                            <option value="">Idade</option>
-                            {[...Array(17)].map((_, index) => (
+                            <option value="">{t('age')}</option>
+                            {[...Array(15)].map((_, index) => (
                               <option key={index} value="one">
                                 {index + 1}
                               </option>

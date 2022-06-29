@@ -102,8 +102,8 @@ export default function Header({ design }: IHeader) {
         children: numberOfChildren,
       },
     });
-    // setTimeout(() => closeFilters(), 100);
-    closeFilters();
+    setTimeout(() => closeFilters(), 100);
+    // closeFilters();
   };
 
   useEffect(() => {
@@ -202,6 +202,7 @@ export default function Header({ design }: IHeader) {
               <form
                 onClick={openDatePicker}
                 style={{
+                  display: 'flex',
                   width: router.pathname !== '/search' ? '100%' : '70%',
                 }}
               >
@@ -301,7 +302,7 @@ export default function Header({ design }: IHeader) {
                 <span className="guestNumber">
                   {numberOfChildren > 0 || numberOfAdults > 0 ? (
                     <p>
-                      {t('guestWithCount_other', {
+                      {t('guestWithCount_one', {
                         count: numberOfAdults + numberOfChildren,
                       })}
                     </p>

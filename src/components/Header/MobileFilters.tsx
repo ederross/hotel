@@ -86,6 +86,8 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
               direction={'vertical'}
               minDate={new Date()}
               rangeColors={['var(--primary-color)']}
+              showMonthAndYearPickers={true}
+              showPreview
             />
           </Container>
 
