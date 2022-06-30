@@ -66,7 +66,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
 
         <div className={styles.contentBox}>
           {size.width < 868 && (
-            <div className={styles.btnGoBack}>
+            <div onClick={() => router.back()} className={styles.btnGoBack}>
               <ChevronLeft width={18} height={18} />
             </div>
           )}

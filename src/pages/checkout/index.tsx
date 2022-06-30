@@ -2,6 +2,7 @@ import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronDown, ChevronUp } from 'react-feather';
 import { CheckoutSucessModal } from '../../components/CheckoutSucessModal';
@@ -14,6 +15,7 @@ import styles from './styles.module.scss';
 const Checkout = ({ officeDetails, design }: any) => {
   const { t } = useTranslation();
 
+  const router = useRouter();
   const [policy, setPolicy] = useState(0);
   const [successModalVisible, setSuccessModalVisible] = useState(false);
 
@@ -34,7 +36,7 @@ const Checkout = ({ officeDetails, design }: any) => {
       <Header design={design} />
       <main className={styles.mainBox}>
         <div className={styles.mobHeader}>
-          <div className={styles.btnGoBack}>
+          <div  onClick={() => router.back()} className={styles.btnGoBack}>
             <ChevronLeft width={18} height={18} />
           </div>
 
