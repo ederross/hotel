@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './styles.module.scss';
 
-import { ChevronDown, ChevronLeft } from 'react-feather';
+import { ChevronLeft } from 'react-feather';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
 import SingleBedOutlinedIcon from '@mui/icons-material/SingleBedOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
@@ -9,8 +9,6 @@ import {
   SignalWifi4BarOutlined,
   TvOutlined,
   LocalPhoneOutlined,
-  RemoveOutlined,
-  Add,
 } from '@mui/icons-material';
 import Head from 'next/head';
 import CardService from '../../components/CardService';
@@ -24,10 +22,10 @@ import { Design } from '../../../data/design';
 import { useTranslation } from 'next-i18next';
 import { useWindowSize } from '../../hooks/UseWindowSize';
 
-import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import Footer from '../../components/common/Footer';
 import OffersRoomModal from '../../components/OffersRoomModal';
 import OffersAccordion from '../../components/OffersAccordion';
+import { useRouter } from 'next/router';
 
 interface IRoomDetailsProps {
   officeDetails: OfficeDetails;
@@ -48,7 +46,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
       setOpenOffersModal(true);
     }
   };
-
+  const router = useRouter();
   // Window Sizes
   const size = useWindowSize();
 
@@ -149,7 +147,14 @@ const RoomDetails = (props: IRoomDetailsProps) => {
             <div className={styles.ctaBoxHolder}>
               <div className={styles.ctaBox}>
                 <OffersAccordion />
-                <button className={styles.confirmBtn}>Reservar</button>
+                <button
+                  onClick={() => {
+                    router.push('/checkout');
+                  }}
+                  className={styles.confirmBtn}
+                >
+                  Reservar
+                </button>
               </div>
             </div>
           </div>
@@ -181,7 +186,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
         </div>
 
         <div className={styles.rightSide}>
-          <button>Reservar</button>
+          <button onClick={() => router.push('/checkout')}> Reservar</button>
         </div>
       </div>
 

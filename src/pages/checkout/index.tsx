@@ -53,7 +53,7 @@ const Checkout = ({ officeDetails, design }: any) => {
         <div className={styles.contentBox}>
           <div className={styles.mainContainer}>
             <div className={styles.inputsContainer}>
-              <h2>Checkout</h2>
+              <h2 className={styles.title}>Checkout</h2>
               <div className={styles.content}>
                 <div className={styles.infoBox}>
                   <h3>Sua hospedagem</h3>
