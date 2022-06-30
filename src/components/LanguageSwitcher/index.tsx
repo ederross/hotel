@@ -1,4 +1,5 @@
 import { CloseOutlined } from '@mui/icons-material';
+import moment from 'moment';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -20,6 +21,7 @@ const LanguageSwitcher = ({
   const handleLang = (lang: string) => {
     document.body.style.overflow = 'initial';
     router.push('/', '/', { locale: lang });
+    moment.locale(lang);
     handleCloseLanguageSwitcher();
   };
 

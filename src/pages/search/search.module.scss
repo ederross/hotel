@@ -90,6 +90,10 @@
     color: var(--gray-600);
     font-size: 0.875rem;
     font-weight: 500;
+
+    @media screen and (min-width: 868px) {
+      margin-top: 2rem;
+    }
   }
 
   .title {

@@ -10,8 +10,6 @@ import nextI18nConfig from '../../next-i18next.config';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 
-import NProgress from 'nprogress';
-import Router from 'next/router';
 import { useEffect } from 'react';
 import NextNProgress from 'nextjs-progressbar';
 function MyApp({ Component, pageProps }: AppProps) {
@@ -19,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     moment.locale(locale);
-  }, [locale]);
+  }, []);
 
   return (
     <>

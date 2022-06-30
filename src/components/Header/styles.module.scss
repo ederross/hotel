@@ -331,7 +331,7 @@
       border: 1px solid var(--gray-150);
       box-shadow: rgb(0 0 0 / 8%) 0px 1px 2px, rgb(0 0 0 / 5%) 0px 4px 12px;
       transform: translate(-50%, 0.125rem) scale(0.83);
-      width: 412px;
+      width: 372px;
 
       transition: all 0.4s ease-in-out;
 
@@ -391,7 +391,8 @@
     width: 85%;
     margin-left: 1rem;
     color: var(--gray-600);
-    font-size: 18px;
+    font-size: 16px;
+    font-family: 'DM Sans' !important;
 
     @media screen and (max-width: 868px) {
       font-size: 14px;
