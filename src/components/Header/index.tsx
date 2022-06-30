@@ -203,7 +203,7 @@ export default function Header({ design }: IHeader) {
                 onClick={openDatePicker}
                 style={{
                   display: 'flex',
-                  width: router.pathname !== '/search' ? '100%' : '70%',
+                  width: router.pathname !== '/search' ? '100%' : '75%',
                 }}
               >
                 <p className={styles.searchPlaceholder}>{dynamicPlaceholder}</p>

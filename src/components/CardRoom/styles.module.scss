@@ -97,6 +97,10 @@
         color: var(--primary-color);
         font-size: 1rem;
 
+        .cents {
+          color: var(--primary-color);
+          font-size: 0.875rem;
+        }
         span {
           color: var(--gray-400);
           font-size: 0.9rem;

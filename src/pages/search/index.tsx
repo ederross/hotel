@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import styles from './search.module.scss';
 import { HotelOutlined, AttractionsOutlined } from '@mui/icons-material';
 import CardRoom from '../../components/CardRoom';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetServerSideProps, GetStaticProps } from 'next';
-import { URLSearchParams } from 'url';
+import { GetStaticProps } from 'next';
 import Header from '../../components/Header';
 import { useTranslation } from 'next-i18next';
 import Footer from '../../components/common/Footer';
@@ -15,6 +14,7 @@ import { Design } from '../../../data/design';
 import CardService from '../../components/CardService';
 import { mockSearchResults } from '../../../mock/mockSearchResult';
 import { mockServicesResults } from '../../../mock/mockServicesResult';
+
 interface ISearch {
   servicesResult: any;
   searchResult: any;
@@ -30,30 +30,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const design = await fetch(base_url + '/offices/office1/design').then(
     (response) => response.json()
   );
-
-  // const servicesResult = await fetch(
-  //   base_url +
-  //     '/booking/services/?' +
-  //     new URLSearchParams({
-  //       officeId: 'office1',
-  //     })
-  // ).then((response) => response.json());
-
-  // const searchResult = await fetch(
-  //   base_url +
-  //     '/booking/room-search/?' +
-  //     new URLSearchParams({
-  //       officeId: 'office1',
-  //       startDate,
-  //       endDate,
-  //       adults,
-  //       children,
-  //     })
-  // )
-  //   .then((response) => response.json())
-  //   .catch(() => {
-  //     return false;
-  //   });
 
   return {
     props: {

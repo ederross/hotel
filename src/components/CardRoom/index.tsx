@@ -15,6 +15,7 @@ import {
 import CarouselHolder from '../common/CarouselHolder';
 import { Room } from '../../../data/room';
 import { useRouter } from 'next/router';
+import { currency } from '../../utils/currency';
 
 interface ICardRoom {
   room: Room;
@@ -33,6 +34,8 @@ const CardRoom = ({ room }: ICardRoom) => {
   const handleDetails = () => {
     router.push(`/rooms/${room?.objectId}`);
   };
+
+  const formattedValue = currency(999.50);
 
   return (
     <>
@@ -83,7 +86,8 @@ const CardRoom = ({ room }: ICardRoom) => {
                 <h6>R$ 200</h6>
               </s> */}
             <h4>
-              R$ 100 <span>3 noites</span>
+              {formattedValue.split(',')[0]}
+              <span className={styles.cents}>,{formattedValue.split(',')[1]}</span> <span>3 noites</span>
             </h4>
             {/* <u>
                 <h5>+2 ofertas</h5>

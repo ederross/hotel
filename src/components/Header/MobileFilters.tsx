@@ -239,13 +239,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  /* font-family: 'DM Sans'; */
+  font-family: 'DM Sans' !important;
   font-weight: bold;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
 
   .rdrCalendarWrapper {
     color: #000000;
     flex: 1;
+    font-size: 14px;
+    
   }
 
   .rdrMonth {

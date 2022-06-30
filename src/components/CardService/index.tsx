@@ -3,12 +3,17 @@ import styles from './styles.module.scss';
 import CarouselHolder from '../common/CarouselHolder';
 import { Add, RemoveOutlined } from '@mui/icons-material';
 import { Service } from '../../../data/services';
+import { currency } from '../../utils/currency';
 
 interface ICardService {
   service: Service;
 }
 
 const CardService = ({ service }: ICardService) => {
+
+  const formattedValue = currency(999.50);
+
+
   return (
     <>
       <div className={styles.container}>
@@ -29,8 +34,9 @@ const CardService = ({ service }: ICardService) => {
 
         <div className={styles.priceAndControlsContainerHolder}>
           <div className={styles.pricesInfos}>
-            <h4>
-              R$ 100 <span>por dia</span>
+          <h4>
+              {formattedValue.split(',')[0]}
+              <span className={styles.cents}>,{formattedValue.split(',')[1]}</span> <span> por dia</span>
             </h4>
           </div>
           <div className={styles.addButtons}>

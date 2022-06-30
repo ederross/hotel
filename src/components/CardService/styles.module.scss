@@ -59,18 +59,21 @@
       display: flex;
       justify-content: center;
       flex-direction: column;
-      // font-family: 'DM Sans';
+      font-family: 'DM Sans' !important;
 
       h4 {
         margin-bottom: 0.5rem;
 
         color: var(--primary-color);
-        font-size: 1.2rem;
+        font-size: 1rem;
 
+        .cents {
+          color: var(--primary-color);
+          font-size: 0.875rem;
+        }
         span {
           color: var(--gray-400);
-          font-size: 0.875rem;
-          font-weight: 500;
+          font-size: 0.9rem;
         }
       }
 
