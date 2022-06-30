@@ -35,7 +35,7 @@ const CardRoom = ({ room }: ICardRoom) => {
     router.push(`/rooms/${room?.objectId}`);
   };
 
-  const formattedValue = currency(999.50);
+  const formattedValue = currency(999.99);
 
   return (
     <>

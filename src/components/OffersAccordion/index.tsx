@@ -30,57 +30,53 @@ const OffersAccordion = () => {
   return (
     <>
       {imageData.map((item, index) => (
-        <>
-          <div
-            key={index}
-            className={styles.ctaItem}
-            style={{
-              borderBottom:
-                imageData.length - 1 !== index
-                  ? '1px solid var(--gray-150)'
-                  : 'none',
-            }}
-            onClick={() => setCtaSelected(index)}
-          >
-            <div key={index} className={styles.ctaItemHeader}>
-              <h3>Oferta {index}</h3>
-              {ctaSelected !== index && (
-                <>
-                  <div className={styles.ctaItemHeaderNotSelected}>
-                    <h4>R$ 128</h4>
-                    <ExpandMoreOutlinedIcon
-                      className={styles.chevronDownIcon}
-                    />
-                  </div>
-                </>
-              )}
-              {ctaSelected === index && (
-                <h4>
-                  2 noites <span>R$ 128</span>
-                </h4>
-              )}{' '}
-            </div>
-            {ctaSelected === index && (
-              <div className={styles.ctaItemContent}>
-                <ul>
-                  <li>Não reembolsável</li>
-                  <li>Café da manhã incluso</li>
-                  <li>All included</li>
-                </ul>
-
-                <div className={styles.addButtons}>
-                  <button disabled>
-                    <RemoveOutlined className={styles.removeIcon} />
-                  </button>
-                  <h5>0</h5>
-                  <button>
-                    <Add className={styles.addIcon} />
-                  </button>
+        <div
+          key={index}
+          className={styles.ctaItem}
+          style={{
+            borderBottom:
+              imageData.length - 1 !== index
+                ? '1px solid var(--gray-150)'
+                : 'none',
+          }}
+          onClick={() => setCtaSelected(index)}
+        >
+          <div className={styles.ctaItemHeader}>
+            <h3>Oferta {index}</h3>
+            {ctaSelected !== index && (
+              <>
+                <div className={styles.ctaItemHeaderNotSelected}>
+                  <h4>R$ 128</h4>
+                  <ExpandMoreOutlinedIcon className={styles.chevronDownIcon} />
                 </div>
-              </div>
+              </>
             )}
+            {ctaSelected === index && (
+              <h4>
+                2 noites <span>R$ 128</span>
+              </h4>
+            )}{' '}
           </div>
-        </>
+          {ctaSelected === index && (
+            <div className={styles.ctaItemContent}>
+              <ul>
+                <li>Não reembolsável</li>
+                <li>Café da manhã incluso</li>
+                <li>All included</li>
+              </ul>
+
+              <div className={styles.addButtons}>
+                <button disabled>
+                  <RemoveOutlined className={styles.removeIcon} />
+                </button>
+                <h5>0</h5>
+                <button>
+                  <Add className={styles.addIcon} />
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       ))}
     </>
   );

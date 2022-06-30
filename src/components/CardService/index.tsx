@@ -11,7 +11,7 @@ interface ICardService {
 
 const CardService = ({ service }: ICardService) => {
 
-  const formattedValue = currency(999.50);
+  const formattedValue = currency(999.99);
 
 
   return (
@@ -43,7 +43,7 @@ const CardService = ({ service }: ICardService) => {
             <button disabled>
               <RemoveOutlined className={styles.removeIcon} />
             </button>
-            <h5>0</h5>
+            <h5>99</h5>
             <button>
               <Add className={styles.addIcon} />
             </button>

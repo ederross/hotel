@@ -158,9 +158,9 @@ export default function Header({ design }: IHeader) {
           size.width <= 868 &&
           'none',
         position:
-          router.pathname !== '/' && router.pathname !== '/search'
-            ? 'relative'
-            : 'fixed',
+          router.pathname == '/checkout' || router.pathname == '/rooms'
+            ? 'fixed' : router.pathname == '/' ? 'fixed' 
+            : 'relative',
       }}
     >
       <div className={styles.headerInner}>
