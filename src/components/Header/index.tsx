@@ -343,6 +343,14 @@ export default function Header({ design }: IHeader) {
           <Filters
             handleSubmit={handleSubmit as any}
             closeMobileFilters={closeFilters}
+            customDayContent={customDayContent}
+            dateState={dateState}
+            setDateState={setDateState}
+            isCalendarVisible={isCalendarVisible}
+            inputGuest={inputGuest}
+            childrenAges={childrenAges}
+            setChildrenAges={setChildrenAges}
+            numberOfChildren={numberOfChildren}
           />
         )}
         {openLanguageSwitcher && (

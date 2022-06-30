@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 
 import styles from './mobileFilters.module.scss';
 
@@ -13,24 +13,49 @@ import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import CardEventType2 from '../cardsEvents/CardEventType2';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { Add, RemoveOutlined } from '@mui/icons-material';
+import { Add, Close, RemoveOutlined } from '@mui/icons-material';
 
 interface IFilters {
   closeMobileFilters: () => void;
   handleSubmit: () => void;
+  customDayContent: (day: any) => JSX.Element;
+  dateState: {
+    startDate: Date;
+    endDate: Date;
+    key: string;
+    adults: number;
+    children: number;
+  }[];
+  setDateState: any;
+  isCalendarVisible: boolean;
+  inputGuest: boolean;
+  numberOfChildren: number;
+  childrenAges: number[];
+  setChildrenAges: Dispatch<SetStateAction<number[]>>;
 }
 
-const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
-  const swiper = useSwiper();
+const Filters = ({
+  handleSubmit,
+  closeMobileFilters,
+
+  setDateState,
+  dateState,
+  isCalendarVisible,
+  inputGuest,
+  numberOfChildren,
+  childrenAges,
+  setChildrenAges,
+}: IFilters) => {
   const { locale } = useRouter();
   const { t } = useTranslation('common');
-  const [state, setState] = useState([
-    {
-      startDate: new Date(),
-      endDate: null,
-      key: 'selection',
-    },
-  ]);
+
+  const date = new Date();
+  const lastDay = new Date(
+    date.getFullYear(),
+    date.getMonth() + 2,
+    0
+  ).getDate();
+  const maxLength = new Date(date.getFullYear() + 2, 11, lastDay);
 
   function customDayContent(day) {
     let extraDot = null;
@@ -60,6 +85,9 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
     );
   }
 
+  const handleUpdateState = (props: Object) =>
+    setDateState([{ ...dateState[0], ...props }]);
+
   return (
     <>
       <section className={styles.container}>
@@ -70,16 +98,19 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
           }}
         >
           <button onClick={closeMobileFilters} className={styles.btnClose}>
-            {t('close')}
+            {/* {t('close')} */}
+            <Close className={styles.closeIcon} />
           </button>
 
           <Container>
             <h2>{t('selectCheckInCheckOutDates')}</h2>
             <DateRange
               editableDateInputs={true}
-              onChange={(item) => setState([item?.selection] as any)}
+              onChange={(item) =>
+                setDateState([{ ...dateState[0], ...item.selection }] as any)
+              }
               moveRangeOnFirstSelection={false}
-              ranges={state}
+              ranges={dateState}
               months={1}
               locale={locales[locale === 'ptBR' ? 'pt' : locale]}
               dayContentRenderer={customDayContent}
@@ -88,6 +119,7 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
               rangeColors={['var(--primary-color)']}
               showMonthAndYearPickers={true}
               showPreview
+              maxDate={maxLength}
             />
           </Container>
 
@@ -118,44 +150,79 @@ const Filters = ({ handleSubmit, closeMobileFilters }: IFilters) => {
           <div className={styles.divisor}></div>
           <h3>{t('guest_other')}</h3>
 
-          <div
-            className={styles.guestsContainer}
-            style={{ marginTop: '1.5rem', border: 'none' }}
-          >
+          <div className={styles.guestsContainer}>
             <h4>{t('adult_other')}</h4>
-            <div className={styles.addRemoveButtons}>
-              <button>
+            <div className={styles.addButtons}>
+              <button
+                disabled={dateState[0].adults < 2}
+                onClick={() =>
+                  handleUpdateState({ adults: dateState[0].adults - 1 })
+                }
+              >
                 <RemoveOutlined className={styles.removeIcon} />
               </button>
-              <h5>0</h5>
-              <button>
+              <h5>{dateState[0].adults}</h5>
+              <button
+                onClick={() =>
+                  handleUpdateState({ adults: dateState[0].adults + 1 })
+                }
+              >
                 <Add className={styles.addIcon} />
               </button>
             </div>
           </div>
-          <div className={styles.guestsContainer} style={{ border: 'none' }}>
+          <div
+            className={styles.guestsContainer}
+            style={{ marginTop: '1.5rem', border: 'none' }}
+          >
             <h4>{t('children_other')}</h4>
-            <div className={styles.addRemoveButtons}>
-              <button>
+            <div className={styles.addButtons}>
+              <button
+                disabled={dateState[0].children <= 0}
+                onClick={() =>
+                  handleUpdateState({
+                    children: dateState[0].children - 1,
+                  })
+                }
+              >
                 <RemoveOutlined className={styles.removeIcon} />
               </button>
-              <h5>0</h5>
-              <button>
+              <h5>{dateState[0].children}</h5>
+              <button
+                onClick={() =>
+                  handleUpdateState({
+                    children: dateState[0].children + 1,
+                  })
+                }
+              >
                 <Add className={styles.addIcon} />
               </button>
             </div>
           </div>
 
-          <div className={styles.childrenAgeContainer}>
-            <h4 className={styles.title}>{t('selectAge')}</h4>
-            <div className={styles.sideToSideAgeControllerContainer}>
-              <h4>{t('children_other')}</h4>
-              <select name="pets" id="pet-select">
-                <option value="">{t('age')}</option>
-                <option value="one">1</option>
-              </select>
+          {numberOfChildren > 0 && (
+            <div className={styles.childrenAgeContainer}>
+              <h4 className={styles.title}>{t('selectAge')}</h4>
+              {[...Array(numberOfChildren)].map((_, index) => (
+                <div
+                  key={index}
+                  className={styles.sideToSideAgeControllerContainer}
+                >
+                  <h4>
+                    {index + 1}º {t('children_one')}
+                  </h4>
+                  <select name="pets" id="pet-select">
+                    <option value="">{t('age')}</option>
+                    {[...Array(15)].map((_, index) => (
+                      <option key={index} value="one">
+                        {index + 1}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              ))}
             </div>
-          </div>
+          )}
 
           <div className={styles.buttonContainer}>
             <button onClick={handleSubmit} className={styles.searchButton}>

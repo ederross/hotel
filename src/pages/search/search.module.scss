@@ -24,8 +24,8 @@
   align-items: center;
   justify-content: center;
   padding: 0 1rem;
-  padding-top: 3rem;
-  margin-bottom: 3rem;
+  padding-top: 2rem;
+  margin-bottom: 2rem;
 
   text-align: center;
 
@@ -49,7 +49,7 @@
     flex: 1;
     display: flex;
     width: 100%;
-    padding-top: 5.5rem;
+    padding-top: 2.5rem;
     border-bottom: 1px solid var(--gray);
 
     @media screen and (min-width: 868px) {
@@ -68,7 +68,7 @@
       margin-bottom: -3.5px;
 
       h4 {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
         font-weight: 600;
       }
     }
@@ -83,7 +83,7 @@
   .subtitle {
     padding: 0 1rem 0 1rem;
     color: var(--gray-600);
-    font-size: 1.2rem;
+    font-size: 0.875rem;
     font-weight: 500;
   }
 

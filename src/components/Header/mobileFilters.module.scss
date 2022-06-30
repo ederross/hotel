@@ -15,14 +15,27 @@
   overflow: auto;
 
   .btnClose {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 2rem;
-    margin: 1rem;
-    padding: 0.8rem 1rem;
+    margin-left: 1rem;
+    width: 42px;
+    height: 42px;
+    border-radius: 200px;
     color: white;
-    background: var(--primary-color);
-    border: none;
+    background: transparent;
+    border: 2px solid var(--gray-150);
     border-radius: 2rem;
     margin-bottom: 2rem;
+
+    .closeIcon {
+      padding: 0;
+      margin: 0;
+      color: var(--dark-text);
+      width: 24px;
+      height: 24px;
+    }
   }
 
   h2 {
@@ -70,27 +83,24 @@
 
   .guestsContainer {
     display: flex;
-
-    padding: 0 1rem;
     align-items: center;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--gray-150);
+    padding: 0 1rem;
+    color: var(--dark-text);
+
+    // background-color: red;
 
     h4 {
-      color: var(--dark-text);
       font-weight: 500;
     }
 
-    .addRemoveButtons {
+    .addButtons {
       flex: 1;
       display: flex;
-      width: 100%;
       justify-content: flex-end;
       align-items: center;
       // font-family: 'DM Sans';
 
       button {
-        color: var(--dark-text);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -110,7 +120,6 @@
         }
       }
       h5 {
-        color: var(--dark-text);
         padding: 0 0.5rem;
       }
     }
@@ -119,7 +128,7 @@
   .childrenAgeContainer {
     display: flex;
     flex-direction: column;
-    padding: 1rem 1rem;
+    padding: 2rem 1rem;
 
     .title {
       align-self: flex-end;

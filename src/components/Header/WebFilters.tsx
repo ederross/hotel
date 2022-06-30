@@ -39,6 +39,14 @@ const WebFilters = ({
   const { locale } = useRouter();
   const { t } = useTranslation('common');
 
+  const date = new Date();
+  const lastDay = new Date(
+    date.getFullYear(),
+    date.getMonth() + 2,
+    0
+  ).getDate();
+  const maxLength = new Date(date.getFullYear() + 2, 11, lastDay);
+
   const handleUpdateState = (props: Object) =>
     setDateState([{ ...dateState[0], ...props }]);
 
@@ -89,6 +97,7 @@ const WebFilters = ({
                       dayContentRenderer={customDayContent}
                       minDate={new Date()}
                       rangeColors={['var(--primary-color)']}
+                      maxDate={maxLength}
                     />
                   </Container>
 
