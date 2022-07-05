@@ -87,7 +87,7 @@ const CardRoom = ({ room }: ICardRoom) => {
               </s> */}
             <h4>
               {formattedValue.split(',')[0]}
-              <span className={styles.cents}>,{formattedValue.split(',')[1]}</span> <span>3 noites</span>
+              <span className={styles.cents}>,{formattedValue.split(',')[1]}</span> <span style={{marginLeft: '0.4rem'}}>3 noites</span>
             </h4>
             {/* <u>
                 <h5>+2 ofertas</h5>

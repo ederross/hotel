@@ -140,7 +140,7 @@ export default function Header({ design }: IHeader) {
   })}`;
 
   const dynamicPlaceholder =
-    router.pathname === '/search' ? filterString : t('yourHosting');
+    router.pathname === '/search' ? filterString : t('searchPeriod');
 
   return (
     <header

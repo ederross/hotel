@@ -52,7 +52,11 @@ const WebFilters = ({
 
   return (
     <>
-      <div className={styles.controlsFullContainer}>
+      <div
+        className={styles.controlsFullContainer}
+
+        // onClick={(e) =>{e.isPropagationStopped(), closeDatePickerWeb()}}
+      >
         <div
           className={styles.controlsContainerHolder}
           style={{
@@ -84,6 +88,7 @@ const WebFilters = ({
                           { ...dateState[0], ...item.selection },
                         ] as any)
                       }
+                    
                       moveRangeOnFirstSelection={false}
                       months={2}
                       ranges={dateState}
@@ -98,6 +103,9 @@ const WebFilters = ({
                       minDate={new Date()}
                       rangeColors={['var(--primary-color)']}
                       maxDate={maxLength}
+                      calendarFocus={'forwards'}
+                      preventSnapRefocus
+                      showPreview
                     />
                   </Container>
 
@@ -175,7 +183,7 @@ const WebFilters = ({
                           className={styles.sideToSideAgeControllerContainer}
                         >
                           <h4>
-                          {index + 1}º  {t('children_one')} 
+                            {index + 1}º {t('children_one')}
                           </h4>
                           <select name="pets" id="pet-select">
                             <option value="">{t('age')}</option>

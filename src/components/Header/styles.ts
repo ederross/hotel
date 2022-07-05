@@ -66,6 +66,12 @@ export const Container = styled.div`
     }
   }
 
+  .rdrWeekDay  {
+    font-size: 14px;
+  }
+
+  l
+
   .rdrCalendarWrapper {
     color: #000000;
     flex: 1;
@@ -92,7 +98,8 @@ export const Container = styled.div`
   }
 
   .rdrNextPrevButton {
-    background: white;
+    cursor: pointer;
+    background: #eff2f7;
   }
 
   .rdrDateRangePickerWrapper {
@@ -136,6 +143,14 @@ export const Container = styled.div`
     padding-top: 0.75rem;
     background: var(--dark);
   }
+
+  .rdrDayDisabled{
+    background: transparent;
+  }
+
+  .rdrDayNumber {
+    font-weight: 500;
+  }
   .rdrDayNumber span {
     color: var(--dark-text);
   }
@@ -144,7 +159,8 @@ export const Container = styled.div`
     opacity: 0.33;
   }
   .rdrDayToday .rdrDayNumber span:after {
-    background: var(--primary-color);
+    /* background: var(--primary-color); */
+    background: red;
   }
 
   @media (min-width: 768px) {
@@ -165,12 +181,12 @@ export const Container = styled.div`
     }
   }
 
-  @media (min-width: 1200px) {
+  /* @media (min-width: 1200px) {
     .rdrDefinedRangesWrapper {
-      font-size: 16px;
+      font-size: 14px;
     }
     .rdrCalendarWrapper {
-      font-size: 16px;
+      font-size: 14px;
     }
-  }
+  } */
 `;

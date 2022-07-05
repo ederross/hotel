@@ -120,6 +120,7 @@ const Filters = ({
               showMonthAndYearPickers={true}
               showPreview
               maxDate={maxLength}
+              preventSnapRefocus
             />
           </Container>
 

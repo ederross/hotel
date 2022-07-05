@@ -1,10 +1,10 @@
 .controlsContainerHolder {
-  overflow: auto;
+  // overflow: auto;
   font-family: "DM Sans" !important;
   box-shadow: 0 0 0 1px rgb(0 0 0 / 4%), 0 8px 16px rgb(0 0 0 / 15%);
   align-self: center;
   position: absolute;
-  top: 172px;
+  top: 132px;
   min-width: 800px;
   max-width: 1000px;
   z-index: 9;
@@ -120,7 +120,7 @@
   left: 0;
   top: 0;
   width: 100vw;
-  height: 216px;
+  height: 132px;
   background: white;
 
   // @media screen and (min-width: 868px) {
