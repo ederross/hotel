@@ -1,9 +1,7 @@
 .ctaItem {
   width: 100%;
   color: var(--dark);
-
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
+  padding: 1rem 0;
 
   .ctaItemHeader {
     display: flex;
@@ -44,34 +42,6 @@
       font-size: 14px;
     }
 
-    .addButtons {
-      flex: 1;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-
-      button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: var(--light-text);
-        cursor: pointer;
-        height: 36px;
-        width: 36px;
-        border-radius: 100%;
-        border: 1px solid var(--gray-150);
-
-        .removeIcon {
-          font-size: 14px;
-        }
-
-        .addIcon {
-          font-size: 14px;
-        }
-      }
-      h5 {
-        padding: 0 0.5rem;
-      }
-    }
+   
   }
 }
