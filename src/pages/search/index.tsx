@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import styles from './search.module.scss';
-import { HotelOutlined, AttractionsOutlined } from '@mui/icons-material';
+import {
+  HotelOutlined,
+  AttractionsOutlined,
+  CookieOutlined,
+} from '@mui/icons-material';
 import CardRoom from '../../components/CardRoom';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -13,28 +17,33 @@ import { OfficeDetails } from '../../../data/officeDetails';
 import { Design } from '../../../data/design';
 import CardService from '../../components/CardService';
 import { mockSearchResults } from '../../../mock/mockSearchResult';
-import { mockServicesResults } from '../../../mock/mockServicesResult';
+import { baseUrl } from '../../services';
 
 interface ISearch {
   servicesResult: any;
-  searchResult: any;
   officeDetails: OfficeDetails;
   design: Design;
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const base_url = 'http://book.hospeda.in';
-  const officeDetails = await fetch(base_url + '/offices/office1').then(
+export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
+  const officeDetails = await fetch(baseUrl + '/offices/office1').then(
     (response) => response.json()
   );
-  const design = await fetch(base_url + '/offices/office1/design').then(
+  const design = await fetch(baseUrl + '/offices/office1/design').then(
     (response) => response.json()
   );
 
+  const servicesResult = await fetch(
+    baseUrl +
+      '/booking/services/?' +
+      new URLSearchParams({
+        officeId: 'office1',
+      })
+  ).then((response) => response.json());
+
   return {
     props: {
-      servicesResult: mockServicesResults,
-      searchResult: mockSearchResults,
+      servicesResult,
       officeDetails,
       design,
       ...(await serverSideTranslations(locale, ['common'])),
@@ -43,19 +52,39 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-const Search = ({
-  searchResult,
-  servicesResult,
-  officeDetails,
-  design,
-}: ISearch) => {
+const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
   const router = useRouter();
   const { t } = useTranslation('common');
   const [selectedTab, setSelectedTab] = useState('rooms');
+  const [searchResult, setSearchResult] = useState<any>(mockSearchResults);
   const { startDate, endDate, adults, children }: any = router.query;
 
   const formattedNumber = (number: number) =>
     number < 10 && number > 0 ? `0${number}` : '';
+
+  const getSearchResult = async () => {
+    console.log('SEARCHING...');
+    await fetch(
+      baseUrl +
+        '/booking/room-search/?' +
+        new URLSearchParams({
+          officeId: 'office1',
+          startDate,
+          endDate,
+          adults,
+          children,
+        })
+    )
+      .then((response) => response.json())
+      .catch((err) => {
+        window.alert('Não foi possível concluir a pesquisa...');
+        console.log(err.message);
+      });
+  };
+
+  // useEffect(() => {
+  //   getSearchResult();
+  // }, []);
 
   return (
     <>
@@ -154,6 +183,23 @@ const Search = ({
                 </section>
               )}
             </div>
+
+            <section className={styles.serviceResultContainer}>
+              <h2 className={styles.title}>O que este hotel oferece</h2>
+              <div className={styles.facilitiesCardContainer}>
+                {[...Array(3)].map((_, index) => (
+                  <div key={index} className={styles.facilitiesCard}>
+                    <h3>O que esse lugar oferece</h3>
+                    {[...Array(7)].map((_, index) => (
+                      <div className={styles.row} key={index}>
+                        <CookieOutlined fontSize={'small'} />
+                        <p>Cozinha</p>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </section>
           </>
         )}
         <Footer design={design} officeDetails={officeDetails} />

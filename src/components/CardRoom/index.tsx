@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styles from './styles.module.scss';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
@@ -16,6 +16,8 @@ import CarouselHolder from '../common/CarouselHolder';
 import { Room } from '../../../data/room';
 import { useRouter } from 'next/router';
 import { currency } from '../../utils/currency';
+import { AmenitieDisplay } from '../common/AmenitieDisplay';
+import { Counter } from '../common/Counter';
 
 interface ICardRoom {
   room: Room;
@@ -23,6 +25,9 @@ interface ICardRoom {
 
 const CardRoom = ({ room }: ICardRoom) => {
   const router = useRouter();
+
+  const [quantity, setQuantity] = useState(0);
+
   const imageData = room?.images?.map((i) => {
     return {
       alt: i.subTitle,
@@ -66,45 +71,28 @@ const CardRoom = ({ room }: ICardRoom) => {
         </p>
 
         <div className={styles.amenitiesContainer}>
-          <div className={styles.amenitie}>
-            <TvOutlined fontSize={'small'} />
-            <h5>TV</h5>
-          </div>
-          <div className={styles.amenitie}>
-            <SignalWifi4BarOutlined fontSize={'small'} />
-            <h5>Wi-Fi</h5>
-          </div>
-          <div className={styles.amenitie}>
-            <LocalPhoneOutlined fontSize={'small'} />
-            <h5>Telefone</h5>
-          </div>
+          {room?.amenities?.map((item, index) => (
+            <AmenitieDisplay key={index} amenitie={item} direction={'column'} />
+          ))}
         </div>
 
         <div className={styles.priceAndControlsContainerHolder}>
           <div className={styles.pricesInfos}>
-            {/* <s>
-                <h6>R$ 200</h6>
-              </s> */}
+            <s>
+              <h6>R$ 200</h6>
+            </s>
             <h4>
               {formattedValue.split(',')[0]}
-              <span className={styles.cents}>,{formattedValue.split(',')[1]}</span> <span style={{marginLeft: '0.4rem'}}>3 noites</span>
+              <span className={styles.cents}>
+                ,{formattedValue.split(',')[1]}
+              </span>{' '}
+              <span style={{ marginLeft: '0.4rem' }}>3 noites</span>
             </h4>
-            {/* <u>
-                <h5>+2 ofertas</h5>
-              </u> */}
+            <u>
+              <h5>+2 ofertas</h5>
+            </u>
           </div>
-          <div className={styles.addButtons}>
-            <button disabled style={{ backgroundColor: 'var(--gray-150)' }}>
-              <RemoveOutlined
-                className={styles.removeIcon}
-                style={{ color: '#474747' }}
-              />
-            </button>
-            <h5>0</h5>
-            <button>
-              <Add className={styles.addIcon} />
-            </button>
-          </div>
+          <Counter quantity={quantity} setQuantity={setQuantity} />
         </div>
       </a>
     </>

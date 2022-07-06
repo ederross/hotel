@@ -11,8 +11,14 @@ interface ICounterProps {
 export const Counter = ({ quantity = 0, setQuantity }: ICounterProps) => {
   const { t } = useTranslation('common');
 
-  const handleRemove = () => quantity > 0 && setQuantity(quantity - 1);
-  const handleAdd = () => quantity < 1000 && setQuantity(quantity + 1);
+  const handleRemove = (e) => {
+    e.stopPropagation();
+    quantity > 0 && setQuantity(quantity - 1);
+  };
+  const handleAdd = (e) => {
+    e.stopPropagation();
+    quantity < 1000 && setQuantity(quantity + 1);
+  };
 
   return (
     <div className={styles.addButtons}>

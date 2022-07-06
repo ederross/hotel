@@ -91,6 +91,23 @@
       flex-direction: column;
       font-family: 'DM Sans';
 
+      s {
+        color: var(--gray-with-blue-400);
+        h6 {
+          color: var(--gray-with-blue-400);
+          font-size: small;
+        }
+      }
+
+      u {
+        color: var(--gray-with-blue-400);
+        h5 {
+          font-weight: 500;
+          color: var(--gray-with-blue-400);
+          font-size: smaller;
+        }
+      }
+
       h4 {
         margin-bottom: 0.5rem;
 
