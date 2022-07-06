@@ -50,10 +50,40 @@ export const SocialContainer = styled.div`
   }
 
   p {
+    display: none;
     color: var(--gray);
     font-weight: 400;
     font-size: 0.7rem;
     margin: 1.5rem 0 2rem;
+
+    @media screen and (min-width: 628px) {
+      display: block;
+    }
+  }
+
+  .logo {
+    display: block;
+    margin: 0.3rem 0 0.5rem;
+    cursor: pointer;
+    svg {
+      height: 2rem;
+      color: #fafafc;
+      transition: color 0.2s;
+    }
+    span {
+      font-weight: 600;
+      font-size: 1.15rem;
+      margin-left: 0.5rem;
+    }
+
+    img {
+      max-height: 48px;
+      object-fit: contain;
+    }
+
+    @media screen and (min-width: 628px) {
+      display: none;
+    }
   }
 
   .row {
@@ -65,6 +95,7 @@ export const SocialContainer = styled.div`
     justify-content: center;
     align-items: center;
     margin-right: 0.8rem;
+    margin-top: 1rem;
     width: 32px;
     height: 32px;
     background-color: var(--dark);

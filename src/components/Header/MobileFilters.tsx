@@ -5,7 +5,6 @@ import styles from './mobileFilters.module.scss';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-import { isWeekend, format } from 'date-fns';
 
 import * as locales from 'react-date-range/dist/locale';
 import styled from 'styled-components';
@@ -37,7 +36,7 @@ interface IFilters {
 const Filters = ({
   handleSubmit,
   closeMobileFilters,
-
+  customDayContent,
   setDateState,
   dateState,
   isCalendarVisible,
@@ -57,34 +56,6 @@ const Filters = ({
   ).getDate();
   const maxLength = new Date(date.getFullYear() + 2, 11, lastDay);
 
-  function customDayContent(day) {
-    let extraDot = null;
-    // if (isWeekend(day)) {
-    //   extraDot = (
-    //     <div
-    //       style={{
-    //         height: '5px',
-    //         width: '5px',
-    //         borderRadius: '100%',
-    //         background: 'red',
-    //         position: 'absolute',
-    //         top: 2,
-    //         right: 2,
-    //       }}
-    //     />
-    //   );
-    // }
-    return (
-      <>
-        <div>
-          {extraDot}
-
-          <span>{format(day, 'd')}</span>
-        </div>
-      </>
-    );
-  }
-
   const handleUpdateState = (props: Object) =>
     setDateState([{ ...dateState[0], ...props }]);
 
@@ -103,15 +74,16 @@ const Filters = ({
           </button>
 
           <Container>
-            <h2>{t('selectCheckInCheckOutDates')}</h2>
+            <h2>{t('selectDates')}</h2>
             <DateRange
-              editableDateInputs={true}
+              editableDateInputs={false}
               onChange={(item) =>
                 setDateState([{ ...dateState[0], ...item.selection }] as any)
               }
+              // scroll={{ enabled: true }}
               moveRangeOnFirstSelection={false}
               ranges={dateState}
-              months={1}
+              months={35}
               locale={locales[locale === 'ptBR' ? 'pt' : locale]}
               dayContentRenderer={customDayContent}
               direction={'vertical'}
@@ -244,11 +216,25 @@ const Container = styled.div`
   font-weight: bold;
   padding: 0 0.5rem;
 
+  .weekdayDot {
+    height: 4px;
+    width: 4px;
+    border-radius: 100%;
+    background: var(--primary-color);
+    position: absolute;
+    top: 3px;
+    left: 45%;
+  }
+
   .rdrCalendarWrapper {
     color: #000000;
     flex: 1;
     font-size: 14px;
-    
+  }
+
+  .rdrMonthsVertical {
+    overflow: scroll;
+    max-height: 50vh;
   }
 
   .rdrMonth {
@@ -256,6 +242,9 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+    margin-bottom: 3rem;
+  }
+  .rdrMonthName {
   }
 
   .rdrDateDisplayWrapper {
@@ -264,6 +253,9 @@ const Container = styled.div`
 
   .rdrDateDisplayItem {
     border-radius: 2rem;
+  }
+
+  .rdrDayNumber {
   }
 `;
 

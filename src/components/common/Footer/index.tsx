@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   EmailRounded,
   PhoneAndroidRounded,
@@ -15,21 +15,37 @@ import {
 import { OfficeDetails } from '../../../../data/officeDetails';
 import { useTranslation } from 'next-i18next';
 import { Instagram, Twitter } from 'react-feather';
+import { Design } from '../../../../data/design';
 interface IFooterProps {
   officeDetails: OfficeDetails;
+  design: Design;
 }
 
-const Footer = (props: IFooterProps) => {
+const Footer = ({ design, officeDetails }: IFooterProps) => {
   const { t } = useTranslation('common');
-  const address = props?.officeDetails?.address;
+  const address = officeDetails?.address;
+  const [logoError, setLogoError] = useState(false);
 
   return (
     <FooterContainer>
       <ContainerHolder>
         <div className="topContainer">
           <SocialContainer>
-            <h3>{props?.officeDetails?.officeName}</h3>
-            <p>{props?.officeDetails?.officeDescription}</p>
+            <div className={'logo'}>
+              {!logoError ? (
+                <img
+                  src={design?.logoUrl}
+                  alt={design?.browserTitle}
+                  title={design?.browserTitle}
+                  onError={() => setLogoError(true)}
+                  draggable={false}
+                />
+              ) : (
+                <span>{design?.browserTitle}</span>
+              )}
+            </div>
+            <h3>{officeDetails?.officeName}</h3>
+            <p>{officeDetails?.officeDescription}</p>
             <div className="row">
               {socialData?.map((item, index) => (
                 <div className="socialCircle" key={index} title={item.name}>
@@ -49,7 +65,7 @@ const Footer = (props: IFooterProps) => {
               <EmailRounded style={{ color: '#fff' }} />
               <p>contac@finehost.com</p>
             </div>
-            {props?.officeDetails?.contacts?.map((item, index) => (
+            {officeDetails?.contacts?.map((item, index) => (
               <div key={index} className="row">
                 <PhoneAndroidRounded style={{ color: '#fff' }} />
                 <p>

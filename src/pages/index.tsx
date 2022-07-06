@@ -63,9 +63,7 @@ export default function Home(props: IHomeProps) {
 
         <div className={styles.mainBox}>
           <section className={styles.eventsContainer}>
-            <h2 className={styles.title}>
-              {t('checkOutOurUpcomingEvents')}
-            </h2>
+            <h2 className={styles.title}>{t('checkOutOurUpcomingEvents')}</h2>
 
             <div className={`${styles.scrollContainer}`}>
               <Swiper
@@ -115,7 +113,7 @@ export default function Home(props: IHomeProps) {
             </div>
           </section>
         </div>
-        <Footer officeDetails={props?.officeDetails} />
+        <Footer officeDetails={props?.officeDetails} design={props?.design} />
       </main>
     </>
   );
