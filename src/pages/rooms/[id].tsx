@@ -193,7 +193,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
       </div>
       <div className={styles.footerArea}>
         <div>
-          <Footer officeDetails={props.officeDetails} />
+          <Footer design={props.design} officeDetails={props.officeDetails} />
         </div>
       </div>
     </>

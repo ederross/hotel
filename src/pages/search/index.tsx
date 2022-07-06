@@ -156,7 +156,7 @@ const Search = ({
             </div>
           </>
         )}
-        <Footer officeDetails={officeDetails} />
+        <Footer design={design} officeDetails={officeDetails} />
       </main>
     </>
   );

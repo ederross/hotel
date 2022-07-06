@@ -472,7 +472,7 @@ const Checkout = ({ officeDetails, design }: any) => {
           </div>
         </div>
       </main>
-      <Footer officeDetails={officeDetails} />
+      <Footer design={design} officeDetails={officeDetails} />
       {successModalVisible && (
         <CheckoutSucessModal
           handleCloseCheckoutSucessModal={handleCloseCheckoutSucessModal}
