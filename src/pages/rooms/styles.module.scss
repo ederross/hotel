@@ -311,11 +311,11 @@
 
     h4 {
       color: var(--primary-color);
-      font-size: 1.2rem;
+      font-size: 1.3rem;
 
       span {
         color: var(--gray-400);
-        font-size: 0.9rem;
+        font-size: 0.85rem;
       }
     }
   }
@@ -497,5 +497,18 @@
     background-color: #fff;
     padding-left: 8.1rem;
     padding-right: 8.1rem;
+  }
+}
+
+.footerArea {
+  padding: 3rem 0;
+  div {
+    display: none;
+  }
+  @media screen and (min-width: 868px) {
+    padding: 0;
+    div {
+      display: block;
+    }
   }
 }

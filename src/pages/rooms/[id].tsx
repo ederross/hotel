@@ -191,8 +191,11 @@ const RoomDetails = (props: IRoomDetailsProps) => {
           <button onClick={() => router.push('/checkout')}> Reservar</button>
         </div>
       </div>
-
-      <Footer officeDetails={props.officeDetails} />
+      <div className={styles.footerArea}>
+        <div>
+          <Footer officeDetails={props.officeDetails} />
+        </div>
+      </div>
     </>
   );
 };

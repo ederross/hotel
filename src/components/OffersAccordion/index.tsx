@@ -59,7 +59,7 @@ const OffersAccordion = () => {
               )}
               {ctaSelected === index && (
                 <h4>
-                  2 noites <span>R$ 128</span>
+                  2 noites <span style={{ marginLeft: 8 }}>R$ 128</span>
                 </h4>
               )}{' '}
             </div>
