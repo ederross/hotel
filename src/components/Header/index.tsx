@@ -159,7 +159,7 @@ export default function Header({ design }: IHeader) {
           'none',
         position:
           router.pathname !== '/' && router.pathname !== '/search'
-            ? 'relative' 
+            ? 'relative'
             : 'fixed',
       }}
     >
@@ -229,7 +229,7 @@ export default function Header({ design }: IHeader) {
         )}
 
         {/* Web Start Dynamic Input Search */}
-        {size.width > 868 && (
+        {size.width > 868 && router.pathname !== '/checkout' && (
           <form
             className={styles.search}
             onClick={
@@ -361,25 +361,27 @@ export default function Header({ design }: IHeader) {
 
         {/* End Dynamic Input Search */}
 
-        <div className={styles.profile}>
-          <a
-            href="#"
-            className={styles.globe}
-            onClick={handleOpenLanguageSwitcher}
-          >
-            <Globe
-              className={styles.globeIcon}
-              style={{ color: inputCalendars ? 'black' : 'white' }}
-            />
-          </a>
-          <div className={styles.cart}>
-            {/* <Menu className={styles.menu} /> */}
-            <ShoppingBagOutlinedIcon
-              className={styles.cartIcon}
-              style={{ color: inputCalendars ? 'black' : 'white' }}
-            />
+        {router.pathname !== '/checkout' && (
+          <div className={styles.profile}>
+            <a
+              href="#"
+              className={styles.globe}
+              onClick={handleOpenLanguageSwitcher}
+            >
+              <Globe
+                className={styles.globeIcon}
+                style={{ color: inputCalendars ? 'black' : 'white' }}
+              />
+            </a>
+            <div className={styles.cart}>
+              {/* <Menu className={styles.menu} /> */}
+              <ShoppingBagOutlinedIcon
+                className={styles.cartIcon}
+                style={{ color: inputCalendars ? 'black' : 'white' }}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </header>
   );

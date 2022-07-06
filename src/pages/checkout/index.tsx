@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronDown, ChevronUp } from 'react-feather';
 import { CheckoutSucessModal } from '../../components/CheckoutSucessModal';
 import Footer from '../../components/common/Footer';
+import Input from '../../components/common/Input';
 import Header from '../../components/Header';
 import { currency } from '../../utils/currency';
 
@@ -36,8 +37,8 @@ const Checkout = ({ officeDetails, design }: any) => {
       <Header design={design} />
       <main className={styles.mainBox}>
         <div className={styles.mobHeader}>
-          <div  onClick={() => router.back()} className={styles.btnGoBack}>
-            <ChevronLeft width={18} height={18} />
+          <div onClick={() => router.back()} className={styles.btnGoBack}>
+            <ChevronLeft width={24} height={24} />
           </div>
 
           <h2>Checkout</h2>
@@ -55,7 +56,13 @@ const Checkout = ({ officeDetails, design }: any) => {
         <div className={styles.contentBox}>
           <div className={styles.mainContainer}>
             <div className={styles.inputsContainer}>
-              <h2 className={styles.title}>Checkout</h2>
+              <div className={styles.contentHeaderDesk}>
+                <div className={styles.btnGoBackDesk}>
+                  <ChevronLeft width={18} height={18} />
+                </div>
+                <h2 className={styles.titleHeaderDesk}>Checkout</h2>
+              </div>
+
               <div className={styles.content}>
                 <div className={styles.infoBox}>
                   <h3>Sua hospedagem</h3>
@@ -79,6 +86,9 @@ const Checkout = ({ officeDetails, design }: any) => {
                     <input type="text" />
                   </div>
                 </div>
+              </div>
+              <div className={styles.divisorContainer}>
+                <div></div>
               </div>
               <div className={styles.mobInfoPriceContainer}>
                 <h3>Informações de preço</h3>
@@ -114,15 +124,15 @@ const Checkout = ({ officeDetails, design }: any) => {
               </div>
 
               <div className={styles.mobPersonalDataContainer}>
-                <h6>Informe</h6>
                 <h3>Dados pessoais</h3>
 
-                <input
+                <Input
+                  label={'Nome'}
                   type="text"
-                  className={styles.defaultInput}
+                  name="Nome"
                   placeholder="Nome"
                 />
-                <input
+                {/* <input
                   type="text"
                   className={styles.defaultInput}
                   placeholder="E-mail"
@@ -136,10 +146,9 @@ const Checkout = ({ officeDetails, design }: any) => {
                   type="text"
                   className={styles.defaultInput}
                   placeholder="CPF"
-                />
+                /> */}
 
-                <h6 style={{ marginTop: '1rem' }}>Informe</h6>
-                <h3>Forma de pagamento</h3>
+                <h3 className={styles.title}>Pagar com</h3>
 
                 <input
                   type="text"
