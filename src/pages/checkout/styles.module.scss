@@ -1,6 +1,6 @@
 .mainBox {
   margin: 0 auto 0;
-  max-width: 1568px;
+  max-width: 1356px;
   align-self: center;
 
   @media (min-width: 868px) {
@@ -12,12 +12,13 @@
   .webPaymentInfos {
     display: none;
     flex-direction: column;
+    justify-content: space-between;
     position: -webkit-sticky;
     position: sticky;
-    top: 36px;
+    top: 56px;
     width: 40%;
     min-width: 380px;
-    max-height: 760px;
+    max-height: 900px;
     color: var(--black);
     border-radius: 0.5rem;
     padding: 24px;
@@ -25,25 +26,25 @@
     border-radius: 12px;
 
     h3 {
-      font-size: 0.7rem;
+      font-size: 16px;
       font-weight: 400;
       color: var(--gray-with-blue-400);
     }
 
     .priceInformation {
-      border-top: 1px solid #dadada;
-      border-bottom: 1px solid #dadada;
-      padding: 1rem 0;
       margin-bottom: 2rem;
 
       h4 {
+        font-size: 24px;
+        font-family: 'Epilogue' !important;
+        font-weight: 500;
         margin-bottom: 1rem;
       }
 
       h5 {
-        font-size: 0.8rem;
-        font-weight: 400;
-        color: var(--gray-with-blue-400);
+        font-size: 16px;
+        font-weight: 200;
+        color: #222222;
         margin: 0.3rem 0;
       }
     }
@@ -53,17 +54,50 @@
       width: 100%;
       align-items: center;
       justify-content: space-between;
+
+      h4 {
+        font-weight: 400;
+      }
     }
     .roomContainer {
       display: flex;
-      flex-direction: column;
+   
       width: 100%;
-      margin: 0.5rem 0;
+      margin: 0 0 1rem 0;
 
-      h4 {
-        font-size: 0.8rem;
-        font-weight: 500;
-        color: var(--dark);
+      .imageRoomHolder {
+        position: relative;
+        width: 124px;
+        height: 106px;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .roomInfo {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding-left: 0.5rem;
+
+        h4 {
+          font-size: 16px;
+          font-weight: 400;
+          color: var(--dark);
+        }
+
+        .roomNameAdultChildContainer {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .roomQtndPriceContainer {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          justify-content: flex-end;
+        }
       }
 
       h5 {
@@ -229,7 +263,7 @@
 
             select {
               width: 100%;
-              -webkit-appearance: none;   // appearance: none;
+              -webkit-appearance: none; // appearance: none;
               font-size: 16px;
               color: rgb(72, 72, 72);
               border: 1px solid rgb(194, 194, 194);
@@ -240,11 +274,9 @@
                 color: rgb(72, 72, 72);
               }
 
-
-
               &::after {
                 content: '▼';
-                background-color:red;
+                background-color: red;
                 font-size: 1rem;
                 top: 6px;
                 right: 10px;
@@ -517,8 +549,8 @@
 
       .row {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        justify-content: flex-end;
+        align-items: flex-end;
       }
 
       h3 {
@@ -739,11 +771,17 @@
 
   .btnGoBackDesk {
     cursor: pointer;
-    display: flex;
+    display: none;
+
+    @media screen and (min-width: 868px) {
+      display: flex;
+    }
+
     align-self: flex-start;
     justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
+    margin-left: 1rem;
     margin-top: 1rem;
 
     transition: 0.2s ease-in-out;
@@ -751,12 +789,11 @@
     width: 36px;
     height: 36px;
     border-radius: 100%;
-
-    background-color: var(--light-text);
+    // background-color: transparent;
+    background-color: rgb(246, 246, 246);
 
     &:hover {
       transform: scale(1.1);
-      background-color: rgb(246, 246, 246);
       // box-shadow: 0 0.2rem 0.2rem rgb(135, 135, 135);
     }
   }

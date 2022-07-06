@@ -10,6 +10,7 @@ const nextConfig = {
       'images.unsplash.com',
       'hospeda.in',
       'img.freepik.com',
+      'images.pexels.com'
     ],
   },
   compiler: {
