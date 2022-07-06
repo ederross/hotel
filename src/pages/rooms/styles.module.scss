@@ -140,12 +140,17 @@
         p {
           margin-bottom: 2em;
 
-          line-height: 28px;
-
+          line-height: 18px;
+          
+          
           color: var(--gray-600);
           font-weight: 400;
-          font-size: 0.875rem;
-
+          font-size: 12px;
+          
+          @media screen and (min-width: 768px) {
+            line-height: 28px;
+            font-size: 0.875rem;
+          }
           span {
             color: var(--primary-color);
             font-weight: 500;
@@ -181,6 +186,7 @@
       .ctaBoxHolder {
         display: none;
         flex: 1;
+        justify-content: flex-end;
 
         .ctaBox {
           justify-content: space-between;
@@ -191,6 +197,11 @@
           position: sticky;
           top: 36px;
           width: 100%;
+          @media screen and (min-width: 1024px) {
+            width: 80%;
+          }
+
+          justify-self: flex-end;
           height: 436px;
           color: var(--black);
           border-radius: 0.5rem;
@@ -199,6 +210,8 @@
 
           -webkit-box-shadow: 0px 5px 8px -1px rgba(164, 164, 164, 0.53);
           box-shadow: 0px 5px 8px -1px rgba(164, 164, 164, 0.53);
+
+          border: 1px solid rgb(224, 224, 224);
 
           .confirmBtn {
             margin-top: 1rem;
@@ -287,6 +300,7 @@
   position: fixed;
   bottom: 0;
   z-index: 999;
+  font-family: "DM Sans" !important;
 
   box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.03);
 
@@ -374,7 +388,8 @@
       margin: 1rem 1rem 0;
 
       transition: 0.2s ease-in-out;
-      box-shadow: 0 0.2rem 0.2rem rgb(165, 165, 165);
+      // box-shadow: 0 0.2rem 0.2rem rgb(165, 165, 165);
+      border: 1px solid rgb(165, 165, 165);
       width: 36px;
       height: 36px;
       border-radius: 100%;
