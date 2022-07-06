@@ -196,7 +196,7 @@
         h3 {
           margin-bottom: 24px;
           font-size: 22px;
-          font-weight: 400;
+          font-weight: 500;
         }
 
         .infoHolder {
@@ -217,7 +217,43 @@
             font-weight: 300;
           }
 
-          // input {
+          .cSelect {
+            position: relative;
+            width: 100%;
+
+            &::after {
+              position: absolute;
+              top: 0;
+              right: 0;
+            }
+
+            select {
+              width: 100%;
+              -webkit-appearance: none;   // appearance: none;
+              font-size: 16px;
+              color: rgb(72, 72, 72);
+              border: 1px solid rgb(194, 194, 194);
+              border-radius: 8px;
+              padding: 1rem;
+
+              &:hover {
+                color: rgb(72, 72, 72);
+              }
+
+
+
+              &::after {
+                content: '▼';
+                background-color:red;
+                font-size: 1rem;
+                top: 6px;
+                right: 10px;
+                position: absolute;
+              }
+            }
+          }
+
+          // select {
           //   font-size: 16px;
           //   color: rgb(72, 72, 72);
           //   border: 1px solid rgb(194, 194, 194);
@@ -330,13 +366,34 @@
 
       h3 {
         margin-bottom: 0.5rem;
-        font-size: 1.05rem;
+        font-size: 22px;
         font-weight: 500;
       }
 
-      .title {
-        margin-top: 32px;
-        font-size: 22px;
+      .payWithContainer {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 1rem;
+
+        .title {
+          justify-self: center;
+          font-size: 22px;
+          margin-top: 0.5rem;
+        }
+
+        .payWithLogosContainer {
+          display: flex;
+          height: auto;
+
+          .payWithLogosBox {
+            margin-left: 0.4rem;
+            position: relative;
+            min-width: 28px;
+            height: auto;
+            overflow: hidden;
+          }
+        }
       }
 
       .defaultInput {
@@ -569,11 +626,12 @@
 .divisorContainer {
   width: 100%;
   height: auto;
-  margin: 22px 0;
-  padding: 0 1rem;
+  margin: 24px 0;
+
   div {
-    height: 1px;
-    background-color: var(--gray-200);  
+    width: 100%;
+    height: 0.5px;
+    background-color: var(--gray-200);
   }
 }
 
