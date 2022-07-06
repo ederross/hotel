@@ -88,7 +88,6 @@ const WebFilters = ({
                           { ...dateState[0], ...item.selection },
                         ] as any)
                       }
-                    
                       moveRangeOnFirstSelection={false}
                       months={2}
                       ranges={dateState}

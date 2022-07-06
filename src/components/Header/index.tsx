@@ -11,7 +11,7 @@ import 'react-date-range/dist/theme/default.css';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
 
-import { addDays, format } from 'date-fns';
+import { isWeekend, format } from 'date-fns';
 import { useWindowSize } from '../../hooks/UseWindowSize';
 import { Design } from '../../../data/design';
 import { useTranslation } from 'next-i18next';
@@ -121,10 +121,14 @@ export default function Header({ design }: IHeader) {
 
   function customDayContent(day) {
     let extraDot = null;
+    if (isWeekend(day)) {
+      extraDot = <div className={'weekdayDot'} />;
+    }
     return (
       <>
         <div>
           {extraDot}
+
           <span>{format(day, 'd')}</span>
         </div>
       </>
@@ -258,7 +262,8 @@ export default function Header({ design }: IHeader) {
               >
                 <label>{t('checkIn')}</label>
                 <input
-                  readOnly
+                  disabled
+                  readOnly={true}
                   placeholder="Add dates"
                   value={moment(dateState[0].startDate).format('ll')}
                 />
@@ -281,6 +286,7 @@ export default function Header({ design }: IHeader) {
                 <label>{t('checkOut')}</label>
                 <input
                   disabled
+                  readOnly
                   placeholder="Add dates"
                   value={
                     dateState[0].endDate

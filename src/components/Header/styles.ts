@@ -31,6 +31,16 @@ export const Container = styled.div`
     padding-top: 1rem;
   }
 
+  .weekdayDot {
+    height: 4px;
+    width: 4px;
+    border-radius: 100%;
+    background: var(--primary-color);
+    position: absolute;
+    bottom: 3px;
+    left: 45%;
+  }
+
   .inner {
     width: 100%;
     max-width: 720px;
