@@ -1,0 +1,14 @@
+.amenitie {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-right: 2rem;
+
+  h5 {
+    margin-left: 0.5rem;
+    padding: 0 0.2rem;
+    font-size: 0.8rem;
+    font-weight: 450;
+  }
+}

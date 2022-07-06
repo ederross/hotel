@@ -5,11 +5,7 @@ import { ChevronLeft } from 'react-feather';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
 import SingleBedOutlinedIcon from '@mui/icons-material/SingleBedOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
-import {
-  SignalWifi4BarOutlined,
-  TvOutlined,
-  LocalPhoneOutlined,
-} from '@mui/icons-material';
+import { AppsOutlined } from '@mui/icons-material';
 import Head from 'next/head';
 import CardService from '../../components/CardService';
 import CarouselHolder from '../../components/common/CarouselHolder';
@@ -27,6 +23,7 @@ import OffersRoomModal from '../../components/OffersRoomModal';
 import OffersAccordion from '../../components/OffersAccordion';
 import { useRouter } from 'next/router';
 import { mockSearchResults } from '../../../mock/mockSearchResult';
+import { AmenitieDisplay } from '../../components/common/AmenitieDisplay';
 
 interface IRoomDetailsProps {
   officeDetails: OfficeDetails;
@@ -85,7 +82,6 @@ const RoomDetails = (props: IRoomDetailsProps) => {
               className={styles.imgLeftSide}
               style={{
                 backgroundImage: `url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')`,
-                backgroundSize: 'cover',
               }}
             ></div>
             <div className={styles.imgRightSide}>
@@ -93,16 +89,19 @@ const RoomDetails = (props: IRoomDetailsProps) => {
                 className={styles.secondImgBox}
                 style={{
                   backgroundImage: `url('https://images.unsplash.com/photo-1591088398332-8a7791972843?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80')`,
-                  backgroundSize: 'cover',
                 }}
               ></div>
               <div
                 className={styles.thirdImgBox}
                 style={{
                   backgroundImage: `url('https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1157&q=80')`,
-                  backgroundSize: 'cover',
                 }}
-              ></div>
+              >
+                <div className={styles.allButton}>
+                  <AppsOutlined fontSize={'small'} style={{ color: '#000' }} />
+                  <p>{t('showAllPhotos')}</p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -141,18 +140,9 @@ const RoomDetails = (props: IRoomDetailsProps) => {
               </p>
 
               <div className={styles.amenitiesContainer}>
-                <div className={styles.amenitie}>
-                  <TvOutlined fontSize={'small'} />
-                  <h5>TV</h5>
-                </div>
-                <div className={styles.amenitie}>
-                  <SignalWifi4BarOutlined fontSize={'small'} />
-                  <h5>Wi-Fi</h5>
-                </div>
-                <div className={styles.amenitie}>
-                  <LocalPhoneOutlined fontSize={'small'} />
-                  <h5>Telefone</h5>
-                </div>
+                {currentRoom?.amenities?.map((item, index) => (
+                  <AmenitieDisplay key={index} amenitie={item as any} />
+                ))}
               </div>
             </div>
 
@@ -201,8 +191,11 @@ const RoomDetails = (props: IRoomDetailsProps) => {
           <button onClick={() => router.push('/checkout')}> Reservar</button>
         </div>
       </div>
-
-      <Footer officeDetails={props.officeDetails} />
+      <div className={styles.footerArea}>
+        <div>
+          <Footer officeDetails={props.officeDetails} />
+        </div>
+      </div>
     </>
   );
 };
