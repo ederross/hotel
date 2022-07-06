@@ -4,6 +4,8 @@ import { useTranslation } from 'next-i18next';
 import styles from './styles.module.scss';
 
 interface IAmenitiDisplayProps {
+  showTitle?: boolean;
+  direction?: 'row' | 'column';
   amenitie: {
     amenityGroupTypeCode: number;
     sequenceOrder: number;
@@ -19,12 +21,16 @@ interface IAmenitiDisplayProps {
   };
 }
 
-export const AmenitieDisplay = ({ amenitie }: IAmenitiDisplayProps) => {
+export const AmenitieDisplay = ({
+  amenitie,
+  showTitle = true,
+  direction = 'row',
+}: IAmenitiDisplayProps) => {
   const { t } = useTranslation('common');
-  const card = amenitie?.Amenities[0];
+  const card = amenitie?.Amenities ? amenitie?.Amenities[0] : null;
 
   return (
-    <div className={styles.amenitie}>
+    <div className={styles.amenitie} style={{ flexDirection: direction }}>
       {card?.displayIcon === 'wifi_ico' ? (
         <WifiOutlined fontSize={'small'} />
       ) : card?.displayIcon === 'bath_ico' ? (
@@ -32,7 +38,7 @@ export const AmenitieDisplay = ({ amenitie }: IAmenitiDisplayProps) => {
       ) : (
         <TvOutlined fontSize={'small'} />
       )}
-      <h5>{t(card.customName)}</h5>
+      {showTitle && <h5>{t(card?.customName)}</h5>}
     </div>
   );
 };
