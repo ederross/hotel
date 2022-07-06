@@ -202,7 +202,7 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
             </section>
           </>
         )}
-        <Footer officeDetails={officeDetails} design={design} />
+        <Footer design={design} officeDetails={officeDetails} />
       </main>
     </>
   );

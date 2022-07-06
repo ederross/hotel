@@ -2,6 +2,7 @@ import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronDown, ChevronUp } from 'react-feather';
@@ -82,12 +83,25 @@ const Checkout = ({ officeDetails, design }: any) => {
                     className={styles.infoHolder}
                     style={{ flexDirection: 'column' }}
                   >
-                    <h4>Previsão de chegada</h4>
-                    <input type="text" />
+                    <h4>{t('arrivalForecast')}</h4>
+                    <div className={styles.cSelect}>
+                      <select name="arrivalForecast" id="pet-select">
+                        <option value="">12h - 18h</option>
+                        <option value="19h-20h">Dog</option>
+                        <option value="cat">Cat</option>
+                        <option value="hamster">Hamster</option>
+                        <option value="parrot">Parrot</option>
+                        <option value="spider">Spider</option>
+                        <option value="goldfish">Goldfish</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className={styles.divisorContainer}>
+              <div
+                className={styles.divisorContainer}
+                style={{ padding: '0 1rem' }}
+              >
                 <div></div>
               </div>
               <div className={styles.mobInfoPriceContainer}>
@@ -132,23 +146,79 @@ const Checkout = ({ officeDetails, design }: any) => {
                   name="Nome"
                   placeholder="Nome"
                 />
-                {/* <input
+                <Input
+                  label={'E-mail'}
                   type="text"
-                  className={styles.defaultInput}
-                  placeholder="E-mail"
+                  name="Nome"
+                  placeholder="Nome"
                 />
-                <input
+                <Input
+                  label={'Telefone'}
                   type="text"
-                  className={styles.defaultInput}
-                  placeholder="Telefone"
+                  name="Nome"
+                  placeholder="Nome"
                 />
-                <input
+                <Input
+                  label={'CPF'}
                   type="text"
-                  className={styles.defaultInput}
-                  placeholder="CPF"
-                /> */}
+                  name="Nome"
+                  placeholder="Nome"
+                />
 
-                <h3 className={styles.title}>Pagar com</h3>
+                <div
+                  className={styles.divisorContainer}
+                  style={{ marginBottom: 12 }}
+                >
+                  <div></div>
+                </div>
+
+                <div className={styles.payWithContainer}>
+                  <h3 className={styles.title}>Forma de pagamento</h3>
+                  <div className={styles.payWithLogosContainer}>
+                    <div className={styles.payWithLogosBox}>
+                      <Image
+                        src={'/icons/visa.svg'}
+                        layout={'fill'}
+                        objectFit={'contain'}
+                      />
+                    </div>
+                    <div className={styles.payWithLogosBox}>
+                      <Image
+                        src={'/icons/amex.svg'}
+                        layout={'fill'}
+                        objectFit={'contain'}
+                      />
+                    </div>
+                    <div className={styles.payWithLogosBox}>
+                      <Image
+                        src={'/icons/mastercard.svg'}
+                        layout={'fill'}
+                        objectFit={'contain'}
+                      />
+                    </div>
+                    <div className={styles.payWithLogosBox}>
+                      <Image
+                        src={'/icons/elo.svg'}
+                        layout={'fill'}
+                        objectFit={'contain'}
+                      />
+                    </div>
+                    <div className={styles.payWithLogosBox}>
+                      <Image
+                        src={'/icons/hipercard.svg'}
+                        layout={'fill'}
+                        objectFit={'contain'}
+                      />
+                    </div>
+                    <div className={styles.payWithLogosBox}>
+                      <Image
+                        src={'/icons/aura.svg'}
+                        layout={'fill'}
+                        objectFit={'contain'}
+                      />
+                    </div>
+                  </div>
+                </div>
 
                 <input
                   type="text"
@@ -402,7 +472,7 @@ const Checkout = ({ officeDetails, design }: any) => {
           </div>
         </div>
       </main>
-      <Footer officeDetails={officeDetails} />
+      <Footer design={design} officeDetails={officeDetails} />
       {successModalVisible && (
         <CheckoutSucessModal
           handleCloseCheckoutSucessModal={handleCloseCheckoutSucessModal}
