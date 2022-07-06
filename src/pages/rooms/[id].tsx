@@ -26,16 +26,19 @@ import Footer from '../../components/common/Footer';
 import OffersRoomModal from '../../components/OffersRoomModal';
 import OffersAccordion from '../../components/OffersAccordion';
 import { useRouter } from 'next/router';
+import { mockSearchResults } from '../../../mock/mockSearchResult';
 
 interface IRoomDetailsProps {
   officeDetails: OfficeDetails;
   design: Design;
   servicesResult: any;
+  searchResult: any;
 }
 
 const RoomDetails = (props: IRoomDetailsProps) => {
   const { t } = useTranslation('common');
   const [openOffersModal, setOpenOffersModal] = useState(false);
+  const [showMoreDescription, setShowMoreDescription] = useState(false);
 
   const handleOpenMobileOffersModal = () => {
     if (document.body.style.overflow === 'hidden') {
@@ -49,6 +52,8 @@ const RoomDetails = (props: IRoomDetailsProps) => {
   const router = useRouter();
   // Window Sizes
   const size = useWindowSize();
+
+  const currentRoom = mockSearchResults[0];
 
   return (
     <>
@@ -118,14 +123,21 @@ const RoomDetails = (props: IRoomDetailsProps) => {
                 </div>
               </div>
 
-              <h2>Quarto Estofado suíte Deluxe</h2>
+              <h2>{currentRoom?.objectName || '-'}</h2>
 
               <p>
-                Localizado em Terrasini, em um vale maravilhoso com vista para a
-                costa do Golfo de Castellammare, Container Suite, cercado por
-                uma exuberante extensão de pêras espinhosas, integra-se na
-                paisagem em perfeita harmonia com o território circundante.
-                {/* <span>Ler mais</span> */}
+                {currentRoom?.objectDescription.substring(
+                  0,
+                  showMoreDescription
+                    ? currentRoom?.objectDescription?.length
+                    : 300
+                ) || '-'}
+                <span
+                  onClick={() => setShowMoreDescription(!showMoreDescription)}
+                >
+                  {' '}
+                  {showMoreDescription ? t('showLess') : `...${t('showMore')}`}
+                </span>
               </p>
 
               <div className={styles.amenitiesContainer}>
@@ -239,6 +251,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
   return {
     props: {
+      searchResult: mockSearchResults[0],
       servicesResult,
       officeDetails,
       design,
