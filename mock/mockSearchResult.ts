@@ -4,7 +4,7 @@ export const mockSearchResults = [
     identificationCode: '',
     objectName: 'Standard',
     objectDescription:
-      "<div class='col'>\r\n  <div>\r\n  <li>Ar Quente/Frio</li>\r\n  <li>TV 20&rdquo;</li>\r\n  <li>Telefone</li>\r\n</div>\r\n<div>\r\n  <li>Wireless (opcional)</li>\r\n  <li>Frigobar</li>\r\n  <li>35 m ² (média)</li>\r\n</div></div>",
+      'Aproveite nossa ilha privada exclusiva localizada nas Ilhas Rosario. O lugar tem um estilo tropical que combina com a bela paisagem, perfeito para se desconectar do cotidiano enquanto é cercado por um mar de sete cores. A ilha tem 4 quartos dos quais você pode sentir o cheiro do mar, e uma piscina para desfrutar do lugar paradisíaco enquanto você sente o vento em seu rosto... Aproveite nosso oásis.\n\nO espaço\n\nA propriedade está completamente cercada de água, no meio de uma reserva natural protegida pelo estado chamada Islas del Rosario. A casa e os quartos são construídos em madeira com um estilo tropical que a distingue do resto das ilhas, é uma experiência diferente...\n\nAcesso do hóspede\n\nO serviço vem com funcionários que cozinham, limpam e mantêm o lugar. Nossa equipe irá ajudá-lo com tudo o que você precisa durante sua estadia! A ilha é completamente privada, para que você possa ter acesso a todas as áreas da ilha, você pode desfrutar de um lugar exclusivo onde nada e ninguém vai incomodá-lo!',
     quantity: 0,
     objectTypeCode: 0,
     objectDetails: {
