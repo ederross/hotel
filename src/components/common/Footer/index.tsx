@@ -14,6 +14,7 @@ import {
 } from './styles';
 import { OfficeDetails } from '../../../../data/officeDetails';
 import { useTranslation } from 'next-i18next';
+import { Instagram, Twitter } from 'react-feather';
 interface IFooterProps {
   officeDetails: OfficeDetails;
 }
@@ -31,11 +32,13 @@ const Footer = (props: IFooterProps) => {
             <p>{props?.officeDetails?.officeDescription}</p>
             <div className="row">
               {socialData?.map((item, index) => (
-                <div
-                  className="socialCircle"
-                  key={index}
-                  title={item.name}
-                ></div>
+                <div className="socialCircle" key={index} title={item.name}>
+                  {item.icon === 'Twitter' ? (
+                    <Twitter className="icon" />
+                  ) : (
+                    <Instagram className="icon" />
+                  )}
+                </div>
               ))}
             </div>
           </SocialContainer>
@@ -64,6 +67,12 @@ const Footer = (props: IFooterProps) => {
                 </p>
               </div>
             )}
+            <CopyrightContainer>
+              <h4>
+                © {new Date().getFullYear()} FINEHOST. {t('allRightsReserved')}
+              </h4>
+              {/* <p>Lorem ipsum dolor sit amet. Sectus actus dolor.</p> */}
+            </CopyrightContainer>
           </ContactContainer>
 
           <InformationContainer>
@@ -77,12 +86,6 @@ const Footer = (props: IFooterProps) => {
             </a>
           </InformationContainer>
         </div>
-        <CopyrightContainer>
-          <h4>
-            © {new Date().getFullYear()} FINEHOST. {t('allRightsReserved')}
-          </h4>
-          <p>Lorem ipsum dolor sit amet. Sectus actus dolor.</p>
-        </CopyrightContainer>
       </ContainerHolder>
     </FooterContainer>
   );
@@ -91,6 +94,6 @@ const Footer = (props: IFooterProps) => {
 export default Footer;
 
 const socialData = [
-  { name: 'Instagram', url: '', icon: '' },
-  { name: 'Twitter', url: '', icon: '' },
+  { name: 'Instagram', url: '', icon: 'Instagram' },
+  { name: 'Twitter', url: '', icon: 'Twitter' },
 ];

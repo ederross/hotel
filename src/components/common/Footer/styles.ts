@@ -37,7 +37,7 @@ export const ContainerHolder = styled.div`
 `;
 
 export const SocialContainer = styled.div`
-  margin: 2rem 0;
+  margin: 1rem 0;
   width: 100%;
   @media screen and (min-width: 628px) {
     width: 30%;
@@ -61,17 +61,26 @@ export const SocialContainer = styled.div`
   }
 
   .socialCircle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-right: 0.8rem;
     width: 32px;
     height: 32px;
     background-color: var(--dark);
     border-radius: 100%;
     cursor: pointer;
+
+    .icon {
+      width: 16px;
+      height: 16px;
+      color: var(--light-text);
+    }
   }
 `;
 
 export const ContactContainer = styled.div`
-  margin: 2rem 0;
+  margin: 1rem 0;
   width: 100%;
   @media screen and (min-width: 628px) {
     width: 30%;
@@ -116,7 +125,7 @@ export const ContactContainer = styled.div`
 `;
 
 export const InformationContainer = styled.div`
-  margin: 2rem 0;
+  margin: 1rem 0;
   width: 100%;
   @media screen and (min-width: 628px) {
     width: 20%;

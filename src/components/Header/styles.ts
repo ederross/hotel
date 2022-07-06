@@ -54,7 +54,7 @@ export const Container = styled.div`
     border: none;
     padding: 0.5rem 1rem;
     background: #ff585d20;
-    color: var(--red);
+    /* color: var(--red); */
     border-radius: 99px;
   }
 
@@ -66,11 +66,9 @@ export const Container = styled.div`
     }
   }
 
-  .rdrWeekDay  {
+  .rdrWeekDay {
     font-size: 14px;
   }
-
-  l
 
   .rdrCalendarWrapper {
     color: #000000;
@@ -84,7 +82,7 @@ export const Container = styled.div`
   }
 
   .rdrMonths {
-    margin-top: -48px;
+    margin-top: -46px;
   }
 
   .rdrMonthAndYearPickers {
@@ -98,8 +96,23 @@ export const Container = styled.div`
   }
 
   .rdrNextPrevButton {
-    cursor: pointer;
-    background: #eff2f7;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border-radius: 200px;
+
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #eff2f7;
+    }
+  }
+  .rdrNextButton i {
+    transform: translate(0px, 0px);
   }
 
   .rdrDateRangePickerWrapper {
@@ -144,7 +157,7 @@ export const Container = styled.div`
     background: var(--dark);
   }
 
-  .rdrDayDisabled{
+  .rdrDayDisabled {
     background: transparent;
   }
 
@@ -152,15 +165,15 @@ export const Container = styled.div`
     font-weight: 500;
   }
   .rdrDayNumber span {
-    color: var(--dark-text);
+    /* color: var(--dark-text); */
   }
   .rdrDayPassive .rdrDayNumber span {
-    color: var(--dark-text);
+    /* color: var(--dark-text); */
     opacity: 0.33;
   }
   .rdrDayToday .rdrDayNumber span:after {
     /* background: var(--primary-color); */
-    background: red;
+    background: #eff2f7;
   }
 
   @media (min-width: 768px) {
