@@ -79,6 +79,8 @@ const Footer = ({ design, officeDetails }: IFooterProps) => {
                 href={`https://www.google.com.br/maps/place/${address?.postalCode},${address?.streetNumber}`}
                 title={'Ver mapa'}
                 target={'_blank'}
+                rel="noreferrer"
+                
               >
                 <PinDropRounded style={{ color: '#fff' }} />
                 <p>
