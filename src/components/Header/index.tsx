@@ -18,12 +18,14 @@ import { useTranslation } from 'next-i18next';
 import WebFilters from './WebFilters';
 import moment from 'moment';
 import LanguageSwitcher from '../LanguageSwitcher';
+import { EventsHome } from '../../../data/events';
 
 interface IHeader {
   design: Design;
+  events?: EventsHome[];
 }
 
-export default function Header({ design }: IHeader) {
+export default function Header({ design, events }: IHeader) {
   const { t } = useTranslation('common');
   const router = useRouter();
 
@@ -342,6 +344,7 @@ export default function Header({ design }: IHeader) {
             childrenAges={childrenAges}
             setChildrenAges={setChildrenAges}
             numberOfChildren={numberOfChildren}
+            events={events}
           />
         )}
 
@@ -357,6 +360,7 @@ export default function Header({ design }: IHeader) {
             childrenAges={childrenAges}
             setChildrenAges={setChildrenAges}
             numberOfChildren={numberOfChildren}
+            events={events}
           />
         )}
         {openLanguageSwitcher && (

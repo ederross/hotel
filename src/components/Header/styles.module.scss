@@ -169,7 +169,7 @@
 
   form {
     position: absolute;
-    transform: translate(-50%, 112%);
+    transform: translate(-50%, 70%);
     left: 50%;
     top: -0.8rem;
     background: var(--light);
@@ -212,18 +212,22 @@
       background: var(--primary-color);
       color: #fafafc;
       border: none;
-      padding: 1.5rem calc(2rem / 2);
+      padding: 1.2rem calc(2rem / 2);
       height: 3rem;
       max-width: 300px;
       display: flex;
       align-items: center;
       border-radius: 99px;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.8rem;
       overflow: hidden;
       z-index: 0;
       //
       transition: all 0.4s;
+
+      span {
+        margin-right: 0.6rem;
+      }
 
       &:hover:not(:disabled) {
         box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-color);
@@ -234,8 +238,8 @@
       }
     }
     & > button svg {
-      height: 1.25rem;
-      margin-right: 0.75rem;
+      height: 1.2rem;
+      margin-right: 0.6rem;
       flex: 0 0 1.25rem;
     }
   }
@@ -393,7 +397,7 @@
     color: var(--gray-600);
     font-size: 16px;
     font-family: 'DM Sans' !important;
-
+    
     @media screen and (max-width: 868px) {
       font-size: 14px;
     }

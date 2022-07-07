@@ -58,7 +58,7 @@ export default function Home(props: IHomeProps) {
       </Head>
 
       <main>
-        <Header design={props.design} />
+        <Header design={props.design} events={props.events} />
         <Hero officeDetails={props.officeDetails} design={props.design} />
 
         <div className={styles.mainBox}>
@@ -134,7 +134,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     base_url +
       '/offices/office1/events/?' +
       new URLSearchParams({
-        startDate: moment().format('YYYY-MM-DD'),
+        startDate: moment().add(-2, 'M').format('YYYY-MM-DD'),
         endDate: moment().add(2, 'M').format('YYYY-MM-DD'),
       })
   ).then((response) => response.json());

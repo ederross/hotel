@@ -3,8 +3,8 @@
   flex-direction: column;
   box-shadow: 0px 4px 4px 0px #00000040;
 
-  width: 242px;
-  height: 212px;
+  width: 220px;
+  height: 164px;
   border-radius: 1rem;
 
   .floatDateContainer {
@@ -27,20 +27,21 @@
   img {
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
-    height: 60%;
+    flex: 1;
+    height: 70%;
     object-fit: cover;
 
   }
 
   .contentContainer{
-    flex: 1;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
+    height: 48px;
 
     h4 {
       color: var(--dark-text);
-      font-size: 1.2rem;
+      font-size: 0.9rem;
       font-weight: 600;
     }
   }

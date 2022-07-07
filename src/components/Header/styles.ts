@@ -5,7 +5,6 @@ export const Container = styled.div`
   justify-content: center;
   align-self: center;
   /* font-family: 'DM Sans'; */
-  margin-bottom: 1rem;
 
   .button {
     transition: transform 0.2s;
@@ -37,7 +36,7 @@ export const Container = styled.div`
     border-radius: 100%;
     background: var(--primary-color);
     position: absolute;
-    bottom: 3px;
+    top: 2px;
     left: 45%;
   }
 
