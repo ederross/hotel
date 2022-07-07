@@ -15,7 +15,7 @@
   padding: 2rem 3rem 0;
   flex-direction: column;
   color: var(--dark-text);
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
 
   @media screen and (min-width: 1024px) {
     .controlsContainerHolder {
@@ -78,7 +78,7 @@
 
     h3 {
       padding: 0 1rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.6rem;
       font-weight: 500;
       color: var(--dark-text);
     }
