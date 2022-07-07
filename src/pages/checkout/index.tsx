@@ -382,12 +382,7 @@ const Checkout = ({ officeDetails, design }: any) => {
             <div className={styles.policyCardContainer}>
               <div className={styles.policyCard}>
                 <h3>Regras da casa</h3>
-                <p>
-                  Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem
-                  ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
-                  dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor
-                  sit amet
-                </p>
+                
               </div>
               <div className={styles.policyCard}>
                 <h3>Saúde {'&'} segurança</h3>
@@ -437,9 +432,9 @@ const Checkout = ({ officeDetails, design }: any) => {
                 <div className={styles.row}>
                   <h3>Regras da casa</h3>
                   {policy === 0 ? (
-                    <ChevronUp width={18} height={18} />
+                    <ChevronUp className={styles.chevronIcon} width={18} height={18} />
                   ) : (
-                    <ChevronDown width={18} height={18} />
+                    <ChevronDown className={styles.chevronIcon}  width={18} height={18} />
                   )}
                 </div>
                 {policy === 0 && (
@@ -455,9 +450,9 @@ const Checkout = ({ officeDetails, design }: any) => {
                 <div className={styles.row}>
                   <h3>Saúde {'&'} segurança</h3>
                   {policy === 1 ? (
-                    <ChevronUp width={18} height={18} />
+                    <ChevronUp className={styles.chevronIcon}  width={18} height={18} />
                   ) : (
-                    <ChevronDown width={18} height={18} />
+                    <ChevronDown className={styles.chevronIcon}  width={18} height={18} />
                   )}
                 </div>
                 {policy === 1 && (
@@ -473,9 +468,9 @@ const Checkout = ({ officeDetails, design }: any) => {
                 <div className={styles.row}>
                   <h3>Política de cancelamento</h3>
                   {policy === 2 ? (
-                    <ChevronUp width={18} height={18} />
+                    <ChevronUp className={styles.chevronIcon}  width={18} height={18} />
                   ) : (
-                    <ChevronDown width={18} height={18} />
+                    <ChevronDown className={styles.chevronIcon}  width={18} height={18} />
                   )}
                 </div>
                 {policy === 2 && (
@@ -506,7 +501,7 @@ const Checkout = ({ officeDetails, design }: any) => {
               className={styles.confirmBtn}
               onClick={handleOpenCheckoutSucessModal}
             >
-              Confirmar
+              Confirmar e Pagar
             </button>
           </div>
         </div>

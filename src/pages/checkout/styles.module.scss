@@ -61,7 +61,7 @@
     }
     .roomContainer {
       display: flex;
-   
+
       width: 100%;
       margin: 0 0 1rem 0;
 
@@ -166,7 +166,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 0.2rem 0.2rem #002;
+      // box-shadow: 0 0.2rem 0.2rem #002;  
 
       width: 36px;
       height: 36px;
@@ -228,7 +228,7 @@
         }
 
         h3 {
-          margin-bottom: 24px;
+          margin-bottom: 16px;
           font-size: 22px;
           font-weight: 500;
         }
@@ -329,7 +329,7 @@
       padding: 0 1rem;
       padding-bottom: 1rem;
 
-      border-bottom: 2px solid #dadada;
+      border-bottom: 8px solid #dadada;
 
       h3 {
         font-size: 1.05rem;
@@ -403,6 +403,7 @@
       }
 
       .payWithContainer {
+        overflow: hidden;
         display: flex;
         justify-content: space-between;
         width: 100%;
@@ -497,7 +498,7 @@
       }
 
       h6 {
-        font-size: 0.8rem;
+        font-size: 16px;
         color: var(--gray-400);
         font-weight: 400;
         max-width: 600px;
@@ -545,22 +546,33 @@
       min-height: auto;
       padding: 2rem 1rem;
 
-      border-top: 1.5px solid #dadada;
+      border-top: 8px solid #dadada;
+      border-bottom: 8px solid #dadada;
 
       .row {
         display: flex;
-        justify-content: flex-start;
-        // align-items: flex-end;
+        align-items: center;
+
+        h3 {
+          font-weight: 300;
+        }
+
+        .chevronIcon {
+          margin-left: 4px;
+          margin-bottom: 5px;
+        }
       }
+
+    
 
       h3 {
         margin-bottom: 1rem;
         font-size: 1.2rem;
-        font-weight: 300;
+        font-weight: 500;
       }
 
       h5 {
-        font-size: 0.8rem;
+        font-size: 16px;
         color: var(--gray-400);
         font-weight: 300;
       }
@@ -589,17 +601,18 @@
       .policyCard {
         width: 100%;
         height: 100%;
-        padding: 1.2rem 1rem;
-        border: 1.5px var(--gray-400) solid;
+        border-top: 1px solid var(--gray-150);
+       padding: 1rem 0;
+     
 
         h3 {
           margin-bottom: 0.5rem;
-          font-size: 0.8rem;
+          font-size: 18px;
           font-weight: 500;
         }
 
         p {
-          font-size: 0.7rem;
+          font-size: 16px;
           color: var(--gray-400);
           font-weight: 400;
           max-width: 600px;
@@ -617,12 +630,12 @@
       flex-direction: column;
       width: 100%;
       min-height: auto;
-      padding: 0 1rem;
-      padding-bottom: 1rem;
+      padding: 1rem 1rem;
+      padding-bottom: 4rem;
 
       h6 {
         font-weight: 500;
-        font-size: 0.7rem;
+        font-size: 14px;
       }
 
       .confirmBtn {
