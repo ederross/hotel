@@ -6,6 +6,10 @@ import * as locales from 'react-date-range/dist/locale';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { Add, RemoveOutlined } from '@mui/icons-material';
+import { EventsHome } from '../../../data/events';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import CardEventType1 from '../cardsEvents/CardEventType1';
+import CardEventType2 from '../cardsEvents/CardEventType2';
 
 interface IWebFilters {
   closeDatePickerWeb: () => void;
@@ -23,6 +27,7 @@ interface IWebFilters {
   numberOfChildren: number;
   childrenAges: number[];
   setChildrenAges: Dispatch<SetStateAction<number[]>>;
+  events?: EventsHome[];
 }
 
 const WebFilters = ({
@@ -35,6 +40,7 @@ const WebFilters = ({
   numberOfChildren,
   childrenAges,
   setChildrenAges,
+  events,
 }: IWebFilters) => {
   const { locale } = useRouter();
   const { t } = useTranslation('common');
@@ -54,8 +60,9 @@ const WebFilters = ({
     <>
       <div
         className={styles.controlsFullContainer}
-
-        // onClick={(e) =>{e.isPropagationStopped(), closeDatePickerWeb()}}
+        // onClick={(e) => {
+        //   e.isPropagationStopped(), closeDatePickerWeb();
+        // }}
       >
         <div
           className={styles.controlsContainerHolder}
@@ -76,7 +83,6 @@ const WebFilters = ({
               style={{
                 flex: 1,
                 width: '100%',
-                paddingBottom: 50,
               }}
             >
               {isCalendarVisible && (
@@ -108,16 +114,23 @@ const WebFilters = ({
                     />
                   </Container>
 
-                  <h4>{t('nextEvents')}</h4>
-                  <div
-                    style={{
-                      flex: 1,
-                      width: '100%',
-                      minHeight: 200,
-                      height: 'auto',
-                      paddingTop: '1rem',
-                    }}
-                  ></div>
+                  {events && (
+                    <div className={styles.eventsContainer}>
+                      <h3>{t('nextEvents')}</h3>
+                      <Swiper
+                        spaceBetween={16}
+                        slidesPerView={'auto'}
+                        freeMode={true}
+                        style={{ padding: '0 2rem 1rem 1rem' }}
+                      >
+                        {events.map((event, index) => (
+                          <SwiperSlide key={index} style={{ width: 'auto' }}>
+                            <CardEventType2 event={event} />
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
+                    </div>
+                  )}
                 </>
               )}
 

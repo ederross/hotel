@@ -74,14 +74,19 @@ const Footer = ({ design, officeDetails }: IFooterProps) => {
               </div>
             ))}
             {address && (
-              <div className="row">
+              <a
+                className="row"
+                href={`https://www.google.com.br/maps/place/${address?.postalCode},${address?.streetNumber}`}
+                title={'Ver mapa'}
+                target={'_blank'}
+              >
                 <PinDropRounded style={{ color: '#fff' }} />
                 <p>
                   {address?.streetName}, {address?.streetNumber},{' '}
                   {address?.additionalInfo} - {address?.stateCode} |{' '}
                   {address?.postalCode}
                 </p>
-              </div>
+              </a>
             )}
             <CopyrightContainer>
               <h4>

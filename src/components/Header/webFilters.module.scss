@@ -1,20 +1,21 @@
 .controlsContainerHolder {
-  // overflow: auto;
+  overflow-y: auto;
   font-family: "DM Sans" !important;
   box-shadow: 0 0 0 1px rgb(0 0 0 / 4%), 0 8px 16px rgb(0 0 0 / 15%);
   align-self: center;
   position: absolute;
-  top: 132px;
+  top: 96px;
   min-width: 800px;
   max-width: 1000px;
   z-index: 9;
-  height: 600px;
+  max-height: 656px;
   background: white;
   border-radius: 1rem;
   display: flex;
-  padding: 2rem 3rem;
+  padding: 2rem 3rem 0;
   flex-direction: column;
   color: var(--dark-text);
+  padding-bottom: 2rem;
 
   @media screen and (min-width: 1024px) {
     .controlsContainerHolder {
@@ -68,6 +69,28 @@
       h5 {
         padding: 0 0.5rem;
       }
+    }
+  }
+
+  .eventsContainer {
+    width: 100%;
+    min-height: 200px;
+
+    h3 {
+      padding: 0 1rem;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      color: var(--dark-text);
+    }
+
+    .sliderContainer {
+      display: flex;
+      overflow: scroll;
+
+      scroll-snap-type: x mandatory;
+      scroll-padding-left: 1.5rem;
+      grid-template-columns: repeat(4, 80%);
+      grid-template-rows: 1fr;
     }
   }
 

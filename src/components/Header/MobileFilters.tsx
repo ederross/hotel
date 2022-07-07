@@ -13,6 +13,7 @@ import CardEventType2 from '../cardsEvents/CardEventType2';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { Add, Close, RemoveOutlined } from '@mui/icons-material';
+import { EventsHome } from '../../../data/events';
 
 interface IFilters {
   closeMobileFilters: () => void;
@@ -31,6 +32,7 @@ interface IFilters {
   numberOfChildren: number;
   childrenAges: number[];
   setChildrenAges: Dispatch<SetStateAction<number[]>>;
+  events?: EventsHome[];
 }
 
 const Filters = ({
@@ -44,6 +46,7 @@ const Filters = ({
   numberOfChildren,
   childrenAges,
   setChildrenAges,
+  events,
 }: IFilters) => {
   const { locale } = useRouter();
   const { t } = useTranslation('common');
@@ -98,27 +101,28 @@ const Filters = ({
 
           <div className={styles.divisor}></div>
 
-          <div className={styles.eventsContainer}>
-            <h3>{t('nextEvents')}</h3>
-            <Swiper
-              spaceBetween={16}
-              slidesPerView={'auto'}
-              freeMode={true}
-              style={{
-                paddingLeft: 16,
-                paddingRight: 48,
-                paddingBottom: 16,
-                marginBottom: 48,
-              }}
-            >
-              <SwiperSlide style={{ width: 'auto' }}>
-                <CardEventType2 />
-              </SwiperSlide>
-              <SwiperSlide style={{ width: 'auto' }}>
-                <CardEventType2 />
-              </SwiperSlide>
-            </Swiper>
-          </div>
+          {events && (
+            <div className={styles.eventsContainer}>
+              <h3>{t('nextEvents')}</h3>
+              <Swiper
+                spaceBetween={16}
+                slidesPerView={'auto'}
+                freeMode={true}
+                style={{
+                  paddingLeft: 16,
+                  paddingRight: 48,
+                  paddingBottom: 16,
+                  marginBottom: 48,
+                }}
+              >
+                {events.map((event, index) => (
+                  <SwiperSlide key={index} style={{ width: 'auto' }}>
+                    <CardEventType2 event={event} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          )}
 
           <div className={styles.divisor}></div>
           <h3>{t('guest_other')}</h3>
@@ -234,7 +238,7 @@ const Container = styled.div`
 
   .rdrMonthsVertical {
     overflow: scroll;
-    max-height: 50vh;
+    max-height: 30vh;
   }
 
   .rdrMonth {
