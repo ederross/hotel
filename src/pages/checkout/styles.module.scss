@@ -12,13 +12,13 @@
   .webPaymentInfos {
     display: none;
     flex-direction: column;
-    justify-content: space-between;
+    // justify-content: space-between;
     position: -webkit-sticky;
     position: sticky;
     top: 56px;
     width: 40%;
     min-width: 380px;
-    max-height: 900px;
+    max-height: 872px;
     color: var(--black);
     border-radius: 0.5rem;
     padding: 24px;
@@ -59,59 +59,11 @@
         font-weight: 400;
       }
     }
-    .roomContainer {
-      display: flex;
 
-      width: 100%;
-      margin: 0 0 1rem 0;
-
-      .imageRoomHolder {
-        position: relative;
-        width: 124px;
-        height: 106px;
-        border-radius: 4px;
-        overflow: hidden;
-      }
-
-      .roomInfo {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        padding-left: 0.5rem;
-
-        h4 {
-          font-size: 16px;
-          font-weight: 400;
-          color: var(--dark);
-        }
-
-        .roomNameAdultChildContainer {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .roomQtndPriceContainer {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-end;
-          justify-content: flex-end;
-        }
-      }
-
-      h5 {
-        font-size: 0.75rem;
-        font-weight: 400;
-        color: var(--gray-with-blue-400);
-      }
-
-      h6 {
-        font-size: 0.7rem;
-        font-weight: 400;
-        color: var(--gray-with-blue-400);
-      }
+    .termsArea {
+      padding-top: 1rem;
     }
+
     .confirmBtn {
       margin-top: 1rem;
 
@@ -144,17 +96,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    top: 0;
+    position: fixed;
+    z-index: 99;
+    background-color: var(--light-text);
     width: 100%;
-    min-height: 112px;
-    background: linear-gradient(
-      90.72deg,
-      var(--primary-color) 23.93%,
-      #0a7763 138.27%
-    );
+    min-height: 72px;
+    transition: all 0.5s ease-in-out;
 
     h2 {
+      font-size: 16px;
       font-weight: 500;
-      color: var(--light-text);
     }
 
     .btnGoBack {
@@ -164,9 +116,8 @@
       z-index: 99;
 
       display: flex;
-      justify-content: center;
+    
       align-items: center;
-      // box-shadow: 0 0.2rem 0.2rem #002;  
 
       width: 36px;
       height: 36px;
@@ -180,16 +131,75 @@
     }
   }
 
+  .mobPriceInformation {
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+    padding-bottom: 2rem;
+    border-bottom: 8px solid #dadada;
+
+    @media screen and (min-width: 868px) {
+      margin-bottom: 0;
+      padding-bottom: 1rem;
+      border-bottom: none;
+    }
+
+    .mobMoreInfoHolder {
+      width: 100%;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: flex-end;
+
+      h5 {
+        font-weight: 800;
+        font-size: 16px;
+      }
+
+      @media screen and (min-width: 868px) {
+        display: none;
+      }
+    }
+
+    h4 {
+      font-size: 18px;
+      @media screen and (min-width: 868px) {
+        font-size: 22px;
+      }
+      font-family: 'Epilogue' !important;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    h5 {
+      font-size: 16px;
+      font-weight: 200;
+      color: #222222;
+      margin: 0.3rem 0;
+    }
+  }
+
+  .row {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+
+    h4 {
+      font-weight: 400;
+    }
+  }
+
   .mobTotalPrice {
+    margin-top: 72px;
     display: flex;
     justify-content: space-between;
-    background-color: var(--dark-text);
+    background-color: var(--primary-color);
     padding: 2rem 1rem;
 
     h3 {
       color: var(--light-text);
     }
     h4 {
+      font-weight: 500;
       color: var(--light-text);
     }
 
@@ -215,7 +225,6 @@
       margin-top: 32px;
       display: flex;
       width: 100%;
-      padding: 0 1rem;
 
       .infoBox {
         display: flex;
@@ -229,7 +238,10 @@
 
         h3 {
           margin-bottom: 16px;
-          font-size: 22px;
+          font-size: 18px;
+          @media screen and (min-width: 868px) {
+            font-size: 22px;
+          }
           font-weight: 500;
         }
 
@@ -320,74 +332,79 @@
       }
     }
 
-    .mobInfoPriceContainer {
-      margin-top: 1rem;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      min-height: auto;
-      padding: 0 1rem;
-      padding-bottom: 1rem;
+    // .mobInfoPriceContainer {
+    //   margin-top: 1rem;
+    //   display: flex;
+    //   flex-direction: column;
+    //   width: 100%;
+    //   min-height: auto;
+    //   padding: 0 1rem;
+    //   padding-bottom: 1rem;
 
-      border-bottom: 8px solid #dadada;
+    //   @media screen and (min-width: 868px) {
+    //     display: none;
+    //   }
 
-      h3 {
-        font-size: 1.05rem;
-        font-weight: 500;
-      }
+    //   border-bottom: 8px solid #dadada;
 
-      .mobInfoHolder {
-        width: 100%;
-        margin-bottom: 0.5rem;
-        display: flex;
-        justify-content: space-between;
+    //   h3 {
+    //     font-size: 1.05rem;
+    //     font-weight: 500;
+    //   }
 
-        h4 {
-          margin-bottom: 0.5rem;
-          font-size: 14px;
-        }
+    //   .mobInfoHolder {
+    //     width: 100%;
+    //     margin-bottom: 0.5rem;
+    //     display: flex;
+    //     justify-content: space-between;
 
-        h5 {
-          font-weight: 500;
-        }
-      }
+    //     h4 {
+    //       margin-bottom: 0.5rem;
+    //       font-size: 14px;
+    //     }
 
-      .mobInfoTotalHolder {
-        width: 100%;
-        margin-top: 0.5rem;
-        display: flex;
-        justify-content: space-between;
+    //     h5 {
+    //       font-weight: 500;
+    //     }
+    //   }
 
-        h5 {
-          font-weight: 600;
-          font-size: 16px;
-        }
-      }
+    //   .mobInfoTotalHolder {
+    //     width: 100%;
+    //     margin-top: 0.5rem;
+    //     display: flex;
+    //     justify-content: space-between;
 
-      .mobMoreInfoHolder {
-        width: 100%;
-        margin-top: 1rem;
-        display: flex;
-        justify-content: flex-end;
+    //     h5 {
+    //       font-weight: 600;
+    //       font-size: 16px;
+    //     }
+    //   }
 
-        h5 {
-          font-weight: 800;
-          font-size: 16px;
-        }
-      }
+    //   .mobMoreInfoHolder {
+    //     width: 100%;
+    //     margin-top: 1rem;
+    //     display: flex;
+    //     justify-content: flex-end;
 
-      @media screen and (min-width: 868px) {
-        display: none;
-      }
-    }
+    //     h5 {
+    //       font-weight: 800;
+    //       font-size: 16px;
+    //     }
+    //   }
+
+    //   @media screen and (min-width: 868px) {
+    //     display: none;
+    //   }
+    // }
 
     .mobPersonalDataContainer {
-      margin-top: 1rem;
       display: flex;
       flex-direction: column;
+
       width: 100%;
       min-height: auto;
       padding: 0 1rem;
+      // padding-top: 1rem;
       padding-bottom: 1rem;
 
       h6 {
@@ -397,14 +414,22 @@
       }
 
       h3 {
+        margin-top: 0rem;
         margin-bottom: 0.5rem;
-        font-size: 22px;
+        font-size: 18px;
+        @media screen and (min-width: 868px) {
+          font-size: 22px;
+        }
         font-weight: 500;
       }
 
       .payWithContainer {
         overflow: hidden;
         display: flex;
+        flex-direction: column;
+        @media screen and (min-width: 868px) {
+          flex-direction: unset;
+        }
         justify-content: space-between;
         width: 100%;
         margin-bottom: 1rem;
@@ -539,7 +564,7 @@
     }
 
     .mobPoliticsContainer {
-      margin-top: 5rem;
+      margin-top: 2rem;
       display: flex;
       flex-direction: column;
       width: 100%;
@@ -562,8 +587,6 @@
           margin-bottom: 5px;
         }
       }
-
-    
 
       h3 {
         margin-bottom: 1rem;
@@ -602,12 +625,14 @@
         width: 100%;
         height: 100%;
         border-top: 1px solid var(--gray-150);
-       padding: 1rem 0;
-     
+        padding: 1rem 0;
 
         h3 {
           margin-bottom: 0.5rem;
           font-size: 18px;
+          @media screen and (min-width: 868px) {
+            font-size: 22px;
+          }
           font-weight: 500;
         }
 
@@ -665,6 +690,76 @@
         display: none;
       }
     }
+  }
+}
+
+.buttonSeeMoreRoomsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  button {
+    cursor: pointer;
+    border: none;
+    border-radius: 24px;
+    border: 1px solid var(--gray-with-blue-400);
+    background-color: var(--light-text);
+    padding: 0.5rem 1rem;
+  }
+}
+
+.roomContainer {
+  display: flex;
+
+  width: 100%;
+  margin: 0 0 1rem 0;
+
+  .imageRoomHolder {
+    position: relative;
+    width: 124px;
+    height: 106px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .roomInfo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-left: 0.5rem;
+
+    h4 {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--dark);
+    }
+
+    .roomNameAdultChildContainer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .roomQtndPriceContainer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-end;
+    }
+  }
+
+  h5 {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--gray-with-blue-400);
+  }
+
+  h6 {
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: var(--gray-with-blue-400);
   }
 }
 
@@ -794,7 +889,7 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
-    margin-left: 1rem;
+    // margin-left: 1rem;
     margin-top: 1rem;
 
     transition: 0.2s ease-in-out;
