@@ -207,44 +207,47 @@ const Checkout = ({ officeDetails, design }: any) => {
                   </div>
                 </div>
               </div>
-              <div
-                className={styles.divisorContainer}
-                style={{ padding: '0 1rem' }}
-              >
-                <div></div>
-              </div>
+              {size.width < 868 && (
+                <div
+                  className={styles.divisorContainer}
+                  style={{ padding: '0 1rem' }}
+                >
+                  <div></div>
+                </div>
+              )}
+              {size.width < 868 && (
+                <div className={styles.mobPriceInformation}>
+                  <h4>Informações de preço</h4>
+                  <div className={styles.row}>
+                    <h5>R$1.071 x 8 noites</h5>
+                    <h5>{currency(8574.72)}</h5>
+                  </div>
+                  <div className={styles.row}>
+                    <u>
+                      <h5>Serviços</h5>
+                    </u>
+                    <h5>{currency(98)}</h5>
+                  </div>
+                  <div className={styles.row}>
+                    <u>
+                      <h5>Taxas</h5>
+                    </u>
+                    <h5>{currency(98)}</h5>
+                  </div>
+                  <div className={styles.row}>
+                    <u>
+                      <h5>Impostos</h5>
+                    </u>
+                    <h5>{currency(98)}</h5>
+                  </div>
 
-              <div className={styles.mobPriceInformation}>
-                <h4>Informações de preço</h4>
-                <div className={styles.row}>
-                  <h5>R$1.071 x 8 noites</h5>
-                  <h5>{currency(8574.72)}</h5>
+                  <div className={styles.mobMoreInfoHolder}>
+                    <u>
+                      <h5>Mais informações</h5>
+                    </u>
+                  </div>
                 </div>
-                <div className={styles.row}>
-                  <u>
-                    <h5>Serviços</h5>
-                  </u>
-                  <h5>{currency(98)}</h5>
-                </div>
-                <div className={styles.row}>
-                  <u>
-                    <h5>Taxas</h5>
-                  </u>
-                  <h5>{currency(98)}</h5>
-                </div>
-                <div className={styles.row}>
-                  <u>
-                    <h5>Impostos</h5>
-                  </u>
-                  <h5>{currency(98)}</h5>
-                </div>
-
-                <div className={styles.mobMoreInfoHolder}>
-                  <u>
-                    <h5>Mais informações</h5>
-                  </u>
-                </div>
-              </div>
+              )}
               {size.width > 868 && (
                 <div
                   className={styles.divisorContainer}
