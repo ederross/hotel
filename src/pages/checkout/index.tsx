@@ -155,26 +155,28 @@ const Checkout = ({ officeDetails, design }: any) => {
                       </div>
                     )}
 
-                    <div style={{ marginTop: '20px' }}>
-                      <h3>Serviços</h3>
-                      {services.map((room, index) => (
-                        <div key={index} className={styles.roomContainer}>
-                          <div className={styles.row}>
-                            <h4>{room.objectName}</h4>
-                            <div
-                              style={{
-                                display: 'flex',
-                                alignItems: 'flex-end',
-                                flexDirection: 'column',
-                              }}
-                            >
-                              <h5>x{room.quantity}</h5>
-                              <h5>{currency(room.price)}</h5>
+                    {size.width < 868 && (
+                      <div style={{ marginTop: '20px' }}>
+                        <h3>Serviços</h3>
+                        {services.map((room, index) => (
+                          <div key={index} className={styles.roomContainer}>
+                            <div className={styles.row}>
+                              <h4>{room.objectName}</h4>
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'flex-end',
+                                  flexDirection: 'column',
+                                }}
+                              >
+                                <h5>x{room.quantity}</h5>
+                                <h5>{currency(room.price)}</h5>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
-                    </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   <div style={{ padding: '0 1rem', paddingTop: '1rem' }}>
