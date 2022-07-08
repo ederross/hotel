@@ -90,12 +90,13 @@ const Footer = ({ design, officeDetails }: IFooterProps) => {
                 </p>
               </a>
             )}
+
             <CopyrightContainer>
               <h4>
                 © {new Date().getFullYear()} FINEHOST. {t('allRightsReserved')}
               </h4>
-              {/* <p>Lorem ipsum dolor sit amet. Sectus actus dolor.</p> */}
             </CopyrightContainer>
+
           </ContactContainer>
 
           <InformationContainer>

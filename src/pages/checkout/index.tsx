@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -8,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronDown, ChevronUp } from 'react-feather';
 import { CheckoutSucessModal } from '../../components/CheckoutSucessModal';
 import Footer from '../../components/common/Footer';
+import FooterCheckout from '../../components/common/FooterCheckout';
 import Input from '../../components/common/Input';
 import Header from '../../components/Header';
 import { useWindowSize } from '../../hooks/UseWindowSize';
@@ -108,6 +110,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                                     ? 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
                                     : 'https://images.unsplash.com/photo-1574643156929-51fa098b0394?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
                                 }
+                                alt={'Room photo'}
                                 layout={'fill'}
                                 width={124}
                                 height={124}
@@ -291,6 +294,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                         src={'/icons/visa.svg'}
                         layout={'fill'}
                         objectFit={'contain'}
+                        alt={'Credit Card Logo'}
                       />
                     </div>
                     <div className={styles.payWithLogosBox}>
@@ -298,6 +302,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                         src={'/icons/amex.svg'}
                         layout={'fill'}
                         objectFit={'contain'}
+                        alt={'Credit Card Logo'}
                       />
                     </div>
                     <div className={styles.payWithLogosBox}>
@@ -305,6 +310,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                         src={'/icons/mastercard.svg'}
                         layout={'fill'}
                         objectFit={'contain'}
+                        alt={'Credit Card Logo'}
                       />
                     </div>
                     <div className={styles.payWithLogosBox}>
@@ -312,6 +318,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                         src={'/icons/elo.svg'}
                         layout={'fill'}
                         objectFit={'contain'}
+                        alt={'Credit Card Logo'}
                       />
                     </div>
                     <div className={styles.payWithLogosBox}>
@@ -319,6 +326,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                         src={'/icons/hipercard.svg'}
                         layout={'fill'}
                         objectFit={'contain'}
+                        alt={'Credit Card Logo'}
                       />
                     </div>
                     <div className={styles.payWithLogosBox}>
@@ -326,6 +334,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                         src={'/icons/aura.svg'}
                         layout={'fill'}
                         objectFit={'contain'}
+                        alt={'Credit Card Logo'}
                       />
                     </div>
                   </div>
@@ -465,16 +474,21 @@ const Checkout = ({ officeDetails, design }: any) => {
                   <h4>Total (BRL)</h4>
                   <h4>{currency(2298)}</h4>
                 </div>
-                <button
+                <motion.button
+                  id={'button'}
+                  initial={{ scale: 0.9 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.2 }}
+                  whileTap={{ scale: 0.9 }}
                   className={styles.confirmBtn}
                   onClick={handleOpenCheckoutSucessModal}
                 >
-                  Confirmar
-                </button>
+                  {t('confirmPay')}
+                </motion.button>
 
                 <div className={styles.termsArea}>
                   <h6>
-                    Ao clicar no botão abaixo, concordo com as seguintes
+                    Ao clicar no botão acima, concordo com as seguintes
                     políticas:{' '}
                     <strong>
                       {' '}
@@ -644,16 +658,20 @@ const Checkout = ({ officeDetails, design }: any) => {
               </strong>
             </h6>
 
-            <button
+            <motion.button
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.2 }}
+              whileTap={{ scale: 0.9 }}
               className={styles.confirmBtn}
               onClick={handleOpenCheckoutSucessModal}
             >
-              Confirmar e Pagar
-            </button>
+              {t('confirmPay')}
+            </motion.button>
           </div>
         </div>
       </main>
-      {/* <Footer design={design} officeDetails={officeDetails} /> */}
+      <FooterCheckout />
       {successModalVisible && (
         <CheckoutSucessModal
           handleCloseCheckoutSucessModal={handleCloseCheckoutSucessModal}
