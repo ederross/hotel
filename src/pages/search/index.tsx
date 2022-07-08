@@ -162,7 +162,7 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
             <div className={styles.mobileResults}>
               {selectedTab === 'rooms' && (
                 <section className={styles.serviceResultContainer}>
-                  <h4 className={styles.subtitle}>Confira</h4>
+                  {/* <h4 className={styles.subtitle}>Confira</h4> */}
                   <h2 className={styles.title}>Quartos disponíveis</h2>
                   <div className={styles.contentResultContainer}>
                     {searchResult?.map((room, index) => (
@@ -184,8 +184,9 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
               )}
             </div>
 
-            <section className={styles.serviceResultContainer}>
-              <h2 className={styles.title}>O que este hotel oferece</h2>
+            <section className={styles.facilitiesContainerHolder}>
+            {/* <h4 className={styles.subtitle}>Confira</h4> */}
+                  <h2 className={styles.title}>O que esse hotel oferece?</h2>
               <div className={styles.facilitiesCardContainer}>
                 {[...Array(3)].map((_, index) => (
                   <div key={index} className={styles.facilitiesCard}>
