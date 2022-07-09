@@ -23,7 +23,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
       display: 'block',
     },
     exit: {
-      opacity: 1,
+      opacity: 0,
       rotateX: -20,
       transition: {
         duration: 0.2,

@@ -89,10 +89,14 @@ export default function Header({ design, events }: IHeader) {
   };
   const handleCloseLanguageSwitcher = () => {
     document.body.style.overflow = 'initial';
+    setScrolled(false);
     setOpenLanguageSwitcher(!openLanguageSwitcher);
   };
   const handleToggleCart = () => {
     if (!openCart) {
+  
+        setScrolled(true);
+     
       document.body.style.overflow = 'hidden';
       setOpenCart(!openCart);
       setInputCalendars(false);
@@ -101,6 +105,11 @@ export default function Header({ design, events }: IHeader) {
 
     } else {
       document.body.style.overflow = 'initial';
+      if (window.scrollY > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
       setOpenCart(!openCart);
     }
   };
