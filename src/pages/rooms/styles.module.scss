@@ -141,12 +141,11 @@
           margin-bottom: 2em;
 
           line-height: 18px;
-          
-          
+
           color: var(--gray-600);
           font-weight: 400;
           font-size: 12px;
-          
+
           @media screen and (min-width: 768px) {
             line-height: 28px;
             font-size: 0.875rem;
@@ -300,7 +299,7 @@
   position: fixed;
   bottom: 0;
   z-index: 999;
-  font-family: "DM Sans" !important;
+  font-family: 'DM Sans' !important;
 
   box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.03);
 
@@ -427,6 +426,20 @@
           border-top-left-radius: 0.5rem;
           border-bottom-left-radius: 0.5rem;
           background-size: cover;
+          transition-delay: 0.5s;
+
+          &:hover {
+            cursor: pointer;
+
+            &::after {
+              content: '';
+              width: 100%;
+              height: 100%;
+              border-top-left-radius: 0.5rem;
+              border-bottom-left-radius: 0.5rem;
+              background-color: rgba(0, 0, 0, 0.3);
+            }
+          }
         }
         .imgRightSide {
           display: flex;
@@ -438,9 +451,24 @@
 
           .secondImgBox {
             flex: 1;
+            display: flex;
             background-color: rgba(225, 225, 225, 0.53);
             border-top-right-radius: 0.5rem;
             background-size: cover;
+
+            &:hover {
+              cursor: pointer;
+
+              &::after {
+                content: '';
+                z-index: 9999;
+                transition: all 1s ease-in-out;
+                width: 100%;
+                height: 100%;
+                border-top-right-radius: 0.5rem;
+                background-color: rgba(0, 0, 0, 0.3);
+              }
+            }
           }
 
           .thirdImgBox {
@@ -452,7 +480,21 @@
             display: flex;
             justify-content: flex-end;
             align-items: flex-end;
-            padding: 1rem;
+
+            &:hover {
+              cursor: pointer;
+
+              &::after {
+                position: relative;
+                z-index: 99;
+                transition: all 1s ease-in-out;
+                content: '';
+                width: 100%;
+                height: 100%;
+                border-bottom-right-radius: 0.5rem;
+                background-color: rgba(0, 0, 0, 0.3);
+              }
+            }
 
             .allButton {
               background-color: var(--white);
@@ -463,10 +505,18 @@
               align-items: center;
               transition: all 0.3s ease;
               cursor: pointer;
+              z-index: 999;
+              position: absolute;
+              margin: 0 16px 16px 0;
 
               p {
                 margin-left: 0.8rem;
                 color: var(--dark-text);
+              }
+
+              &:hover {
+                cursor: pointer;
+                background-color: var(--gray-150);
               }
             }
           }

@@ -112,8 +112,6 @@ const Checkout = ({ officeDetails, design }: any) => {
                                 }
                                 alt={'Room photo'}
                                 layout={'fill'}
-                                width={124}
-                                height={124}
                               />
                             </div>
 
@@ -391,8 +389,8 @@ const Checkout = ({ officeDetails, design }: any) => {
                             : 'https://images.unsplash.com/photo-1574643156929-51fa098b0394?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
                         }
                         layout={'fill'}
-                        width={124}
-                        height={124}
+                        // width={124}
+                        // height={124}
                       />
                     </div>
 

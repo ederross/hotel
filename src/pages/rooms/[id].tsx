@@ -24,6 +24,7 @@ import OffersAccordion from '../../components/OffersAccordion';
 import { useRouter } from 'next/router';
 import { mockSearchResults } from '../../../mock/mockSearchResult';
 import { AmenitieDisplay } from '../../components/common/AmenitieDisplay';
+import { motion } from 'framer-motion';
 
 interface IRoomDetailsProps {
   officeDetails: OfficeDetails;
@@ -149,14 +150,19 @@ const RoomDetails = (props: IRoomDetailsProps) => {
             <div className={styles.ctaBoxHolder}>
               <div className={styles.ctaBox}>
                 <OffersAccordion />
-                <button
+                <motion.button
+                  id={'button'}
+                  initial={{ scale: 0.9 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0 }}
+                  whileTap={{ scale: 0.9 }}
+                  className={styles.confirmBtn}
                   onClick={() => {
                     router.push('/checkout');
                   }}
-                  className={styles.confirmBtn}
                 >
                   Reservar
-                </button>
+                </motion.button>
               </div>
             </div>
           </div>
