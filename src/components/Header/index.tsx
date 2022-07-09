@@ -19,6 +19,7 @@ import WebFilters from './WebFilters';
 import moment from 'moment';
 import LanguageSwitcher from '../LanguageSwitcher';
 import { EventsHome } from '../../../data/events';
+import CartMenu from '../CartMenu';
 
 interface IHeader {
   design: Design;
@@ -36,6 +37,7 @@ export default function Header({ design, events }: IHeader) {
   const [isCalendarVisible, setIsCalendarVisible] = useState(false);
   const [inputGuest, setInputGuest] = useState(false);
   const [openLanguageSwitcher, setOpenLanguageSwitcher] = useState(false);
+  const [openCart, setOpenCart] = useState(false);
 
   const { startDate, endDate, adults, children }: any = router.query;
 
@@ -65,8 +67,9 @@ export default function Header({ design, events }: IHeader) {
 
   const openDatePicker = () => {
     setInputCalendars(true);
-    setIsCalendarVisible(true);
+    setOpenCart(false);
     setInputGuest(false);
+    setIsCalendarVisible(true);
     document.body.style.overflow = 'hidden';
   };
 
@@ -80,11 +83,26 @@ export default function Header({ design, events }: IHeader) {
 
   const handleOpenLanguageSwitcher = () => {
     document.body.style.overflow = 'hidden';
+    setOpenCart(false);
+    setInputCalendars(false);
     setOpenLanguageSwitcher(true);
   };
   const handleCloseLanguageSwitcher = () => {
     document.body.style.overflow = 'initial';
     setOpenLanguageSwitcher(!openLanguageSwitcher);
+  };
+  const handleToggleCart = () => {
+    if (!openCart) {
+      document.body.style.overflow = 'hidden';
+      setOpenCart(!openCart);
+      setInputCalendars(false);
+      setInputGuest(false);
+      setIsCalendarVisible(false);
+
+    } else {
+      document.body.style.overflow = 'initial';
+      setOpenCart(!openCart);
+    }
   };
 
   const closeFilters = () => {
@@ -149,250 +167,274 @@ export default function Header({ design, events }: IHeader) {
     router.pathname === '/search' ? filterString : t('searchPeriod');
 
   return (
-    <header
-      ref={headerRef}
-      className={` ${styles.headerSection} ${
-        scrolled || inputCalendars || router.pathname !== '/'
-          ? styles.scrolled
-          : null
-      }
+    <>
+      <header
+        ref={headerRef}
+        className={` ${styles.headerSection} ${
+          scrolled || inputCalendars || router.pathname !== '/'
+            ? styles.scrolled
+            : null
+        }
         ${inputCalendars ? styles.inputFocus : null}`}
-      style={{
-        display:
-          router.pathname !== '/' &&
-          router.pathname !== '/search' &&
-          size.width <= 868 &&
-          'none',
-        position:
-          router.pathname !== '/' && router.pathname !== '/search'
-            ? 'relative'
-            : 'fixed',
-      }}
-    >
-      <div className={styles.headerInner}>
-        <div
-          className={styles.logo}
-          style={{ color: inputCalendars || scrolled ? 'black' : 'white' }}
-          onClick={() => router.push('/')}
-        >
-          {!logoError ? (
-            <img
-              src={design?.logoUrl}
-              alt={design?.browserTitle}
-              title={design?.browserTitle}
-              onError={() => setLogoError(true)}
-              draggable={false}
+        style={{
+          display:
+            router.pathname !== '/' &&
+            router.pathname !== '/search' &&
+            size.width <= 868 &&
+            'none',
+          position:
+            router.pathname !== '/' && router.pathname !== '/search'
+              ? 'relative'
+              : 'fixed',
+        }}
+      >
+        <div className={styles.headerInner}>
+          <div
+            className={styles.logo}
+            style={{ color: inputCalendars || scrolled ? 'black' : 'white' }}
+            onClick={() => router.push('/')}
+          >
+            {!logoError ? (
+              <img
+                src={design?.logoUrl}
+                alt={design?.browserTitle}
+                title={design?.browserTitle}
+                onError={() => setLogoError(true)}
+                draggable={false}
+              />
+            ) : (
+              <span>{design?.browserTitle}</span>
+            )}
+          </div>
+
+          {/* Mobile Start Dynamic Input Search */}
+          {!inputCalendars && size.width <= 868 && (
+            <>
+              <div
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent:
+                    router.pathname === '/search' ? 'space-between' : 'center',
+                  alignItems: 'center',
+                }}
+              >
+                {router.pathname === '/search' && (
+                  <div
+                    className={styles.btnGoBack}
+                    onClick={() => router.back()}
+                  >
+                    <ChevronLeftOutlinedIcon />
+                  </div>
+                )}
+                <form
+                  onClick={openDatePicker}
+                  style={{
+                    display: 'flex',
+                    width: router.pathname !== '/search' ? '100%' : '75%',
+                  }}
+                >
+                  <p className={styles.searchPlaceholder}>
+                    {dynamicPlaceholder}
+                  </p>
+                  <button
+                    type="submit"
+                    disabled={
+                      inputCalendars &&
+                      !(
+                        checkInDate &&
+                        checkOutDate &&
+                        (numberOfAdults || numberOfChildren)
+                      )
+                    }
+                    onClick={handleSubmit}
+                    aria-label="search places"
+                  >
+                    <Search />
+                    <span>{t('search')}</span>
+                  </button>
+                </form>
+              </div>
+            </>
+          )}
+
+          {/* Web Start Dynamic Input Search */}
+          {size.width > 868 && router.pathname !== '/checkout' && (
+            <form
+              className={styles.search}
+              onClick={
+                (scrolled || router.pathname !== '/') &&
+                !inputCalendars &&
+                !inputGuest
+                  ? openDatePicker
+                  : () => {}
+              }
+            >
+              <p className={styles.searchPlaceholder}>{dynamicPlaceholder}</p>
+              <div className={styles.overlay}>
+                <div
+                  className={styles.field}
+                  onClick={openDatePicker}
+                  style={
+                    checkInDate !== checkOutDate
+                      ? {
+                          boxShadow:
+                            isCalendarVisible &&
+                            inputCalendars &&
+                            '0 1rem 3rem -1rem #1e1e38',
+                        }
+                      : {}
+                  }
+                >
+                  <label>{t('checkIn')}</label>
+                  <input
+                    disabled
+                    readOnly={true}
+                    placeholder="Add dates"
+                    value={moment(dateState[0].startDate).format('ll')}
+                  />
+                </div>
+
+                <div
+                  className={styles.field}
+                  style={
+                    checkInDate === checkOutDate
+                      ? {
+                          boxShadow:
+                            isCalendarVisible &&
+                            inputCalendars &&
+                            '0 1rem 3rem -1rem #1e1e38',
+                        }
+                      : {}
+                  }
+                  onClick={openDatePicker}
+                >
+                  <label>{t('checkOut')}</label>
+                  <input
+                    disabled
+                    readOnly
+                    placeholder="Add dates"
+                    value={
+                      dateState[0].endDate
+                        ? moment(dateState[0].endDate).format('ll')
+                        : `${t('when')}?`
+                    }
+                  />
+                </div>
+
+                <div
+                  className={styles.field}
+                  onClick={openGuestSelector}
+                  style={{
+                    boxShadow:
+                      inputCalendars &&
+                      inputGuest &&
+                      '0 1rem 3rem -1rem #1e1e38',
+                  }}
+                >
+                  <label>{t('guest_other')}</label>
+                  <span className="guestNumber">
+                    {numberOfChildren > 0 || numberOfAdults > 0 ? (
+                      <p>
+                        {t('guestWithCount_one', {
+                          count: numberOfAdults + numberOfChildren,
+                        })}
+                      </p>
+                    ) : (
+                      <p className="empty">{t('howMany')}?</p>
+                    )}
+                  </span>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={!(checkInDate && checkOutDate && numberOfAdults > 0)}
+                onClick={scrolled ? openDatePicker : handleSubmit}
+                aria-label="search places"
+              >
+                <Search />
+                <span>{t('search')}</span>
+              </button>
+            </form>
+          )}
+
+          {size.width >= 868 && inputCalendars && (
+            <WebFilters
+              closeDatePickerWeb={closeFilters}
+              customDayContent={customDayContent}
+              dateState={dateState}
+              setDateState={setDateState}
+              isCalendarVisible={isCalendarVisible}
+              inputGuest={inputGuest}
+              childrenAges={childrenAges}
+              setChildrenAges={setChildrenAges}
+              numberOfChildren={numberOfChildren}
+              events={events}
             />
-          ) : (
-            <span>{design?.browserTitle}</span>
+          )}
+
+          {size.width <= 868 && inputCalendars && (
+            <Filters
+              handleSubmit={handleSubmit as any}
+              closeMobileFilters={closeFilters}
+              customDayContent={customDayContent}
+              dateState={dateState}
+              setDateState={setDateState}
+              isCalendarVisible={isCalendarVisible}
+              inputGuest={inputGuest}
+              childrenAges={childrenAges}
+              setChildrenAges={setChildrenAges}
+              numberOfChildren={numberOfChildren}
+              events={events}
+            />
+          )}
+          {openLanguageSwitcher && (
+            <LanguageSwitcher
+              handleCloseLanguageSwitcher={handleCloseLanguageSwitcher}
+            />
+          )}
+
+          {/* End Dynamic Input Search */}
+
+          {router.pathname !== '/checkout' && (
+            <div className={styles.profile}>
+              <a
+                href="#"
+                className={styles.globe}
+                onClick={handleOpenLanguageSwitcher}
+              >
+                <Globe
+                  className={styles.globeIcon}
+                  style={{ color: inputCalendars ? 'black' : 'white' }}
+                />
+              </a>
+              <div className={styles.cart} onClick={handleToggleCart}>
+                {/* <Menu className={styles.menu} /> */}
+                <ShoppingBagOutlinedIcon
+                  className={styles.cartIcon}
+                  style={{ color: inputCalendars ? 'black' : 'white' }}
+                />
+                <CartMenu openCart={openCart} />
+              </div>
+            </div>
           )}
         </div>
-
-        {/* Mobile Start Dynamic Input Search */}
-        {!inputCalendars && size.width <= 868 && (
-          <>
-            <div
-              style={{
-                width: '100%',
-                display: 'flex',
-                justifyContent:
-                  router.pathname === '/search' ? 'space-between' : 'center',
-                alignItems: 'center',
-              }}
-            >
-              {router.pathname === '/search' && (
-                <div className={styles.btnGoBack} onClick={() => router.back()}>
-                  <ChevronLeftOutlinedIcon />
-                </div>
-              )}
-              <form
-                onClick={openDatePicker}
-                style={{
-                  display: 'flex',
-                  width: router.pathname !== '/search' ? '100%' : '75%',
-                }}
-              >
-                <p className={styles.searchPlaceholder}>{dynamicPlaceholder}</p>
-                <button
-                  type="submit"
-                  disabled={
-                    inputCalendars &&
-                    !(
-                      checkInDate &&
-                      checkOutDate &&
-                      (numberOfAdults || numberOfChildren)
-                    )
-                  }
-                  onClick={handleSubmit}
-                  aria-label="search places"
-                >
-                  <Search />
-                  <span>{t('search')}</span>
-                </button>
-              </form>
-            </div>
-          </>
-        )}
-
-        {/* Web Start Dynamic Input Search */}
-        {size.width > 868 && router.pathname !== '/checkout' && (
-          <form
-            className={styles.search}
-            onClick={
-              (scrolled || router.pathname !== '/') &&
-              !inputCalendars &&
-              !inputGuest
-                ? openDatePicker
-                : () => {}
-            }
-          >
-            <p className={styles.searchPlaceholder}>{dynamicPlaceholder}</p>
-            <div className={styles.overlay}>
-              <div
-                className={styles.field}
-                onClick={openDatePicker}
-                style={
-                  checkInDate !== checkOutDate
-                    ? {
-                        boxShadow:
-                          isCalendarVisible &&
-                          inputCalendars &&
-                          '0 1rem 3rem -1rem #1e1e38',
-                      }
-                    : {}
-                }
-              >
-                <label>{t('checkIn')}</label>
-                <input
-                  disabled
-                  readOnly={true}
-                  placeholder="Add dates"
-                  value={moment(dateState[0].startDate).format('ll')}
-                />
-              </div>
-
-              <div
-                className={styles.field}
-                style={
-                  checkInDate === checkOutDate
-                    ? {
-                        boxShadow:
-                          isCalendarVisible &&
-                          inputCalendars &&
-                          '0 1rem 3rem -1rem #1e1e38',
-                      }
-                    : {}
-                }
-                onClick={openDatePicker}
-              >
-                <label>{t('checkOut')}</label>
-                <input
-                  disabled
-                  readOnly
-                  placeholder="Add dates"
-                  value={
-                    dateState[0].endDate
-                      ? moment(dateState[0].endDate).format('ll')
-                      : `${t('when')}?`
-                  }
-                />
-              </div>
-
-              <div
-                className={styles.field}
-                onClick={openGuestSelector}
-                style={{
-                  boxShadow:
-                    inputCalendars && inputGuest && '0 1rem 3rem -1rem #1e1e38',
-                }}
-              >
-                <label>{t('guest_other')}</label>
-                <span className="guestNumber">
-                  {numberOfChildren > 0 || numberOfAdults > 0 ? (
-                    <p>
-                      {t('guestWithCount_one', {
-                        count: numberOfAdults + numberOfChildren,
-                      })}
-                    </p>
-                  ) : (
-                    <p className="empty">{t('howMany')}?</p>
-                  )}
-                </span>
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={!(checkInDate && checkOutDate && numberOfAdults > 0)}
-              onClick={scrolled ? openDatePicker : handleSubmit}
-              aria-label="search places"
-            >
-              <Search />
-              <span>{t('search')}</span>
-            </button>
-          </form>
-        )}
-
-        {size.width >= 868 && inputCalendars && (
-          <WebFilters
-            closeDatePickerWeb={closeFilters}
-            customDayContent={customDayContent}
-            dateState={dateState}
-            setDateState={setDateState}
-            isCalendarVisible={isCalendarVisible}
-            inputGuest={inputGuest}
-            childrenAges={childrenAges}
-            setChildrenAges={setChildrenAges}
-            numberOfChildren={numberOfChildren}
-            events={events}
-          />
-        )}
-
-        {size.width <= 868 && inputCalendars && (
-          <Filters
-            handleSubmit={handleSubmit as any}
-            closeMobileFilters={closeFilters}
-            customDayContent={customDayContent}
-            dateState={dateState}
-            setDateState={setDateState}
-            isCalendarVisible={isCalendarVisible}
-            inputGuest={inputGuest}
-            childrenAges={childrenAges}
-            setChildrenAges={setChildrenAges}
-            numberOfChildren={numberOfChildren}
-            events={events}
-          />
-        )}
-        {openLanguageSwitcher && (
-          <LanguageSwitcher
-            handleCloseLanguageSwitcher={handleCloseLanguageSwitcher}
-          />
-        )}
-
-        {/* End Dynamic Input Search */}
-
-        {router.pathname !== '/checkout' && (
-          <div className={styles.profile}>
-            <a
-              href="#"
-              className={styles.globe}
-              onClick={handleOpenLanguageSwitcher}
-            >
-              <Globe
-                className={styles.globeIcon}
-                style={{ color: inputCalendars ? 'black' : 'white' }}
-              />
-            </a>
-            <div className={styles.cart}>
-              {/* <Menu className={styles.menu} /> */}
-              <ShoppingBagOutlinedIcon
-                className={styles.cartIcon}
-                style={{ color: inputCalendars ? 'black' : 'white' }}
-              />
-            </div>
-          </div>
-        )}
-      </div>
-    </header>
+      </header>
+      {size.width > 868 && openCart && (
+        <div
+          onClick={handleToggleCart}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100vh',
+            zIndex: 4,
+            background: 'rgba(0,0,0,0.6)',
+          }}
+        ></div>
+      )}
+    </>
   );
 }

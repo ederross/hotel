@@ -154,7 +154,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
                   id={'button'}
                   initial={{ scale: 0.9 }}
                   animate={{ scale: 1 }}
-                  transition={{ duration: 0 }}
+                  transition={{ duration: 0.1 }}
                   whileTap={{ scale: 0.9 }}
                   className={styles.confirmBtn}
                   onClick={() => {
