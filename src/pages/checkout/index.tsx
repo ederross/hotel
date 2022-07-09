@@ -429,7 +429,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                   {services.map((room, index) => (
                     <div key={index} className={styles.roomContainer}>
                       <div className={styles.row}>
-                        <h4>{room.objectName}</h4>
+                        <h4>{room.serviceName}</h4>
                         <div
                           style={{
                             display: 'flex',

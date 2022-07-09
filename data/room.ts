@@ -1,7 +1,7 @@
 export interface Room {
   objectId: string;
-  identificationCode: string;
   objectName: string;
+  identificationCode: string;
   objectDescription: string;
   quantity: number;
   objectTypeCode: number;

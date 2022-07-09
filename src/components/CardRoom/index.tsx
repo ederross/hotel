@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './styles.module.scss';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
@@ -18,6 +18,12 @@ import { useRouter } from 'next/router';
 import { currency } from '../../utils/currency';
 import { AmenitieDisplay } from '../common/AmenitieDisplay';
 import { Counter } from '../common/Counter';
+import { AppStore } from '../../store/types';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  AddProductToCart,
+  RemoveProductToCart,
+} from '../../store/ducks/cart/actions';
 
 interface ICardRoom {
   room: Room;
@@ -25,8 +31,17 @@ interface ICardRoom {
 
 const CardRoom = ({ room }: ICardRoom) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
-  const [quantity, setQuantity] = useState(0);
+  const { adults, children }: any = router.query;
+
+  const {
+    cart: { rooms },
+  } = useSelector((state: AppStore) => state);
+
+  const currentRoom = rooms.find((r) => r.objectId === room.objectId);
+
+  const [quantity, setQuantity] = useState(currentRoom?.quantity || 0);
 
   const imageData = room?.images?.map((i) => {
     return {
@@ -41,6 +56,36 @@ const CardRoom = ({ room }: ICardRoom) => {
   };
 
   const formattedValue = currency(999.99);
+
+  const handleAddToCart = () => {
+    dispatch(
+      AddProductToCart({
+        adults,
+        children,
+        image: room?.images[0]?.imageUrl,
+        objectId: room?.objectId,
+        objectName: room?.objectName,
+        price: room?.prices ? room?.prices[0]?.regularTotalAmount : 0,
+        quantity: quantity,
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (quantity > 0) {
+      handleAddToCart();
+    } else {
+      dispatch(RemoveProductToCart(room?.objectId));
+    }
+  }, [quantity]);
+
+  useEffect(() => {
+    if (currentRoom?.quantity > 0) {
+      setQuantity(currentRoom?.quantity);
+    } else {
+      setQuantity(0);
+    }
+  }, [currentRoom]);
 
   return (
     <>

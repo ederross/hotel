@@ -7,6 +7,7 @@ import { currency } from '../../utils/currency';
 
 import styles from './styles.module.scss';
 import { AppStore } from '../../store/types';
+import { CleanCart } from '../../store/ducks/cart/actions';
 
 interface ICartMenu {
   openCart: boolean;
@@ -14,10 +15,13 @@ interface ICartMenu {
 
 const CartMenu = ({ openCart }: ICartMenu) => {
   const { t } = useTranslation('common');
+  const dispatch = useDispatch();
 
   const {
     cart: { rooms, services },
   } = useSelector((state: AppStore) => state);
+
+  const handleCleanCart = () => dispatch(CleanCart());
 
   const subMenuAnimate = {
     enter: {
@@ -55,16 +59,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
         {rooms.map((room, index) => (
           <div key={index} className={styles.roomContainer}>
             <div className={styles.imageRoomHolder}>
-              <Image
-                src={
-                  index === 1
-                    ? 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80'
-                    : index == 2
-                    ? 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-                    : 'https://images.unsplash.com/photo-1574643156929-51fa098b0394?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-                }
-                layout={'fill'}
-              />
+              <Image src={room?.image} layout={'fill'} />
             </div>
 
             <div className={styles.roomInfo}>
@@ -88,11 +83,13 @@ const CartMenu = ({ openCart }: ICartMenu) => {
           <div></div>
         </div>
 
-        <h3 className={styles.servicesTitle}>Serviços</h3>
+        {services.length > 0 && (
+          <h3 className={styles.servicesTitle}>Serviços</h3>
+        )}
         {services.map((room, index) => (
           <div key={index} className={styles.roomContainer}>
             <div className={styles.row}>
-              <h4>{room.objectName}</h4>
+              <h4>{room.serviceName}</h4>
               <div
                 style={{
                   display: 'flex',
@@ -107,12 +104,15 @@ const CartMenu = ({ openCart }: ICartMenu) => {
           </div>
         ))}
 
-        <div
-          style={{ marginTop: '1.5rem' }}
-          className={styles.buttonSeeMoreRoomsContainer}
-        >
-          <button>{t('Limpar')}</button>
-        </div>
+        {(services?.length > 0 || rooms?.length > 0) && (
+          <div
+            style={{ marginTop: '1.5rem' }}
+            className={styles.buttonSeeMoreRoomsContainer}
+            onClick={handleCleanCart}
+          >
+            <button>{t('Limpar')}</button>
+          </div>
+        )}
 
         <motion.button
           id={'button'}
