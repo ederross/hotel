@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import CarouselHolder from '../common/CarouselHolder';
 import { Add, RemoveOutlined } from '@mui/icons-material';
 import { Service } from '../../../data/services';
 import { currency } from '../../utils/currency';
+import { Counter } from '../common/Counter';
 
 interface ICardService {
   service: Service;
 }
 
 const CardService = ({ service }: ICardService) => {
-
+  const [quantity, setQuantity] = useState(0);
   const formattedValue = currency(999.99);
-
 
   return (
     <>
@@ -34,20 +34,15 @@ const CardService = ({ service }: ICardService) => {
 
         <div className={styles.priceAndControlsContainerHolder}>
           <div className={styles.pricesInfos}>
-          <h4>
+            <h4>
               {formattedValue.split(',')[0]}
-              <span className={styles.cents}>,{formattedValue.split(',')[1]}</span> <span> por dia</span>
+              <span className={styles.cents}>
+                ,{formattedValue.split(',')[1]}
+              </span>{' '}
+              <span> por dia</span>
             </h4>
           </div>
-          <div className={styles.addButtons}>
-            <button disabled>
-              <RemoveOutlined className={styles.removeIcon} />
-            </button>
-            <h5>99</h5>
-            <button>
-              <Add className={styles.addIcon} />
-            </button>
-          </div>
+          <Counter quantity={quantity} setQuantity={setQuantity} />
         </div>
       </div>
     </>

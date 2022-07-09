@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export const baseUrl = 'http://book.hospeda.in';
+export const baseURL = 'https://pokeapi.co/api/v2/pokemon';
 
 const api = axios.create({
-  baseURL: baseUrl,
+  baseURL,
 });
 
 export default api;

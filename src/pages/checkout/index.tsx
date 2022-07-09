@@ -7,18 +7,24 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronDown, ChevronUp } from 'react-feather';
+import { useSelector } from 'react-redux';
 import { CheckoutSucessModal } from '../../components/CheckoutSucessModal';
 import Footer from '../../components/common/Footer';
 import FooterCheckout from '../../components/common/FooterCheckout';
 import Input from '../../components/common/Input';
 import Header from '../../components/Header';
 import { useWindowSize } from '../../hooks/UseWindowSize';
+import { AppStore } from '../../store/types';
 import { currency } from '../../utils/currency';
 
 import styles from './styles.module.scss';
 
 const Checkout = ({ officeDetails, design }: any) => {
   const { t } = useTranslation();
+
+  const {
+    cart: { rooms, services },
+  } = useSelector((state: AppStore) => state);
 
   // Window Sizes
   const size = useWindowSize();
@@ -706,35 +712,3 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 
 export default Checkout;
-
-const rooms = [
-  {
-    objectName: 'Standard',
-    adults: 2,
-    children: 1,
-    quantity: 1,
-    price: 98,
-  },
-  {
-    objectName: 'Master',
-    adults: 3,
-    children: 1,
-    quantity: 1,
-    price: 130,
-  },
-  {
-    objectName: 'Luxo',
-    adults: 2,
-    children: 2,
-    quantity: 1,
-    price: 125,
-  },
-];
-
-const services = [
-  {
-    objectName: 'Passeio de balão',
-    quantity: 2,
-    price: 230,
-  },
-];

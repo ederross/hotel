@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useSelector, useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 import { currency } from '../../utils/currency';
 
 import styles from './styles.module.scss';
+import { AppStore } from '../../store/types';
 
 interface ICartMenu {
   openCart: boolean;
@@ -13,6 +14,11 @@ interface ICartMenu {
 
 const CartMenu = ({ openCart }: ICartMenu) => {
   const { t } = useTranslation('common');
+
+  const {
+    cart: { rooms, services },
+  } = useSelector((state: AppStore) => state);
+
   const subMenuAnimate = {
     enter: {
       opacity: 1,
@@ -126,29 +132,5 @@ const CartMenu = ({ openCart }: ICartMenu) => {
     </>
   );
 };
-
-const rooms = [
-  {
-    objectName: 'Standard',
-    adults: 2,
-    children: 1,
-    quantity: 1,
-    price: 98,
-  },
-  {
-    objectName: 'Luxo',
-    adults: 2,
-    children: 2,
-    quantity: 1,
-    price: 125,
-  }
-];
-const services = [
-  {
-    objectName: 'Passeio de balão',
-    quantity: 2,
-    price: 230,
-  },
-];
 
 export default CartMenu;

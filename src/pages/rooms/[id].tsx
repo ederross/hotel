@@ -53,6 +53,8 @@ const RoomDetails = (props: IRoomDetailsProps) => {
 
   const currentRoom = mockSearchResults[0];
 
+  const handleReserve = () => router.push('/checkout');
+
   return (
     <>
       <Head>
@@ -157,9 +159,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
                   transition={{ duration: 0.1 }}
                   whileTap={{ scale: 0.9 }}
                   className={styles.confirmBtn}
-                  onClick={() => {
-                    router.push('/checkout');
-                  }}
+                  onClick={handleReserve}
                 >
                   Reservar
                 </motion.button>
@@ -194,7 +194,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
         </div>
 
         <div className={styles.rightSide}>
-          <button onClick={() => router.push('/checkout')}> Reservar</button>
+          <button onClick={handleReserve}> Reservar</button>
         </div>
       </div>
       <div className={styles.footerArea}>

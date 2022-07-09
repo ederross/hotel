@@ -83,7 +83,7 @@ const Filters = ({
               onChange={(item) =>
                 setDateState([{ ...dateState[0], ...item.selection }] as any)
               }
-              // scroll={{ enabled: true }}
+              scroll={{ enabled: false }}
               moveRangeOnFirstSelection={false}
               ranges={dateState}
               months={35}

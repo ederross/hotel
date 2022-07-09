@@ -9,9 +9,12 @@ import { appWithTranslation } from 'next-i18next';
 import nextI18nConfig from '../../next-i18next.config';
 import moment from 'moment';
 import 'moment/locale/pt-br';
+import store from '../store';
 
 import { useEffect } from 'react';
 import NextNProgress from 'nextjs-progressbar';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Provider } from 'react-redux';
 function MyApp({ Component, pageProps }: AppProps) {
   const { locale } = useRouter();
 
@@ -28,7 +31,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         height={3}
         showOnShallow={true}
       />
-      <Component {...pageProps} />
+      <PersistGate persistor={store.persistor}>
+        <Provider store={store.store}>
+          <Component {...pageProps} />
+        </Provider>
+      </PersistGate>
     </>
   );
 }
