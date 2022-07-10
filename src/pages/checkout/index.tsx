@@ -1,3 +1,4 @@
+import { VerifiedUserOutlined } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
@@ -181,6 +182,23 @@ const Checkout = ({ officeDetails, design }: any) => {
                         ))}
                       </div>
                     )}
+
+                    {size.width < 868 && (
+                      <div
+                        className={styles.divisorContainer}
+                      >
+                        <div></div>
+                      </div>
+                    )}
+                    {size.width < 868 && (
+                      <div
+                        className={styles.lgpdAdviceContainer}
+                        style={{ padding: '0 0 1rem 0' }}
+                      >
+                        <VerifiedUserOutlined className={styles.lockIcon} />
+                        <h4>Dados protegidos em conformidade com (LGPD)</h4>
+                      </div>
+                    )}
                   </div>
 
                   <div style={{ padding: '0 1rem', paddingTop: '1rem' }}>
@@ -211,14 +229,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                   </div>
                 </div>
               </div>
-              {size.width < 868 && (
-                <div
-                  className={styles.divisorContainer}
-                  style={{ padding: '0 1rem' }}
-                >
-                  <div></div>
-                </div>
-              )}
+
               {size.width < 868 && (
                 <div className={styles.mobPriceInformation}>
                   <h4>Informações de preço</h4>
@@ -450,6 +461,14 @@ const Checkout = ({ officeDetails, design }: any) => {
                 >
                   <div></div>
                 </div>
+              </div>
+
+              <div className={styles.lgpdAdviceContainer}>
+                <VerifiedUserOutlined className={styles.lockIcon} />
+                <h4>Dados protegidos em conformidade com (LGPD)</h4>
+              </div>
+              <div className={styles.divisorContainer}>
+                <div></div>
               </div>
 
               <div className={styles.priceInformation}>

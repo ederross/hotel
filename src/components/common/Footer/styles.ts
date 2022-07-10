@@ -32,11 +32,14 @@ export const FooterContainer = styled.div`
 `;
 
 export const ContainerHolder = styled.div`
+  display: flex;
+  flex-direction: column;
   max-width: 1568px;
   margin: 0 auto;
 `;
 
 export const SocialContainer = styled.div`
+  flex: 1;
   margin: 1rem 0;
   width: 100%;
   @media screen and (min-width: 628px) {
@@ -111,6 +114,11 @@ export const SocialContainer = styled.div`
 `;
 
 export const ContactContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   margin: 1rem 0;
   width: 100%;
   @media screen and (min-width: 628px) {
@@ -144,18 +152,13 @@ export const ContactContainer = styled.div`
       line-height: normal;
     }
   }
-
-  .socialCircle {
-    margin-right: 0.8rem;
-    width: 32px;
-    height: 32px;
-    background-color: var(--dark);
-    border-radius: 100%;
-    cursor: pointer;
-  }
 `;
 
 export const InformationContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 1rem 0;
   width: 100%;
   @media screen and (min-width: 628px) {
@@ -187,20 +190,37 @@ export const InformationContainer = styled.div`
 
 export const CopyrightContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
   margin: 4rem 0 0;
   width: 100%;
-  text-align: left;
 
-  @media screen and (min-width: 628px) {
-    align-items: flex-start;
-    text-align: left;
+  .row {
+    display: flex;
+  }
+
+  .socialCircle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.8rem;
+    margin-top: 1rem;
+    width: 32px;
+    height: 32px;
+    background-color: var(--dark);
+    border-radius: 100%;
+    cursor: pointer;
+
+    .icon {
+      width: 16px;
+      height: 16px;
+      color: var(--light-text);
+    }
   }
 
   h4 {
     color: var(--gray);
-    font-size: 0.9rem;
+    font-size: 14px;
     font-weight: 500;
     margin-bottom: 1rem;
   }

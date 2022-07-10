@@ -159,7 +159,7 @@ export default function Header({ design, events }: IHeader) {
 
   // Cart Feedback Animation
   useEffect(() => {
-    if (rooms.length > 0 || services.length > 0) {
+    if (rooms.length > 0 || services.length > 0 ) {
       setScrolled(true);
 
       document.body.style.overflow = 'initial';
@@ -496,7 +496,7 @@ export default function Header({ design, events }: IHeader) {
           )}
         </div>
       </header>
-      {size.width > 868 && openCart && (
+      {size.width > 868 && openCart && router.pathname !== '/checkout' && (
         <div
           onClick={handleToggleCart}
           style={{
