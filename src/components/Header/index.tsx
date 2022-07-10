@@ -105,7 +105,7 @@ export default function Header({ design, events }: IHeader) {
   const handleToggleCart = () => {
     if (!openCart) {
       setScrolled(true);
-
+      // document.body.style.overflow = 'initial';
       // document.body.style.overflow = 'hidden';
       setOpenCart(!openCart);
       setInputCalendars(false);
@@ -217,7 +217,7 @@ export default function Header({ design, events }: IHeader) {
             'none',
           position:
             router.pathname !== '/' && router.pathname !== '/search'
-              ? 'relative'
+              ? 'fixed'
               : 'fixed',
         }}
       >

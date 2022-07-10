@@ -65,7 +65,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
       <Header design={props.design} />
 
       <main className={styles.mainBox}>
-        <div className={styles.btnGoBackDesk}>
+        <div className={styles.btnGoBackDesk} onClick={() => router.back()}>
           <ChevronLeft width={18} height={18} />
         </div>
 
@@ -77,7 +77,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
           )}
 
           <div className={styles.carouselContainer}>
-            <CarouselHolder data={imageData} />
+            <CarouselHolder isDiscountBoxActive={true} data={imageData} />
           </div>
 
           <div className={styles.imgsBox}>
@@ -161,7 +161,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
                   className={styles.confirmBtn}
                   onClick={handleReserve}
                 >
-                  Reservar
+                  {t('book')}
                 </motion.button>
               </div>
             </div>
@@ -194,7 +194,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
         </div>
 
         <div className={styles.rightSide}>
-          <button onClick={handleReserve}> Reservar</button>
+          <button onClick={handleReserve}> {t('book')}</button>
         </div>
       </div>
       <div className={styles.footerArea}>

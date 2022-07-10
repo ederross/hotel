@@ -83,7 +83,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
           </div>
         ))}
 
-        {rooms && services.length > 0 && (
+        {rooms && rooms.length > 0 && (
           <div className={styles.divisorContainer} style={{ margin: '20px 0' }}>
             <div></div>
           </div>

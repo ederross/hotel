@@ -23,11 +23,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 1rem;
   padding-top: 2rem;
 
   @media screen and (min-width: 628px) {
     padding-top: 4rem;
+  }
+  @media screen and (min-width: 868px) {
+    padding-top: 2rem;
   }
 
   margin-bottom: 2rem;
@@ -44,6 +46,7 @@
     @media screen and (min-width: 568px) {
       font-size: 2.2rem;
       max-width: 900px;
+      padding: 0 2rem;
     }
   }
 
@@ -55,8 +58,8 @@
     flex: 1;
     display: flex;
     width: 100%;
-    padding-top: 2.5rem;
-    border-bottom: 1px solid var(--gray);
+    padding-top: 48px;
+    border-bottom: 1px solid var(--gray-200);
 
     @media screen and (min-width: 868px) {
       display: none;
@@ -68,6 +71,7 @@
       align-items: center;
       justify-content: center;
       padding-bottom: 1rem;
+      margin-left: 1rem;
 
       min-width: 100px;
       height: 56px;
@@ -157,10 +161,10 @@
   margin-top: 4rem;
 
   .title {
-    margin-left: 0.5rem;
+    // margin-left: 0.5rem;
 
     @media screen and (min-width: 600px) {
-      margin-left: 1rem;
+      // margin-left: 1rem;
     }
   }
 
@@ -173,7 +177,7 @@
     justify-content: center;
     grid-gap: 16px;
 
-    padding: 0 8px;
+    padding: 0 16px;
 
     @media screen and (min-width: 600px) {
       padding: 8px 24px;
@@ -197,7 +201,7 @@
   }
 
   .facilitiesCard {
-    margin: 0.8rem;
+    // margin: 0.8rem;
     min-width: 220px;
     height: 100%;
     padding: 1.2rem 1rem;

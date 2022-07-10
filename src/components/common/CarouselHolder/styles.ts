@@ -21,7 +21,7 @@ export const CarouselHolderStyles = styled.div`
   }
 
   .arrowBtnLeft {
-    z-index: 9999;
+    z-index: 1;
     cursor: pointer;
     position: absolute;
     display: none;
@@ -142,6 +142,7 @@ export const CarouselHolderStyles = styled.div`
   }
 
   .discountPercentage {
+    font-family: 'DM Sans' !important;
     z-index: 1;
     top: 16px;
     right: 16px;
@@ -153,7 +154,7 @@ export const CarouselHolderStyles = styled.div`
     box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
     h4 {
       font-weight: bold;
-      font-size: 14px;
+      font-size: 12px;
       color: var(--light-text);
     }
   }

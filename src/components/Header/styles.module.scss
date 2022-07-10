@@ -290,8 +290,11 @@
         font-size: 1rem;
       }
       & > button {
-        width: 2.5rem;
         height: 2.5rem;
+
+        @media screen and (min-width: 347px) {
+          width: 42px;
+        }
         padding: 0 0.6rem;
       }
       & > button svg {
@@ -397,7 +400,7 @@
     color: var(--gray-600);
     font-size: 16px;
     font-family: 'DM Sans' !important;
-    
+
     @media screen and (max-width: 868px) {
       font-size: 14px;
     }
@@ -406,6 +409,4 @@
     max-width: 100%;
     text-overflow: ellipsis;
   }
-
-  
 }

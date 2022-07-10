@@ -18,6 +18,7 @@ import { Design } from '../../../data/design';
 import CardService from '../../components/CardService';
 import { mockSearchResults } from '../../../mock/mockSearchResult';
 import { baseUrl } from '../../services';
+import { motion } from 'framer-motion';
 
 interface ISearch {
   servicesResult: any;
@@ -113,7 +114,11 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
                 </h2>
               </div>
               <div className={styles.filtersMobileSection}>
-                <div
+                <motion.div
+                  initial={{ scale: 0.9 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.1 }}
+                  whileTap={{ scale: 0.9 }}
                   style={
                     selectedTab === 'rooms'
                       ? {
@@ -122,12 +127,19 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
                       : { opacity: 0.35, paddingBottom: '1.4rem' }
                   }
                   className={styles.filterButtonContainer}
-                  onClick={() => {document.body.style.overflow = 'initial', setSelectedTab('rooms')}}
+                  onClick={() => {
+                    (document.body.style.overflow = 'initial'),
+                      setSelectedTab('rooms');
+                  }}
                 >
                   <HotelOutlined style={{ marginBottom: '0.2rem' }} />
                   <h4>Quartos</h4>
-                </div>
-                <div
+                </motion.div>
+                <motion.div
+                  initial={{ scale: 0.9 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.1 }}
+                  whileTap={{ scale: 0.9 }}
                   style={
                     selectedTab === 'services'
                       ? {
@@ -136,11 +148,14 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
                       : { opacity: 0.35, paddingBottom: '1.4rem' }
                   }
                   className={styles.filterButtonContainer}
-                  onClick={() => {document.body.style.overflow = 'initial', setSelectedTab('services')}}
+                  onClick={() => {
+                    (document.body.style.overflow = 'initial'),
+                      setSelectedTab('services');
+                  }}
                 >
                   <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
                   <h4>Serviços</h4>
-                </div>
+                </motion.div>
               </div>
             </section>
             <div className={styles.webResults}>
@@ -162,7 +177,7 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
             <div className={styles.mobileResults}>
               {selectedTab === 'rooms' && (
                 <section className={styles.serviceResultContainer}>
-                  {/* <h4 className={styles.subtitle}>Confira</h4> */}
+                  <h4 className={styles.subtitle}>Confira</h4>
                   <h2 className={styles.title}>Quartos disponíveis</h2>
                   <div className={styles.contentResultContainer}>
                     {searchResult?.map((room, index) => (
@@ -185,7 +200,7 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
             </div>
 
             <section className={styles.facilitiesContainerHolder}>
-              {/* <h4 className={styles.subtitle}>Confira</h4> */}
+              <h4 className={styles.subtitle}>Confira</h4>
               <h2 className={styles.title}>O que esse hotel oferece?</h2>
               <div className={styles.facilitiesCardContainer}>
                 {[...Array(3)].map((_, index) => (
