@@ -21,6 +21,8 @@ import { mockSearchResults } from '../../../mock/mockSearchResult';
 import { baseUrl } from '../../services';
 import { motion } from 'framer-motion';
 import CartModal from '../../components/CartModal';
+import { useSelector } from 'react-redux';
+import { AppStore } from '../../store/types';
 
 interface ISearch {
   servicesResult: any;
@@ -58,6 +60,11 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
   const router = useRouter();
   const { t } = useTranslation('common');
+
+  const {
+    cart: { rooms, services },
+  } = useSelector((state: AppStore) => state);
+
   const [selectedTab, setSelectedTab] = useState('rooms');
   const [cartOpen, setCartOpen] = useState(false);
   const [searchResult, setSearchResult] = useState<any>(mockSearchResults);
@@ -89,16 +96,6 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
   // useEffect(() => {
   //   getSearchResult();
   // }, []);
-
-  // Open Cart Modal
-  const handleOpenCart = () => {
-    document.body.style.overflow = 'hidden';
-    setCartOpen(true);
-  };
-  const handleCloseCart = () => {
-    document.body.style.overflow = 'initial';
-    setCartOpen(false);
-  };
 
   return (
     <>
@@ -231,19 +228,6 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
             </section>
           </>
         )}
-
-        <motion.div
-          initial={{ scale: 0.9 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.1 }}
-          whileTap={{ scale: 0.9 }}
-          className={styles.cartFloatingButton}
-          onClick={handleOpenCart}
-        >
-          <ShoppingBagOutlinedIcon className={styles.cartIcon} />
-        </motion.div>
-
-        {cartOpen && <CartModal handleCloseCartModal={handleCloseCart} />}
 
         <Footer design={design} officeDetails={officeDetails} />
       </main>

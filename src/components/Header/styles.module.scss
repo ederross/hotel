@@ -410,3 +410,40 @@
     text-overflow: ellipsis;
   }
 }
+
+
+
+.cartFloatingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+  width: 100%;
+  padding-right: 16px;
+  padding-bottom: 16px;
+
+  .cartFloatingButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    padding: 11px 19px !important;
+    border-radius: 32px;
+    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
+    background: rgb(34, 34, 34);  
+
+    h4 {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--light-text);
+    }
+
+    .cartIcon {
+      margin-bottom: 0.2rem;
+      color: var(--light-text);
+    }
+  }
+}

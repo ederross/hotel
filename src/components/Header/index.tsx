@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppStore } from '../../store/types';
 import useDidMountEffect from '../../hooks/useDidMountEffect';
 import { motion } from 'framer-motion';
+import CartModal from '../CartModal';
 
 interface IHeader {
   design: Design;
@@ -47,6 +48,7 @@ export default function Header({ design, events }: IHeader) {
   const [inputGuest, setInputGuest] = useState(false);
   const [openLanguageSwitcher, setOpenLanguageSwitcher] = useState(false);
   const [openCart, setOpenCart] = useState(false);
+  const [cartMobileOpen, setCartMobileOpen] = useState(false);
 
   const { startDate, endDate, adults, children }: any = router.query;
 
@@ -75,9 +77,10 @@ export default function Header({ design, events }: IHeader) {
   const [childrenAges, setChildrenAges] = useState<number[]>([]);
 
   const openDatePicker = () => {
-    setInputCalendars(true);
     setOpenCart(false);
     setInputGuest(false);
+    setCartMobileOpen(false);
+    setInputCalendars(true);
     setIsCalendarVisible(true);
     document.body.style.overflow = 'hidden';
   };
@@ -86,7 +89,7 @@ export default function Header({ design, events }: IHeader) {
     setInputGuest(true);
     setInputCalendars(true);
     setIsCalendarVisible(false);
-
+    setCartMobileOpen(false);
     document.body.style.overflow = 'hidden';
   };
 
@@ -95,6 +98,7 @@ export default function Header({ design, events }: IHeader) {
     document.body.style.overflow = 'hidden';
     setOpenCart(false);
     setInputCalendars(false);
+    setCartMobileOpen(false);
     setOpenLanguageSwitcher(true);
   };
   const handleCloseLanguageSwitcher = () => {
@@ -111,6 +115,7 @@ export default function Header({ design, events }: IHeader) {
       setInputCalendars(false);
       setInputGuest(false);
       setIsCalendarVisible(false);
+      setCartMobileOpen(false);
     } else {
       // document.body.style.overflow = 'initial';
       if (window.scrollY > 10) {
@@ -125,6 +130,7 @@ export default function Header({ design, events }: IHeader) {
   const closeCalendar = () => {
     setInputCalendars(false);
     setInputGuest(false);
+    setCartMobileOpen(false);
     document.body.style.overflow = 'initial';
   };
 
@@ -167,8 +173,19 @@ export default function Header({ design, events }: IHeader) {
       setInputCalendars(false);
       setInputGuest(false);
       setIsCalendarVisible(false);
+      setCartMobileOpen(false);
     }
   }, [rooms, services]);
+
+  // Open Cart Modal
+  const handleOpenCart = () => {
+    document.body.style.overflow = 'hidden';
+    setCartMobileOpen(true);
+  };
+  const handleCloseCart = () => {
+    document.body.style.overflow = 'initial';
+    setCartMobileOpen(false);
+  };
 
   // Calendar Events Dots
   function customDayContent(day) {
@@ -500,6 +517,44 @@ export default function Header({ design, events }: IHeader) {
           )}
         </div>
       </header>
+
+      <div className={styles.cartFloatingContainer}>
+        <motion.div
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.1 }}
+          whileTap={{ scale: 0.9 }}
+          className={styles.cartFloatingButton}
+          onClick={handleOpenCart}
+        >
+          {/* {rooms && rooms.length > 0 && (
+              <motion.div
+                animate={{ scale: 2 }}
+                transition={{ duration: 0.2 }}
+                style={{
+                  position: 'fixed',
+                  top: 14,
+                  right: 16,
+                  width: 3,
+                  zIndex: 99,
+                  height: 3,
+                  borderRadius: 6,
+                  background: 'red',
+                }}
+              ></motion.div>
+            )} */}
+          <ShoppingBagOutlinedIcon className={styles.cartIcon} />
+          <h4>
+            {t('cart') +
+              ' ' +
+              '(' +
+              `${`${rooms.length + services.length}`}` +
+              ')'}
+          </h4>
+        </motion.div>
+      </div>
+      {cartMobileOpen && <CartModal handleCloseCartModal={handleCloseCart} />}
+
       {size.width > 868 && openCart && router.pathname !== '/checkout' && (
         <div
           onClick={handleToggleCart}

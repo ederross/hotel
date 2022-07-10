@@ -78,17 +78,20 @@ const RoomDetails = (props: IRoomDetailsProps) => {
 
         <div className={styles.contentBox}>
           {size.width < 868 && (
-             <motion.div
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.1 }}
-            whileTap={{ scale: 0.9 }} onClick={() => router.back()} className={styles.btnGoBack}>
+            <motion.div
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => router.back()}
+              className={styles.btnGoBack}
+            >
               <ChevronLeft width={18} height={18} />
             </motion.div>
           )}
 
           <div className={styles.carouselContainer}>
-            <CarouselHolder isDiscountBoxActive={true} data={imageData} />
+            <CarouselHolder isDiscountBoxActive={false} data={imageData} />
           </div>
 
           <div className={styles.imgsBox}>
