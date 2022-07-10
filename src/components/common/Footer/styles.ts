@@ -121,8 +121,8 @@ export const ContactContainer = styled.div`
   align-items: center;
   margin: 1rem 0;
   width: 100%;
-  @media screen and (min-width: 628px) {
-    width: 30%;
+  @media screen and (max-width: 868px) {
+    align-items: flex-start;
   }
 
   h3 {
@@ -158,7 +158,7 @@ export const InformationContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   margin: 1rem 0;
   width: 100%;
   @media screen and (min-width: 628px) {
@@ -191,12 +191,19 @@ export const InformationContainer = styled.div`
 export const CopyrightContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column;
   margin: 4rem 0 0;
   width: 100%;
 
+  @media screen and (min-width: 628px) {
+    align-items: center;
+  flex-direction: row;
+  }
+
   .row {
     display: flex;
+    margin-bottom: 1rem;
   }
 
   .socialCircle {
@@ -222,13 +229,13 @@ export const CopyrightContainer = styled.div`
     color: var(--gray);
     font-size: 14px;
     font-weight: 500;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
   }
 
   p {
     color: var(--gray-400);
     font-size: 0.7rem;
     font-weight: 400;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
   }
 `;

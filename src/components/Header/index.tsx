@@ -159,7 +159,7 @@ export default function Header({ design, events }: IHeader) {
 
   // Cart Feedback Animation
   useEffect(() => {
-    if (rooms.length > 0 || services.length > 0 ) {
+    if (rooms.length > 0 || services.length > 0) {
       setScrolled(true);
 
       document.body.style.overflow = 'initial';
@@ -253,12 +253,16 @@ export default function Header({ design, events }: IHeader) {
                 }}
               >
                 {router.pathname === '/search' && (
-                  <div
+                  <motion.div
+                    initial={{ scale: 0.9 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.1 }}
+                    whileTap={{ scale: 0.9 }}
                     className={styles.btnGoBack}
                     onClick={() => router.back()}
                   >
                     <ChevronLeftOutlinedIcon />
-                  </div>
+                  </motion.div>
                 )}
                 <form
                   onClick={openDatePicker}

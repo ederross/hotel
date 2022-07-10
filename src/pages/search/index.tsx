@@ -6,6 +6,7 @@ import {
   AttractionsOutlined,
   CookieOutlined,
 } from '@mui/icons-material';
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import CardRoom from '../../components/CardRoom';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -19,6 +20,7 @@ import CardService from '../../components/CardService';
 import { mockSearchResults } from '../../../mock/mockSearchResult';
 import { baseUrl } from '../../services';
 import { motion } from 'framer-motion';
+import CartModal from '../../components/CartModal';
 
 interface ISearch {
   servicesResult: any;
@@ -57,6 +59,7 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
   const router = useRouter();
   const { t } = useTranslation('common');
   const [selectedTab, setSelectedTab] = useState('rooms');
+  const [cartOpen, setCartOpen] = useState(false);
   const [searchResult, setSearchResult] = useState<any>(mockSearchResults);
   const { startDate, endDate, adults, children }: any = router.query;
 
@@ -86,6 +89,16 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
   // useEffect(() => {
   //   getSearchResult();
   // }, []);
+
+  // Open Cart Modal
+  const handleOpenCart = () => {
+    document.body.style.overflow = 'hidden';
+    setCartOpen(true);
+  };
+  const handleCloseCart = () => {
+    document.body.style.overflow = 'initial';
+    setCartOpen(false);
+  };
 
   return (
     <>
@@ -218,6 +231,20 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
             </section>
           </>
         )}
+
+        <motion.div
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.1 }}
+          whileTap={{ scale: 0.9 }}
+          className={styles.cartFloatingButton}
+          onClick={handleOpenCart}
+        >
+          <ShoppingBagOutlinedIcon className={styles.cartIcon} />
+        </motion.div>
+
+        {cartOpen && <CartModal handleCloseCartModal={handleCloseCart} />}
+
         <Footer design={design} officeDetails={officeDetails} />
       </main>
     </>

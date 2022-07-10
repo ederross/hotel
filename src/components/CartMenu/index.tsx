@@ -114,9 +114,17 @@ const CartMenu = ({ openCart }: ICartMenu) => {
           <div
             style={{ marginTop: '1.5rem' }}
             className={styles.buttonSeeMoreRoomsContainer}
-            onClick={handleCleanCart}
           >
-            <button>{t('clearAll')}</button>
+            <motion.button
+              id={'button'}
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.2 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={handleCleanCart}
+            >
+              {t('clearAll')}
+            </motion.button>
           </div>
         )}
 

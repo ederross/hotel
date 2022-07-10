@@ -160,14 +160,6 @@
   margin: 0 auto;
   margin-top: 4rem;
 
-  .title {
-    // margin-left: 0.5rem;
-
-    @media screen and (min-width: 600px) {
-      // margin-left: 1rem;
-    }
-  }
-
   .facilitiesCardContainer {
     margin: 0 auto;
 
@@ -201,7 +193,6 @@
   }
 
   .facilitiesCard {
-    // margin: 0.8rem;
     min-width: 220px;
     height: 100%;
     padding: 1.2rem 1rem;
@@ -227,9 +218,25 @@
       font-size: 0.9rem;
       font-weight: 500;
     }
+  }
+}
 
-    // @media screen and (min-width: 868px) {
-    //   display: flex;
-    // }
+.cartFloatingButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9;
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  width: 56px;
+  height: 56px;
+  border-radius: 56px;
+  box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
+  background: var(--primary-color);
+
+  .cartIcon {
+    color: var(--light-text);
   }
 }
