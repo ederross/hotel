@@ -398,11 +398,11 @@
     width: 85%;
     margin-left: 1rem;
     color: var(--gray-600);
-    font-size: 16px;
+    font-size: 14px;
     font-family: 'DM Sans' !important;
 
-    @media screen and (max-width: 868px) {
-      font-size: 14px;
+    @media screen and (min-width: 868px) {
+      font-size: 18px;
     }
     white-space: nowrap;
     overflow: hidden;

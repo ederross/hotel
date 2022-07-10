@@ -1,5 +1,8 @@
 .mainBox {
-  margin: 100px auto;
+  margin: 0 auto;
+  @media screen and (min-width: 868px) {
+    margin: 100px auto;
+  }
   max-width: 1568px;
   align-self: center;
 

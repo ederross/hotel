@@ -162,7 +162,7 @@ export default function Header({ design, events }: IHeader) {
     if (rooms.length > 0 || services.length > 0) {
       setScrolled(true);
 
-      // document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'initial';
       setOpenCart(true);
       setInputCalendars(false);
       setInputGuest(false);

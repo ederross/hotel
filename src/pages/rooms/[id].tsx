@@ -194,7 +194,17 @@ const RoomDetails = (props: IRoomDetailsProps) => {
         </div>
 
         <div className={styles.rightSide}>
-          <button onClick={handleReserve}> {t('book')}</button>
+          <motion.button
+            id={'button'}
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.1 }}
+            whileTap={{ scale: 0.9 }}
+            className={styles.confirmBtn}
+            onClick={handleReserve}
+          >
+            {t('book')}
+          </motion.button>
         </div>
       </div>
       <div className={styles.footerArea}>
