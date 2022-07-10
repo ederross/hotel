@@ -10,7 +10,7 @@
   cursor: default;
   display: flex;
   width: 500px;
-  min-height: 400px;
+  min-height: 200px;
   max-height: 600px;
   position: absolute;
   top: 4rem;
@@ -97,7 +97,8 @@
       align-items: center;
       justify-content: space-between;
 
-      h4,h5 {
+      h4,
+      h5 {
         color: var(--dark-text) !important;
         font-weight: 400;
       }
@@ -153,4 +154,12 @@
       color: var(--gray-with-blue-400);
     }
   }
+}
+
+.emptyMessageContainer {
+  flex: 1;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

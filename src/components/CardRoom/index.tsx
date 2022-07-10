@@ -91,7 +91,7 @@ const CardRoom = ({ room }: ICardRoom) => {
     <>
       <a className={styles.container} onClick={handleDetails}>
         <div className={styles.containerCarousel}>
-          <CarouselHolder data={imageData} />
+          <CarouselHolder isDiscountBoxActive data={imageData} />
         </div>
         <div className={styles.iconsContainerHolder}>
           <div className={styles.iconWithNumberContainer}>
@@ -121,7 +121,7 @@ const CardRoom = ({ room }: ICardRoom) => {
           ))}
         </div>
 
-        <div className={styles.priceAndControlsContainerHolder}>
+        <div onClick={(e) => e.stopPropagation()} className={styles.priceAndControlsContainerHolder}>
           <div className={styles.pricesInfos}>
             <s>
               <h6>R$ 200</h6>

@@ -1,5 +1,5 @@
 import { Search, Globe } from 'react-feather';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useLayoutEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import styles from './styles.module.scss';
@@ -20,6 +20,10 @@ import moment from 'moment';
 import LanguageSwitcher from '../LanguageSwitcher';
 import { EventsHome } from '../../../data/events';
 import CartMenu from '../CartMenu';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppStore } from '../../store/types';
+import useDidMountEffect from '../../hooks/useDidMountEffect';
+import { motion } from 'framer-motion';
 
 interface IHeader {
   design: Design;
@@ -28,7 +32,12 @@ interface IHeader {
 
 export default function Header({ design, events }: IHeader) {
   const { t } = useTranslation('common');
+  const dispatch = useDispatch();
   const router = useRouter();
+
+  const {
+    cart: { rooms, services },
+  } = useSelector((state: AppStore) => state);
 
   const headerRef = useRef(null);
   const [logoError, setLogoError] = useState(false);
@@ -72,7 +81,7 @@ export default function Header({ design, events }: IHeader) {
     setIsCalendarVisible(true);
     document.body.style.overflow = 'hidden';
   };
-
+  // Open Calendar on Guest Selector
   const openGuestSelector = () => {
     setInputGuest(true);
     setInputCalendars(true);
@@ -81,6 +90,7 @@ export default function Header({ design, events }: IHeader) {
     document.body.style.overflow = 'hidden';
   };
 
+  // Open Language Switcher
   const handleOpenLanguageSwitcher = () => {
     document.body.style.overflow = 'hidden';
     setOpenCart(false);
@@ -94,17 +104,15 @@ export default function Header({ design, events }: IHeader) {
   };
   const handleToggleCart = () => {
     if (!openCart) {
-  
-        setScrolled(true);
-     
-      document.body.style.overflow = 'hidden';
+      setScrolled(true);
+
+      // document.body.style.overflow = 'hidden';
       setOpenCart(!openCart);
       setInputCalendars(false);
       setInputGuest(false);
       setIsCalendarVisible(false);
-
     } else {
-      document.body.style.overflow = 'initial';
+      // document.body.style.overflow = 'initial';
       if (window.scrollY > 10) {
         setScrolled(true);
       } else {
@@ -114,12 +122,13 @@ export default function Header({ design, events }: IHeader) {
     }
   };
 
-  const closeFilters = () => {
+  const closeCalendar = () => {
     setInputCalendars(false);
     setInputGuest(false);
     document.body.style.overflow = 'initial';
   };
 
+  // Search Submit Method
   const handleSubmit = (e) => {
     e.preventDefault();
     router.push({
@@ -131,10 +140,10 @@ export default function Header({ design, events }: IHeader) {
         children: numberOfChildren,
       },
     });
-    setTimeout(() => closeFilters(), 100);
-    // closeFilters();
+    setTimeout(() => closeCalendar(), 100);
   };
 
+  // Scroll Header Animation
   useEffect(() => {
     const onScroll = () => {
       if (window.scrollY > 10) {
@@ -148,6 +157,20 @@ export default function Header({ design, events }: IHeader) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Cart Feedback Animation
+  useEffect(() => {
+    if (rooms.length > 0 || services.length > 0) {
+      setScrolled(true);
+
+      // document.body.style.overflow = 'hidden';
+      setOpenCart(true);
+      setInputCalendars(false);
+      setInputGuest(false);
+      setIsCalendarVisible(false);
+    }
+  }, [rooms, services]);
+
+  // Calendar Events Dots
   function customDayContent(day) {
     let extraDot = null;
     if (isWeekend(day)) {
@@ -164,6 +187,7 @@ export default function Header({ design, events }: IHeader) {
     );
   }
 
+  // Filter Calendar Strings Format
   const filterString = `${moment(dateState[0].startDate).format(
     'DD'
   )} - ${moment(dateState[0].endDate).format('ll')} | ${
@@ -370,7 +394,7 @@ export default function Header({ design, events }: IHeader) {
 
           {size.width >= 868 && inputCalendars && (
             <WebFilters
-              closeDatePickerWeb={closeFilters}
+              closeDatePickerWeb={closeCalendar}
               customDayContent={customDayContent}
               dateState={dateState}
               setDateState={setDateState}
@@ -386,7 +410,7 @@ export default function Header({ design, events }: IHeader) {
           {size.width <= 868 && inputCalendars && (
             <Filters
               handleSubmit={handleSubmit as any}
-              closeMobileFilters={closeFilters}
+              closeMobileFilters={closeCalendar}
               customDayContent={customDayContent}
               dateState={dateState}
               setDateState={setDateState}
@@ -418,14 +442,56 @@ export default function Header({ design, events }: IHeader) {
                   style={{ color: inputCalendars ? 'black' : 'white' }}
                 />
               </a>
-              <div className={styles.cart} onClick={handleToggleCart}>
+              <motion.div
+                className={styles.cart}
+                initial="exit"
+                animate={rooms.length > 0 ? 'enter' : 'exit'}
+                variants={{
+                  enter: {
+                    transition: {
+                      duration: 0.5,
+                    },
+                    display: 'flex',
+                  },
+                  exit: {
+                    transition: {
+                      duration: 0.2,
+                      delay: 0.1,
+                    },
+                    transitionEnd: {
+                      display: 'flex',
+                    },
+                  },
+                }}
+                onClick={handleToggleCart}
+                style={{ flexDirection: 'column' }}
+              >
                 {/* <Menu className={styles.menu} /> */}
+                {rooms && rooms.length > 0 && (
+                  <motion.div
+                    animate={{ scale: 2 }}
+                    transition={{ duration: 0.2 }}
+                    style={{
+                      position: 'absolute',
+                      top: 28,
+                      width: 3,
+                      height: 3,
+                      borderRadius: 6,
+                      background:
+                        router.pathname === '/' && !scrolled
+                          ? 'white'
+                          : scrolled
+                          ? 'red'
+                          : 'red',
+                    }}
+                  ></motion.div>
+                )}
                 <ShoppingBagOutlinedIcon
                   className={styles.cartIcon}
                   style={{ color: inputCalendars ? 'black' : 'white' }}
                 />
                 <CartMenu openCart={openCart} />
-              </div>
+              </motion.div>
             </div>
           )}
         </div>

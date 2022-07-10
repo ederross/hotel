@@ -8,6 +8,7 @@ import { currency } from '../../utils/currency';
 import styles from './styles.module.scss';
 import { AppStore } from '../../store/types';
 import { CleanCart } from '../../store/ducks/cart/actions';
+import { Tty } from '@mui/icons-material';
 
 interface ICartMenu {
   openCart: boolean;
@@ -56,6 +57,9 @@ const CartMenu = ({ openCart }: ICartMenu) => {
           e.stopPropagation();
         }}
       >
+        {rooms.length > 0 && (
+          <h3 className={styles.servicesTitle}>{t('Quartos')}</h3>
+        )}
         {rooms.map((room, index) => (
           <div key={index} className={styles.roomContainer}>
             <div className={styles.imageRoomHolder}>
@@ -79,12 +83,14 @@ const CartMenu = ({ openCart }: ICartMenu) => {
           </div>
         ))}
 
-        <div className={styles.divisorContainer} style={{ margin: '20px 0' }}>
-          <div></div>
-        </div>
+        {rooms && services.length > 0 && (
+          <div className={styles.divisorContainer} style={{ margin: '20px 0' }}>
+            <div></div>
+          </div>
+        )}
 
         {services.length > 0 && (
-          <h3 className={styles.servicesTitle}>Serviços</h3>
+          <h3 className={styles.servicesTitle}>{t('Serviços')}</h3>
         )}
         {services.map((room, index) => (
           <div key={index} className={styles.roomContainer}>
@@ -110,24 +116,31 @@ const CartMenu = ({ openCart }: ICartMenu) => {
             className={styles.buttonSeeMoreRoomsContainer}
             onClick={handleCleanCart}
           >
-            <button>{t('Limpar')}</button>
+            <button>{t('clearAll')}</button>
           </div>
         )}
 
-        <motion.button
-          id={'button'}
-          initial={{ scale: 0.9 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.2 }}
-          whileTap={{ scale: 0.9 }}
-          className={styles.confirmBtn}
-          onClick={(e) => {
-            e.stopPropagation();
-            console.log('dasdsa');
-          }}
-        >
-          {t('checkout')}
-        </motion.button>
+        {rooms && rooms.length > 0 && (
+          <motion.button
+            id={'button'}
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.2 }}
+            whileTap={{ scale: 0.9 }}
+            className={styles.confirmBtn}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            {t('checkout')}
+          </motion.button>
+        )}
+
+        {rooms && rooms.length === 0 && services && services.length === 0 && (
+          <div className={styles.emptyMessageContainer}>
+            <h4>Seu carrinho está vazio</h4>
+          </div>
+        )}
       </motion.div>
     </>
   );

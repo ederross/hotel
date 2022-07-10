@@ -161,11 +161,11 @@ const Checkout = ({ officeDetails, design }: any) => {
 
                     {size.width < 868 && (
                       <div style={{ marginTop: '20px' }}>
-                        <h3>Serviços</h3>
-                        {services.map((room, index) => (
+                        {!!services && <h3>Serviços</h3>}
+                        {services.map((service, index) => (
                           <div key={index} className={styles.roomContainer}>
                             <div className={styles.row}>
-                              <h4>{room.objectName}</h4>
+                              <h4>{service.serviceName}</h4>
                               <div
                                 style={{
                                   display: 'flex',
@@ -173,8 +173,8 @@ const Checkout = ({ officeDetails, design }: any) => {
                                   flexDirection: 'column',
                                 }}
                               >
-                                <h5>x{room.quantity}</h5>
-                                <h5>{currency(room.price)}</h5>
+                                <h5>x{service.quantity}</h5>
+                                <h5>{currency(service.price)}</h5>
                               </div>
                             </div>
                           </div>

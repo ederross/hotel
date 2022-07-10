@@ -12,13 +12,13 @@
   .webPaymentInfos {
     display: none;
     flex-direction: column;
-    // justify-content: space-between;
+    justify-content: space-between;
     position: -webkit-sticky;
     position: sticky;
     top: 56px;
     width: 40%;
     min-width: 380px;
-    max-height: 872px;
+    height: 100%;
     color: var(--black);
     border-radius: 0.5rem;
     padding: 24px;

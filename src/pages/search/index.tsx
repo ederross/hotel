@@ -122,7 +122,7 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
                       : { opacity: 0.35, paddingBottom: '1.4rem' }
                   }
                   className={styles.filterButtonContainer}
-                  onClick={() => setSelectedTab('rooms')}
+                  onClick={() => {document.body.style.overflow = 'initial', setSelectedTab('rooms')}}
                 >
                   <HotelOutlined style={{ marginBottom: '0.2rem' }} />
                   <h4>Quartos</h4>
@@ -136,7 +136,7 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
                       : { opacity: 0.35, paddingBottom: '1.4rem' }
                   }
                   className={styles.filterButtonContainer}
-                  onClick={() => setSelectedTab('services')}
+                  onClick={() => {document.body.style.overflow = 'initial', setSelectedTab('services')}}
                 >
                   <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
                   <h4>Serviços</h4>
@@ -185,8 +185,8 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
             </div>
 
             <section className={styles.facilitiesContainerHolder}>
-            {/* <h4 className={styles.subtitle}>Confira</h4> */}
-                  <h2 className={styles.title}>O que esse hotel oferece?</h2>
+              {/* <h4 className={styles.subtitle}>Confira</h4> */}
+              <h2 className={styles.title}>O que esse hotel oferece?</h2>
               <div className={styles.facilitiesCardContainer}>
                 {[...Array(3)].map((_, index) => (
                   <div key={index} className={styles.facilitiesCard}>

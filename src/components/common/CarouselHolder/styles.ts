@@ -8,14 +8,12 @@ export const CarouselHolderStyles = styled.div`
   flex-direction: column;
   position: relative;
 
-  
   border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
+  border-top-right-radius: 1rem;
 
   &:hover {
     .arrowBtnLeft {
       display: flex;
-   
     }
     .arrowBtnRight {
       display: flex;
@@ -140,6 +138,23 @@ export const CarouselHolderStyles = styled.div`
     span.active {
       opacity: 1;
       transform: scale(1.2);
+    }
+  }
+
+  .discountPercentage {
+    z-index: 1;
+    top: 16px;
+    right: 16px;
+    border-radius: 32px;
+    position: absolute;
+    padding: 12px 20px;
+    background: #2ab59c;
+
+    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
+    h4 {
+      font-weight: bold;
+      font-size: 14px;
+      color: var(--light-text);
     }
   }
 `;

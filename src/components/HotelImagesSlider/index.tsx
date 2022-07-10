@@ -25,6 +25,7 @@ const HotelImagesSlider = ({ images }: IHotelImagesSlider) => {
       <div className={styles.hotelPhotosContainer}>
         <div className={styles.imgSlideContainer}>
           <CarouselHolder
+            isDiscountBoxActive={false}
             showArrows={true}
             data={imageData}
             setSelected={setSelected}
