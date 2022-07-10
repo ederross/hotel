@@ -162,13 +162,14 @@ export const CarouselHolderStyles = styled.div`
     border-radius: 32px;
     position: absolute;
     padding: 12px 20px;
-    background: #fff;
+    background: #2ab59c;
 
     box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
     h4 {
       font-weight: bold;
       font-size: 12px;
-      color: var(--gray-with-blue-400);
+      /* color: var(--gray-with-blue-400); */
+      color: var(--light-text);
     }
   }
 `;

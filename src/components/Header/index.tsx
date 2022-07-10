@@ -447,6 +447,7 @@ export default function Header({ design, events }: IHeader) {
           )}
           {openLanguageSwitcher && (
             <LanguageSwitcher
+              openLanguageSwitcher={openLanguageSwitcher}
               handleCloseLanguageSwitcher={handleCloseLanguageSwitcher}
             />
           )}

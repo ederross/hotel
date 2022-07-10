@@ -1,4 +1,5 @@
 import { CloseOutlined } from '@mui/icons-material';
+import { motion } from 'framer-motion';
 import moment from 'moment';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -8,13 +9,37 @@ import styles from './styles.module.scss';
 
 interface ILanguageSwitcher {
   handleCloseLanguageSwitcher: () => void;
+  openLanguageSwitcher: boolean;  
 }
 
 const LanguageSwitcher = ({
+  openLanguageSwitcher,
   handleCloseLanguageSwitcher,
 }: ILanguageSwitcher) => {
   const { t, i18n } = useTranslation('common');
   const router = useRouter();
+
+  const subMenuAnimate = {
+    enter: {
+      opacity: 1,
+      rotateX: 0,
+      transition: {
+        duration: 0.2,
+      },
+      display: 'flex',
+    },
+    exit: {
+      opacity: 0,
+      // rotateX: -20,
+      transition: {
+        duration: 0.7,
+        delay: 0.1,
+      },
+      transitionEnd: {
+        display: 'none',
+      },
+    },
+  };
 
   const locale = router?.locale;
 
@@ -27,7 +52,12 @@ const LanguageSwitcher = ({
 
   return (
     <>
-      <div className={styles.modalContainer}>
+      <motion.div
+        initial="exit"
+        animate={openLanguageSwitcher ? 'enter' : 'exit'}
+        variants={subMenuAnimate}
+        className={styles.modalContainer}
+      >
         <div className={styles.modal}>
           <div className={styles.modalHeader}>
             <CloseOutlined
@@ -71,7 +101,7 @@ const LanguageSwitcher = ({
             background: 'rgba(0,0,0,0.5)',
           }}
         ></div>
-      </div>
+      </motion.div>
     </>
   );
 };

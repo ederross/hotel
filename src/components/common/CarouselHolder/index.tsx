@@ -27,6 +27,7 @@ const CarouselHolder = ({
   setSelected,
 }: ICaroselHolder) => {
   const imagesRef = useRef(null);
+    // Window Sizes
   const size = useWindowSize();
   const [currSlide, setCurrSlide] = useState(0);
 

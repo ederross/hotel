@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useWindowSize } from '../../hooks/UseWindowSize';
 import { CleanCart } from '../../store/ducks/cart/actions';
 import { AppStore } from '../../store/types';
 import { currency } from '../../utils/currency';
@@ -26,6 +27,9 @@ const CartModal = ({
 
   const dispatch = useDispatch();
 
+  // Window Sizes
+  const size = useWindowSize();
+
   const {
     cart: { rooms, services },
   } = useSelector((state: AppStore) => state);
@@ -35,7 +39,12 @@ const CartModal = ({
 
   return (
     <>
-      <div className={styles.modalContainer}>
+      <div
+        className={styles.modalContainer}
+        style={{
+          padding: size.width > 868 && '2rem',
+        }}
+      >
         <div className={styles.modal}>
           <div className={styles.modalHeader}>
             <h3 className={styles.modalTitle}>

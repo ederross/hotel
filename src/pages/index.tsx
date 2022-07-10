@@ -29,6 +29,7 @@ interface IHomeProps {
 }
 
 export default function Home(props: IHomeProps) {
+    // Window Sizes
   const { width } = useWindowSize();
   const { t } = useTranslation('common');
 
