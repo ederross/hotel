@@ -570,15 +570,4 @@
   }
 }
 
-.footerArea {
-  padding: 3rem 0;
-  div {
-    display: none;
-  }
-  @media screen and (min-width: 868px) {
-    padding: 0;
-    div {
-      display: block;
-    }
-  }
-}
+

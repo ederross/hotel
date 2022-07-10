@@ -58,6 +58,7 @@ export const SocialContainer = styled.div`
     font-weight: 400;
     font-size: 0.7rem;
     margin: 1.5rem 0 2rem;
+    max-width: 80%;
 
     @media screen and (min-width: 628px) {
       display: block;
@@ -136,6 +137,7 @@ export const ContactContainer = styled.div`
     font-weight: 400;
     font-size: 0.7rem;
     margin: 1.5rem 0 2rem;
+   
   }
 
   .row {
@@ -150,6 +152,7 @@ export const ContactContainer = styled.div`
       font-size: 0.7rem;
       margin-left: 1rem;
       line-height: normal;
+     
     }
   }
 `;
@@ -190,15 +193,15 @@ export const InformationContainer = styled.div`
 
 export const CopyrightContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
   flex-direction: column;
   margin: 4rem 0 0;
   width: 100%;
-
+  
   @media screen and (min-width: 628px) {
+    justify-content: space-between;
     align-items: center;
-  flex-direction: row;
+    flex-direction: row !important;
   }
 
   .row {
@@ -236,7 +239,7 @@ export const CopyrightContainer = styled.div`
     color: var(--gray-400);
     font-size: 0.7rem;
     font-weight: 400;
-    max-width: 80%;
+    
 
     /* margin-bottom: 1rem; */
   }

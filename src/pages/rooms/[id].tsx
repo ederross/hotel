@@ -222,11 +222,9 @@ const RoomDetails = (props: IRoomDetailsProps) => {
           </motion.button>
         </div>
       </div>
-      <div className={styles.footerArea}>
-        <div>
-          <Footer design={props.design} officeDetails={props.officeDetails} />
-        </div>
-      </div>
+      {size.width > 868 && (
+        <Footer design={props.design} officeDetails={props.officeDetails} />
+      )}
     </>
   );
 };
