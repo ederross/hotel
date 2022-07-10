@@ -180,6 +180,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
       </main>
       {size.width < 868 && openOffersModal && (
         <OffersRoomModal
+        openOffersModal={openOffersModal}
           handleOpenMobileOffersModal={handleOpenMobileOffersModal}
         />
       )}
@@ -275,12 +276,12 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
 const imageData = [
   {
-    url: 'https://images.unsplash.com/photo-1604156788856-2ce5f2171cce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    url: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
     title: 'balões',
     alt: 'balões',
   },
   {
-    url: 'https://images.unsplash.com/photo-1559686043-aef1bbc98d19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    url: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
     title: 'balões',
     alt: 'balões',
   },

@@ -22,8 +22,11 @@ export const Counter = ({ quantity = 0, setQuantity }: ICounterProps) => {
 
   return (
     <div className={styles.addButtons}>
-      <button onClick={handleRemove}>
-        <RemoveOutlined className={styles.removeIcon} />
+      <button onClick={handleRemove} style={{  border: quantity < 1 && '1px solid #EDEDED' }}>
+        <RemoveOutlined
+          className={styles.removeIcon}
+          style={{ color: quantity < 1 && '#EDEDED' }}
+        />
       </button>
       <h5>{quantity}</h5>
       <button onClick={handleAdd}>

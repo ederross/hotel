@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { ChevronLeft, ChevronRight } from 'react-feather';
+import { useWindowSize } from '../../../hooks/UseWindowSize';
 import ImageComponent from '../ImageComponent';
 import { CarouselHolderStyles } from './styles';
 
 interface ICaroselHolder {
   data: imageData[] | null;
-  isDiscountBoxActive: boolean;
+  isDiscountBoxActive?: boolean;
+  adjustScroller?: boolean;
   showArrows?: boolean;
   setSelected?: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -20,10 +22,12 @@ interface imageData {
 const CarouselHolder = ({
   data,
   showArrows = true,
+  adjustScroller,
   isDiscountBoxActive,
   setSelected,
 }: ICaroselHolder) => {
   const imagesRef = useRef(null);
+  const size = useWindowSize();
   const [currSlide, setCurrSlide] = useState(0);
 
   const scrollToImage = (index) => {
@@ -50,7 +54,7 @@ const CarouselHolder = ({
           <h4>50% OFF</h4>
         </div>
       )}
-      {showArrows && (
+      {showArrows && size.width > 868 && (
         <div className="arrowContainer">
           {currSlide > 0 && (
             <div
@@ -87,8 +91,10 @@ const CarouselHolder = ({
         ))}
       </div>
 
+      <div className="fade"></div>
+
       {data?.length > 1 && (
-        <div className="scroller">
+        <div className="scroller" style={{top: adjustScroller && -12}}>
           {data?.map((img, idx) => (
             <span
               key={idx}

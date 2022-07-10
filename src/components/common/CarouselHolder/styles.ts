@@ -108,6 +108,19 @@ export const CarouselHolderStyles = styled.div`
     }
   }
 
+  .fade {
+    position: absolute;
+    bottom: -12px;
+    width: 100%;
+    height: 42px;
+    background-image: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0)
+    );
+  }
+
   .scroller {
     display: flex;
     align-items: center;

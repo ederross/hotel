@@ -11,6 +11,7 @@ interface IHotelImagesSlider {
 const HotelImagesSlider = ({ images }: IHotelImagesSlider) => {
   const [error, setError] = useState(false);
   const [selected, setSelected] = useState(0);
+  const [adjustScroller, setAdjustScroller] = useState(true)
 
   const imageData = images.map((i) => {
     return {
@@ -29,6 +30,7 @@ const HotelImagesSlider = ({ images }: IHotelImagesSlider) => {
             showArrows={true}
             data={imageData}
             setSelected={setSelected}
+            adjustScroller={adjustScroller}
           />
         </div>
         <div className={styles.imgDescriptionContainer}>
