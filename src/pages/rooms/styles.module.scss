@@ -128,7 +128,7 @@
         h2 {
           margin-bottom: 0.8rem;
 
-          font-size: 1.2rem;
+          font-size: 26px;
 
           line-height: normal;
 
@@ -325,12 +325,16 @@
 
     h4 {
       color: var(--primary-color);
-      font-size: 1.3rem;
+      font-size: 18px;
 
       span {
         color: var(--gray-400);
-        font-size: 0.85rem;
+        font-size: 14px;
+        font-weight: 400;
       }
+    }
+    h6 {
+      font-size: 14px;
     }
   }
 
