@@ -110,14 +110,14 @@ export default function Header({ design, events }: IHeader) {
     if (!openCart) {
       setScrolled(true);
       // document.body.style.overflow = 'initial';
-      // document.body.style.overflow = 'hidden';
+      router.pathname === '/' ? document.body.style.overflow = 'hidden' : ''
       setOpenCart(!openCart);
       setInputCalendars(false);
       setInputGuest(false);
       setIsCalendarVisible(false);
       setCartMobileOpen(false);
     } else {
-      // document.body.style.overflow = 'initial';
+      router.pathname === '/' ? document.body.style.overflow = 'initial' : ''
       if (window.scrollY > 10) {
         setScrolled(true);
       } else {
@@ -163,6 +163,8 @@ export default function Header({ design, events }: IHeader) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const [firstLoad, setFirstLoad] = useState()
+
   // Cart Feedback Animation
   useEffect(() => {
     if (rooms.length > 0 || services.length > 0) {
@@ -175,7 +177,7 @@ export default function Header({ design, events }: IHeader) {
       setIsCalendarVisible(false);
       setCartMobileOpen(false);
     }
-  }, [rooms, services]);
+  }, [rooms.length > 0, services.length > 0]);
 
   // Open Cart Modal
   const handleOpenCart = () => {
@@ -518,16 +520,17 @@ export default function Header({ design, events }: IHeader) {
         </div>
       </header>
 
-      <div className={styles.cartFloatingContainer}>
-        <motion.div
-          initial={{ scale: 0.9 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.1 }}
-          whileTap={{ scale: 0.9 }}
-          className={styles.cartFloatingButton}
-          onClick={handleOpenCart}
-        >
-          {/* {rooms && rooms.length > 0 && (
+      {size.width < 868 && router.pathname !== '/checkout' && (
+        <div className={styles.cartFloatingContainer}>
+          <motion.div
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.1 }}
+            whileTap={{ scale: 0.9 }}
+            className={styles.cartFloatingButton}
+            onClick={handleOpenCart}
+          >
+            {/* {rooms && rooms.length > 0 && (
               <motion.div
                 animate={{ scale: 2 }}
                 transition={{ duration: 0.2 }}
@@ -543,16 +546,17 @@ export default function Header({ design, events }: IHeader) {
                 }}
               ></motion.div>
             )} */}
-          <ShoppingBagOutlinedIcon className={styles.cartIcon} />
-          <h4>
-            {t('cart') +
-              ' ' +
-              '(' +
-              `${`${rooms.length + services.length}`}` +
-              ')'}
-          </h4>
-        </motion.div>
-      </div>
+            <ShoppingBagOutlinedIcon className={styles.cartIcon} />
+            <h4>
+              {t('cart') +
+                ' ' +
+                '(' +
+                `${`${rooms.length + services.length}`}` +
+                ')'}
+            </h4>
+          </motion.div>
+        </div>
+      )}
       {cartMobileOpen && <CartModal handleCloseCartModal={handleCloseCart} />}
 
       {size.width > 868 && openCart && router.pathname !== '/checkout' && (

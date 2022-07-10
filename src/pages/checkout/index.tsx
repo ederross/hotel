@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronDown, ChevronUp } from 'react-feather';
 import { useSelector } from 'react-redux';
+import CartModal from '../../components/CartModal';
 import { CheckoutSucessModal } from '../../components/CheckoutSucessModal';
 import Footer from '../../components/common/Footer';
 import FooterCheckout from '../../components/common/FooterCheckout';
@@ -33,6 +34,12 @@ const Checkout = ({ officeDetails, design }: any) => {
   const router = useRouter();
   const [policy, setPolicy] = useState(0);
   const [successModalVisible, setSuccessModalVisible] = useState(false);
+  const [showCartModal, setShowCartModal] = useState(false);
+
+  const handleCloseCart = () => {
+    document.body.style.overflow = 'initial';
+    setShowCartModal(false);
+  };
 
   const handleOpenCheckoutSucessModal = () => {
     document.body.style.overflow = 'hidden';
@@ -89,7 +96,7 @@ const Checkout = ({ officeDetails, design }: any) => {
           <div className={styles.mainContainer}>
             <div className={styles.inputsContainer}>
               <div className={styles.contentHeaderDesk}>
-                <div className={styles.btnGoBackDesk}>
+                <div className={styles.btnGoBackDesk} onClick={router.back}>
                   <ChevronLeft width={18} height={18} />
                 </div>
                 <h2 className={styles.titleHeaderDesk}>Checkout</h2>
@@ -148,7 +155,14 @@ const Checkout = ({ officeDetails, design }: any) => {
                         style={{ marginTop: '1.5rem' }}
                         className={styles.buttonSeeMoreRoomsContainer}
                       >
-                        <button>Ver todos</button>
+                        <motion.button
+                          initial={{ scale: 0.9 }}
+                          animate={{ scale: 1 }}
+                          transition={{ duration: 0.2 }}
+                          whileTap={{ scale: 0.9 }}
+                        >
+                          {t('seeAll')}
+                        </motion.button>
                       </div>
                     )}
                     {size.width < 868 && (
@@ -184,9 +198,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                     )}
 
                     {size.width < 868 && (
-                      <div
-                        className={styles.divisorContainer}
-                      >
+                      <div className={styles.divisorContainer}>
                         <div></div>
                       </div>
                     )}
@@ -431,7 +443,15 @@ const Checkout = ({ officeDetails, design }: any) => {
 
                 {rooms.length > 2 && (
                   <div className={styles.buttonSeeMoreRoomsContainer}>
-                    <button>Ver todos</button>
+                    <motion.button
+                      initial={{ scale: 0.9 }}
+                      animate={{ scale: 1 }}
+                      transition={{ duration: 0.2 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => setShowCartModal(!showCartModal)}
+                    >
+                      {t('seeAll')}
+                    </motion.button>
                   </div>
                 )}
 
@@ -700,6 +720,13 @@ const Checkout = ({ officeDetails, design }: any) => {
         </div>
       </main>
       <FooterCheckout />
+
+      {showCartModal && (
+        <CartModal
+          isCheckoutSeeAllData
+          handleCloseCartModal={handleCloseCart}
+        />
+      )}
       {successModalVisible && (
         <CheckoutSucessModal
           handleCloseCheckoutSucessModal={handleCloseCheckoutSucessModal}

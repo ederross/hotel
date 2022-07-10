@@ -236,6 +236,8 @@ export const CopyrightContainer = styled.div`
     color: var(--gray-400);
     font-size: 0.7rem;
     font-weight: 400;
+    max-width: 80%;
+
     /* margin-bottom: 1rem; */
   }
 `;

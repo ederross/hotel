@@ -14,9 +14,13 @@ import styles from './styles.module.scss';
 
 interface ICartModal {
   handleCloseCartModal: () => void;
+  isCheckoutSeeAllData?: boolean;
 }
 
-const CartModal = ({ handleCloseCartModal }: ICartModal) => {
+const CartModal = ({
+  handleCloseCartModal,
+  isCheckoutSeeAllData,
+}: ICartModal) => {
   const { t, i18n } = useTranslation('common');
   const router = useRouter();
 
@@ -27,22 +31,16 @@ const CartModal = ({ handleCloseCartModal }: ICartModal) => {
   } = useSelector((state: AppStore) => state);
 
   const handleCleanCart = () => dispatch(CleanCart());
-
-  const locale = router?.locale;
-
-  const handleLang = (lang: string) => {
-    document.body.style.overflow = 'initial';
-    router.push('/', '/', { locale: lang });
-    moment.locale(lang);
-    handleCloseCartModal();
-  };
+  const handleReserve = () => router.push('/checkout');
 
   return (
     <>
       <div className={styles.modalContainer}>
         <div className={styles.modal}>
           <div className={styles.modalHeader}>
-            <h3 className={styles.modalTitle}>{t('cart')}</h3>
+            <h3 className={styles.modalTitle}>
+              {!isCheckoutSeeAllData ? t('cart') : t('items')}
+            </h3>
             <CloseOutlined
               onClick={handleCloseCartModal}
               className={styles.closeButton}
@@ -106,41 +104,45 @@ const CartModal = ({ handleCloseCartModal }: ICartModal) => {
                 </div>
               ))}
             </div>
-            {(services?.length > 0 || rooms?.length > 0) && (
-              <div
-                style={{ marginTop: '1.5rem' }}
-                className={styles.buttonClearAllContainer}
-              >
-                <motion.button
-                  id={'button'}
-                  initial={{ scale: 0.9 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.2 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={handleCleanCart}
+            {!isCheckoutSeeAllData &&
+              (services?.length > 0 || rooms?.length > 0) && (
+                <div
+                  style={{ marginTop: '1.5rem' }}
+                  className={styles.buttonClearAllContainer}
                 >
-                  {t('clearAll')}
-                </motion.button>
+                  <motion.button
+                    id={'button'}
+                    initial={{ scale: 0.9 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={handleCleanCart}
+                  >
+                    {t('clearAll')}
+                  </motion.button>
+                </div>
+              )}
+
+            {!isCheckoutSeeAllData && (
+              <div className={styles.floatButtonContainer}>
+                {rooms && rooms.length > 0 && (
+                  <motion.button
+                    id={'button'}
+                    initial={{ scale: 0.9 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    className={styles.confirmBtn}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleReserve();
+                    }}
+                  >
+                    {t('checkout')}
+                  </motion.button>
+                )}
               </div>
             )}
-
-            <div className={styles.floatButtonContainer}>
-              {rooms && rooms.length > 0 && (
-                <motion.button
-                  id={'button'}
-                  initial={{ scale: 0.9 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.2 }}
-                  whileTap={{ scale: 0.9 }}
-                  className={styles.confirmBtn}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                >
-                  {t('checkout')}
-                </motion.button>
-              )}
-            </div>
             {rooms && rooms.length === 0 && services && services.length === 0 && (
               <div className={styles.emptyMessageContainer}>
                 <h4>Seu carrinho está vazio</h4>

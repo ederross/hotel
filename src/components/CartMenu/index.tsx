@@ -9,6 +9,7 @@ import styles from './styles.module.scss';
 import { AppStore } from '../../store/types';
 import { CleanCart } from '../../store/ducks/cart/actions';
 import { Tty } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 
 interface ICartMenu {
   openCart: boolean;
@@ -16,6 +17,8 @@ interface ICartMenu {
 
 const CartMenu = ({ openCart }: ICartMenu) => {
   const { t } = useTranslation('common');
+
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const {
@@ -23,6 +26,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
   } = useSelector((state: AppStore) => state);
 
   const handleCleanCart = () => dispatch(CleanCart());
+  const handleReserve = () => router.push('/checkout');
 
   const subMenuAnimate = {
     enter: {
@@ -138,6 +142,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
             className={styles.confirmBtn}
             onClick={(e) => {
               e.stopPropagation();
+              handleReserve();
             }}
           >
             {t('checkout')}
