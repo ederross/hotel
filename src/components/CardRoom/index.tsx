@@ -24,6 +24,7 @@ import {
   AddProductToCart,
   RemoveProductToCart,
 } from '../../store/ducks/cart/actions';
+import { motion } from 'framer-motion';
 
 interface ICardRoom {
   room: Room;
@@ -89,7 +90,14 @@ const CardRoom = ({ room }: ICardRoom) => {
 
   return (
     <>
-      <a className={styles.container} onClick={handleDetails}>
+      <motion.a
+        initial={{ scale: 0.99 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.1 }}
+        whileTap={{ scale: 0.99 }}
+        className={styles.container}
+        onClick={handleDetails}
+      >
         <div className={styles.containerCarousel}>
           <CarouselHolder isDiscountBoxActive data={imageData} />
         </div>
@@ -121,7 +129,10 @@ const CardRoom = ({ room }: ICardRoom) => {
           ))}
         </div>
 
-        <div onClick={(e) => e.stopPropagation()} className={styles.priceAndControlsContainerHolder}>
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className={styles.priceAndControlsContainerHolder}
+        >
           <div className={styles.pricesInfos}>
             <s>
               <h6>R$ 200</h6>
@@ -139,7 +150,7 @@ const CardRoom = ({ room }: ICardRoom) => {
           </div>
           <Counter quantity={quantity} setQuantity={setQuantity} />
         </div>
-      </a>
+      </motion.a>
     </>
   );
 };

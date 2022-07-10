@@ -57,7 +57,7 @@ const Filters = ({
     date.getMonth() + 2,
     0
   ).getDate();
-  const maxLength = new Date(date.getFullYear() + 2, 11, lastDay);
+  const maxDateLength = new Date(date.getFullYear() + 2, 11, lastDay);
 
   const handleUpdateState = (props: Object) =>
     setDateState([{ ...dateState[0], ...props }]);
@@ -83,10 +83,9 @@ const Filters = ({
               onChange={(item) =>
                 setDateState([{ ...dateState[0], ...item.selection }] as any)
               }
-              scroll={{ enabled: false }}
               moveRangeOnFirstSelection={false}
               ranges={dateState}
-              months={35}
+              months={1}
               locale={locales[locale === 'ptBR' ? 'pt' : locale]}
               dayContentRenderer={customDayContent}
               direction={'vertical'}
@@ -94,7 +93,7 @@ const Filters = ({
               rangeColors={['var(--primary-color)']}
               showMonthAndYearPickers={true}
               showPreview
-              maxDate={maxLength}
+              maxDate={maxDateLength}
               preventSnapRefocus
             />
           </Container>
@@ -236,17 +235,17 @@ const Container = styled.div`
     font-size: 14px;
   }
 
-  .rdrMonthsVertical {
+  /* .rdrMonthsVertical {
     overflow: scroll;
     max-height: 30vh;
-  }
+  } */
 
   .rdrMonth {
     flex: 1;
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-bottom: 3rem;
+    /* margin-bottom: 3rem; */
   }
   .rdrMonthName {
   }

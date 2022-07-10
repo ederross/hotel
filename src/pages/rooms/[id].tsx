@@ -65,15 +65,26 @@ const RoomDetails = (props: IRoomDetailsProps) => {
       <Header design={props.design} />
 
       <main className={styles.mainBox}>
-        <div className={styles.btnGoBackDesk} onClick={() => router.back()}>
+        <motion.button
+          initial={{ scale: 0.98 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.1 }}
+          whileTap={{ scale: 0.98 }}
+          className={styles.btnGoBackDesk}
+          onClick={() => router.back()}
+        >
           <ChevronLeft width={18} height={18} />
-        </div>
+        </motion.button>
 
         <div className={styles.contentBox}>
           {size.width < 868 && (
-            <div onClick={() => router.back()} className={styles.btnGoBack}>
+             <motion.div
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.1 }}
+            whileTap={{ scale: 0.9 }} onClick={() => router.back()} className={styles.btnGoBack}>
               <ChevronLeft width={18} height={18} />
-            </div>
+            </motion.div>
           )}
 
           <div className={styles.carouselContainer}>
@@ -180,7 +191,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
       </main>
       {size.width < 868 && openOffersModal && (
         <OffersRoomModal
-        openOffersModal={openOffersModal}
+          openOffersModal={openOffersModal}
           handleOpenMobileOffersModal={handleOpenMobileOffersModal}
         />
       )}
