@@ -234,7 +234,11 @@ const Checkout = ({ officeDetails, design }: any) => {
                       <h4>{t('arrivalForecast')}</h4>
                       <div className={styles.cSelect}>
                         <select name="arrivalForecast" id="pet-select">
-                          <option value="">12h - 18h</option>
+                          <option value="">12h</option>
+                          <option value="">13h</option>
+                          <option value="">14h</option>
+                          <option value="">15h</option>
+                          <option value="">16h</option>
                         </select>
                       </div>
                     </div>
@@ -456,7 +460,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                 )}
 
                 <div style={{ marginTop: '20px' }}>
-                  <h3>Serviços</h3>
+                  {services.length > 0 && <h3>Serviços</h3>}
                   {services.map((room, index) => (
                     <div key={index} className={styles.roomContainer}>
                       <div className={styles.row}>

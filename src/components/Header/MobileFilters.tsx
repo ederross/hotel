@@ -85,7 +85,7 @@ const Filters = ({
               }
               moveRangeOnFirstSelection={false}
               ranges={dateState}
-              months={1}
+              months={2}
               locale={locales[locale === 'ptBR' ? 'pt' : locale]}
               dayContentRenderer={customDayContent}
               direction={'vertical'}
@@ -245,7 +245,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    /* margin-bottom: 3rem; */
+    margin-bottom: -20px;
   }
   .rdrMonthName {
   }

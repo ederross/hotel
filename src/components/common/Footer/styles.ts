@@ -66,7 +66,8 @@ export const SocialContainer = styled.div`
   }
 
   .logo {
-    display: block;
+    display: flex;
+    align-self: center;
     margin: 0.3rem 0 0.5rem;
     cursor: pointer;
     svg {
