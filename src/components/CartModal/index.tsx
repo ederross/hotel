@@ -1,4 +1,4 @@
-import { CloseOutlined } from '@mui/icons-material';
+import { CloseOutlined, Delete } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import moment from 'moment';
 import { useTranslation } from 'next-i18next';
@@ -7,7 +7,11 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useWindowSize } from '../../hooks/UseWindowSize';
-import { CleanCart } from '../../store/ducks/cart/actions';
+import {
+  CleanCart,
+  RemoveProductToCart,
+  RemoveServiceToCart,
+} from '../../store/ducks/cart/actions';
 import { AppStore } from '../../store/types';
 import { currency } from '../../utils/currency';
 
@@ -36,6 +40,14 @@ const CartModal = ({
 
   const handleCleanCart = () => dispatch(CleanCart());
   const handleReserve = () => router.push('/checkout');
+
+  const handleRemoveItem = (id: any, service: boolean) => {
+    if (service) {
+      dispatch(RemoveServiceToCart(id));
+    } else {
+      dispatch(RemoveProductToCart(id));
+    }
+  };
 
   return (
     <>
@@ -68,10 +80,24 @@ const CartModal = ({
 
                   <div className={styles.roomInfo}>
                     <div className={styles.roomNameAdultChildContainer}>
-                      <h5>
-                        {room.adults} {t('adult', { count: room.adults })} {'&'}{' '}
-                        {room.adults} {t('children', { count: room.children })}
-                      </h5>
+                      <div className={styles.row}>
+                        <h5>
+                          {room.adults} {t('adult', { count: room.adults })}{' '}
+                          {'&'} {room.adults}{' '}
+                          {t('children', { count: room.children })}
+                        </h5>
+                        <Delete
+                          onClick={() =>
+                            handleRemoveItem(room?.objectId, false)
+                          }
+                          className={styles.closeButton}
+                          style={{
+                            cursor: 'pointer',
+                            width: 16,
+                            color: 'gray',
+                          }}
+                        />
+                      </div>
                       <h4>{room.objectName}</h4>
                     </div>
 
@@ -98,7 +124,6 @@ const CartModal = ({
               {services.map((room, index) => (
                 <div key={index} className={styles.roomContainer}>
                   <div className={styles.row}>
-                    <h4>{room.serviceName}</h4>
                     <div
                       style={{
                         display: 'flex',
@@ -106,14 +131,35 @@ const CartModal = ({
                         flexDirection: 'column',
                       }}
                     >
-                      <h6>x{room.quantity}</h6>
+                      <h6 style={{ alignSelf: 'flex-start' }}>
+                        x{room.quantity}
+                      </h6>
+                      <h4>{room.serviceName}</h4>
+                    </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-end',
+                        flexDirection: 'column',
+                      }}
+                    >
+                      <Delete
+                        onClick={() => handleRemoveItem(room?.serviceId, true)}
+                        className={styles.closeButton}
+                        style={{
+                          cursor: 'pointer',
+                          marginBottom: 8,
+                          width: 16,
+                          color: 'gray',
+                        }}
+                      />
                       <h5>{currency(room.price)}</h5>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-            {!isCheckoutSeeAllData &&
+            {/* {!isCheckoutSeeAllData &&
               (services?.length > 0 || rooms?.length > 0) && (
                 <div
                   style={{ marginTop: '1.5rem' }}
@@ -130,7 +176,7 @@ const CartModal = ({
                     {t('clearAll')}
                   </motion.button>
                 </div>
-              )}
+              )} */}
 
             {!isCheckoutSeeAllData && (
               <div className={styles.floatButtonContainer}>

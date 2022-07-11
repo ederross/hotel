@@ -327,7 +327,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                   <div className={styles.payWithLogosContainer}>
                     <div className={styles.payWithLogosBox}>
                       <Image
-                        src={'/icons/visa.svg'}
+                        src={'/icons/card.svg'}
                         layout={'fill'}
                         objectFit={'contain'}
                         alt={'Credit Card Logo'}
@@ -335,7 +335,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                     </div>
                     <div className={styles.payWithLogosBox}>
                       <Image
-                        src={'/icons/amex.svg'}
+                        src={'/icons/bank.svg'}
                         layout={'fill'}
                         objectFit={'contain'}
                         alt={'Credit Card Logo'}
@@ -343,31 +343,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                     </div>
                     <div className={styles.payWithLogosBox}>
                       <Image
-                        src={'/icons/mastercard.svg'}
-                        layout={'fill'}
-                        objectFit={'contain'}
-                        alt={'Credit Card Logo'}
-                      />
-                    </div>
-                    <div className={styles.payWithLogosBox}>
-                      <Image
-                        src={'/icons/elo.svg'}
-                        layout={'fill'}
-                        objectFit={'contain'}
-                        alt={'Credit Card Logo'}
-                      />
-                    </div>
-                    <div className={styles.payWithLogosBox}>
-                      <Image
-                        src={'/icons/hipercard.svg'}
-                        layout={'fill'}
-                        objectFit={'contain'}
-                        alt={'Credit Card Logo'}
-                      />
-                    </div>
-                    <div className={styles.payWithLogosBox}>
-                      <Image
-                        src={'/icons/aura.svg'}
+                        src={'/icons/pix.svg'}
                         layout={'fill'}
                         objectFit={'contain'}
                         alt={'Credit Card Logo'}

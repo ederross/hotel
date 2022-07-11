@@ -23,7 +23,7 @@ const FooterCheckout = () => {
               <Globe />
               <h4>Português {`${'(BR)'}`}</h4>
             </GlobeContainer>
-            <h4>R$ BRL</h4>
+            {/* <h4>R$ BRL</h4> */}
           </TranslateSocialMediaContainer>
           <LinksAndCopyrightContainer>
             <h4>© 2022 Finehost, Inc.</h4>

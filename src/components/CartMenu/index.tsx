@@ -7,8 +7,12 @@ import { currency } from '../../utils/currency';
 
 import styles from './styles.module.scss';
 import { AppStore } from '../../store/types';
-import { CleanCart } from '../../store/ducks/cart/actions';
-import { Tty } from '@mui/icons-material';
+import {
+  CleanCart,
+  RemoveProductToCart,
+  RemoveServiceToCart,
+} from '../../store/ducks/cart/actions';
+import { CloseOutlined, Delete } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
 interface ICartMenu {
@@ -26,7 +30,16 @@ const CartMenu = ({ openCart }: ICartMenu) => {
   } = useSelector((state: AppStore) => state);
 
   const handleCleanCart = () => dispatch(CleanCart());
+
   const handleReserve = () => router.push('/checkout');
+
+  const handleRemoveItem = (id: any, service: boolean) => {
+    if (service) {
+      dispatch(RemoveServiceToCart(id));
+    } else {
+      dispatch(RemoveProductToCart(id));
+    }
+  };
 
   const subMenuAnimate = {
     enter: {
@@ -72,10 +85,17 @@ const CartMenu = ({ openCart }: ICartMenu) => {
 
             <div className={styles.roomInfo}>
               <div className={styles.roomNameAdultChildContainer}>
-                <h5>
-                  {room.adults} {t('adult', { count: room.adults })} {'&'}{' '}
-                  {room.adults} {t('children', { count: room.children })}
-                </h5>
+                <div className={styles.row}>
+                  <h5>
+                    {room.adults} {t('adult', { count: room.adults })} {'&'}{' '}
+                    {room.adults} {t('children', { count: room.children })}
+                  </h5>
+                  <CloseOutlined
+                    onClick={() => handleRemoveItem(room?.objectId, false)}
+                    className={styles.closeButton}
+                    style={{ cursor: 'pointer', width: 16, color: 'gray' }}
+                  />
+                </div>
                 <h4>{room.objectName}</h4>
               </div>
 
@@ -99,7 +119,6 @@ const CartMenu = ({ openCart }: ICartMenu) => {
         {services.map((room, index) => (
           <div key={index} className={styles.roomContainer}>
             <div className={styles.row}>
-              <h4>{room.serviceName}</h4>
               <div
                 style={{
                   display: 'flex',
@@ -107,14 +126,33 @@ const CartMenu = ({ openCart }: ICartMenu) => {
                   flexDirection: 'column',
                 }}
               >
-                <h6>x{room.quantity}</h6>
+                <h6 style={{ alignSelf: 'flex-start' }}>x{room.quantity}</h6>
+                <h4>{room.serviceName}</h4>
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  flexDirection: 'column',
+                }}
+              >
+                <Delete
+                  onClick={() => handleRemoveItem(room?.serviceId, true)}
+                  className={styles.closeButton}
+                  style={{
+                    cursor: 'pointer',
+                    marginBottom: 8,
+                    width: 16,
+                    color: 'gray',
+                  }}
+                />
                 <h5>{currency(room.price)}</h5>
               </div>
             </div>
           </div>
         ))}
 
-        {(services?.length > 0 || rooms?.length > 0) && (
+        {/* {(services?.length > 0 || rooms?.length > 0) && (
           <div
             style={{ marginTop: '1.5rem' }}
             className={styles.buttonSeeMoreRoomsContainer}
@@ -130,7 +168,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
               {t('clearAll')}
             </motion.button>
           </div>
-        )}
+        )} */}
 
         {rooms && rooms.length > 0 && (
           <motion.button

@@ -94,25 +94,6 @@ export const SocialContainer = styled.div`
   .row {
     display: flex;
   }
-
-  .socialCircle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 0.8rem;
-    margin-top: 1rem;
-    width: 32px;
-    height: 32px;
-    background-color: var(--dark);
-    border-radius: 100%;
-    cursor: pointer;
-
-    .icon {
-      width: 16px;
-      height: 16px;
-      color: var(--light-text);
-    }
-  }
 `;
 
 export const ContactContainer = styled.div`
@@ -138,7 +119,6 @@ export const ContactContainer = styled.div`
     font-weight: 400;
     font-size: 0.7rem;
     margin: 1.5rem 0 2rem;
-   
   }
 
   .row {
@@ -153,7 +133,25 @@ export const ContactContainer = styled.div`
       font-size: 0.7rem;
       margin-left: 1rem;
       line-height: normal;
-     
+    }
+  }
+
+  .socialCircle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.8rem;
+    margin-top: 1rem;
+    width: 32px;
+    height: 32px;
+    background-color: var(--dark);
+    border-radius: 100%;
+    cursor: pointer;
+
+    .icon {
+      width: 16px;
+      height: 16px;
+      color: var(--light-text);
     }
   }
 `;
@@ -198,7 +196,7 @@ export const CopyrightContainer = styled.div`
   flex-direction: column;
   margin: 4rem 0 0;
   width: 100%;
-  
+
   @media screen and (min-width: 628px) {
     justify-content: space-between;
     align-items: center;
@@ -240,7 +238,6 @@ export const CopyrightContainer = styled.div`
     color: var(--gray-400);
     font-size: 0.7rem;
     font-weight: 400;
-    
 
     /* margin-bottom: 1rem; */
   }

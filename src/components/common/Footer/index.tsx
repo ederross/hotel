@@ -84,6 +84,17 @@ const Footer = ({ design, officeDetails }: IFooterProps) => {
                 </a>
               )}
             </div>
+            <div className="row">
+              {socialData?.map((item, index) => (
+                <div className="socialCircle" key={index} title={item.name}>
+                  {item.icon === 'Twitter' ? (
+                    <Twitter className="icon" />
+                  ) : (
+                    <Instagram className="icon" />
+                  )}
+                </div>
+              ))}
+            </div>
           </ContactContainer>
 
           <InformationContainer>
@@ -100,17 +111,6 @@ const Footer = ({ design, officeDetails }: IFooterProps) => {
           </InformationContainer>
         </div>
         <CopyrightContainer>
-          <div className="row">
-            {socialData?.map((item, index) => (
-              <div className="socialCircle" key={index} title={item.name}>
-                {item.icon === 'Twitter' ? (
-                  <Twitter className="icon" />
-                ) : (
-                  <Instagram className="icon" />
-                )}
-              </div>
-            ))}
-          </div>
           <h4>
             © {new Date().getFullYear()} FINEHOST. {t('allRightsReserved')}
           </h4>

@@ -110,14 +110,14 @@ export default function Header({ design, events }: IHeader) {
     if (!openCart) {
       setScrolled(true);
       // document.body.style.overflow = 'initial';
-      router.pathname === '/' ? document.body.style.overflow = 'hidden' : ''
+      router.pathname === '/' ? (document.body.style.overflow = 'hidden') : '';
       setOpenCart(!openCart);
       setInputCalendars(false);
       setInputGuest(false);
       setIsCalendarVisible(false);
       setCartMobileOpen(false);
     } else {
-      router.pathname === '/' ? document.body.style.overflow = 'initial' : ''
+      router.pathname === '/' ? (document.body.style.overflow = 'initial') : '';
       if (window.scrollY > 10) {
         setScrolled(true);
       } else {
@@ -163,7 +163,7 @@ export default function Header({ design, events }: IHeader) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const [firstLoad, setFirstLoad] = useState()
+  const [firstLoad, setFirstLoad] = useState();
 
   // Cart Feedback Animation
   useEffect(() => {
@@ -217,6 +217,10 @@ export default function Header({ design, events }: IHeader) {
 
   const dynamicPlaceholder =
     router.pathname === '/search' ? filterString : t('searchPeriod');
+
+  const cartLength =
+    rooms.map((a) => a.quantity).reduce((a, b) => a + b, 0) +
+    services.map((s) => s.quantity).reduce((a, b) => a + b, 0);
 
   return (
     <>
@@ -548,13 +552,7 @@ export default function Header({ design, events }: IHeader) {
               ></motion.div>
             )} */}
             <ShoppingBagOutlinedIcon className={styles.cartIcon} />
-            <h4>
-              {t('cart') +
-                ' ' +
-                '(' +
-                `${`${rooms.length + services.length}`}` +
-                ')'}
-            </h4>
+            <h4>{t('cart') + ' ' + '(' + `${`${cartLength}`}` + ')'}</h4>
           </motion.div>
         </div>
       )}
