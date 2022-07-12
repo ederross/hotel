@@ -86,7 +86,7 @@ const CartModal = ({
                           {'&'} {room.adults}{' '}
                           {t('children', { count: room.children })}
                         </h5>
-                        <Delete
+                        {!isCheckoutSeeAllData && <Delete
                           onClick={() =>
                             handleRemoveItem(room?.objectId, false)
                           }
@@ -96,7 +96,7 @@ const CartModal = ({
                             width: 16,
                             color: 'gray',
                           }}
-                        />
+                        />}
                       </div>
                       <h4>{room.objectName}</h4>
                     </div>
@@ -143,7 +143,7 @@ const CartModal = ({
                         flexDirection: 'column',
                       }}
                     >
-                      <Delete
+                      {!isCheckoutSeeAllData &&  <Delete
                         onClick={() => handleRemoveItem(room?.serviceId, true)}
                         className={styles.closeButton}
                         style={{
@@ -152,7 +152,7 @@ const CartModal = ({
                           width: 16,
                           color: 'gray',
                         }}
-                      />
+                      />}
                       <h5>{currency(room.price)}</h5>
                     </div>
                   </div>

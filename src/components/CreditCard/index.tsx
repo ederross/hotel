@@ -74,11 +74,23 @@ const CreditCard = () => {
         />
         <div style={{ display: 'flex', width: '100%' }}>
           <input
-            type="text"
+            type="tel"
+            pattern="\d\d/\d\d"
+            name="expiry"
+            required
+            onChange={handleInputChange}
             placeholder={'Validade'}
             className={styles.validityInput}
           />
-          <input type="text" placeholder={'CVV'} className={styles.cvvInput} />
+          <input
+            type="tel"
+            name="cvc"
+            pattern="\d{3,4}"
+            required
+            onChange={handleInputChange}
+            placeholder={'CVV'}
+            className={styles.cvvInput}
+          />
         </div>
         <div className={styles.cSelect} style={{ marginTop: '0.5rem' }}>
           <select name="arrivalForecast" id="pet-select">
