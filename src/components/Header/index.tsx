@@ -25,6 +25,7 @@ import { AppStore } from '../../store/types';
 import useDidMountEffect from '../../hooks/useDidMountEffect';
 import { motion } from 'framer-motion';
 import CartModal from '../CartModal';
+import { toast, ToastContainer } from 'react-toastify';
 
 interface IHeader {
   design: Design;
@@ -159,11 +160,9 @@ export default function Header({ design, events }: IHeader) {
       }
     };
     window.addEventListener('scroll', onScroll);
-
+  
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  const [firstLoad, setFirstLoad] = useState();
 
   // Cart Feedback Animation
   useEffect(() => {
@@ -572,6 +571,17 @@ export default function Header({ design, events }: IHeader) {
           }}
         ></div>
       )}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 }

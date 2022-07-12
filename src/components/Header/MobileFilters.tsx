@@ -187,14 +187,16 @@ const Filters = ({
                   <h4>
                     {index + 1}º {t('children_one')}
                   </h4>
-                  <select name="pets" id="pet-select">
-                    <option value="">{t('age')}</option>
-                    {[...Array(15)].map((_, index) => (
-                      <option key={index} value="one">
-                        {index + 1}
-                      </option>
-                    ))}
-                  </select>
+                  <div className={styles.select}>
+                    <select className={styles.selectField} name="pets" id="pet-select">
+                      <option value="">{t('age')}</option>
+                      {[...Array(15)].map((_, index) => (
+                        <option key={index} value="one">
+                          {index + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               ))}
             </div>
