@@ -25,6 +25,11 @@ import { useRouter } from 'next/router';
 import { mockSearchResults } from '../../../mock/mockSearchResult';
 import { AmenitieDisplay } from '../../components/common/AmenitieDisplay';
 import { motion } from 'framer-motion';
+import {
+  GetOfficeDesign,
+  GetOfficeDetails,
+} from '../../services/requests/office';
+import { GetServiceSearch } from '../../services/requests/booking';
 
 interface IRoomDetailsProps {
   officeDetails: OfficeDetails;
@@ -241,46 +246,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const base_url = 'http://book.hospeda.in';
-  const officeDetails = await fetch(base_url + '/offices/office1').then(
-    (response) => response.json()
-  );
-  const design = await fetch(base_url + '/offices/office1/design').then(
-    (response) => response.json()
-  );
-  const reviews = await fetch(base_url + '/offices/office1/reviews').then(
-    (response) => response.json()
-  );
-
-  const servicesResult = await fetch(
-    base_url +
-      '/booking/services/?' +
-      new URLSearchParams({
-        officeId: 'office1',
-      })
-  ).then((response) => response.json());
-
-  const events = await fetch(
-    base_url +
-      '/offices/office1/events/?' +
-      new URLSearchParams({
-        startDate: moment().format('YYYY-MM-DD'),
-        endDate: moment().add(2, 'M').format('YYYY-MM-DD'),
-      })
-  ).then((response) => response.json());
-  const images = await fetch(base_url + '/offices/office1/images').then(
-    (response) => response.json()
-  );
-
+  const officeDetails = await GetOfficeDetails();
+  const design = await GetOfficeDesign();
+  const servicesResult = await GetServiceSearch();
   return {
     props: {
       searchResult: mockSearchResults[0],
       servicesResult,
       officeDetails,
       design,
-      reviews,
-      events,
-      images,
       ...(await serverSideTranslations(locale, ['common'])),
     },
     revalidate: 60,

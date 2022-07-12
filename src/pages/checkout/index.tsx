@@ -16,6 +16,10 @@ import FooterCheckout from '../../components/common/FooterCheckout';
 import Input from '../../components/common/Input';
 import Header from '../../components/Header';
 import { useWindowSize } from '../../hooks/UseWindowSize';
+import {
+  GetOfficeDesign,
+  GetOfficeDetails,
+} from '../../services/requests/office';
 import { AppStore } from '../../store/types';
 import { currency } from '../../utils/currency';
 
@@ -714,15 +718,8 @@ const Checkout = ({ officeDetails, design }: any) => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const base_url = 'http://book.hospeda.in';
-
-  const officeDetails = await fetch(base_url + '/offices/office1').then(
-    (response) => response.json()
-  );
-
-  const design = await fetch(base_url + '/offices/office1/design').then(
-    (response) => response.json()
-  );
+  const officeDetails = await GetOfficeDetails();
+  const design = await GetOfficeDesign();
 
   return {
     props: {
