@@ -46,7 +46,7 @@ const Footer = ({ design, officeDetails }: IFooterProps) => {
             </div>
             <h3>{officeDetails?.officeName}</h3>
             <p>
-              {officeDetails?.officeDescription.length > 320
+              {officeDetails?.officeDescription?.length > 320
                 ? officeDetails?.officeDescription.slice(0, 320) + '...'
                 : officeDetails?.officeDescription}
             </p>

@@ -6,7 +6,6 @@ import {
   AttractionsOutlined,
   CookieOutlined,
 } from '@mui/icons-material';
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import CardRoom from '../../components/CardRoom';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -17,12 +16,18 @@ import Footer from '../../components/common/Footer';
 import { OfficeDetails } from '../../../data/officeDetails';
 import { Design } from '../../../data/design';
 import CardService from '../../components/CardService';
-import { mockSearchResults } from '../../../mock/mockSearchResult';
-import { baseUrl } from '../../services';
 import { motion } from 'framer-motion';
-import CartModal from '../../components/CartModal';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../store/types';
+import {
+  GetRoomSearch,
+  GetServiceSearch,
+} from '../../services/requests/booking';
+import {
+  GetOfficeDesign,
+  GetOfficeDetails,
+} from '../../services/requests/office';
+import { mockSearchResults } from '../../../mock/mockSearchResult';
 
 interface ISearch {
   servicesResult: any;
@@ -30,21 +35,10 @@ interface ISearch {
   design: Design;
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
-  const officeDetails = await fetch(baseUrl + '/offices/office1').then(
-    (response) => response.json()
-  );
-  const design = await fetch(baseUrl + '/offices/office1/design').then(
-    (response) => response.json()
-  );
-
-  const servicesResult = await fetch(
-    baseUrl +
-      '/booking/services/?' +
-      new URLSearchParams({
-        officeId: 'office1',
-      })
-  ).then((response) => response.json());
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const officeDetails = await GetOfficeDetails();
+  const design = await GetOfficeDesign();
+  const servicesResult = await GetServiceSearch();
 
   return {
     props: {
@@ -73,29 +67,13 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
   const formattedNumber = (number: number) =>
     number < 10 && number > 0 ? `0${number}` : '';
 
-  const getSearchResult = async () => {
-    console.log('SEARCHING...');
-    await fetch(
-      baseUrl +
-        '/booking/room-search/?' +
-        new URLSearchParams({
-          officeId: 'office1',
-          startDate,
-          endDate,
-          adults,
-          children,
-        })
-    )
-      .then((response) => response.json())
-      .catch((err) => {
-        window.alert('Não foi possível concluir a pesquisa...');
-        console.log(err.message);
-      });
-  };
-
   // useEffect(() => {
-  //   getSearchResult();
-  // }, []);
+  //   if (startDate && endDate && adults && children) {
+  //     GetRoomSearch({ startDate, endDate, adults, children }).then((res) =>
+  //       setSearchResult(res)
+  //     );
+  //   }
+  // }, [startDate, endDate, adults, children]);
 
   return (
     <>
@@ -120,9 +98,9 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
             <section className={styles.filterInfo}>
               <div style={{ flex: 1, paddingTop: 1 }}>
                 <h2>
-                  <span>{formattedNumber(searchResult?.length || 0)}</span>{' '}
+                  <span>{formattedNumber(searchResult?.length) || 0}</span>{' '}
                   quartos com{' '}
-                  <span>{formattedNumber(servicesResult?.length || 0)}</span>{' '}
+                  <span>{formattedNumber(servicesResult?.length) || 0}</span>{' '}
                   serviços foram encontrados
                 </h2>
               </div>

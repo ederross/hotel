@@ -20,6 +20,13 @@ import { HotelImages } from '../../data/images';
 import HotelImagesSlider from '../components/HotelImagesSlider';
 import { URLSearchParams } from 'url';
 import moment from 'moment';
+import {
+  GetOfficeDesign,
+  GetOfficeDetails,
+  GetOfficeEvents,
+  GetOfficeImages,
+  GetOfficeReviews,
+} from '../services/requests/office';
 interface IHomeProps {
   officeDetails: OfficeDetails;
   design: Design;
@@ -29,7 +36,7 @@ interface IHomeProps {
 }
 
 export default function Home(props: IHomeProps) {
-    // Window Sizes
+  // Window Sizes
   const { width } = useWindowSize();
   const { t } = useTranslation('common');
 
@@ -121,27 +128,11 @@ export default function Home(props: IHomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const base_url = 'http://book.hospeda.in';
-  const officeDetails = await fetch(base_url + '/offices/office1').then(
-    (response) => response.json()
-  );
-  const design = await fetch(base_url + '/offices/office1/design').then(
-    (response) => response.json()
-  );
-  const reviews = await fetch(base_url + '/offices/office1/reviews').then(
-    (response) => response.json()
-  );
-  const events = await fetch(
-    base_url +
-      '/offices/office1/events/?' +
-      new URLSearchParams({
-        startDate: moment().add(-2, 'M').format('YYYY-MM-DD'),
-        endDate: moment().add(2, 'M').format('YYYY-MM-DD'),
-      })
-  ).then((response) => response.json());
-  const images = await fetch(base_url + '/offices/office1/images').then(
-    (response) => response.json()
-  );
+  const officeDetails = await GetOfficeDetails();
+  const design = await GetOfficeDesign();
+  const reviews = await GetOfficeReviews();
+  const images = await GetOfficeImages();
+  const events = await GetOfficeEvents();
 
   return {
     props: {
