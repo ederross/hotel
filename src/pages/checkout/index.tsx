@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
+import Card from 'react-credit-cards';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronDown, ChevronUp } from 'react-feather';
@@ -25,6 +26,7 @@ import { AppStore } from '../../store/types';
 import { currency } from '../../utils/currency';
 
 import styles from './styles.module.scss';
+import CreditCard from '../../components/CreditCard';
 
 const Checkout = ({ officeDetails, design }: any) => {
   const { t } = useTranslation();
@@ -264,15 +266,15 @@ const Checkout = ({ officeDetails, design }: any) => {
                 <div className={styles.mobPriceInformation}>
                   <h4>Informações de preço</h4>
                   <div className={styles.row}>
-                    <h5>R$1.071 x 8 noites</h5>
+                    <h5>Hospedagem + serviços</h5>
                     <h5>{currency(8574.72)}</h5>
                   </div>
-                  <div className={styles.row}>
+                  {/* <div className={styles.row}>
                     <u>
                       <h5>Serviços</h5>
                     </u>
                     <h5>{currency(98)}</h5>
-                  </div>
+                  </div> */}
                   <div className={styles.row}>
                     <u
                       onClick={() =>
@@ -374,18 +376,23 @@ const Checkout = ({ officeDetails, design }: any) => {
                   </div>
                 </div>
 
-                <input
+                {/* <input
                   type="text"
                   className={styles.defaultInput}
                   placeholder="Cartão de crédito"
-                />
-                <input
-                  type="text"
-                  className={styles.defaultInput}
-                  placeholder="Parcelamento"
-                />
+                /> */}
 
-                <div className={styles.cardInfoHolder}>
+                <div className={styles.cSelect} style={{marginBottom: '0.5rem'}}>
+                  <select name="arrivalForecast" id="pet-select">
+                    <option value="">Cartão de crédito</option>
+                    <option value="">PIX</option>
+                    <option value="">TED</option>
+                  </select>
+                </div>
+
+                <CreditCard />
+
+                {/* <div className={styles.cardInfoHolder}>
                   <input
                     placeholder={'Número do cartão'}
                     className={styles.cardNumberInput}
@@ -403,7 +410,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                       className={styles.cvvInput}
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className={styles.webPaymentInfos}>
@@ -496,7 +503,7 @@ const Checkout = ({ officeDetails, design }: any) => {
               <div className={styles.priceInformation}>
                 <h4>Informações de preço</h4>
                 <div className={styles.row}>
-                  <h5>R$1.071 x 8 noites</h5>
+                  <h5>Hospedagem + serviços</h5>
                   <h5>{currency(8574.72)}</h5>
                 </div>
                 <div className={styles.row}>

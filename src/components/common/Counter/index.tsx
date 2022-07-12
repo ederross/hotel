@@ -32,7 +32,7 @@ export const Counter = ({ quantity = 0, setQuantity }: ICounterProps) => {
   };
   const handleAdd = (e) => {
     e.stopPropagation();
-    toast.success(`${t('addedCart')}`, {
+    width > 868 && toast.success(`${t('addedCart')}`, {
       position: width < 868 ? 'top-left' : 'bottom-right',
       autoClose: 9000,
       theme: 'colored',

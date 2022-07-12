@@ -1,0 +1,87 @@
+.cardInfoHolder {
+  display: flex;
+  flex-direction: column;
+
+  
+.cSelect {
+    position: relative;
+    width: 100%;
+  
+    
+    // looks funny, needs work
+    &:focus {
+      outline: none;
+    }
+  
+    // show caret
+    &:before {
+      content: '';
+      position: absolute;
+      top: 48%;
+      right: 16px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 6px 4px 0 4px;
+      border-color: var(--primary-color) transparent transparent
+        transparent;
+      pointer-events: none;
+    }
+  
+    select {
+      width: 100%;
+      -webkit-appearance: none; // appearance: none;
+      font-size: 16px;
+      color: rgb(72, 72, 72);
+      border: 1px solid rgb(194, 194, 194);
+      border-radius: 8px;
+      padding: 1rem;
+  
+      &:hover {
+        color: rgb(72, 72, 72);
+      }
+  
+    }
+  }
+
+  .defaultInput {
+    border: 1px solid rgb(194, 194, 194);
+    border-radius: 8px;
+    padding: 1rem 1rem;
+    font-size: 16px;
+    margin-top: 0.5rem;
+  }
+
+  .cardHolderName {
+    font-size: 16px;
+    border: 1px solid rgb(194, 194, 194);
+    padding: 1rem 1rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom: none;
+  }
+
+  .cardNumberInput {
+    font-size: 16px;
+    border: 1px solid rgb(194, 194, 194);
+    padding: 1rem 1rem;
+    border-bottom: none;
+  }
+
+  .validityInput {
+    font-size: 16px;
+    border: 1px solid rgb(194, 194, 194);
+    padding: 1rem 1rem;
+    border-bottom-left-radius: 0.5rem;
+    border-right: none;
+    width: 50%;
+  }
+
+  .cvvInput {
+    font-size: 16px;
+    width: 50%;
+    border: 1px solid rgb(194, 194, 194);
+    padding: 1rem 1rem;
+    border-bottom-right-radius: 0.5rem;
+  }
+}

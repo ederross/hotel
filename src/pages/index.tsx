@@ -2,9 +2,13 @@ import Head from 'next/head';
 import { GetStaticProps } from 'next';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
-import CarouselHolder from '../components/common/CarouselHolder';
 
 import styles from './home.module.scss';
+
+import 'react-credit-cards/lib/styles.scss';
+
+import 'react-credit-cards/es/styles-compiled.css';
+
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import CardEventType1 from '../components/cardsEvents/CardEventType1';
