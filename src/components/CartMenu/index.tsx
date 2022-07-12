@@ -104,7 +104,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
                     {room.adults} {t('adult', { count: room.adults })} {'&'}{' '}
                     {room.adults} {t('children', { count: room.children })}
                   </h5>
-                  <CloseOutlined
+                  <Delete
                     onClick={() => handleRemoveItem(room?.objectId, false)}
                     className={styles.closeButton}
                     style={{ cursor: 'pointer', width: 16, color: 'gray' }}
