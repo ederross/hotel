@@ -100,7 +100,10 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
   return (
     <>
       <Head>
-        <title>Hotel - Pesquisa</title>
+        <title>{design?.browserTitle} - Pesquisa</title>
+        <meta name="description" content={design?.metaDescription} />
+        <meta name="keywords" content={design?.metaKeywords} />
+        <link rel="icon" href={design?.favIconUrl} />
       </Head>
       <main className={styles.mainContainer}>
         <Header design={design} />

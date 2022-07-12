@@ -66,7 +66,10 @@ const Checkout = ({ officeDetails, design }: any) => {
   return (
     <>
       <Head>
-        <title>Hotel | Checkout</title>
+        <title>{design?.browserTitle} - Checkout</title>
+        <meta name="description" content={design?.metaDescription} />
+        <meta name="keywords" content={design?.metaKeywords} />
+        <link rel="icon" href={design?.favIconUrl} />
       </Head>
       <Header design={design} />
       <main className={styles.mainBox}>
@@ -272,11 +275,11 @@ const Checkout = ({ officeDetails, design }: any) => {
                     <h5>{currency(98)}</h5>
                   </div>
 
-                  <div className={styles.mobMoreInfoHolder}>
+                  {/* <div className={styles.mobMoreInfoHolder}>
                     <u>
                       <h5>Mais informações</h5>
                     </u>
-                  </div>
+                  </div> */}
                 </div>
               )}
               {size.width > 868 && (
@@ -476,12 +479,6 @@ const Checkout = ({ officeDetails, design }: any) => {
                 <div className={styles.row}>
                   <h5>R$1.071 x 8 noites</h5>
                   <h5>{currency(8574.72)}</h5>
-                </div>
-                <div className={styles.row}>
-                  <u>
-                    <h5>Serviços</h5>
-                  </u>
-                  <h5>{currency(98)}</h5>
                 </div>
                 <div className={styles.row}>
                   <u>
