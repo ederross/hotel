@@ -144,7 +144,7 @@ const CardRoom = ({ room }: ICardRoom) => {
               </span>{' '}
               <span style={{ marginLeft: '0.4rem' }}>3 noites</span>
             </h4>
-            <u>
+            <u style={{ cursor: 'pointer' }} onClick={handleDetails}>
               <h5>+2 ofertas</h5>
             </u>
           </div>

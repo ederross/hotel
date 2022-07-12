@@ -84,7 +84,11 @@ export const TranslateSocialMediaContainer = styled.div`
   display: flex;
   flex-direction: row;
 
-  h4:hover {
+  .textWithHover {
+    margin-right: 1rem;
+  }
+
+  .textWithHover:hover {
     cursor: pointer;
     text-decoration: underline;
   }

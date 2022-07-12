@@ -138,6 +138,7 @@ export const ContactContainer = styled.div`
 
   .socialCircle {
     display: flex;
+    align-self: flex-start;
     justify-content: center;
     align-items: center;
     margin-right: 0.8rem;

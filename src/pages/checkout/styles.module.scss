@@ -140,7 +140,7 @@
     margin-bottom: 2rem;
     padding: 0 1rem;
     padding-bottom: 2rem;
-    
+
     border-top: 8px solid #dadada;
     border-bottom: 8px solid #dadada;
 
@@ -276,14 +276,30 @@
             font-weight: 300;
           }
 
+
           .cSelect {
             position: relative;
             width: 100%;
 
-            &::after {
+            
+            // looks funny, needs work
+            &:focus {
+              outline: none;
+            }
+
+            // show caret
+            &:before {
+              content: '';
               position: absolute;
-              top: 0;
-              right: 0;
+              top: 48%;
+              right: 16px;
+              width: 0;
+              height: 0;
+              border-style: solid;
+              border-width: 6px 4px 0 4px;
+              border-color: var(--primary-color) transparent transparent
+                transparent;
+              pointer-events: none;
             }
 
             select {
@@ -299,14 +315,6 @@
                 color: rgb(72, 72, 72);
               }
 
-              &::after {
-                content: '▼';
-                background-color: red;
-                font-size: 1rem;
-                top: 6px;
-                right: 10px;
-                position: absolute;
-              }
             }
           }
         }

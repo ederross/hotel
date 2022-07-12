@@ -14,6 +14,8 @@ import {
 } from '../../store/ducks/cart/actions';
 import { CloseOutlined, Delete } from '@mui/icons-material';
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
+import { useWindowSize } from '../../hooks/UseWindowSize';
 
 interface ICartMenu {
   openCart: boolean;
@@ -29,6 +31,8 @@ const CartMenu = ({ openCart }: ICartMenu) => {
     cart: { rooms, services },
   } = useSelector((state: AppStore) => state);
 
+  const { width } = useWindowSize();
+
   const handleCleanCart = () => dispatch(CleanCart());
 
   const handleReserve = () => router.push('/checkout');
@@ -39,6 +43,16 @@ const CartMenu = ({ openCart }: ICartMenu) => {
     } else {
       dispatch(RemoveProductToCart(id));
     }
+    toast.error(`${t('removedCart')}`, {
+      position: width < 868 ? 'top-left' : 'bottom-right',
+      autoClose: 9000,
+      theme: 'colored',
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   const subMenuAnimate = {

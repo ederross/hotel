@@ -14,6 +14,7 @@ import { CheckoutSucessModal } from '../../components/CheckoutSucessModal';
 import Footer from '../../components/common/Footer';
 import FooterCheckout from '../../components/common/FooterCheckout';
 import Input from '../../components/common/Input';
+import DynamicInfoModal from '../../components/DynamicInfoModal';
 import Header from '../../components/Header';
 import { useWindowSize } from '../../hooks/UseWindowSize';
 import {
@@ -39,17 +40,23 @@ const Checkout = ({ officeDetails, design }: any) => {
   const [policy, setPolicy] = useState(0);
   const [successModalVisible, setSuccessModalVisible] = useState(false);
   const [showCartModal, setShowCartModal] = useState(false);
+  const [showDynamicInfoModal, setShowDynamicInfoModal] = useState(false);
 
-  const handleCloseCart = () => {
+  const handleCloseCartInfoModal = () => {
     document.body.style.overflow = 'initial';
     setShowCartModal(false);
   };
 
-  const handleOpenCheckoutSucessModal = () => {
+  const handleCloseDynamicInfo = () => {
+    document.body.style.overflow = 'initial';
+    setShowDynamicInfoModal(false);
+  };
+
+  const handleOpenCheckoutSuccessModal = () => {
     document.body.style.overflow = 'hidden';
     setSuccessModalVisible(true);
   };
-  const handleCloseCheckoutSucessModal = () => {
+  const handleCloseCheckoutSuccessModal = () => {
     document.body.style.overflow = 'initial';
     setSuccessModalVisible(!successModalVisible);
   };
@@ -172,7 +179,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                         </motion.button>
                       </div>
                     )}
-                    {size.width < 868 && (
+                    {size.width < 868 && services.length > 0 && (
                       <div
                         className={styles.divisorContainer}
                         style={{ marginTop: '1rem' }}
@@ -183,7 +190,7 @@ const Checkout = ({ officeDetails, design }: any) => {
 
                     {size.width < 868 && (
                       <div style={{ marginTop: '20px' }}>
-                        {!!services && <h3>Serviços</h3>}
+                        {services.length > 0 && <h3>Serviços</h3>}
                         {services.map((service, index) => (
                           <div key={index} className={styles.roomContainer}>
                             <div className={styles.row}>
@@ -267,13 +274,21 @@ const Checkout = ({ officeDetails, design }: any) => {
                     <h5>{currency(98)}</h5>
                   </div>
                   <div className={styles.row}>
-                    <u>
+                    <u
+                      onClick={() =>
+                        setShowDynamicInfoModal(!showDynamicInfoModal)
+                      }
+                    >
                       <h5>Taxas</h5>
                     </u>
                     <h5>{currency(98)}</h5>
                   </div>
                   <div className={styles.row}>
-                    <u>
+                    <u
+                      onClick={() =>
+                        setShowDynamicInfoModal(!showDynamicInfoModal)
+                      }
+                    >
                       <h5>Impostos</h5>
                     </u>
                     <h5>{currency(98)}</h5>
@@ -485,13 +500,23 @@ const Checkout = ({ officeDetails, design }: any) => {
                   <h5>{currency(8574.72)}</h5>
                 </div>
                 <div className={styles.row}>
-                  <u>
+                  <u
+                    style={{ cursor: 'pointer' }}
+                    onClick={() =>
+                      setShowDynamicInfoModal(!showDynamicInfoModal)
+                    }
+                  >
                     <h5>Taxas</h5>
                   </u>
                   <h5>{currency(98)}</h5>
                 </div>
                 <div className={styles.row}>
-                  <u>
+                  <u
+                    style={{ cursor: 'pointer' }}
+                    onClick={() =>
+                      setShowDynamicInfoModal(!showDynamicInfoModal)
+                    }
+                  >
                     <h5>Impostos</h5>
                   </u>
                   <h5>{currency(98)}</h5>
@@ -510,7 +535,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                   transition={{ duration: 0.2 }}
                   whileTap={{ scale: 0.9 }}
                   className={styles.confirmBtn}
-                  onClick={handleOpenCheckoutSucessModal}
+                  onClick={handleOpenCheckoutSuccessModal}
                 >
                   {t('confirmPay')}
                 </motion.button>
@@ -693,7 +718,7 @@ const Checkout = ({ officeDetails, design }: any) => {
               transition={{ duration: 0.2 }}
               whileTap={{ scale: 0.9 }}
               className={styles.confirmBtn}
-              onClick={handleOpenCheckoutSucessModal}
+              onClick={handleOpenCheckoutSuccessModal}
             >
               {t('confirmPay')}
             </motion.button>
@@ -705,12 +730,15 @@ const Checkout = ({ officeDetails, design }: any) => {
       {showCartModal && (
         <CartModal
           isCheckoutSeeAllData
-          handleCloseCartModal={handleCloseCart}
+          handleCloseCartModal={handleCloseCartInfoModal}
         />
+      )}
+      {showDynamicInfoModal && (
+        <DynamicInfoModal handleCloseDynamicInfo={handleCloseDynamicInfo} />
       )}
       {successModalVisible && (
         <CheckoutSucessModal
-          handleCloseCheckoutSucessModal={handleCloseCheckoutSucessModal}
+          handleCloseCheckoutSucessModal={handleOpenCheckoutSuccessModal}
         />
       )}
     </>

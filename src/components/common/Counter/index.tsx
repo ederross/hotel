@@ -13,15 +13,26 @@ interface ICounterProps {
 export const Counter = ({ quantity = 0, setQuantity }: ICounterProps) => {
   const { t } = useTranslation('common');
 
-  const {width} = useWindowSize();
+  const { width } = useWindowSize();
 
   const handleRemove = (e) => {
     e.stopPropagation();
+    quantity !== 0 &&
+      toast.error(`${t('removedCart')}`, {
+        position: width < 868 ? 'top-left' : 'bottom-right',
+        autoClose: 9000,
+        theme: 'colored',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     quantity > 0 && setQuantity(quantity - 1);
   };
   const handleAdd = (e) => {
     e.stopPropagation();
-    toast.success('Adicionado ao carrinho!', {
+    toast.success(`${t('addedCart')}`, {
       position: width < 868 ? 'top-left' : 'bottom-right',
       autoClose: 9000,
       theme: 'colored',

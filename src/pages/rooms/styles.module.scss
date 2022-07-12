@@ -245,6 +245,10 @@
     .servicesContainer {
       padding-top: 2rem;
 
+      @media screen and (max-width: 868px) {
+        padding-bottom: 100px;
+      }
+
       .customSubtitle {
         padding-left: 1rem;
 
@@ -569,5 +573,3 @@
     padding-right: 8.1rem;
   }
 }
-
-

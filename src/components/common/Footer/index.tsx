@@ -83,17 +83,18 @@ const Footer = ({ design, officeDetails }: IFooterProps) => {
                   </p>
                 </a>
               )}
-            </div>
-            <div className="row">
-              {socialData?.map((item, index) => (
-                <div className="socialCircle" key={index} title={item.name}>
-                  {item.icon === 'Twitter' ? (
-                    <Twitter className="icon" />
-                  ) : (
-                    <Instagram className="icon" />
-                  )}
-                </div>
-              ))}
+
+              <div style={{display: 'flex'}}>
+                {socialData?.map((item, index) => (
+                  <div className="socialCircle" key={index} title={item.name}>
+                    {item.icon === 'Twitter' ? (
+                      <Twitter className="icon" />
+                    ) : (
+                      <Instagram className="icon" />
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </ContactContainer>
 
