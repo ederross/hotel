@@ -45,7 +45,7 @@ const CreditCard = () => {
 
   const cardType = CreditCardType(
     number.substring(0, 4)
-  )[0]?.niceType.toLowerCase();
+  )[0]?.niceType.toLowerCase().replaceAll(' ', '');
 
   const cardFlag =
     !cardType || number.length < 1 || cardTypeError
@@ -75,7 +75,6 @@ const CreditCard = () => {
           className={styles.cardHolderName}
           //   pattern="[\d| ]{16,22}"
           required
-          onChange={handleInputChange}
           onFocus={handleInputFocus}
         />
         <div className={styles.cardNumberContainer}>
@@ -92,6 +91,7 @@ const CreditCard = () => {
           <img
             src={cardFlag}
             height={28}
+            width={32}
             title={cardType}
             alt={cardType}
             onError={() => setCardTypeError(true)}
