@@ -7,13 +7,8 @@ export const CarouselHolderStyles = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-
-  /* border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem; */
   overflow: hidden;
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
-  
+  z-index: 1;
 
   &:hover {
     .arrowBtnLeft {
