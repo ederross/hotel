@@ -18,6 +18,7 @@
     "@types/react-date-range": "^1.4.3",
     "@types/swiper": "^6.0.0",
     "axios": "^0.27.2",
+    "credit-card-type": "^9.1.0",
     "date-fns": "^2.28.0",
     "framer-motion": "^6.3.16",
     "i18next-chained-backend": "^3.0.2",

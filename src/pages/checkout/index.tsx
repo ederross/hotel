@@ -382,7 +382,10 @@ const Checkout = ({ officeDetails, design }: any) => {
                   placeholder="Cartão de crédito"
                 /> */}
 
-                <div className={styles.cSelect} style={{marginBottom: '0.5rem'}}>
+                <div
+                  className={styles.cSelect}
+                  style={{ marginBottom: '0.5rem' }}
+                >
                   <select name="arrivalForecast" id="pet-select">
                     <option value="">Cartão de crédito</option>
                     <option value="">PIX</option>
@@ -391,26 +394,6 @@ const Checkout = ({ officeDetails, design }: any) => {
                 </div>
 
                 <CreditCard />
-
-                {/* <div className={styles.cardInfoHolder}>
-                  <input
-                    placeholder={'Número do cartão'}
-                    className={styles.cardNumberInput}
-                    type="text"
-                  />
-                  <div style={{ display: 'flex', width: '100%' }}>
-                    <input
-                      type="text"
-                      placeholder={'Validade'}
-                      className={styles.validityInput}
-                    />
-                    <input
-                      type="text"
-                      placeholder={'CVV'}
-                      className={styles.cvvInput}
-                    />
-                  </div>
-                </div> */}
               </div>
             </div>
             <div className={styles.webPaymentInfos}>

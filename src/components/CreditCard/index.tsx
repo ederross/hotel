@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from 'react-credit-cards';
 
 import {
@@ -9,16 +9,18 @@ import {
 } from './utils';
 
 import styles from './styles.module.scss';
+import CreditCardType from 'credit-card-type';
 
 const CreditCard = () => {
   const [name, setName] = useState();
-  const [number, setNumber] = useState();
+  const [number, setNumber] = useState('');
   const [expires, setExpires] = useState();
   const [cvc, setCvc] = useState();
   const [focused, setFocused] = useState(false);
   const [issuer, setIssuer] = useState();
   const [formData, setFormData] = useState();
   const [expiry, setExpiry] = useState();
+  const [cardTypeError, setCardTypeError] = useState(false);
 
   const handleCallback = ({ issuer }, isValid) => {
     isValid && setIssuer(issuer);
@@ -30,6 +32,7 @@ const CreditCard = () => {
 
   const handleInputChange = ({ target }) => {
     if (target.name === 'number') {
+      setNumber(target.value);
       target.value = formatCreditCardNumber(target.value);
     } else if (target.name === 'expiry') {
       target.value = formatExpirationDate(target.value);
@@ -39,6 +42,19 @@ const CreditCard = () => {
 
     // setName({ [target.name]: target.value });
   };
+
+  const cardType = CreditCardType(
+    number.substring(0, 4)
+  )[0]?.niceType.toLowerCase();
+
+  const cardFlag =
+    !cardType || number.length < 1 || cardTypeError
+      ? '/icons/card.svg'
+      : `/icons/${cardType}.svg`;
+
+  useEffect(() => {
+    setCardTypeError(false);
+  }, [cardType]);
 
   return (
     <>
@@ -62,16 +78,25 @@ const CreditCard = () => {
           onChange={handleInputChange}
           onFocus={handleInputFocus}
         />
-        <input
-          type="tel"
-          name="number"
-          placeholder={'Número do cartão'}
-          className={styles.cardNumberInput}
-          //   pattern="[\d| ]{16,22}"
-          required
-          onChange={handleInputChange}
-          onFocus={handleInputFocus}
-        />
+        <div className={styles.cardNumberContainer}>
+          <input
+            type="tel"
+            name="number"
+            placeholder={'Número do cartão'}
+            //   pattern="[\d| ]{16,22}"
+            required
+            onChange={handleInputChange}
+            onFocus={handleInputFocus}
+            className={styles.cardNumberInput}
+          />
+          <img
+            src={cardFlag}
+            height={28}
+            title={cardType}
+            alt={cardType}
+            onError={() => setCardTypeError(true)}
+          />
+        </div>
         <div style={{ display: 'flex', width: '100%' }}>
           <input
             type="tel"

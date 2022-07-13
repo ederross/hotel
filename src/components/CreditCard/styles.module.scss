@@ -61,11 +61,25 @@
     border-bottom: none;
   }
 
-  .cardNumberInput {
-    font-size: 16px;
+  .cardNumberContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border: 1px solid rgb(194, 194, 194);
-    padding: 1rem 1rem;
+    padding: 0 1rem;
     border-bottom: none;
+  }
+
+  .cardNumberInput {
+    flex:1;
+    font-size: 16px;
+    border: 0px;
+    border-bottom: none;
+    padding: 1rem 0;
+
+    &:focus{
+      border-width: 0px !important;
+    }
   }
 
   .validityInput {
