@@ -12,6 +12,7 @@ interface ICaroselHolder {
   showArrows?: boolean;
   setSelected?: React.Dispatch<React.SetStateAction<number>>;
   styleImageComponent?: React.CSSProperties;
+  style?: React.CSSProperties;
 }
 
 interface imageData {
@@ -27,6 +28,7 @@ const CarouselHolder = ({
   isDiscountBoxActive,
   setSelected,
   styleImageComponent,
+  style,
 }: ICaroselHolder) => {
   const imagesRef = useRef(null);
   // Window Sizes
@@ -51,7 +53,7 @@ const CarouselHolder = ({
   }, [currSlide]);
 
   return (
-    <CarouselHolderStyles>
+    <CarouselHolderStyles style={style}>
       {isDiscountBoxActive && (
         <div className="discountPercentage">
           <h4>50% OFF</h4>

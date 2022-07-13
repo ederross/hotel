@@ -102,7 +102,7 @@ const CardRoom = ({ room }: ICardRoom) => {
           <CarouselHolder
             isDiscountBoxActive
             data={imageData}
-            styleImageComponent={{
+            style={{
               borderTopLeftRadius: '1rem',
               borderTopRightRadius: '1rem',
             }}
