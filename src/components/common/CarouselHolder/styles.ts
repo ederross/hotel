@@ -87,8 +87,8 @@ export const CarouselHolderStyles = styled.div`
     scroll-snap-type: x mandatory;
 
     /* overflow: hidden; */
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
+    /* border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem; */
 
     &::-webkit-scrollbar {
       display: none;
