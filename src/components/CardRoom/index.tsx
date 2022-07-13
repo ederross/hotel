@@ -91,10 +91,10 @@ const CardRoom = ({ room }: ICardRoom) => {
   return (
     <>
       <motion.a
-        initial={{ scale: 0.99 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.1 }}
-        whileTap={{ scale: 0.99 }}
+        // initial={{ scale: 0.99 }}
+        // animate={{ scale: 1 }}
+        // transition={{ duration: 0.1 }}
+        // whileTap={{ scale: 0.99 }}
         className={styles.container}
         onClick={handleDetails}
       >
