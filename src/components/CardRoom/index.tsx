@@ -98,16 +98,15 @@ const CardRoom = ({ room }: ICardRoom) => {
         className={styles.container}
         onClick={handleDetails}
       >
-        <div className={styles.containerCarousel}>
-          <CarouselHolder
-            isDiscountBoxActive
-            data={imageData}
-            style={{
-              borderTopLeftRadius: '1rem',
-              borderTopRightRadius: '1rem',
-            }}
-          />
-        </div>
+        <CarouselHolder
+          isDiscountBoxActive
+          data={imageData}
+          style={{
+            borderTopLeftRadius: '1rem',
+            borderTopRightRadius: '1rem',
+            height: 232,
+          }}
+        />
         <div className={styles.iconsContainerHolder}>
           <div className={styles.iconWithNumberContainer}>
             <BedOutlinedIcon fontSize={'small'} />

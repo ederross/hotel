@@ -61,16 +61,15 @@ const CardService = ({ service }: ICardService) => {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.containerCarousel}>
-          <CarouselHolder
-            isDiscountBoxActive={true}
-            data={imageData}
-            style={{
-              borderTopLeftRadius: '1rem',
-              borderTopRightRadius: '1rem',
-            }}
-          />
-        </div>
+        <CarouselHolder
+          isDiscountBoxActive={true}
+          data={imageData}
+          style={{
+            borderTopLeftRadius: '1rem',
+            borderTopRightRadius: '1rem',
+            height: 232,
+          }}
+        />
         <div className={styles.typeServiceContainer}>
           <h5>Aluguel</h5>
         </div>
