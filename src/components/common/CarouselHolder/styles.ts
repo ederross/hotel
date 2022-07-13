@@ -81,7 +81,7 @@ export const CarouselHolderStyles = styled.div`
     height: 100%;
     display: fixed;
 
-    background-color: rgb(135, 135, 135, 0.2);
+    /* background-color: rgb(135, 135, 135, 0.2); */
 
     overflow-x: scroll;
     overflow-y: hidden;
