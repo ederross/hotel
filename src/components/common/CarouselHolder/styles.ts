@@ -8,7 +8,7 @@ export const CarouselHolderStyles = styled.div`
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  z-index: 1;
+  z-index: 2;
 
   &:hover {
     .arrowBtnLeft {
@@ -20,7 +20,7 @@ export const CarouselHolderStyles = styled.div`
   }
 
   .arrowBtnLeft {
-    z-index: 1;
+    z-index: 5;
     cursor: pointer;
     position: absolute;
     display: none;
@@ -47,7 +47,7 @@ export const CarouselHolderStyles = styled.div`
   }
 
   .arrowBtnRight {
-    z-index: 1;
+    z-index: 5;
     cursor: pointer;
     position: absolute;
     display: none;
