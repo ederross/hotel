@@ -64,11 +64,11 @@ const CardService = ({ service }: ICardService) => {
         <CarouselHolder
           isDiscountBoxActive={true}
           data={imageData}
-          style={{
+          styleImageComponent={{
             borderTopLeftRadius: '1rem',
             borderTopRightRadius: '1rem',
-            height: 232,
           }}
+          style={{ height: 232 }}
         />
         <div className={styles.typeServiceContainer}>
           <h5>Aluguel</h5>
