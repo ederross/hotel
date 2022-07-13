@@ -98,9 +98,9 @@ const CardRoom = ({ room }: ICardRoom) => {
         className={styles.container}
         onClick={handleDetails}
       >
-        <div className={styles.containerCarousel}>
+        {/* <div className={styles.containerCarousel}> */}
           <CarouselHolder isDiscountBoxActive data={imageData} />
-        </div>
+        {/* </div> */}
         <div className={styles.iconsContainerHolder}>
           <div className={styles.iconWithNumberContainer}>
             <BedOutlinedIcon fontSize={'small'} />
