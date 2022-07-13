@@ -99,7 +99,14 @@ const CardRoom = ({ room }: ICardRoom) => {
         onClick={handleDetails}
       >
         <div className={styles.containerCarousel}>
-          <CarouselHolder isDiscountBoxActive data={imageData} />
+          <CarouselHolder
+            isDiscountBoxActive
+            data={imageData}
+            styleImageComponent={{
+              borderTopLeftRadius: '1rem',
+              borderTopRightRadius: '1rem',
+            }}
+          />
         </div>
         <div className={styles.iconsContainerHolder}>
           <div className={styles.iconWithNumberContainer}>

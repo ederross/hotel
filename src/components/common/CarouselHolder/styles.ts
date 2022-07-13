@@ -74,6 +74,7 @@ export const CarouselHolderStyles = styled.div`
   }
 
   .carousel {
+    display: flex;
     position: relative;
     width: 100%;
     min-height: 232px;

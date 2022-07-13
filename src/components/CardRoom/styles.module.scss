@@ -7,20 +7,8 @@
 
   .containerCarousel {
     height: 232px;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
     z-index: 3;
     overflow: hidden;
-
-    // border-radius 
-    touch-action: none;
-    -ms-touch-action: none;
-    -webkit-border-top-left-radius: 1rem;
-    -moz-border-top-left-radius: 1rem;
-    -khtml-border-top-left-radius: 1rem;
-    -webkit-border-top-right-radius: 1rem;
-    -moz-border-top-right-radius: 1rem;
-    -khtml-border-top-right-radius: 1rem;
   }
 
   img {

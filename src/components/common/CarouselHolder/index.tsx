@@ -11,6 +11,7 @@ interface ICaroselHolder {
   adjustScroller?: boolean;
   showArrows?: boolean;
   setSelected?: React.Dispatch<React.SetStateAction<number>>;
+  styleImageComponent?: React.CSSProperties;
 }
 
 interface imageData {
@@ -25,9 +26,10 @@ const CarouselHolder = ({
   adjustScroller,
   isDiscountBoxActive,
   setSelected,
+  styleImageComponent,
 }: ICaroselHolder) => {
   const imagesRef = useRef(null);
-    // Window Sizes
+  // Window Sizes
   const size = useWindowSize();
   const [currSlide, setCurrSlide] = useState(0);
 
@@ -88,6 +90,7 @@ const CarouselHolder = ({
             url={image?.url}
             title={image?.title}
             alt={image?.alt}
+            style={styleImageComponent}
           />
         ))}
       </div>
@@ -95,7 +98,7 @@ const CarouselHolder = ({
       <div className="fade"></div>
 
       {data?.length > 1 && (
-        <div className="scroller" style={{top: adjustScroller && -12}}>
+        <div className="scroller" style={{ top: adjustScroller && -12 }}>
           {data?.map((img, idx) => (
             <span
               key={idx}
