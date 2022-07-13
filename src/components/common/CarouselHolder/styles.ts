@@ -8,6 +8,11 @@ export const CarouselHolderStyles = styled.div`
   flex-direction: column;
   position: relative;
 
+  overflow: hidden;
+
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+
   &:hover {
     .arrowBtnLeft {
       display: flex;
@@ -74,7 +79,7 @@ export const CarouselHolderStyles = styled.div`
   .carousel {
     position: relative;
     width: 100%;
-    height: 232px;
+    min-height: 232px;
     height: 100%;
     display: fixed;
 
@@ -86,9 +91,8 @@ export const CarouselHolderStyles = styled.div`
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
 
-    /* overflow: hidden; */
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
+    /* border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem; */
 
     &::-webkit-scrollbar {
       display: none;
@@ -111,7 +115,7 @@ export const CarouselHolderStyles = styled.div`
 
   .fade {
     position: absolute;
-    bottom: 0px;
+    bottom: -8px;
     width: 100%;
     height: 42px;
     background-image: linear-gradient(
