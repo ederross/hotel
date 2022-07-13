@@ -5,9 +5,9 @@ import Hero from '../components/Hero';
 
 import styles from './home.module.scss';
 
-import 'react-credit-cards/lib/styles.scss';
+// import 'react-credit-cards/lib/styles.scss';
 
-import 'react-credit-cards/es/styles-compiled.css';
+// import 'react-credit-cards/es/styles-compiled.css';
 
 
 import { Swiper, SwiperSlide } from 'swiper/react';
