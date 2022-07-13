@@ -8,8 +8,8 @@ export const CarouselHolderStyles = styled.div`
   flex-direction: column;
   position: relative;
 
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
+  /* border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem; */
 
   &:hover {
     .arrowBtnLeft {
@@ -110,7 +110,7 @@ export const CarouselHolderStyles = styled.div`
 
   .fade {
     position: absolute;
-    bottom: -12px;
+    bottom: -8px;
     width: 100%;
     height: 42px;
     background-image: linear-gradient(
