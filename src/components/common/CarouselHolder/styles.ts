@@ -74,7 +74,7 @@ export const CarouselHolderStyles = styled.div`
   .carousel {
     position: relative;
     width: 100%;
-    min-height: 232px;
+    height: 232px;
     height: 100%;
     display: fixed;
 
@@ -86,7 +86,7 @@ export const CarouselHolderStyles = styled.div`
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
 
-    overflow: hidden;
+    /* overflow: hidden; */
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
 
