@@ -7,10 +7,6 @@ export const CarouselHolderStyles = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
-
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
 
   &:hover {
     .arrowBtnLeft {
@@ -89,6 +85,10 @@ export const CarouselHolderStyles = styled.div`
     transition: all 0.2s;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
+
+    overflow: hidden;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
 
     &::-webkit-scrollbar {
       display: none;

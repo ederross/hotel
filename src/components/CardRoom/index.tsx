@@ -98,8 +98,7 @@ const CardRoom = ({ room }: ICardRoom) => {
         className={styles.container}
         onClick={handleDetails}
       >
-        <img src={imageData[0].url} alt="" style={{width: '100%', height: 200, borderRadius: 8}}/>
-        <div className={styles.containerCarousel} style={{background: 'red', borderRadius: 0}}>
+        <div className={styles.containerCarousel}>
           <CarouselHolder isDiscountBoxActive data={imageData} />
         </div>
         <div className={styles.iconsContainerHolder}>
