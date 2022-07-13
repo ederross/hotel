@@ -10,6 +10,10 @@ export const CarouselHolderStyles = styled.div`
 
   /* border-top-left-radius: 1rem;
   border-top-right-radius: 1rem; */
+  overflow: hidden;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  
 
   &:hover {
     .arrowBtnLeft {
