@@ -8,8 +8,6 @@ export const CarouselHolderStyles = styled.div`
   flex-direction: column;
   position: relative;
 
-  overflow: hidden;
-
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
 
@@ -91,9 +89,6 @@ export const CarouselHolderStyles = styled.div`
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
 
-    /* border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem; */
-
     &::-webkit-scrollbar {
       display: none;
       -webkit-appearance: none;
@@ -115,7 +110,7 @@ export const CarouselHolderStyles = styled.div`
 
   .fade {
     position: absolute;
-    bottom: -8px;
+    bottom: -12px;
     width: 100%;
     height: 42px;
     background-image: linear-gradient(
