@@ -194,7 +194,6 @@ export const InformationContainer = styled.div`
 export const CopyrightContainer = styled.div`
   display: flex;
   align-items: flex-start;
-  background-color: red;
   flex-direction: column;
   margin: 4rem 0 0;
   width: 100%;
