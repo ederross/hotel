@@ -174,7 +174,6 @@ export default function Header({ design, events }: IHeader) {
       return;
     }
     if (rooms.length > 0 || services.length > 0) {
-      
       setScrolled(true);
 
       document.body.style.overflow = 'initial';
@@ -305,22 +304,27 @@ export default function Header({ design, events }: IHeader) {
                   <p className={styles.searchPlaceholder}>
                     {dynamicPlaceholder}
                   </p>
-                  <button
-                    type="submit"
-                    disabled={
-                      inputCalendars &&
-                      !(
-                        checkInDate &&
-                        checkOutDate &&
-                        (numberOfAdults || numberOfChildren)
-                      )
+                  <div
+                    className={styles.button}
+                    onClick={
+                      !isCalendarVisible && !inputGuest
+                        ? openDatePicker
+                        : handleSubmit
                     }
-                    onClick={handleSubmit}
+                    // disabled={
+                    //   inputCalendars &&
+                    //   !(
+                    //     checkInDate &&
+                    //     checkOutDate &&
+                    //     (numberOfAdults || numberOfChildren)
+                    //   )
+                    // }
+                    // onClick={handleSubmit}
                     // aria-label="search places"
                   >
                     <Search />
                     <span>{t('search')}</span>
-                  </button>
+                  </div>
                 </form>
               </div>
             </>
