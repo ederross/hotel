@@ -149,7 +149,7 @@ export default function Header({ design, events }: IHeader) {
         children: numberOfChildren,
       },
     });
-   dispatch(CleanCart());
+    dispatch(CleanCart());
     setTimeout(() => closeCalendar(), 100);
     console.log('das');
   };
@@ -170,11 +170,16 @@ export default function Header({ design, events }: IHeader) {
 
   // Cart Feedback Animation
   useEffect(() => {
+    if (router.pathname === '/rooms') {
+      return;
+    }
     if (rooms.length > 0 || services.length > 0) {
+      console.log('entrou');
       setScrolled(true);
 
       document.body.style.overflow = 'initial';
-      router.pathname == '/rooms' ? setOpenCart(false) : setOpenCart(true)
+      router.pathname !== '/rooms/[id]' && setOpenCart(true);
+
       setInputCalendars(false);
       setInputGuest(false);
       setIsCalendarVisible(false);
@@ -535,7 +540,10 @@ export default function Header({ design, events }: IHeader) {
                       height: 3,
                       borderRadius: 6,
                       background:
-                        router.pathname === '/' && !scrolled && !isCalendarVisible && !inputGuest
+                        router.pathname === '/' &&
+                        !scrolled &&
+                        !isCalendarVisible &&
+                        !inputGuest
                           ? 'white'
                           : scrolled || isCalendarVisible || inputGuest
                           ? 'red'
