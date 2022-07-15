@@ -4,6 +4,8 @@ import { useTranslation } from 'next-i18next';
 import styles from './styles.module.scss';
 import { toast } from 'react-toastify';
 import { useWindowSize } from '../../../hooks/UseWindowSize';
+import { useSelector } from 'react-redux';
+import { AppStore } from '../../../store/types';
 
 interface ICounterProps {
   quantity: number;
@@ -15,33 +17,17 @@ export const Counter = ({ quantity = 0, setQuantity }: ICounterProps) => {
 
   const { width } = useWindowSize();
 
+  const {
+    cart: { rooms, services },
+  } = useSelector((state: AppStore) => state);
+
   const handleRemove = (e) => {
     e.stopPropagation();
-    quantity !== 0 &&
-      toast.error(`${t('removedCart')}`, {
-        position: width < 868 ? 'top-left' : 'bottom-right',
-        autoClose: 9000,
-        theme: 'colored',
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
     quantity > 0 && setQuantity(quantity - 1);
   };
   const handleAdd = (e) => {
     e.stopPropagation();
-    width > 868 && toast.success(`${t('addedCart')}`, {
-      position: width < 868 ? 'top-left' : 'bottom-right',
-      autoClose: 9000,
-      theme: 'colored',
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+   
 
     quantity < 1000 && setQuantity(quantity + 1);
   };

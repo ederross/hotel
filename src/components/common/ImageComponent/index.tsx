@@ -27,7 +27,7 @@ const ImageComponent = ({
         style={style}
         layout="fill"
         objectFit="cover"
-        alt={alt}
+        alt={alt} 
         title={title}
         src={`${photo}`}
         onError={() => setPhoto('/icons/avatar.svg')}

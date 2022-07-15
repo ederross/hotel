@@ -26,6 +26,7 @@ import useDidMountEffect from '../../hooks/useDidMountEffect';
 import { motion } from 'framer-motion';
 import CartModal from '../CartModal';
 import { toast, ToastContainer } from 'react-toastify';
+import { CleanCart } from '../../store/ducks/cart/actions';
 
 interface IHeader {
   design: Design;
@@ -130,6 +131,7 @@ export default function Header({ design, events }: IHeader) {
 
   const closeCalendar = () => {
     setInputCalendars(false);
+    setIsCalendarVisible(false);
     setInputGuest(false);
     setCartMobileOpen(false);
     document.body.style.overflow = 'initial';
@@ -147,7 +149,9 @@ export default function Header({ design, events }: IHeader) {
         children: numberOfChildren,
       },
     });
+   dispatch(CleanCart());
     setTimeout(() => closeCalendar(), 100);
+    console.log('das');
   };
 
   // Scroll Header Animation
@@ -160,7 +164,7 @@ export default function Header({ design, events }: IHeader) {
       }
     };
     window.addEventListener('scroll', onScroll);
-  
+
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -170,7 +174,7 @@ export default function Header({ design, events }: IHeader) {
       setScrolled(true);
 
       document.body.style.overflow = 'initial';
-      setOpenCart(true);
+      router.pathname == '/rooms' ? setOpenCart(false) : setOpenCart(true)
       setInputCalendars(false);
       setInputGuest(false);
       setIsCalendarVisible(false);
@@ -307,7 +311,7 @@ export default function Header({ design, events }: IHeader) {
                       )
                     }
                     onClick={handleSubmit}
-                    aria-label="search places"
+                    // aria-label="search places"
                   >
                     <Search />
                     <span>{t('search')}</span>
@@ -406,15 +410,41 @@ export default function Header({ design, events }: IHeader) {
                 </div>
               </div>
 
-              <button
-                type="submit"
-                disabled={!(checkInDate && checkOutDate && numberOfAdults > 0)}
-                onClick={scrolled ? openDatePicker : handleSubmit}
-                aria-label="search places"
-              >
-                <Search />
-                <span>{t('search')}</span>
-              </button>
+              {router.pathname !== '/search' && router.pathname !== '/rooms' ? (
+                <div
+                  // type="submit"
+                  // disabled={
+                  //   !(checkInDate && checkOutDate && numberOfAdults > 0)
+                  // }
+                  className={styles.button}
+                  onClick={
+                    !isCalendarVisible && !inputGuest
+                      ? openDatePicker
+                      : handleSubmit
+                  }
+                  // aria-label="search places"
+                >
+                  <Search />
+                  <span>{t('search')}</span>
+                </div>
+              ) : (
+                // <h3>das</h3>
+                <div
+                  className={styles.button}
+                  // disabled={
+                  //   !(checkInDate && checkOutDate && numberOfAdults > 0)
+                  // }
+                  onClick={
+                    !isCalendarVisible && !inputGuest
+                      ? openDatePicker
+                      : handleSubmit
+                  }
+                  // aria-label="search places"
+                >
+                  <Search />
+                  <span>{t('search')}</span>
+                </div>
+              )}
             </form>
           )}
 
@@ -505,9 +535,9 @@ export default function Header({ design, events }: IHeader) {
                       height: 3,
                       borderRadius: 6,
                       background:
-                        router.pathname === '/' && !scrolled
+                        router.pathname === '/' && !scrolled && !isCalendarVisible && !inputGuest
                           ? 'white'
-                          : scrolled
+                          : scrolled || isCalendarVisible || inputGuest
                           ? 'red'
                           : 'red',
                     }}

@@ -207,7 +207,7 @@
         opacity: 0.6;
       }
     }
-    & > button {
+    & > .button {
       cursor: pointer;
       background: var(--primary-color);
       color: #fafafc;
@@ -237,7 +237,7 @@
         opacity: 0.5;
       }
     }
-    & > button svg {
+    & > .button svg {
       height: 1.2rem;
       margin-right: 0.6rem;
       flex: 0 0 1.25rem;
@@ -257,7 +257,7 @@
   @media (max-width: 868px) {
     .profile,
     .logo,
-    form > button span {
+    form > .button span {
       display: none;
     }
     .overlay {
@@ -289,7 +289,7 @@
         padding: 0 1rem;
         font-size: 1rem;
       }
-      & > button {
+      & > .button {
         height: 2.5rem;
 
         @media screen and (min-width: 347px) {
@@ -297,7 +297,7 @@
         }
         padding: 0 0.6rem;
       }
-      & > button svg {
+      & > .button svg {
         height: 1rem;
         width: 1rem;
       }
@@ -346,10 +346,10 @@
         box-shadow: rgb(0 0 0 / 10%) 0px 1px 2px, rgb(0 0 0 / 15%) 0px 4px 12px;
       }
 
-      & > button {
+      & > .button {
         max-width: 3rem;
       }
-      & > button span {
+      & > .button span {
         opacity: 0;
       }
     }

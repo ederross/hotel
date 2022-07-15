@@ -194,12 +194,13 @@ export const InformationContainer = styled.div`
 export const CopyrightContainer = styled.div`
   display: flex;
   align-items: flex-start;
+  background-color: red;
   flex-direction: column;
   margin: 4rem 0 0;
   width: 100%;
 
   @media screen and (min-width: 628px) {
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     flex-direction: row !important;
   }
