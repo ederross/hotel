@@ -35,7 +35,6 @@ const CardService = ({ service }: ICardService) => {
   const { t } = useTranslation('common');
   const { width } = useWindowSize();
 
-
   const [quantity, setQuantity] = useState(currentService?.quantity);
 
   const handleAddToCart = () => {
@@ -51,29 +50,8 @@ const CardService = ({ service }: ICardService) => {
 
   useEffect(() => {
     if (quantity > 0) {
-      width > 868 &&
-        toast.success(`${t('addedCart')}`, {
-          position: width < 868 ? 'top-left' : 'bottom-right',
-          autoClose: 9000,
-          theme: 'colored',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
       handleAddToCart();
     } else {
-      toast.error(`${t('removedCart')}`, {
-        position: width < 868 ? 'top-left' : 'bottom-right',
-        autoClose: 9000,
-        theme: 'colored',
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
       dispatch(RemoveServiceToCart(service?.serviceId));
     }
   }, [quantity]);

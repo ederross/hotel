@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import { useSelector, useDispatch } from 'react-redux';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { currency } from '../../utils/currency';
 
 import styles from './styles.module.scss';
@@ -31,6 +31,10 @@ const CartMenu = ({ openCart }: ICartMenu) => {
     cart: { rooms, services },
   } = useSelector((state: AppStore) => state);
 
+  const currentLength = rooms?.length + services?.length;
+
+  const [oldLength, setOldLength] = useState(currentLength);
+
   const { width } = useWindowSize();
 
   const handleCleanCart = () => dispatch(CleanCart());
@@ -43,17 +47,29 @@ const CartMenu = ({ openCart }: ICartMenu) => {
     } else {
       dispatch(RemoveProductToCart(id));
     }
-    toast.error(`${t('removedCart')}`, {
-      position: width < 868 ? 'top-left' : 'bottom-right',
-      autoClose: 9000,
-      theme: 'colored',
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
   };
+
+  const toastConfig = {
+    position: width < 868 ? 'top-left' : 'bottom-right',
+    autoClose: 9000,
+    theme: 'colored',
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  };
+
+  useEffect(() => {
+    if (width > 868) {
+      if (currentLength > oldLength) {
+        toast.success(`${t('addedCart')}`, toastConfig as any);
+      } else if (currentLength < oldLength) {
+        toast.error(`${t('removedCart')}`, toastConfig as any);
+      }
+      setOldLength(currentLength);
+    }
+  }, [currentLength]);
 
   const subMenuAnimate = {
     enter: {
