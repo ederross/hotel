@@ -174,7 +174,7 @@ export default function Header({ design, events }: IHeader) {
       return;
     }
     if (rooms.length > 0 || services.length > 0) {
-      console.log('entrou');
+      
       setScrolled(true);
 
       document.body.style.overflow = 'initial';
