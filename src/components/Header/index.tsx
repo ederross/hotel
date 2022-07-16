@@ -171,11 +171,15 @@ export default function Header({ design, events }: IHeader) {
 
   // Cart Feedback Animation
   useEffect(() => {
+    if (router.pathname === '/rooms') {
+      return;
+    }
     if (rooms.length > 0 || services.length > 0) {
       setScrolled(true);
 
       document.body.style.overflow = 'initial';
-      router.pathname == '/rooms' ? setOpenCart(false) : setOpenCart(true);
+      router.pathname !== '/rooms/[id]' && setOpenCart(true);
+
       setInputCalendars(false);
       setInputGuest(false);
       setIsCalendarVisible(false);
@@ -316,23 +320,27 @@ export default function Header({ design, events }: IHeader) {
                   <p className={styles.searchPlaceholder}>
                     {dynamicPlaceholder}
                   </p>
-                  <button
-                    type="submit"
+                  <div
                     className={styles.button}
-                    disabled={
-                      inputCalendars &&
-                      !(
-                        checkInDate &&
-                        checkOutDate &&
-                        (numberOfAdults || numberOfChildren)
-                      )
+                    onClick={
+                      !isCalendarVisible && !inputGuest
+                        ? openDatePicker
+                        : handleSubmit
                     }
-                    onClick={handleSubmit}
+                    // disabled={
+                    //   inputCalendars &&
+                    //   !(
+                    //     checkInDate &&
+                    //     checkOutDate &&
+                    //     (numberOfAdults || numberOfChildren)
+                    //   )
+                    // }
+                    // onClick={handleSubmit}
                     // aria-label="search places"
                   >
                     <Search />
                     <span>{t('search')}</span>
-                  </button>
+                  </div>
                 </form>
               </div>
             </>
