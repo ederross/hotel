@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 
 interface ILanguageSwitcher {
   handleCloseLanguageSwitcher: () => void;
-  openLanguageSwitcher: boolean;  
+  openLanguageSwitcher: boolean;
 }
 
 const LanguageSwitcher = ({
@@ -92,7 +92,7 @@ const LanguageSwitcher = ({
         <div
           onClick={handleCloseLanguageSwitcher}
           style={{
-            position: 'absolute',
+            position: 'fixed',
             top: 0,
             left: 0,
             width: '100vw',

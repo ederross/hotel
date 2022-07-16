@@ -27,6 +27,7 @@ import { motion } from 'framer-motion';
 import CartModal from '../CartModal';
 import { toast, ToastContainer } from 'react-toastify';
 import { CleanCart } from '../../store/ducks/cart/actions';
+import { currency } from '../../utils/currency';
 
 interface IHeader {
   design: Design;
@@ -149,7 +150,7 @@ export default function Header({ design, events }: IHeader) {
         children: numberOfChildren,
       },
     });
-   dispatch(CleanCart());
+    dispatch(CleanCart());
     setTimeout(() => closeCalendar(), 100);
     console.log('das');
   };
@@ -174,7 +175,7 @@ export default function Header({ design, events }: IHeader) {
       setScrolled(true);
 
       document.body.style.overflow = 'initial';
-      router.pathname == '/rooms' ? setOpenCart(false) : setOpenCart(true)
+      router.pathname == '/rooms' ? setOpenCart(false) : setOpenCart(true);
       setInputCalendars(false);
       setInputGuest(false);
       setIsCalendarVisible(false);
@@ -195,15 +196,30 @@ export default function Header({ design, events }: IHeader) {
   // Calendar Events Dots
   function customDayContent(day) {
     let extraDot = null;
+    let priceDay = null;
     if (isWeekend(day)) {
       extraDot = <div className={'weekdayDot'} />;
+    }
+
+    const today = new Date(checkOutDate);
+    const tomorrow = new Date(checkOutDate);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const isNotSelected = day < new Date(checkInDate) || day > tomorrow;
+
+    if (isNotSelected && size.width > 868) {
+      priceDay = (
+        <div className={'priceDayIndicator'}>
+          <p>{currency(199)}</p>
+        </div>
+      );
     }
     return (
       <>
         <div>
           {extraDot}
-
           <span>{format(day, 'd')}</span>
+          {priceDay}
         </div>
       </>
     );
@@ -302,6 +318,7 @@ export default function Header({ design, events }: IHeader) {
                   </p>
                   <button
                     type="submit"
+                    className={styles.button}
                     disabled={
                       inputCalendars &&
                       !(
@@ -535,7 +552,10 @@ export default function Header({ design, events }: IHeader) {
                       height: 3,
                       borderRadius: 6,
                       background:
-                        router.pathname === '/' && !scrolled && !isCalendarVisible && !inputGuest
+                        router.pathname === '/' &&
+                        !scrolled &&
+                        !isCalendarVisible &&
+                        !inputGuest
                           ? 'white'
                           : scrolled || isCalendarVisible || inputGuest
                           ? 'red'

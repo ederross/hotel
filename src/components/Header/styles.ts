@@ -40,6 +40,40 @@ export const Container = styled.div`
     left: 45%;
   }
 
+  .priceDayIndicator {
+    width: 52px;
+    height: 8px;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    padding: 0;
+    margin: 0;
+
+    p {
+      line-height: 8px;
+      font-size: 8px;
+      color: yellow;
+      margin: 0;
+    }
+
+    @media (min-width: 768px) {
+      width: 52px;
+      height: 8px;
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      padding: 0;
+      margin: 0;
+
+      p {
+        line-height: 8px;
+        font-size: 8px;
+        color: gray;
+        margin: 0;
+      }
+    }
+  }
+
   .inner {
     width: 100%;
     max-width: 720px;
@@ -172,6 +206,7 @@ export const Container = styled.div`
 
   .rdrDayNumber {
     font-weight: 500;
+    width: 52px;
   }
   .rdrDayNumber span {
     /* color: var(--dark-text); */

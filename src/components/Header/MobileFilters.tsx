@@ -101,29 +101,31 @@ const Filters = ({
           <div className={styles.divisor}></div>
 
           {events && (
-            <div className={styles.eventsContainer}>
-              <h3>{t('nextEvents')}</h3>
-              <Swiper
-                spaceBetween={16}
-                slidesPerView={'auto'}
-                freeMode={true}
-                style={{
-                  paddingLeft: 16,
-                  paddingRight: 48,
-                  paddingBottom: 16,
-                  marginBottom: 48,
-                }}
-              >
-                {events.map((event, index) => (
-                  <SwiperSlide key={index} style={{ width: 'auto' }}>
-                    <CardEventType2 event={event} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
+            <>
+              <div className={styles.eventsContainer}>
+                <h3>{t('nextEvents')}</h3>
+                <Swiper
+                  spaceBetween={16}
+                  slidesPerView={'auto'}
+                  freeMode={true}
+                  style={{
+                    paddingLeft: 16,
+                    paddingRight: 48,
+                    paddingBottom: 16,
+                    marginBottom: 48,
+                  }}
+                >
+                  {events.map((event, index) => (
+                    <SwiperSlide key={index} style={{ width: 'auto' }}>
+                      <CardEventType2 event={event} />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+              <div className={styles.divisor}></div>
+            </>
           )}
 
-          <div className={styles.divisor}></div>
           <h3>{t('guest_other')}</h3>
 
           <div className={styles.guestsContainer}>
@@ -188,7 +190,11 @@ const Filters = ({
                     {index + 1}º {t('children_one')}
                   </h4>
                   <div className={styles.select}>
-                    <select className={styles.selectField} name="pets" id="pet-select">
+                    <select
+                      className={styles.selectField}
+                      name="pets"
+                      id="pet-select"
+                    >
                       <option value="">{t('age')}</option>
                       {[...Array(15)].map((_, index) => (
                         <option key={index} value="one">
