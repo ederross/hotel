@@ -55,10 +55,14 @@ const Footer = ({ design, officeDetails }: IFooterProps) => {
           <ContactContainer>
             <div>
               <h3>{t('contact')}</h3>
-              <div className="row">
+              <a
+                href="mailto:contac@finehost.com"
+                title="contac@finehost.com"
+                className="row"
+              >
                 <EmailRounded style={{ color: '#fff' }} />
                 <p>contac@finehost.com</p>
-              </div>
+              </a>
               {officeDetails?.contacts?.map((item, index) => (
                 <div key={index} className="row">
                   <PhoneAndroidRounded style={{ color: '#fff' }} />
@@ -84,15 +88,21 @@ const Footer = ({ design, officeDetails }: IFooterProps) => {
                 </a>
               )}
 
-              <div style={{display: 'flex'}}>
+              <div style={{ display: 'flex' }}>
                 {socialData?.map((item, index) => (
-                  <div className="socialCircle" key={index} title={item.name}>
+                  <a
+                    href={item.link}
+                    className="socialCircle"
+                    key={index}
+                    title={item.name}
+                    target={'_blank'}
+                  >
                     {item.icon === 'Twitter' ? (
                       <Twitter className="icon" />
                     ) : (
                       <Instagram className="icon" />
                     )}
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
@@ -124,6 +134,11 @@ const Footer = ({ design, officeDetails }: IFooterProps) => {
 export default Footer;
 
 const socialData = [
-  { name: 'Instagram', url: '', icon: 'Instagram' },
-  { name: 'Twitter', url: '', icon: 'Twitter' },
+  {
+    name: 'Instagram',
+    url: '',
+    icon: 'Instagram',
+    link: 'https://www.instagram.com',
+  },
+  { name: 'Twitter', url: '', icon: 'Twitter', link: 'https://twitter.com' },
 ];

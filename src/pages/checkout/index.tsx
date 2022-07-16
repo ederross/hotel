@@ -218,15 +218,6 @@ const Checkout = ({ officeDetails, design }: any) => {
                         <div></div>
                       </div>
                     )}
-                    {size.width < 868 && (
-                      <div
-                        className={styles.lgpdAdviceContainer}
-                        style={{ padding: '0 0 1rem 0' }}
-                      >
-                        <VerifiedUserOutlined className={styles.lockIcon} />
-                        <h4>Dados protegidos em conformidade com (LGPD)</h4>
-                      </div>
-                    )}
                   </div>
 
                   <div style={{ padding: '0 1rem', paddingTop: '1rem' }}>
@@ -303,6 +294,20 @@ const Checkout = ({ officeDetails, design }: any) => {
                   </div> */}
                 </div>
               )}
+              <div style={{ padding: '0 1rem 1rem' }}>
+                {size.width < 868 && (
+                  <div
+                    className={styles.lgpdAdviceContainer}
+                    style={{ padding: '0 0 1rem 0' }}
+                  >
+                    <VerifiedUserOutlined className={styles.lockIcon} />
+                    <h4>
+                      Dados tratados e protegidos em conformidade com a lei Nº
+                      13.709/18 (LGPD)
+                    </h4>
+                  </div>
+                )}
+              </div>
               {size.width > 868 && (
                 <div
                   className={styles.divisorContainer}
@@ -477,7 +482,10 @@ const Checkout = ({ officeDetails, design }: any) => {
 
               <div className={styles.lgpdAdviceContainer}>
                 <VerifiedUserOutlined className={styles.lockIcon} />
-                <h4>Dados protegidos em conformidade com (LGPD)</h4>
+                <h4>
+                  Dados tratados e protegidos em conformidade com a lei Nº
+                  13.709/18 (LGPD)
+                </h4>
               </div>
               <div className={styles.divisorContainer}>
                 <div></div>

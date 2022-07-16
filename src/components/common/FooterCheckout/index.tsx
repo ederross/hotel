@@ -22,9 +22,8 @@ const FooterCheckout = () => {
             <GlobeContainer>
               <Globe />
               <h4 className={'textWithHover'}>Português {`${'(BR)'}`}</h4>
-              <h4>R$ BRL</h4>
+              {/* <h4>R$ BRL</h4> */}
             </GlobeContainer>
-            {/* <h4>R$ BRL</h4> */}
           </TranslateSocialMediaContainer>
           <LinksAndCopyrightContainer>
             <h4>© 2022 Finehost, Inc.</h4>

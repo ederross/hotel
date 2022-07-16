@@ -79,6 +79,14 @@ export const mockSearchResults = [
         isMainImage: false,
         sequenceOrder: 1,
       },
+      {
+        imageId: 3,
+        imageUrl:
+          'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1157&q=80',
+        subTitle: 'Room Pic 3',
+        isMainImage: false,
+        sequenceOrder: 1,
+      },
     ],
   },
   {

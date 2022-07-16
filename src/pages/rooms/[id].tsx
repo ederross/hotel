@@ -60,6 +60,14 @@ const RoomDetails = (props: IRoomDetailsProps) => {
 
   const handleReserve = () => router.push('/checkout');
 
+  const imageData = currentRoom.images?.map((image) => {
+    return {
+      url: image?.imageUrl,
+      title: image?.subTitle,
+      alt: image?.subTitle,
+    };
+  });
+
   return (
     <>
       <Head>
@@ -104,26 +112,31 @@ const RoomDetails = (props: IRoomDetailsProps) => {
             <div
               className={styles.imgLeftSide}
               style={{
-                backgroundImage: `url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')`,
+                backgroundImage: `url(${imageData[0].url})`,
               }}
             ></div>
             <div className={styles.imgRightSide}>
               <div
                 className={styles.secondImgBox}
                 style={{
-                  backgroundImage: `url('https://images.unsplash.com/photo-1591088398332-8a7791972843?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80')`,
+                  backgroundImage: `url(${imageData[1].url})`,
                 }}
               ></div>
               <div
                 className={styles.thirdImgBox}
                 style={{
-                  backgroundImage: `url('https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1157&q=80')`,
+                  backgroundImage: `url(${imageData[2].url})`,
                 }}
               >
-                <div className={styles.allButton}>
-                  <AppsOutlined fontSize={'small'} style={{ color: '#000' }} />
-                  <p>{t('showAllPhotos')}</p>
-                </div>
+                {imageData.length > 3 && (
+                  <div className={styles.allButton}>
+                    <AppsOutlined
+                      fontSize={'small'}
+                      style={{ color: '#000' }}
+                    />
+                    <p>{t('showAllPhotos')}</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -156,6 +169,7 @@ const RoomDetails = (props: IRoomDetailsProps) => {
                 ) || '-'}
                 <span
                   onClick={() => setShowMoreDescription(!showMoreDescription)}
+                  style={{ cursor: 'pointer' }}
                 >
                   {' '}
                   {showMoreDescription ? t('showLess') : `...${t('showMore')}`}
@@ -260,23 +274,5 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     revalidate: 60,
   };
 };
-
-const imageData = [
-  {
-    url: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    title: 'balões',
-    alt: 'balões',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    title: 'balões',
-    alt: 'balões',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1514923995763-768e52f5af87?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
-    title: 'balões',
-    alt: 'balões',
-  },
-];
 
 export default RoomDetails;

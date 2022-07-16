@@ -51,7 +51,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
 
   const toastConfig = {
     position: width < 868 ? 'top-left' : 'bottom-right',
-    autoClose: 9000,
+    autoClose: 5000,
     theme: 'colored',
     hideProgressBar: false,
     closeOnClick: true,
