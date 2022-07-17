@@ -65,7 +65,7 @@ const LanguageSwitcher = ({
               className={styles.closeButton}
             />
           </div>{' '}
-          <h3>Escolha um idioma e uma região</h3>
+          <h3>{t('chooseLanguageRegion')}</h3>
           <div className={styles.contentContainer}>
             <button
               onClick={() => handleLang('ptBR')}

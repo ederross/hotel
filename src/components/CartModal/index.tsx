@@ -82,9 +82,9 @@ const CartModal = ({
                     <div className={styles.roomNameAdultChildContainer}>
                       <div className={styles.row}>
                         <h5>
-                          {room.adults} {t('adult', { count: room.adults })}{' '}
+                          {room.adults} {t('adultWithCount_one', { count: room.adults })}{' '}
                           {'&'} {room.adults}{' '}
-                          {t('children', { count: room.children })}
+                          {t('childrenWithCount_one', { count: room.children })}
                         </h5>
                         {!isCheckoutSeeAllData && <Delete
                           onClick={() =>
