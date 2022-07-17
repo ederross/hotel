@@ -63,9 +63,9 @@ const CartMenu = ({ openCart }: ICartMenu) => {
   useEffect(() => {
     if (width > 868) {
       if (currentLength > oldLength) {
-        toast.success(`${t('addedCart')}`, toastConfig as any);
+        toast.success(`${t('itemAdded')}`, toastConfig as any);
       } else if (currentLength < oldLength) {
-        toast.error(`${t('removedCart')}`, toastConfig as any);
+        toast.error(`${t('itemRemoved')}`, toastConfig as any);
       }
       setOldLength(currentLength);
     }
