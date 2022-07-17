@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-self: center;
-  /* font-family: 'DM Sans'; */
+  /* font-family: 'SulSansRegular'; */
 
   .button {
     transition: transform 0.2s;
@@ -51,7 +51,7 @@ export const Container = styled.div`
 
     p {
       line-height: 8px;
-      font-size: 8px;
+      font-size: 12px;
       color: yellow;
       margin: 0;
     }
@@ -67,7 +67,7 @@ export const Container = styled.div`
 
       p {
         line-height: 8px;
-        font-size: 8px;
+        font-size: 9px;
         color: gray;
         margin: 0;
       }

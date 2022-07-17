@@ -223,7 +223,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  font-family: 'DM Sans' !important;
+  font-family: 'SulSansRegular' !important;
   font-weight: bold;
   padding: 0 0.5rem;
 

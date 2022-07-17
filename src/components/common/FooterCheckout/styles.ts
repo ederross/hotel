@@ -9,7 +9,7 @@ export const FooterContainer = styled.div`
   min-height: 122px;
   padding: 24px 24px 16px 24px;
 
-  font-family: 'DM Sans' !important;
+  font-family: 'SulSansRegular' !important;
 `;
 
 export const FooterHolder = styled.div`

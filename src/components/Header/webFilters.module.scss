@@ -1,6 +1,6 @@
 .controlsContainerHolder {
   overflow-y: auto;
-  font-family: 'DM Sans' !important;
+  font-family: 'SulSansRegular' !important;
   box-shadow: 0 0 0 1px rgb(0 0 0 / 4%), 0 8px 16px rgb(0 0 0 / 15%);
   align-self: center;
   position: absolute;
@@ -45,7 +45,7 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      // font-family: 'DM Sans';
+      // font-family: 'SulSansRegular';
 
       button {
         display: flex;

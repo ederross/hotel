@@ -155,7 +155,7 @@ export const CarouselHolderStyles = styled.div`
   }
 
   .discountPercentage {
-    font-family: 'DM Sans' !important;
+    font-family: 'SulSansRegular' !important;
     z-index: 6;
     top: 16px;
     right: 16px;

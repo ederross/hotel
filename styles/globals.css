@@ -6,6 +6,28 @@
   box-sizing: border-box;
 }
 
+
+@font-face {
+  font-family: "SulSansRegular";
+  src: url('../public/fonts/SulSansRegular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+  
+@font-face {
+  font-family: "SulSansMedium";
+  src: url('../public/fonts/SulSansMedium.otf');
+  font-weight: 500;
+  font-style: normal;
+}
+  
+@font-face {
+  font-family: "SulSansBold";
+  src: url('../public/fonts/SulSansBold.otf');
+  font-weight: bold;
+  font-style: italic;
+}
+
 :root {
   --bg: #ffffff;
   --dark-text: #000000;
@@ -31,7 +53,7 @@
 }
 
 body {
-  font-family: 'Epilogue', sans-serif;
+  font-family: 'SulSansRegular', sans-serif;
   background: var(--light);
   color: var(--dark);
   line-height: 1.5;
