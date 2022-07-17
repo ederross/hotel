@@ -428,9 +428,9 @@ const Checkout = ({ officeDetails, design }: any) => {
                     <div className={styles.roomInfo}>
                       <div className={styles.roomNameAdultChildContainer}>
                         <h5>
-                          {room.adults} {t('adult', { count: room.adults })}{' '}
-                          {'&'} {room.adults}{' '}
-                          {t('childrenWithCount_one', { count: room.children })}
+                          {t('adultWithCount_other', { count: room.adults })}{' '}
+                          {'&'}{' '}
+                          {t('childrenWithCount_other', { count: room.children })}
                         </h5>
                         <h4>{room.objectName}</h4>
                       </div>

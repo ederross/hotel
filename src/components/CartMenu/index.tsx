@@ -117,8 +117,8 @@ const CartMenu = ({ openCart }: ICartMenu) => {
               <div className={styles.roomNameAdultChildContainer}>
                 <div className={styles.row}>
                   <h5>
-                    {room.adults} {t('adult', { count: room.adults })} {'&'}{' '}
-                    {room.adults} {t('children', { count: room.children })}
+                   {t('adultWithCount_other', { count: room.adults })} {'&'}{' '}
+                   {t('childrenWithCount_other', { count: room.children })}
                   </h5>
                   <Delete
                     onClick={() => handleRemoveItem(room?.objectId, false)}
