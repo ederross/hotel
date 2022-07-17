@@ -10,6 +10,7 @@ import {
 
 import styles from './styles.module.scss';
 import CreditCardType from 'credit-card-type';
+import { useTranslation } from 'next-i18next';
 
 const CreditCard = () => {
   const [name, setName] = useState();
@@ -21,6 +22,8 @@ const CreditCard = () => {
   const [formData, setFormData] = useState();
   const [expiry, setExpiry] = useState();
   const [cardTypeError, setCardTypeError] = useState(false);
+
+  const { t } = useTranslation();
 
   const handleCallback = ({ issuer }, isValid) => {
     isValid && setIssuer(issuer);
@@ -69,11 +72,9 @@ const CreditCard = () => {
 
       <div className={styles.cardInfoHolder}>
         <input
-          type="tel"
-          name="number"
+          name="name"
           placeholder={'Nome do titular'}
           className={styles.cardHolderName}
-          //   pattern="[\d| ]{16,22}"
           required
           onFocus={handleInputFocus}
         />
@@ -81,7 +82,7 @@ const CreditCard = () => {
           <input
             type="tel"
             name="number"
-            placeholder={'Número do cartão'}
+            placeholder={t('cardNumber')}
             //   pattern="[\d| ]{16,22}"
             required
             onChange={handleInputChange}
@@ -104,7 +105,7 @@ const CreditCard = () => {
             name="expiry"
             required
             onChange={handleInputChange}
-            placeholder={'Validade'}
+            placeholder={t('validity')}
             className={styles.validityInput}
           />
           <input
@@ -119,7 +120,7 @@ const CreditCard = () => {
         </div>
         <div className={styles.cSelect} style={{ marginTop: '0.5rem' }}>
           <select name="arrivalForecast" id="pet-select">
-            <option value="">Parcelamento</option>
+            <option value="">{t('installment')}</option>
             <option value="">1x</option>
           </select>
         </div>

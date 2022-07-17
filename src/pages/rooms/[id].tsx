@@ -221,10 +221,10 @@ const RoomDetails = (props: IRoomDetailsProps) => {
       <div className={styles.offersControlContainer}>
         <div className={styles.leftSide}>
           <h4>
-            R$ 98 <span>2 noites</span>{' '}
+            R$ 98 <span>2 {t('nights')}</span>{' '}
           </h4>
           <u onClick={() => handleOpenMobileOffersModal()}>
-            <h6>Ver 2 ofertas</h6>
+            <h6>{t('see')}2 {t('offers')}</h6>
           </u>
         </div>
 

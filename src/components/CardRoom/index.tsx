@@ -25,6 +25,7 @@ import {
   RemoveProductToCart,
 } from '../../store/ducks/cart/actions';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'next-i18next';
 
 interface ICardRoom {
   room: Room;
@@ -33,6 +34,7 @@ interface ICardRoom {
 const CardRoom = ({ room }: ICardRoom) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { t } = useTranslation('common');
 
   const { adults, children }: any = router.query;
 
@@ -141,17 +143,17 @@ const CardRoom = ({ room }: ICardRoom) => {
         >
           <div className={styles.pricesInfos}>
             <s>
-              <h6>R$ 200</h6>
+              <h6>{currency(200)}</h6>
             </s>
             <h4>
               {formattedValue.split(',')[0]}
               <span className={styles.cents}>
                 ,{formattedValue.split(',')[1]}
               </span>{' '}
-              <span style={{ marginLeft: '0.4rem' }}>3 noites</span>
+              <span style={{ marginLeft: '0.4rem' }}>3 {t('nights')}</span>
             </h4>
             <u style={{ cursor: 'pointer' }} onClick={handleDetails}>
-              <h5>+2 ofertas</h5>
+              <h5>+{2 + ' ' + t('offers')}</h5>
             </u>
           </div>
           <Counter quantity={quantity} setQuantity={setQuantity} />

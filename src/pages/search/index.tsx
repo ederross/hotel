@@ -89,7 +89,7 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
           <>
             <section className={styles.filterInfo}>
               <div style={{ flex: 1, paddingTop: 1 }}>
-                <h2>Nenhum resultado foi encontrado...</h2>
+                <h2>{t('noResultWereFound')}</h2>
               </div>
             </section>
           </>
@@ -99,9 +99,9 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
               <div style={{ flex: 1, paddingTop: 1 }}>
                 <h2>
                   <span>{formattedNumber(searchResult?.length) || 0}</span>{' '}
-                  quartos com{' '}
+                  {t('roomsWith_other')} {' '}
                   <span>{formattedNumber(servicesResult?.length) || 0}</span>{' '}
-                  serviços foram encontrados
+                  {t('servicesWereFound_other')}
                 </h2>
               </div>
               <div className={styles.filtersMobileSection}>
@@ -124,7 +124,7 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
                   }}
                 >
                   <HotelOutlined style={{ marginBottom: '0.2rem' }} />
-                  <h4>Quartos</h4>
+                  <h4>{t('room_other')}</h4>
                 </motion.div>
                 <motion.div
                   initial={{ scale: 0.9 }}
@@ -145,7 +145,7 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
                   }}
                 >
                   <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
-                  <h4>Serviços</h4>
+                  <h4>{t('service_other')}</h4>
                 </motion.div>
               </div>
             </section>
@@ -156,8 +156,8 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
                 ))}
               </section>
               <section className={styles.serviceResultContainer}>
-                <h4 className={styles.subtitle}>Confira</h4>
-                <h2 className={styles.title}>Serviços disponíveis</h2>
+                <h4 className={styles.subtitle}>{t('look')}</h4>
+                <h2 className={styles.title}>{t('availableServices')}</h2>
                 <div className={styles.contentResultContainer}>
                   {servicesResult?.map((service, index) => (
                     <CardService key={index} service={service} />
@@ -168,8 +168,8 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
             <div className={styles.mobileResults}>
               {selectedTab === 'rooms' && (
                 <section className={styles.serviceResultContainer}>
-                  <h4 className={styles.subtitle}>Confira</h4>
-                  <h2 className={styles.title}>Quartos disponíveis</h2>
+                  <h4 className={styles.subtitle}>{t('look')}</h4>
+                  <h2 className={styles.title}>{t('availableRooms')}</h2>
                   <div className={styles.contentResultContainer}>
                     {searchResult?.map((room, index) => (
                       <CardRoom key={index} room={room} />
@@ -179,8 +179,8 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
               )}
               {selectedTab === 'services' && (
                 <section className={styles.serviceResultContainer}>
-                  <h4 className={styles.subtitle}>Confira</h4>
-                  <h2 className={styles.title}>Serviços disponíveis</h2>
+                  <h4 className={styles.subtitle}>{t('look')}</h4>
+                  <h2 className={styles.title}>{t('availableServices')}</h2>
                   <div className={styles.contentResultContainer}>
                     {servicesResult?.map((service, index) => (
                       <CardService key={index} service={service} />
@@ -191,16 +191,16 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
             </div>
 
             <section className={styles.facilitiesContainerHolder}>
-              <h4 className={styles.subtitle}>Confira</h4>
-              <h2 className={styles.title}>O que esse hotel oferece?</h2>
+              <h4 className={styles.subtitle}>{t('look')}</h4>
+              <h2 className={styles.title}>{t('whatThisPlaceOffer')}</h2>
               <div className={styles.facilitiesCardContainer}>
                 {[...Array(3)].map((_, index) => (
                   <div key={index} className={styles.facilitiesCard}>
-                    <h3>O que esse lugar oferece</h3>
+                    <h3>{t('whatThisPlaceOffer')}</h3>
                     {[...Array(7)].map((_, index) => (
                       <div className={styles.row} key={index}>
                         <CookieOutlined fontSize={'small'} />
-                        <p>Cozinha</p>
+                        <p>{t('kitchen')}</p>
                       </div>
                     ))}
                   </div>

@@ -96,6 +96,7 @@ const Footer = ({ design, officeDetails }: IFooterProps) => {
                     key={index}
                     title={item.name}
                     target={'_blank'}
+                    rel="noreferrer"
                   >
                     {item.icon === 'Twitter' ? (
                       <Twitter className="icon" />

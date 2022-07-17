@@ -101,7 +101,7 @@ const Checkout = ({ officeDetails, design }: any) => {
 
         <div className={styles.mobTotalPrice}>
           <div>
-            <h4>Total(BRL)</h4>
+            <h4>{t('total')}(BRL)</h4>
           </div>
           <div>
             <h3>R$ 148,00</h3>
@@ -221,15 +221,20 @@ const Checkout = ({ officeDetails, design }: any) => {
                   </div>
 
                   <div style={{ padding: '0 1rem', paddingTop: '1rem' }}>
-                    <h3>Sua hospedagem</h3>
+                    <h3>{t('yourHosting')}</h3>
 
                     <div className={styles.infoHolder}>
                       <div>
-                        <h4>Datas</h4>
+                        <h4>{t('dates')}</h4>
                         <h5>23 - 29 de mai.</h5>
                       </div>
                       <div>
-                        <h4>Total Hóspedes</h4>
+                        <h4>
+                          {t('total')}{' '}
+                          <span style={{ textTransform: 'lowercase' }}>
+                            {t('guest_other')}
+                          </span>
+                        </h4>
                         <h5>12</h5>
                       </div>
                     </div>
@@ -255,9 +260,12 @@ const Checkout = ({ officeDetails, design }: any) => {
 
               {size.width < 868 && (
                 <div className={styles.mobPriceInformation}>
-                  <h4>Informações de preço</h4>
+                  <h4>{t('priceInfo')}</h4>
                   <div className={styles.row}>
-                    <h5>Hospedagem + serviços</h5>
+                    <h5>
+                      {' '}
+                      {t('accommodation')}+ {t('service_other')}
+                    </h5>
                     <h5>{currency(8574.72)}</h5>
                   </div>
                   {/* <div className={styles.row}>
@@ -272,7 +280,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                         setShowDynamicInfoModal(!showDynamicInfoModal)
                       }
                     >
-                      <h5>Taxas</h5>
+                      <h5>{t('taxes')}</h5>
                     </u>
                     <h5>{currency(98)}</h5>
                   </div>
@@ -282,7 +290,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                         setShowDynamicInfoModal(!showDynamicInfoModal)
                       }
                     >
-                      <h5>Impostos</h5>
+                      <h5>{t('taxes')}</h5>
                     </u>
                     <h5>{currency(98)}</h5>
                   </div>
@@ -301,10 +309,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                     style={{ padding: '0 0 1rem 0' }}
                   >
                     <VerifiedUserOutlined className={styles.lockIcon} />
-                    <h4>
-                      Dados tratados e protegidos em conformidade com a lei Nº
-                      13.709/18 (LGPD)
-                    </h4>
+                    <h4>{t('lgpdMessage')}</h4>
                   </div>
                 )}
               </div>
@@ -317,22 +322,22 @@ const Checkout = ({ officeDetails, design }: any) => {
                 </div>
               )}
               <div className={styles.mobPersonalDataContainer}>
-                <h3>Dados pessoais</h3>
+                <h3>{t('personalData')}</h3>
 
                 <Input
-                  label={'Nome'}
+                  label={t('name')}
+                  type="text"
+                  name="aa"
+                  placeholder={t('name')}
+                />
+                <Input
+                  label={t('email')}
                   type="text"
                   name="Nome"
                   placeholder="Nome"
                 />
                 <Input
-                  label={'E-mail'}
-                  type="text"
-                  name="Nome"
-                  placeholder="Nome"
-                />
-                <Input
-                  label={'Telefone'}
+                  label={t('telephone')}
                   type="text"
                   name="Nome"
                   placeholder="Nome"
@@ -352,7 +357,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                 </div>
 
                 <div className={styles.payWithContainer}>
-                  <h3 className={styles.title}>Forma de pagamento</h3>
+                  <h3 className={styles.title}>{t('paymentMethod')}</h3>
                   <div className={styles.payWithLogosContainer}>
                     <div className={styles.payWithLogosBox}>
                       <Image
@@ -392,7 +397,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                   style={{ marginBottom: '0.5rem' }}
                 >
                   <select name="arrivalForecast" id="pet-select">
-                    <option value="">Cartão de crédito</option>
+                    <option value="">{t('creditCard')}</option>
                     <option value="">PIX</option>
                     <option value="">TED</option>
                   </select>
@@ -453,7 +458,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                 )}
 
                 <div style={{ marginTop: '20px' }}>
-                  {services.length > 0 && <h3>Serviços</h3>}
+                  {services.length > 0 && <h3>{t('service_other')}</h3>}
                   {services.map((room, index) => (
                     <div key={index} className={styles.roomContainer}>
                       <div className={styles.row}>
@@ -482,19 +487,18 @@ const Checkout = ({ officeDetails, design }: any) => {
 
               <div className={styles.lgpdAdviceContainer}>
                 <VerifiedUserOutlined className={styles.lockIcon} />
-                <h4>
-                  Dados tratados e protegidos em conformidade com a lei Nº
-                  13.709/18 (LGPD)
-                </h4>
+                <h4>{t('lgpdMessage')}</h4>
               </div>
               <div className={styles.divisorContainer}>
                 <div></div>
               </div>
 
               <div className={styles.priceInformation}>
-                <h4>Informações de preço</h4>
+                <h4>{t('priceInfo')}</h4>
                 <div className={styles.row}>
-                  <h5>Hospedagem + serviços</h5>
+                  <h5>
+                    {t('accommodation')}+ {t('service_other')}
+                  </h5>
                   <h5>{currency(8574.72)}</h5>
                 </div>
                 <div className={styles.row}>
@@ -504,7 +508,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                       setShowDynamicInfoModal(!showDynamicInfoModal)
                     }
                   >
-                    <h5>Taxas</h5>
+                    <h5>{t('fees')}</h5>
                   </u>
                   <h5>{currency(98)}</h5>
                 </div>
@@ -515,7 +519,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                       setShowDynamicInfoModal(!showDynamicInfoModal)
                     }
                   >
-                    <h5>Impostos</h5>
+                    <h5>{t('taxes')}</h5>
                   </u>
                   <h5>{currency(98)}</h5>
                 </div>
@@ -523,7 +527,7 @@ const Checkout = ({ officeDetails, design }: any) => {
 
               <div>
                 <div className={styles.row}>
-                  <h4>Total (BRL)</h4>
+                  <h4>{t('total')} (BRL)</h4>
                   <h4>{currency(2298)}</h4>
                 </div>
                 <motion.button
@@ -540,13 +544,12 @@ const Checkout = ({ officeDetails, design }: any) => {
 
                 <div className={styles.termsArea}>
                   <h6>
-                    Ao clicar no botão acima, concordo com as seguintes
-                    políticas:{' '}
+                    {'byClickingButtonAboveAgreePolicies'}:
                     <strong>
                       {' '}
                       <u>
-                        Políticas de Reserva, Política de Reembolso e Remarcação
-                        de Reserva.
+                        {t('reservationPolicies')}, {t('refundPolicy')}{' '}
+                        {t('and')} {t('bookingRescheduling')}
                       </u>
                     </strong>
                   </h6>
@@ -555,26 +558,28 @@ const Checkout = ({ officeDetails, design }: any) => {
             </div>
           </div>
           <div className={styles.webPoliticsContainer}>
-            <h3>Políticas</h3>
+            <h3>{t('policy_other')}</h3>
             <h5>
-              Está reserva não é reembolsável.{' '}
+              {t('reservationNonRefundable')}{' '}
               <a title="Políticas de reembolso" href="">
-                Saiba mais
+                {t('knowMore')}
               </a>
             </h5>
             <h5>
-              Nossa Política de Causas de Força Maior não cobre interrupções de
-              viagem causadas pela COVID-19.{' '}
+              Lorem ipsum dolor sit amet{' '}
               <a title="Política de Causas de Força Maior" href="">
-                Saiba mais
+                {t('knowMore')}
               </a>
             </h5>
             <div className={styles.policyCardContainer}>
               <div className={styles.policyCard}>
-                <h3>Regras da casa</h3>
+                <h3>{t('houseRules')}</h3>
               </div>
               <div className={styles.policyCard}>
-                <h3>Saúde {'&'} segurança</h3>
+                <h3>
+                  {' '}
+                  {t('health')} {'&'} {t('security')}
+                </h3>
                 <p>
                   Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem
                   ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
@@ -583,7 +588,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                 </p>
               </div>
               <div className={styles.policyCard}>
-                <h3>Política de cancelamento</h3>
+                <h3>{t('cancellationPolicy')}</h3>
                 <p>
                   Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem
                   ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
@@ -602,24 +607,23 @@ const Checkout = ({ officeDetails, design }: any) => {
           </div>
 
           <div className={styles.mobPoliticsContainer}>
-            <h3>Políticas</h3>
+            <h3>{t('policy_other')}</h3>
             <h5>
-              Está reserva não é reembolsável.{' '}
+              Lorem ipsum dolor sit amet{' '}
               <a title="Políticas de reembolso" href="">
-                Saiba mais
+                {t('knowMore')}
               </a>
             </h5>
             <h5>
-              Nossa Política de Causas de Força Maior não cobre interrupções de
-              viagem causadas pela COVID-19.{' '}
+              Lorem ipsum dolor sit amet{' '}
               <a title="Política de Causas de Força Maior" href="">
-                Saiba mais
+                {t('knowMore')}
               </a>
             </h5>
             <div className={styles.policyCardContainer}>
               <div className={styles.policyCard} onClick={() => setPolicy(0)}>
                 <div className={styles.row}>
-                  <h3>Regras da casa</h3>
+                  <h3>{t('houseRules')}</h3>
                   {policy === 0 ? (
                     <ChevronUp
                       className={styles.chevronIcon}
@@ -645,7 +649,9 @@ const Checkout = ({ officeDetails, design }: any) => {
               </div>
               <div className={styles.policyCard} onClick={() => setPolicy(1)}>
                 <div className={styles.row}>
-                  <h3>Saúde {'&'} segurança</h3>
+                  <h3>
+                    {t('health')} {'&'} {t('security')}
+                  </h3>
                   {policy === 1 ? (
                     <ChevronUp
                       className={styles.chevronIcon}
@@ -671,7 +677,7 @@ const Checkout = ({ officeDetails, design }: any) => {
               </div>
               <div className={styles.policyCard} onClick={() => setPolicy(2)}>
                 <div className={styles.row}>
-                  <h3>Política de cancelamento</h3>
+                  <h3>{t('cancellationPolicy')}</h3>
                   {policy === 2 ? (
                     <ChevronUp
                       className={styles.chevronIcon}
@@ -700,12 +706,12 @@ const Checkout = ({ officeDetails, design }: any) => {
 
           <div className={styles.mobConfirmContainer}>
             <h6>
-              Ao clicar no botão abaixo, concordo com as seguintes políticas:{' '}
+              {t('byClickingButtonBelowAgreePolicies')}:{' '}
               <strong>
                 {' '}
                 <u>
-                  Políticas de Reserva, Política de Reembolso e Remarcação de
-                  Reserva.
+                  {t('reservationPolicies')}, {t('refundPolicy')} {t('and')}{' '}
+                  {t('bookingRescheduling')}
                 </u>
               </strong>
             </h6>

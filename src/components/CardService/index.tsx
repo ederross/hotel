@@ -77,7 +77,7 @@ const CardService = ({ service }: ICardService) => {
           style={{ height: 232 }}
         />
         <div className={styles.typeServiceContainer}>
-          <h5>Aluguel</h5>
+          <h5>{t('rent')}</h5>
         </div>
 
         <h2>{service.serviceName}</h2>
@@ -95,7 +95,7 @@ const CardService = ({ service }: ICardService) => {
               <span className={styles.cents}>
                 ,{formattedValue.split(',')[1]}
               </span>{' '}
-              <span> por dia</span>
+              <span> {t('perDay')}</span>
             </h4>
           </div>
           <Counter quantity={quantity} setQuantity={setQuantity} />
