@@ -544,7 +544,7 @@ const Checkout = ({ officeDetails, design }: any) => {
 
                 <div className={styles.termsArea}>
                   <h6>
-                    {'byClickingButtonAboveAgreePolicies'}:
+                    {t('byClickingButtonAboveAgreePolicies')}:
                     <strong>
                       {' '}
                       <u>
