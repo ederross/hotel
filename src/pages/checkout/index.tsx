@@ -150,10 +150,29 @@ const Checkout = ({ officeDetails, design }: any) => {
                                 className={styles.roomNameAdultChildContainer}
                               >
                                 <h5>
-                                  {room.adults}{' '}
-                                  {t('adultWithCount_one', { count: room.adults })} {'&'}{' '}
-                                  {room.adults}{' '}
-                                  {t('childrenWithCount_one', { count: room.children })}
+                                  {room.adults < 2 && room.adults > 0
+                                    ? t('adultWithCount_one', {
+                                        count: room.adults,
+                                      })
+                                    : room.adults === 0
+                                    ? t('adultWithCount_other', {
+                                        count: room.adults,
+                                      })
+                                    : t('adultWithCount_other', {
+                                        count: room.adults,
+                                      })}{' '}
+                                  {'&'}{' '}
+                                  {room.children < 2 && room.children > 0
+                                    ? t('childrenWithCount_one', {
+                                        count: room.children,
+                                      })
+                                    : room.children === 0
+                                    ? t('childrenWithCount_one', {
+                                        count: room.children,
+                                      })
+                                    : t('childrenWithCount_other', {
+                                        count: room.children,
+                                      })}
                                 </h5>
                                 <h4>{room.objectName}</h4>
                               </div>
@@ -428,9 +447,29 @@ const Checkout = ({ officeDetails, design }: any) => {
                     <div className={styles.roomInfo}>
                       <div className={styles.roomNameAdultChildContainer}>
                         <h5>
-                          {t('adultWithCount_other', { count: room.adults })}{' '}
-                          {'&'}{' '}
-                          {t('childrenWithCount_other', { count: room.children })}
+                        {room.adults < 2 && room.adults > 0
+                                    ? t('adultWithCount_one', {
+                                        count: room.adults,
+                                      })
+                                    : room.adults === 0
+                                    ? t('adultWithCount_other', {
+                                        count: room.adults,
+                                      })
+                                    : t('adultWithCount_other', {
+                                        count: room.adults,
+                                      })}{' '}
+                                  {'&'}{' '}
+                                  {room.children < 2 && room.children > 0
+                                    ? t('childrenWithCount_one', {
+                                        count: room.children,
+                                      })
+                                    : room.children === 0
+                                    ? t('childrenWithCount_one', {
+                                        count: room.children,
+                                      })
+                                    : t('childrenWithCount_other', {
+                                        count: room.children,
+                                      })}
                         </h5>
                         <h4>{room.objectName}</h4>
                       </div>

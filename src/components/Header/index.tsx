@@ -424,11 +424,23 @@ export default function Header({ design, events }: IHeader) {
                   <span className="guestNumber">
                     {numberOfChildren > 0 || numberOfAdults > 0 ? (
                       <p>
-                        {t('guestWithCount_one', {
-                          count: numberOfAdults + numberOfChildren,
-                        })}
+                        {numberOfAdults + numberOfChildren < 2 &&
+                        numberOfAdults + numberOfChildren > 0
+                          ? t('guestWithCount_one', {
+                              count: numberOfAdults + numberOfChildren,
+                            })
+                          : numberOfAdults + numberOfChildren === 0
+                          ? t('guestWithCount_other', {
+                              count: numberOfAdults + numberOfChildren,
+                            })
+                          : t('guestWithCount_other', {
+                              count: numberOfAdults + numberOfChildren,
+                            })}
                       </p>
                     ) : (
+                      // t('guestWithCount_one', {
+                      //   count: numberOfAdults + numberOfChildren,
+                      // })
                       <p className="empty">{t('howMany')}?</p>
                     )}
                   </span>
