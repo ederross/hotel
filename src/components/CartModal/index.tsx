@@ -82,21 +82,23 @@ const CartModal = ({
                     <div className={styles.roomNameAdultChildContainer}>
                       <div className={styles.row}>
                         <h5>
-                          {room.adults} {t('adultWithCount_one', { count: room.adults })}{' '}
-                          {'&'} {room.adults}{' '}
+                          {t('adultWithCount_one', { count: room.adults })}{' '}
+                          {'&'}{' '}
                           {t('childrenWithCount_one', { count: room.children })}
                         </h5>
-                        {!isCheckoutSeeAllData && <Delete
-                          onClick={() =>
-                            handleRemoveItem(room?.objectId, false)
-                          }
-                          className={styles.closeButton}
-                          style={{
-                            cursor: 'pointer',
-                            width: 16,
-                            color: 'gray',
-                          }}
-                        />}
+                        {!isCheckoutSeeAllData && (
+                          <Delete
+                            onClick={() =>
+                              handleRemoveItem(room?.objectId, false)
+                            }
+                            className={styles.closeButton}
+                            style={{
+                              cursor: 'pointer',
+                              width: 16,
+                              color: 'gray',
+                            }}
+                          />
+                        )}
                       </div>
                       <h4>{room.objectName}</h4>
                     </div>
@@ -143,16 +145,20 @@ const CartModal = ({
                         flexDirection: 'column',
                       }}
                     >
-                      {!isCheckoutSeeAllData &&  <Delete
-                        onClick={() => handleRemoveItem(room?.serviceId, true)}
-                        className={styles.closeButton}
-                        style={{
-                          cursor: 'pointer',
-                          marginBottom: 8,
-                          width: 16,
-                          color: 'gray',
-                        }}
-                      />}
+                      {!isCheckoutSeeAllData && (
+                        <Delete
+                          onClick={() =>
+                            handleRemoveItem(room?.serviceId, true)
+                          }
+                          className={styles.closeButton}
+                          style={{
+                            cursor: 'pointer',
+                            marginBottom: 8,
+                            width: 16,
+                            color: 'gray',
+                          }}
+                        />
+                      )}
                       <h5>{currency(room.price)}</h5>
                     </div>
                   </div>
