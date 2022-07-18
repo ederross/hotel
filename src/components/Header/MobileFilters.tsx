@@ -255,6 +255,9 @@ const Container = styled.div`
     width: 100%;
     margin-bottom: -20px;
   }
+  .rdrMonth {
+    padding: 0.833rem 0;
+}
   .rdrMonthName {
   }
 
