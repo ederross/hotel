@@ -7,12 +7,12 @@ import { CarouselHolderStyles } from './styles';
 
 interface ICaroselHolder {
   data: imageData[] | null;
-  isDiscountBoxActive?: boolean;
   adjustScroller?: boolean;
   showArrows?: boolean;
   setSelected?: React.Dispatch<React.SetStateAction<number>>;
   styleImageComponent?: React.CSSProperties;
   style?: React.CSSProperties;
+  discont?: number;
 }
 
 interface imageData {
@@ -25,10 +25,10 @@ const CarouselHolder = ({
   data,
   showArrows = true,
   adjustScroller,
-  isDiscountBoxActive,
   setSelected,
   styleImageComponent,
   style,
+  discont,
 }: ICaroselHolder) => {
   const imagesRef = useRef(null);
   // Window Sizes
@@ -54,9 +54,9 @@ const CarouselHolder = ({
 
   return (
     <CarouselHolderStyles style={style}>
-      {isDiscountBoxActive && (
+      {!!discont && (
         <div className="discountPercentage">
-          <h4>50% OFF</h4>
+          <h4>{discont}% OFF</h4>
         </div>
       )}
       {showArrows && size.width > 868 && (

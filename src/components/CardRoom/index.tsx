@@ -29,9 +29,10 @@ import { useTranslation } from 'next-i18next';
 
 interface ICardRoom {
   room: Room;
+  setSelectedRoom: React.Dispatch<React.SetStateAction<Room>>;
 }
 
-const CardRoom = ({ room }: ICardRoom) => {
+const CardRoom = ({ room, setSelectedRoom }: ICardRoom) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { t } = useTranslation('common');
@@ -55,10 +56,12 @@ const CardRoom = ({ room }: ICardRoom) => {
   });
 
   const handleDetails = () => {
-    router.push(`/rooms/${room?.objectId}`);
+    setSelectedRoom(room);
+    // router.push(`/rooms/${room?.objectId}`);
   };
 
-  const formattedValue = currency(999.99);
+  const mainPrice = room?.prices && room?.prices[0];
+  const formattedValue = currency(mainPrice?.regularTotalAmount);
 
   const handleAddToCart = () => {
     dispatch(
@@ -101,7 +104,7 @@ const CardRoom = ({ room }: ICardRoom) => {
         onClick={handleDetails}
       >
         <CarouselHolder
-          isDiscountBoxActive
+          discont={mainPrice?.discountPercentage}
           data={imageData}
           styleImageComponent={{
             borderTopLeftRadius: '1rem',
@@ -126,10 +129,7 @@ const CardRoom = ({ room }: ICardRoom) => {
 
         <h2>{room?.objectName}</h2>
 
-        <p>
-          Ar-condicionado, cama box, TV a cabo, mesa de trabalho, frigobar...{' '}
-          {/* <span>Ler mais</span> */}
-        </p>
+        <p>{room?.objectDescription.substring(0, 56)}...</p>
 
         <div className={styles.amenitiesContainer}>
           {room?.amenities?.map((item, index) => (
@@ -142,19 +142,25 @@ const CardRoom = ({ room }: ICardRoom) => {
           className={styles.priceAndControlsContainerHolder}
         >
           <div className={styles.pricesInfos}>
-            <s>
-              <h6>{currency(200)}</h6>
-            </s>
+            {mainPrice?.promotionTotalAmount > 0 && (
+              <s>
+                <h6>{currency(mainPrice?.promotionTotalAmount)}</h6>
+              </s>
+            )}
             <h4>
               {formattedValue.split(',')[0]}
               <span className={styles.cents}>
                 ,{formattedValue.split(',')[1]}
               </span>{' '}
-              <span style={{ marginLeft: '0.4rem' }}>3 {t('nights')}</span>
+              <span style={{ marginLeft: '0.4rem' }}>
+                {mainPrice?.nightQty} {t('nights')}
+              </span>
             </h4>
-            <u style={{ cursor: 'pointer' }} onClick={handleDetails}>
-              <h5>+{2 + ' ' + t('offers')}</h5>
-            </u>
+            {room?.prices?.length > 1 && (
+              <u style={{ cursor: 'pointer' }} onClick={handleDetails}>
+                <h5>+{room?.prices?.length - 1 + ' ' + t('offers')}</h5>
+              </u>
+            )}
           </div>
           <Counter quantity={quantity} setQuantity={setQuantity} />
         </div>

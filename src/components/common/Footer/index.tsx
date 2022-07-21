@@ -74,7 +74,7 @@ const Footer = ({ design, officeDetails }: IFooterProps) => {
               {address && (
                 <a
                   className="row"
-                  href={`https://www.google.com.br/maps/place/${address?.postalCode},${address?.streetNumber}`}
+                  href={`https://www.google.com/maps/?q=${address.latLong.latitude},${address.latLong.longitude}`}
                   title={'Ver mapa'}
                   target={'_blank'}
                   rel="noreferrer"

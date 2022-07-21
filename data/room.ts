@@ -25,7 +25,7 @@ interface SleepArrangements {
   bedQuantity: number;
 }
 
-interface Price {
+export interface Price {
   quoteId: string;
   name: string;
   priceDescription: string;

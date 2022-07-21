@@ -28,6 +28,8 @@ import {
   GetOfficeDetails,
 } from '../../services/requests/office';
 import { mockSearchResults } from '../../../mock/mockSearchResult';
+import { Room } from '../../../data/room';
+import { RoomDetails } from '../../components/RoomDetails';
 
 interface ISearch {
   servicesResult: any;
@@ -63,6 +65,7 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
   const [cartOpen, setCartOpen] = useState(false);
   const [searchResult, setSearchResult] = useState<any>(mockSearchResults);
   const { startDate, endDate, adults, children }: any = router.query;
+  const [selectedRoom, setSelectedRoom] = useState<Room>(undefined);
 
   const formattedNumber = (number: number) =>
     number < 10 && number > 0 ? `0${number}` : '';
@@ -85,6 +88,9 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
       </Head>
       <main className={styles.mainContainer}>
         <Header design={design} />
+        {selectedRoom && (
+          <RoomDetails room={selectedRoom} setSelectedRoom={setSelectedRoom} />
+        )}
         {!searchResult || searchResult?.errors ? (
           <>
             <section className={styles.filterInfo}>
@@ -95,66 +101,74 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
           </>
         ) : (
           <>
-            <section className={styles.filterInfo}>
-              <div style={{ flex: 1, paddingTop: 1 }}>
-                <h2>
-                  <span>{formattedNumber(searchResult?.length) || 0}</span>{' '}
-                  {t('roomsWith_other')} {' '}
-                  <span>{formattedNumber(servicesResult?.length) || 0}</span>{' '}
-                  {t('servicesWereFound_other')}
-                </h2>
-              </div>
-              <div className={styles.filtersMobileSection}>
-                <motion.div
-                  initial={{ scale: 0.9 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  style={
-                    selectedTab === 'rooms'
-                      ? {
-                          borderBottom: '6px solid black',
-                        }
-                      : { opacity: 0.35, paddingBottom: '1.4rem' }
-                  }
-                  className={styles.filterButtonContainer}
-                  onClick={() => {
-                    (document.body.style.overflow = 'initial'),
-                      setSelectedTab('rooms');
-                  }}
-                >
-                  <HotelOutlined style={{ marginBottom: '0.2rem' }} />
-                  <h4>{t('room_other')}</h4>
-                </motion.div>
-                <motion.div
-                  initial={{ scale: 0.9 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  style={
-                    selectedTab === 'services'
-                      ? {
-                          borderBottom: '6px solid black',
-                        }
-                      : { opacity: 0.35, paddingBottom: '1.4rem' }
-                  }
-                  className={styles.filterButtonContainer}
-                  onClick={() => {
-                    (document.body.style.overflow = 'initial'),
-                      setSelectedTab('services');
-                  }}
-                >
-                  <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
-                  <h4>{t('service_other')}</h4>
-                </motion.div>
-              </div>
-            </section>
-            <div className={styles.webResults}>
-              <section className={styles.contentResultContainer}>
-                {searchResult?.map((room, index) => (
-                  <CardRoom key={index} room={room} />
-                ))}
+            {!selectedRoom && (
+              <section className={styles.filterInfo}>
+                <div style={{ flex: 1, paddingTop: 1 }}>
+                  <h2>
+                    <span>{formattedNumber(searchResult?.length) || 0}</span>{' '}
+                    {t('roomsWith_other')}{' '}
+                    <span>{formattedNumber(servicesResult?.length) || 0}</span>{' '}
+                    {t('servicesWereFound_other')}
+                  </h2>
+                </div>
+                <div className={styles.filtersMobileSection}>
+                  <motion.div
+                    initial={{ scale: 0.9 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    style={
+                      selectedTab === 'rooms'
+                        ? {
+                            borderBottom: '6px solid black',
+                          }
+                        : { opacity: 0.35, paddingBottom: '1.4rem' }
+                    }
+                    className={styles.filterButtonContainer}
+                    onClick={() => {
+                      (document.body.style.overflow = 'initial'),
+                        setSelectedTab('rooms');
+                    }}
+                  >
+                    <HotelOutlined style={{ marginBottom: '0.2rem' }} />
+                    <h4>{t('room_other')}</h4>
+                  </motion.div>
+                  <motion.div
+                    initial={{ scale: 0.9 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    style={
+                      selectedTab === 'services'
+                        ? {
+                            borderBottom: '6px solid black',
+                          }
+                        : { opacity: 0.35, paddingBottom: '1.4rem' }
+                    }
+                    className={styles.filterButtonContainer}
+                    onClick={() => {
+                      (document.body.style.overflow = 'initial'),
+                        setSelectedTab('services');
+                    }}
+                  >
+                    <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
+                    <h4>{t('service_other')}</h4>
+                  </motion.div>
+                </div>
               </section>
+            )}
+            <div className={styles.webResults}>
+              {!selectedRoom && (
+                <section className={styles.contentResultContainer}>
+                  {searchResult?.map((room, index) => (
+                    <CardRoom
+                      key={index}
+                      room={room}
+                      setSelectedRoom={setSelectedRoom}
+                    />
+                  ))}
+                </section>
+              )}
               <section className={styles.serviceResultContainer}>
                 <h4 className={styles.subtitle}>{t('look')}</h4>
                 <h2 className={styles.title}>{t('availableServices')}</h2>
@@ -172,7 +186,11 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
                   <h2 className={styles.title}>{t('availableRooms')}</h2>
                   <div className={styles.contentResultContainer}>
                     {searchResult?.map((room, index) => (
-                      <CardRoom key={index} room={room} />
+                      <CardRoom
+                        key={index}
+                        room={room}
+                        setSelectedRoom={setSelectedRoom}
+                      />
                     ))}
                   </div>
                 </section>
@@ -190,23 +208,25 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
               )}
             </div>
 
-            <section className={styles.facilitiesContainerHolder}>
-              <h4 className={styles.subtitle}>{t('look')}</h4>
-              <h2 className={styles.title}>{t('whatThisPlaceOffer')}</h2>
-              <div className={styles.facilitiesCardContainer}>
-                {[...Array(3)].map((_, index) => (
-                  <div key={index} className={styles.facilitiesCard}>
-                    <h3>{t('whatThisPlaceOffer')}</h3>
-                    {[...Array(7)].map((_, index) => (
-                      <div className={styles.row} key={index}>
-                        <CookieOutlined fontSize={'small'} />
-                        <p>{t('kitchen')}</p>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </section>
+            {!selectedRoom && (
+              <section className={styles.facilitiesContainerHolder}>
+                <h4 className={styles.subtitle}>{t('look')}</h4>
+                <h2 className={styles.title}>{t('whatThisPlaceOffer')}</h2>
+                <div className={styles.facilitiesCardContainer}>
+                  {[...Array(3)].map((_, index) => (
+                    <div key={index} className={styles.facilitiesCard}>
+                      <h3>{t('whatThisPlaceOffer')}</h3>
+                      {[...Array(7)].map((_, index) => (
+                        <div className={styles.row} key={index}>
+                          <CookieOutlined fontSize={'small'} />
+                          <p>{t('kitchen')}</p>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
           </>
         )}
 

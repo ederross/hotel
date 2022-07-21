@@ -5,40 +5,27 @@ import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 
 import styles from './styles.module.scss';
 import { Counter } from '../common/Counter';
+import { Price } from '../../../data/room';
+import { currency } from '../../utils/currency';
+interface IOffersAccordion {
+  offers: Price[];
+}
 
-const imageData = [
-  {
-    url: 'https://images.unsplash.com/photo-1604156788856-2ce5f2171cce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    title: 'balões',
-    alt: 'balões',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1559686043-aef1bbc98d19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    title: 'balões',
-    alt: 'balões',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1514923995763-768e52f5af87?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
-    title: 'balões',
-    alt: 'balões',
-  },
-];
-
-const OffersAccordion = () => {
+const OffersAccordion = ({ offers = [] }: IOffersAccordion) => {
   const { t } = useTranslation('common');
   const [ctaSelected, setCtaSelected] = useState(0);
   const [quantity, setQuantity] = useState(0);
 
   return (
     <div style={{ width: '100%' }}>
-      {imageData.map((item, index) => {
+      {offers?.map((item, index) => {
         return (
           <div
             key={index}
             className={styles.ctaItem}
             style={{
               borderBottom:
-                imageData.length - 1 !== index
+                offers.length - 1 !== index
                   ? '1px solid var(--gray-150)'
                   : 'none',
               padding: ctaSelected !== index ? '1rem 0' : '1.5rem 0',
@@ -46,11 +33,11 @@ const OffersAccordion = () => {
             onClick={() => setCtaSelected(index)}
           >
             <div className={styles.ctaItemHeader}>
-              <h3>Oferta {index}</h3>
+              <h3>{item?.name}</h3>
               {ctaSelected !== index && (
                 <>
                   <div className={styles.ctaItemHeaderNotSelected}>
-                    <h4>R$ 128</h4>
+                    <h4>{currency(item?.regularTotalAmount)}</h4>
                     <ExpandMoreOutlinedIcon
                       className={styles.chevronDownIcon}
                     />
@@ -59,7 +46,10 @@ const OffersAccordion = () => {
               )}
               {ctaSelected === index && (
                 <h4>
-                  2 noites <span style={{ marginLeft: 8 }}>R$ 128</span>
+                  {item?.nightQty} noites{' '}
+                  <span style={{ marginLeft: 8 }}>
+                    {currency(item?.regularTotalAmount)}
+                  </span>
                 </h4>
               )}{' '}
             </div>
