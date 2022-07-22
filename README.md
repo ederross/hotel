@@ -1,5 +1,5 @@
 
-# Airbnb Hotel | App para aluguel de quartos
+# Airbnb Hotel | Plataforma white-label de aluguel de quartos
 
 
 ## Autores
