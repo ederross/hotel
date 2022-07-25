@@ -178,6 +178,7 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
       </main>
       {size.width < 868 && openOffersModal && (
         <OffersRoomModal
+          offers={room?.prices}
           openOffersModal={openOffersModal}
           handleOpenMobileOffersModal={handleOpenMobileOffersModal}
         />

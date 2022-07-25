@@ -4,15 +4,18 @@ import OffersAccordion from '../OffersAccordion';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import styles from './styles.module.scss';
+import { Price } from '../../../data/room';
 
 interface IOffersRoomModal {
   openOffersModal: boolean;
   handleOpenMobileOffersModal: () => void;
+  offers: Price[];
 }
 
 const OffersRoomModal = ({
   openOffersModal,
   handleOpenMobileOffersModal,
+  offers,
 }: IOffersRoomModal) => {
   const subMenuAnimate = {
     enter: {
@@ -46,39 +49,39 @@ const OffersRoomModal = ({
               <h3>Ofertas</h3>
             </div>{' '} */}
           <div className={styles.contentContainer}>
-            <OffersAccordion />
+            <OffersAccordion offers={offers} />
           </div>
         </div>
-      <motion.div
-        variants={{
-          enter: {
-            opacity: 1,
-            transition: {
-              duration: 0.2,
+        <motion.div
+          variants={{
+            enter: {
+              opacity: 1,
+              transition: {
+                duration: 0.2,
+              },
+              display: 'block',
             },
-            display: 'block',
-          },
-          exit: {
-            opacity: 0,
-            transition: {
-              duration: 0.2,
+            exit: {
+              opacity: 0,
+              transition: {
+                duration: 0.2,
+              },
+              transitionEnd: {
+                display: 'none',
+              },
             },
-            transitionEnd: {
-              display: 'none',
-            },
-          },
-        }}
-        onClick={handleOpenMobileOffersModal}
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          zIndex: 8,
-          width: '100vw',
-          height: '100vh',
-          background: 'rgba(0,0,0,0.6)',
-        }}
-      ></motion.div>
+          }}
+          onClick={handleOpenMobileOffersModal}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            zIndex: 8,
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(0,0,0,0.6)',
+          }}
+        ></motion.div>
       </motion.div>
     </>
   );
