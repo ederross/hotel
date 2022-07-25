@@ -75,3 +75,17 @@ export const GetOfficeEvents = async () => {
 
   return res;
 };
+
+export const GetOfficeFacilities = async () => {
+  const res = await api
+    .get(`/offices/${officeId}/facilities`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch(() => {
+      console.log('OFFICE FACILITIES ERROR!');
+      return {};
+    });
+
+  return res;
+};

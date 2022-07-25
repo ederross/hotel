@@ -214,7 +214,7 @@ export default function Header({ design, events }: IHeader) {
     if (isNotSelected && size.width > 868) {
       priceDay = (
         <div className={'priceDayIndicator'}>
-          <p>{currency(199)}</p>
+          <p>199</p>
         </div>
       );
     }

@@ -68,7 +68,6 @@ const CardService = ({ service }: ICardService) => {
     <>
       <div className={styles.container}>
         <CarouselHolder
-          isDiscountBoxActive={true}
           data={imageData}
           styleImageComponent={{
             borderTopLeftRadius: '1rem',

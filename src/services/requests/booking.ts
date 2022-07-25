@@ -13,25 +13,15 @@ export const GetRoomSearch = async ({
   endDate,
   startDate,
 }: IGetRoomSearch) => {
-  const res = await api
-    .get('/booking/room-search', {
-      params: {
-        officeId,
-        startDate,
-        endDate,
-        adults,
-        children,
-      },
-    })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((err) => {
-      console.log('ROOM SEARCH ERROR!', err);
-      return [];
-    });
-
-  return res;
+  return await api.get('/booking/room-search', {
+    params: {
+      officeId,
+      startDate,
+      endDate,
+      adults,
+      children,
+    },
+  });
 };
 
 export const GetServiceSearch = async () => {

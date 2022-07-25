@@ -26,34 +26,44 @@ import {
 import {
   GetOfficeDesign,
   GetOfficeDetails,
+  GetOfficeFacilities,
 } from '../../services/requests/office';
 import { mockSearchResults } from '../../../mock/mockSearchResult';
 import { Room } from '../../../data/room';
 import { RoomDetails } from '../../components/RoomDetails';
+import { Facility } from '../../../data/facilities';
 
 interface ISearch {
   servicesResult: any;
   officeDetails: OfficeDetails;
   design: Design;
+  facilities: Facility[];
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const officeDetails = await GetOfficeDetails();
   const design = await GetOfficeDesign();
   const servicesResult = await GetServiceSearch();
+  const facilities = await GetOfficeFacilities();
 
   return {
     props: {
       servicesResult,
       officeDetails,
       design,
+      facilities,
       ...(await serverSideTranslations(locale, ['common'])),
     },
     revalidate: 60,
   };
 };
 
-const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
+const Search = ({
+  servicesResult,
+  officeDetails,
+  design,
+  facilities,
+}: ISearch) => {
   const router = useRouter();
   const { t } = useTranslation('common');
 
@@ -70,13 +80,16 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
   const formattedNumber = (number: number) =>
     number < 10 && number > 0 ? `0${number}` : '';
 
-  // useEffect(() => {
-  //   if (startDate && endDate && adults && children) {
-  //     GetRoomSearch({ startDate, endDate, adults, children }).then((res) =>
-  //       setSearchResult(res)
-  //     );
-  //   }
-  // }, [startDate, endDate, adults, children]);
+  useEffect(() => {
+    if (startDate && endDate && adults && children) {
+      GetRoomSearch({ startDate, endDate, adults, children })
+        .then((res) => setSearchResult(res?.data))
+        .catch(() => {
+          console.log('>>> FALHA AO PEGAR A PESQUISA DE QUARTOS! <<<');
+          setSearchResult(mockSearchResults);
+        });
+    }
+  }, [startDate, endDate, adults, children]);
 
   return (
     <>
@@ -208,18 +221,18 @@ const Search = ({ servicesResult, officeDetails, design }: ISearch) => {
               )}
             </div>
 
-            {!selectedRoom && (
+            {!selectedRoom && facilities && (
               <section className={styles.facilitiesContainerHolder}>
                 <h4 className={styles.subtitle}>{t('look')}</h4>
                 <h2 className={styles.title}>{t('whatThisPlaceOffer')}</h2>
                 <div className={styles.facilitiesCardContainer}>
-                  {[...Array(3)].map((_, index) => (
+                  {facilities?.map((facility, index) => (
                     <div key={index} className={styles.facilitiesCard}>
-                      <h3>{t('whatThisPlaceOffer')}</h3>
-                      {[...Array(7)].map((_, index) => (
+                      <h3>{facility?.categoryName || '-'}</h3>
+                      {facility?.facilityDetails?.map((item, index) => (
                         <div className={styles.row} key={index}>
                           <CookieOutlined fontSize={'small'} />
-                          <p>{t('kitchen')}</p>
+                          <p>{item?.facilityName || '-'}</p>
                         </div>
                       ))}
                     </div>

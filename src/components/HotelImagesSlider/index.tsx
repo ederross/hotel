@@ -11,7 +11,7 @@ interface IHotelImagesSlider {
 const HotelImagesSlider = ({ images }: IHotelImagesSlider) => {
   const [error, setError] = useState(false);
   const [selected, setSelected] = useState(0);
-  const [adjustScroller, setAdjustScroller] = useState(true)
+  const [adjustScroller, setAdjustScroller] = useState(true);
 
   const imageData = images.map((i) => {
     return {
@@ -26,7 +26,6 @@ const HotelImagesSlider = ({ images }: IHotelImagesSlider) => {
       <div className={styles.hotelPhotosContainer}>
         <div className={styles.imgSlideContainer}>
           <CarouselHolder
-            isDiscountBoxActive={false}
             showArrows={true}
             data={imageData}
             setSelected={setSelected}
