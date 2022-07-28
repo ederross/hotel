@@ -75,11 +75,11 @@ export default function Home(props: IHomeProps) {
           <section
             className={styles.eventsContainer}
             style={{
-              display: props.events.length > 0 ? 'flex' : 'none',
-              borderBottom: props.events.length > 0 && '1px solid var(--gray)',
+              display: props.events?.length > 0 ? 'flex' : 'none',
+              borderBottom: props.events?.length > 0 && '1px solid var(--gray)',
             }}
           >
-            {props.events.length > 0 && (
+            {props.events?.length > 0 && (
               <h2 className={styles.title}>{t('checkOutOurUpcomingEvents')}</h2>
             )}
 

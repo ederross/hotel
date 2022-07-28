@@ -114,7 +114,7 @@ const WebFilters = ({
                     />
                   </Container>
 
-                  {events.length > 0 && (
+                  {events?.length > 0 && (
                     <div className={styles.eventsContainer}>
                       <h3>{t('nextEvents')}</h3>
                       <Swiper
@@ -123,7 +123,7 @@ const WebFilters = ({
                         freeMode={true}
                         style={{ padding: '0 2rem 1rem 1rem' }}
                       >
-                        {events.map((event, index) => (
+                        {events?.map((event, index) => (
                           <SwiperSlide key={index} style={{ width: 'auto' }}>
                             <CardEventType2 event={event} />
                           </SwiperSlide>

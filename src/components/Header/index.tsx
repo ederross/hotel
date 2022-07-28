@@ -31,9 +31,10 @@ import { currency } from '../../utils/currency';
 interface IHeader {
   design: Design;
   events?: EventsHome[];
+  selectedRoom?: any;
 }
 
-export default function Header({ design, events }: IHeader) {
+export default function Header({ design, events, selectedRoom }: IHeader) {
   const { t } = useTranslation('common');
   const dispatch = useDispatch();
   const router = useRouter();
@@ -257,7 +258,8 @@ export default function Header({ design, events }: IHeader) {
         style={{
           display:
             router.pathname !== '/' &&
-            router.pathname !== '/search' &&
+            selectedRoom &&
+            // router.pathname !== '/search' &&
             size.width <= 868 &&
             'none',
           position:

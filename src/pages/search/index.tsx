@@ -32,6 +32,7 @@ import { mockSearchResults } from '../../../mock/mockSearchResult';
 import { Room } from '../../../data/room';
 import { RoomDetails } from '../../components/RoomDetails';
 import { Facility } from '../../../data/facilities';
+import { useWindowSize } from '../../hooks/UseWindowSize';
 
 interface ISearch {
   servicesResult: any;
@@ -66,6 +67,7 @@ const Search = ({
 }: ISearch) => {
   const router = useRouter();
   const { t } = useTranslation('common');
+  const { width } = useWindowSize();
 
   const {
     cart: { rooms, services },
@@ -99,8 +101,18 @@ const Search = ({
         <meta name="keywords" content={design?.metaKeywords} />
         <link rel="icon" href={design?.favIconUrl} />
       </Head>
-      <main className={styles.mainContainer}>
-        <Header design={design} />
+      <main
+        className={styles.mainContainer}
+        style={{
+          padding:
+            selectedRoom && width < 868
+              ? '0'
+              : selectedRoom && width > 868
+              ? '5rem 0 0'
+              : '6rem 0 0',
+        }}
+      >
+        <Header selectedRoom={selectedRoom} design={design} />
         {selectedRoom && (
           <RoomDetails room={selectedRoom} setSelectedRoom={setSelectedRoom} />
         )}
@@ -193,7 +205,7 @@ const Search = ({
               </section>
             </div>
             <div className={styles.mobileResults}>
-              {selectedTab === 'rooms' && (
+              {selectedTab === 'rooms' && !selectedRoom && (
                 <section className={styles.serviceResultContainer}>
                   <h4 className={styles.subtitle}>{t('look')}</h4>
                   <h2 className={styles.title}>{t('availableRooms')}</h2>
@@ -208,17 +220,26 @@ const Search = ({
                   </div>
                 </section>
               )}
-              {selectedTab === 'services' && (
-                <section className={styles.serviceResultContainer}>
-                  <h4 className={styles.subtitle}>{t('look')}</h4>
-                  <h2 className={styles.title}>{t('availableServices')}</h2>
-                  <div className={styles.contentResultContainer}>
-                    {servicesResult?.map((service, index) => (
-                      <CardService key={index} service={service} />
-                    ))}
-                  </div>
-                </section>
-              )}
+              {selectedTab === 'services' ||
+                (selectedRoom && (
+                  <section
+                    className={styles.serviceResultContainer}
+                    style={{
+                      marginTop: selectedRoom && '2rem',
+                      borderTop: selectedRoom && '1px solid var(--gray-150)',
+                      paddingTop: selectedRoom && '2rem',
+                      paddingBottom: width < 868 && '8rem',
+                    }}
+                  >
+                    <h4 className={styles.subtitle}>{t('look')}</h4>
+                    <h2 className={styles.title}>{t('availableServices')}</h2>
+                    <div className={styles.contentResultContainer}>
+                      {servicesResult?.map((service, index) => (
+                        <CardService key={index} service={service} />
+                      ))}
+                    </div>
+                  </section>
+                ))}
             </div>
 
             {!selectedRoom && facilities && (
@@ -243,7 +264,11 @@ const Search = ({
           </>
         )}
 
-        <Footer design={design} officeDetails={officeDetails} />
+        {selectedRoom && width < 868 ? (
+          <div></div>
+        ) : (
+          <Footer design={design} officeDetails={officeDetails} />
+        )}
       </main>
     </>
   );

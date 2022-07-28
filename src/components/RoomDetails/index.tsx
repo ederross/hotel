@@ -190,7 +190,12 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
           </h4>
           <u onClick={() => handleOpenMobileOffersModal()}>
             <h6>
-              {t('see')}2 {t('offers')}
+              {t('see')} {room?.prices?.length}{' '}
+              {room?.prices?.length > 1
+                ? t('offers')
+                : room?.prices?.length === 0
+                ? t('offers')
+                : t('offer')}
             </h6>
           </u>
         </div>
