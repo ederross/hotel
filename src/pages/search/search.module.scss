@@ -42,7 +42,7 @@
     font-family: 'SulSansRegular' !important;
     font-size: 1.5rem;
     font-weight: 600;
-    padding:  0 1rem;
+    padding: 0 1rem;
 
     @media screen and (min-width: 568px) {
       font-size: 2.2rem;
@@ -87,14 +87,41 @@
 }
 
 .subtitle {
-  padding: 0 1rem 0 1rem;
+  // padding: 0 1rem 0 1rem;
   color: var(--gray-600);
   font-size: 0.875rem;
   font-weight: 500;
+  padding: 0 16px;
+
+  @media screen and (min-width: 600px) {
+    padding: 0 32px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding: 0 56px;
+  }
+
+  @media screen and (min-width: 1512px) {
+    padding: 0;
+  }
 }
 
 .title {
-  padding: 0 1.5rem 1rem 1rem;
+  padding: 0 16px 16px 16px;
+
+  @media screen and (min-width: 600px) {
+    padding: 0 32px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding: 0 56px;
+  }
+  @media screen and (min-width: 1512px) {
+    padding: 0;
+  }
+
+
+
   font-size: 20px;
 
   font-weight: 600;
@@ -102,13 +129,14 @@
   @media screen and (min-width: 568px) {
     font-size: 2.2rem;
     max-width: 900px;
+    padding-bottom: 1rem;
   }
 }
 
 .serviceResultContainer {
   margin: 0 auto;
 
-  max-width: 1100px;
+  max-width: 1200px;
 
   @media screen and (min-width: 868px) {
     padding-top: 2rem;
@@ -125,7 +153,7 @@
 
   margin: 0 auto;
 
-  max-width: 1100px;
+  max-width: 1200px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(254px, 1fr));
   justify-content: center;
@@ -134,13 +162,16 @@
   padding: 0 16px;
 
   @media screen and (min-width: 600px) {
-    padding: 16px 24px;
+    padding: 16px 32px;
     grid-gap: 32px;
   }
 
   @media screen and (min-width: 1024px) {
-    padding: 16px 24px;
-    grid-gap: 64px;
+    padding: 16px 56px;
+    grid-gap: 32px;
+  }
+  @media screen and (min-width: 1512px) {
+    padding: 16px 0;
   }
 
   // IPAD's
@@ -157,14 +188,14 @@
 .facilitiesContainerHolder {
   border-top: 1px solid var(--gray-150);
   padding-top: 2rem;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   margin-top: 4rem;
 
   .facilitiesCardContainer {
     margin: 0 auto;
 
-    max-width: 1100px;
+    max-width: 1200px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(254px, 1fr));
     justify-content: center;
@@ -173,13 +204,16 @@
     padding: 0 16px;
 
     @media screen and (min-width: 600px) {
-      padding: 8px 24px;
+      padding: 8px 32px;
       grid-gap: 24px;
     }
 
     @media screen and (min-width: 1024px) {
-      padding: 16px 24px;
-      grid-gap: 18px;
+      padding: 16px 56px;
+      grid-gap: 32px;
+    }
+    @media screen and (min-width: 1512px) {
+      padding: 16px 0;
     }
 
     // IPAD's

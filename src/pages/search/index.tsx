@@ -204,6 +204,8 @@ const Search = ({
                 </div>
               </section>
             </div>
+
+            {/* Mobile */}
             <div className={styles.mobileResults}>
               {selectedTab === 'rooms' && !selectedRoom && (
                 <section className={styles.serviceResultContainer}>
@@ -220,26 +222,27 @@ const Search = ({
                   </div>
                 </section>
               )}
-              {selectedTab === 'services' ||
-                (selectedRoom && (
-                  <section
-                    className={styles.serviceResultContainer}
-                    style={{
-                      marginTop: selectedRoom && '2rem',
-                      borderTop: selectedRoom && '1px solid var(--gray-150)',
-                      paddingTop: selectedRoom && '2rem',
-                      paddingBottom: width < 868 && '8rem',
-                    }}
-                  >
-                    <h4 className={styles.subtitle}>{t('look')}</h4>
-                    <h2 className={styles.title}>{t('availableServices')}</h2>
-                    <div className={styles.contentResultContainer}>
-                      {servicesResult?.map((service, index) => (
-                        <CardService key={index} service={service} />
-                      ))}
-                    </div>
-                  </section>
-                ))}
+              {selectedTab === 'services' || selectedRoom ? (
+                <section
+                  className={styles.serviceResultContainer}
+                  style={{
+                    marginTop: selectedRoom && '2rem',
+                    borderTop: selectedRoom && '1px solid var(--gray-150)',
+                    paddingTop: selectedRoom && '2rem',
+                    paddingBottom: width < 868 && '8rem',
+                  }}
+                >
+                  <h4 className={styles.subtitle}>{t('look')}</h4>
+                  <h2 className={styles.title}>{t('availableServices')}</h2>
+                  <div className={styles.contentResultContainer}>
+                    {servicesResult?.map((service, index) => (
+                      <CardService key={index} service={service} />
+                    ))}
+                  </div>
+                </section>
+              ) : (
+                <div />
+              )}
             </div>
 
             {!selectedRoom && facilities && (
