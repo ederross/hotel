@@ -114,7 +114,7 @@ const WebFilters = ({
                     />
                   </Container>
 
-                  {events && (
+                  {events.length > 0 && (
                     <div className={styles.eventsContainer}>
                       <h3>{t('nextEvents')}</h3>
                       <Swiper

@@ -100,7 +100,7 @@ const Filters = ({
 
           <div className={styles.divisor}></div>
 
-          {events && (
+          {events.length > 0 && (
             <>
               <div className={styles.eventsContainer}>
                 <h3>{t('nextEvents')}</h3>
@@ -236,6 +236,23 @@ const Container = styled.div`
     top: 3px;
     left: 45%;
   }
+  .priceDayIndicator {
+    width: 52px;
+    height: 8px;
+    left: 0;
+    bottom: -2px;
+    padding: 0;
+    margin-top: -8px;
+    display: flex;
+    justify-content: center;
+
+    p {
+      line-height: 8px;
+      font-size: 12px;
+      color: gray;
+      margin: 0;
+    }
+  }
 
   .rdrCalendarWrapper {
     color: #000000;
@@ -243,10 +260,9 @@ const Container = styled.div`
     font-size: 14px;
   }
 
-  /* .rdrMonthsVertical {
-    overflow: scroll;
-    max-height: 30vh;
-  } */
+  .rdrDays {
+    margin: 8px;
+  }
 
   .rdrMonth {
     flex: 1;
@@ -257,7 +273,7 @@ const Container = styled.div`
   }
   .rdrMonth {
     padding: 0.833rem 0;
-}
+  }
   .rdrMonthName {
   }
 

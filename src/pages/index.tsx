@@ -9,7 +9,6 @@ import styles from './home.module.scss';
 
 // import 'react-credit-cards/es/styles-compiled.css';
 
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import CardEventType1 from '../components/cardsEvents/CardEventType1';
 import { useWindowSize } from '../hooks/UseWindowSize';
@@ -40,7 +39,6 @@ interface IHomeProps {
 }
 
 export default function Home(props: IHomeProps) {
-  // Window Sizes
   const { width } = useWindowSize();
   const { t } = useTranslation('common');
 
@@ -74,8 +72,16 @@ export default function Home(props: IHomeProps) {
         <Hero officeDetails={props.officeDetails} design={props.design} />
 
         <div className={styles.mainBox}>
-          <section className={styles.eventsContainer}>
-            <h2 className={styles.title}>{t('checkOutOurUpcomingEvents')}</h2>
+          <section
+            className={styles.eventsContainer}
+            style={{
+              display: props.events.length > 0 ? 'flex' : 'none',
+              borderBottom: props.events.length > 0 && '1px solid var(--gray)',
+            }}
+          >
+            {props.events.length > 0 && (
+              <h2 className={styles.title}>{t('checkOutOurUpcomingEvents')}</h2>
+            )}
 
             <div className={`${styles.scrollContainer}`}>
               <Swiper
@@ -96,7 +102,7 @@ export default function Home(props: IHomeProps) {
             </div>
           </section>
 
-          <HotelImagesSlider images={props?.images} />
+          <HotelImagesSlider events={props?.events} images={props?.images} />
 
           <section className={styles.clientsContainer}>
             <h2 className={`${styles.title}`}>

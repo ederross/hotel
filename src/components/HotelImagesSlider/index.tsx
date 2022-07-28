@@ -1,18 +1,20 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { HotelImages } from '../../../data/images';
+import { useWindowSize } from '../../hooks/UseWindowSize';
 import CarouselHolder from '../common/CarouselHolder';
 import styles from './styles.module.scss';
 
 interface IHotelImagesSlider {
   images: HotelImages[];
+  events: any;
 }
 
-const HotelImagesSlider = ({ images }: IHotelImagesSlider) => {
+const HotelImagesSlider = ({ images, events }: IHotelImagesSlider) => {
   const [error, setError] = useState(false);
   const [selected, setSelected] = useState(0);
   const [adjustScroller, setAdjustScroller] = useState(true);
-
+  const { width } = useWindowSize();
   const imageData = images.map((i) => {
     return {
       alt: i.subTitle,
@@ -22,7 +24,10 @@ const HotelImagesSlider = ({ images }: IHotelImagesSlider) => {
   });
 
   return (
-    <section className={styles.slidesSection}>
+    <section
+      className={styles.slidesSection}
+  
+    >
       <div className={styles.hotelPhotosContainer}>
         <div className={styles.imgSlideContainer}>
           <CarouselHolder

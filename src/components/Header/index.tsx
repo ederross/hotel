@@ -22,7 +22,6 @@ import { EventsHome } from '../../../data/events';
 import CartMenu from '../CartMenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStore } from '../../store/types';
-import useDidMountEffect from '../../hooks/useDidMountEffect';
 import { motion } from 'framer-motion';
 import CartModal from '../CartModal';
 import { toast, ToastContainer } from 'react-toastify';
@@ -211,10 +210,10 @@ export default function Header({ design, events }: IHeader) {
 
     const isNotSelected = day < new Date(checkInDate) || day > tomorrow;
 
-    if (isNotSelected && size.width > 868) {
+    if (isNotSelected) {
       priceDay = (
         <div className={'priceDayIndicator'}>
-          <p>199</p>
+          <p>999</p>
         </div>
       );
     }
