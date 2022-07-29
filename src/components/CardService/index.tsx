@@ -20,7 +20,7 @@ interface ICardService {
 }
 
 const CardService = ({ service }: ICardService) => {
-  const formattedValue = currency(99.8);
+  const formattedValue = currency(service?.serviceAmount || 0);
 
   const dispatch = useDispatch();
 

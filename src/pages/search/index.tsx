@@ -17,7 +17,7 @@ import { OfficeDetails } from '../../../data/officeDetails';
 import { Design } from '../../../data/design';
 import CardService from '../../components/CardService';
 import { motion } from 'framer-motion';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppStore } from '../../store/types';
 import {
   GetRoomSearch,
@@ -33,12 +33,30 @@ import { Room } from '../../../data/room';
 import { RoomDetails } from '../../components/RoomDetails';
 import { Facility } from '../../../data/facilities';
 import { useWindowSize } from '../../hooks/UseWindowSize';
+import {
+  GetAmenitiesDomain,
+  GetContactDomain,
+  GetFacilitiesDomain,
+  GetIconsDomain,
+} from '../../services/requests/domain';
+import { Domain } from '../../store/ducks/domain/types';
+import {
+  SetAmenitiesDomain,
+  SetContactDomain,
+  SetFacilitiesDomain,
+  SetIconsDomain,
+} from '../../store/ducks/domain/actions';
+import { IconDisplay } from '../../components/common/IconDisplay';
 
 interface ISearch {
   servicesResult: any;
   officeDetails: OfficeDetails;
   design: Design;
   facilities: Facility[];
+  iconsDomain: Domain;
+  facilitiesDomain: Domain;
+  contactDomain: Domain;
+  amenititiesDomain: Domain;
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -47,12 +65,22 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const servicesResult = await GetServiceSearch();
   const facilities = await GetOfficeFacilities();
 
+  //Domain
+  const iconsDomain = await GetIconsDomain();
+  const facilitiesDomain = await GetFacilitiesDomain();
+  const contactDomain = await GetContactDomain();
+  const amenititiesDomain = await GetAmenitiesDomain();
+
   return {
     props: {
       servicesResult,
       officeDetails,
       design,
       facilities,
+      iconsDomain,
+      facilitiesDomain,
+      contactDomain,
+      amenititiesDomain,
       ...(await serverSideTranslations(locale, ['common'])),
     },
     revalidate: 60,
@@ -64,13 +92,19 @@ const Search = ({
   officeDetails,
   design,
   facilities,
+  amenititiesDomain,
+  contactDomain,
+  facilitiesDomain,
+  iconsDomain,
 }: ISearch) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { t } = useTranslation('common');
   const { width } = useWindowSize();
 
   const {
     cart: { rooms, services },
+    domain: { facilitiesDomain: facilitiesDomainRedux },
   } = useSelector((state: AppStore) => state);
 
   const [selectedTab, setSelectedTab] = useState('rooms');
@@ -92,6 +126,18 @@ const Search = ({
         });
     }
   }, [startDate, endDate, adults, children]);
+
+  useEffect(() => {
+    dispatch(SetIconsDomain(iconsDomain));
+    dispatch(SetAmenitiesDomain(amenititiesDomain));
+    dispatch(SetContactDomain(contactDomain));
+    dispatch(SetFacilitiesDomain(facilitiesDomain));
+  }, []);
+
+  const GetFacilityFromDomain = (facilityCategoryTypeCode: number) =>
+    facilitiesDomainRedux.data.find(
+      (i) => i.domainItemCode === facilityCategoryTypeCode
+    )?.domainItemValue || '-';
 
   return (
     <>
@@ -184,15 +230,17 @@ const Search = ({
             )}
             <div className={styles.webResults}>
               {!selectedRoom && (
-                <section className={styles.contentResultContainer}>
-                  {searchResult?.map((room, index) => (
-                    <CardRoom
-                      key={index}
-                      room={room}
-                      setSelectedRoom={setSelectedRoom}
-                    />
-                  ))}
-                </section>
+                <>
+                  <section className={styles.contentResultContainer}>
+                    {searchResult?.map((room, index) => (
+                      <CardRoom
+                        key={index}
+                        room={room}
+                        setSelectedRoom={setSelectedRoom}
+                      />
+                    ))}
+                  </section>
+                </>
               )}
               <section className={styles.serviceResultContainer}>
                 <h4 className={styles.subtitle}>{t('look')}</h4>
@@ -252,7 +300,11 @@ const Search = ({
                 <div className={styles.facilitiesCardContainer}>
                   {facilities?.map((facility, index) => (
                     <div key={index} className={styles.facilitiesCard}>
-                      <h3>{facility?.categoryName || '-'}</h3>
+                      <h3>
+                        {GetFacilityFromDomain(
+                          facility?.facilityCategoryTypeCode
+                        )}
+                      </h3>
                       {facility?.facilityDetails?.map((item, index) => (
                         <div className={styles.row} key={index}>
                           <CookieOutlined fontSize={'small'} />

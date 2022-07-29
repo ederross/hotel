@@ -52,10 +52,8 @@ interface Amenities {
   Amenities: [
     {
       amenityTypeCode: number;
-      displayIcon: string;
       displayIconTypeCode: number;
       active: boolean;
-      customName: string;
     }
   ];
 }

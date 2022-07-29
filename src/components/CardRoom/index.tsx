@@ -2,16 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import styles from './styles.module.scss';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
-import SingleBedOutlinedIcon from '@mui/icons-material/SingleBedOutlined';
-import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
-
-import {
-  SignalWifi4BarOutlined,
-  TvOutlined,
-  LocalPhoneOutlined,
-  RemoveOutlined,
-  Add,
-} from '@mui/icons-material';
 import CarouselHolder from '../common/CarouselHolder';
 import { Room } from '../../../data/room';
 import { useRouter } from 'next/router';
@@ -26,6 +16,7 @@ import {
 } from '../../store/ducks/cart/actions';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
+import { IconDisplay } from '../common/IconDisplay';
 
 interface ICardRoom {
   room: Room;
@@ -93,7 +84,6 @@ const CardRoom = ({ room, setSelectedRoom }: ICardRoom) => {
       setQuantity(0);
     }
   }, [currentRoom]);
-
   return (
     <>
       <motion.a
@@ -114,18 +104,18 @@ const CardRoom = ({ room, setSelectedRoom }: ICardRoom) => {
           style={{ height: 232 }}
         />
         <div className={styles.iconsContainerHolder}>
-          <div className={styles.iconWithNumberContainer}>
-            <BedOutlinedIcon fontSize={'small'} />
-            <h5>2</h5>
-          </div>
-          <div className={styles.iconWithNumberContainer}>
-            <SingleBedOutlinedIcon fontSize={'small'} />
-            <h5>1</h5>
-          </div>
-          <div className={styles.iconWithNumberContainer}>
-            <PersonOutlinedIcon fontSize={'small'} />
-            <h5>{room?.objectDetails?.maxOccupancy}</h5>
-          </div>
+          {room?.objectDetails?.sleepArrangements?.map((arrangement, index) => (
+            <div
+              className={styles.iconWithNumberContainer}
+              key={index}
+              title={arrangement?.bedName}
+            >
+              <IconDisplay
+                displayIconTypeCode={arrangement.displayIconTypeCode}
+              />
+              <h5>{arrangement?.bedQuantity}</h5>
+            </div>
+          ))}
         </div>
 
         <h2>{room?.objectName}</h2>

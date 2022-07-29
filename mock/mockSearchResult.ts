@@ -48,48 +48,85 @@ export const mockSearchResults = [
     ],
     amenities: [
       {
-        amenityGroupTypeCode: 2,
+        amenityGroupTypeCode: 24,
         sequenceOrder: 0,
         Amenities: [
           {
-            amenityTypeCode: 16,
-            displayIcon: 'wifi_ico',
+            amenityTypeCode: 1,
+            displayIconTypeCode: 12,
+            active: true,
+          },
+          {
+            amenityTypeCode: 2,
+            displayIconTypeCode: 13,
+            active: true,
+          },
+          {
+            amenityTypeCode: 3,
+            displayIconTypeCode: 14,
+            active: true,
+          },
+          {
+            amenityTypeCode: 4,
+            displayIconTypeCode: 15,
+            active: true,
+          },
+          {
+            amenityTypeCode: 5,
             displayIconTypeCode: 16,
-            active: false,
-            customName: '',
+            active: true,
           },
-        ],
-      },
-      {
-        amenityGroupTypeCode: 3,
-        sequenceOrder: 0,
-        Amenities: [
           {
-            amenityTypeCode: 18,
-            displayIcon: 'bath_ico',
+            amenityTypeCode: 6,
+            displayIconTypeCode: 8,
+            active: true,
+          },
+          {
+            amenityTypeCode: 7,
+            displayIconTypeCode: 17,
+            active: true,
+          },
+          {
+            amenityTypeCode: 8,
             displayIconTypeCode: 18,
-            active: false,
-            customName: '',
+            active: true,
           },
-        ],
-      },
-      {
-        amenityGroupTypeCode: 4,
-        sequenceOrder: 0,
-        Amenities: [
           {
-            amenityTypeCode: 19,
-            displayIcon: 'tv_ico',
+            amenityTypeCode: 9,
             displayIconTypeCode: 19,
-            active: false,
-            customName: '',
+            active: true,
+          },
+          {
+            amenityTypeCode: 10,
+            displayIconTypeCode: 20,
+            active: true,
+          },
+          {
+            amenityTypeCode: 11,
+            displayIconTypeCode: 21,
+            active: true,
+          },
+          {
+            amenityTypeCode: 12,
+            displayIconTypeCode: 22,
+            active: true,
+          },
+          {
+            amenityTypeCode: 13,
+            displayIconTypeCode: 23,
+            active: true,
+          },
+          {
+            amenityTypeCode: 14,
+            displayIconTypeCode: 24,
+            active: true,
+          },
+          {
+            amenityTypeCode: 15,
+            displayIconTypeCode: 24,
+            active: true,
           },
         ],
-      },
-      {
-        amenityGroupTypeCode: 0,
-        sequenceOrder: 0,
-        Amenities: null,
       },
     ],
     images: [
@@ -158,48 +195,85 @@ export const mockSearchResults = [
     ],
     amenities: [
       {
-        amenityGroupTypeCode: 2,
+        amenityGroupTypeCode: 24,
         sequenceOrder: 0,
         Amenities: [
           {
-            amenityTypeCode: 16,
-            displayIcon: 'wifi_ico',
+            amenityTypeCode: 1,
+            displayIconTypeCode: 12,
+            active: true,
+          },
+          {
+            amenityTypeCode: 2,
+            displayIconTypeCode: 13,
+            active: true,
+          },
+          {
+            amenityTypeCode: 3,
+            displayIconTypeCode: 14,
+            active: true,
+          },
+          {
+            amenityTypeCode: 4,
+            displayIconTypeCode: 15,
+            active: true,
+          },
+          {
+            amenityTypeCode: 5,
             displayIconTypeCode: 16,
-            active: false,
-            customName: '',
+            active: true,
           },
-        ],
-      },
-      {
-        amenityGroupTypeCode: 3,
-        sequenceOrder: 0,
-        Amenities: [
           {
-            amenityTypeCode: 18,
-            displayIcon: 'bath_ico',
+            amenityTypeCode: 6,
+            displayIconTypeCode: 8,
+            active: true,
+          },
+          {
+            amenityTypeCode: 7,
+            displayIconTypeCode: 17,
+            active: true,
+          },
+          {
+            amenityTypeCode: 8,
             displayIconTypeCode: 18,
-            active: false,
-            customName: '',
+            active: true,
           },
-        ],
-      },
-      {
-        amenityGroupTypeCode: 4,
-        sequenceOrder: 0,
-        Amenities: [
           {
-            amenityTypeCode: 19,
-            displayIcon: 'tv_ico',
+            amenityTypeCode: 9,
             displayIconTypeCode: 19,
-            active: false,
-            customName: '',
+            active: true,
+          },
+          {
+            amenityTypeCode: 10,
+            displayIconTypeCode: 20,
+            active: true,
+          },
+          {
+            amenityTypeCode: 11,
+            displayIconTypeCode: 21,
+            active: true,
+          },
+          {
+            amenityTypeCode: 12,
+            displayIconTypeCode: 22,
+            active: true,
+          },
+          {
+            amenityTypeCode: 13,
+            displayIconTypeCode: 23,
+            active: true,
+          },
+          {
+            amenityTypeCode: 14,
+            displayIconTypeCode: 24,
+            active: true,
+          },
+          {
+            amenityTypeCode: 15,
+            displayIconTypeCode: 24,
+            active: true,
           },
         ],
-      },
-      {
-        amenityGroupTypeCode: 0,
-        sequenceOrder: 0,
-        Amenities: null,
       },
     ],
     images: [

@@ -1,7 +1,9 @@
 import React from 'react';
-import { TvOutlined, WifiOutlined, BathtubOutlined } from '@mui/icons-material';
 import { useTranslation } from 'next-i18next';
 import styles from './styles.module.scss';
+import { useSelector } from 'react-redux';
+import { AppStore } from '../../../store/types';
+import { IconDisplay } from '../IconDisplay';
 
 interface IAmenitiDisplayProps {
   showTitle?: boolean;
@@ -12,10 +14,8 @@ interface IAmenitiDisplayProps {
     Amenities: [
       {
         amenityTypeCode: number;
-        displayIcon: string;
         displayIconTypeCode: number;
         active: boolean;
-        customName: string;
       }
     ];
   };
@@ -27,18 +27,31 @@ export const AmenitieDisplay = ({
   direction = 'row',
 }: IAmenitiDisplayProps) => {
   const { t } = useTranslation('common');
-  const card = amenitie?.Amenities ? amenitie?.Amenities[0] : null;
+  const amenitiesList = amenitie?.Amenities.slice(0, 1);
+
+  const {
+    domain: { amenitiesDomain },
+  } = useSelector((state: AppStore) => state);
+
+  const GetAmenitieFromDomain = (amenityTypeCode: number) =>
+    amenitiesDomain.data.find((i) => i.domainItemCode === amenityTypeCode)
+      ?.domainItemValue || 'Undefined';
 
   return (
-    <div className={styles.amenitie} style={{ flexDirection: direction }}>
-      {card?.displayIcon === 'wifi_ico' ? (
-        <WifiOutlined fontSize={'small'} />
-      ) : card?.displayIcon === 'bath_ico' ? (
-        <BathtubOutlined fontSize={'small'} />
-      ) : (
-        <TvOutlined fontSize={'small'} />
-      )}
-      {showTitle && <h5>{t(card?.customName)}</h5>}
-    </div>
+    <>
+      {amenitiesList?.map((item, index) => (
+        <div
+          className={styles.amenitie}
+          style={{ flexDirection: direction }}
+          title={GetAmenitieFromDomain(item.amenityTypeCode)}
+          key={index}
+        >
+          <IconDisplay displayIconTypeCode={item.displayIconTypeCode} />
+          {showTitle && (
+            <h5>{t(GetAmenitieFromDomain(item.amenityTypeCode))}</h5>
+          )}
+        </div>
+      ))}
+    </>
   );
 };

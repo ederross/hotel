@@ -4,6 +4,7 @@ import '../../styles/globals.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'react-toastify/dist/ReactToastify.css';
+import '@material/react-material-icon/dist/material-icon.css';
 import { useRouter } from 'next/router';
 
 import { appWithTranslation } from 'next-i18next';
