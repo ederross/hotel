@@ -10,6 +10,8 @@ export interface TypesDomain {
   contactDomain: Domain;
   facilitiesDomain: Domain;
   amenitiesDomain: Domain;
+  servicePriceDomain: Domain;
+  serviceTypeDomain: Domain;
 }
 
 export interface Domain {

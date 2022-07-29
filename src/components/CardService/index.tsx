@@ -26,6 +26,7 @@ const CardService = ({ service }: ICardService) => {
 
   const {
     cart: { services },
+    domain: { servicePriceDomain, serviceTypeDomain },
   } = useSelector((state: AppStore) => state);
 
   const currentService = services.find(
@@ -64,11 +65,26 @@ const CardService = ({ service }: ICardService) => {
     }
   }, [currentService]);
 
+  const GetServiceTypeDomain = (serviceTypeCode: number) =>
+    serviceTypeDomain?.data?.find((i) => i.domainItemCode === serviceTypeCode)
+      ?.domainItemValue || 'Undefined';
+
+  const GetServicePriceTypeDomain = (servicePriceTypeCode: number) =>
+    servicePriceDomain?.data?.find(
+      (i) => i.domainItemCode === servicePriceTypeCode
+    )?.domainItemValue || 'Undefined';
+
   return (
     <>
       <div className={styles.container}>
         <CarouselHolder
-          data={imageData}
+          data={[
+            {
+              alt: service.serviceName,
+              title: service.serviceName,
+              url: service?.imageUrl,
+            },
+          ]}
           styleImageComponent={{
             borderTopLeftRadius: '1rem',
             borderTopRightRadius: '1rem',
@@ -76,7 +92,7 @@ const CardService = ({ service }: ICardService) => {
           style={{ height: 232 }}
         />
         <div className={styles.typeServiceContainer}>
-          <h5>{t('rent')}</h5>
+          <h5>{t(GetServiceTypeDomain(service.serviceTypeCode))}</h5>
         </div>
 
         <h2>{service.serviceName}</h2>
@@ -94,7 +110,10 @@ const CardService = ({ service }: ICardService) => {
               <span className={styles.cents}>
                 ,{formattedValue.split(',')[1]}
               </span>{' '}
-              <span> {t('perDay')}</span>
+              <span>
+                {' '}
+                {t(GetServicePriceTypeDomain(service.servicePriceTypeCode))}
+              </span>
             </h4>
           </div>
           <Counter quantity={quantity} setQuantity={setQuantity} />
@@ -105,21 +124,3 @@ const CardService = ({ service }: ICardService) => {
 };
 
 export default CardService;
-
-const imageData = [
-  {
-    url: 'https://images.unsplash.com/photo-1604156788856-2ce5f2171cce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    title: 'balões',
-    alt: 'balões',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1559686043-aef1bbc98d19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    title: 'balões',
-    alt: 'balões',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1514923995763-768e52f5af87?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
-    title: 'balões',
-    alt: 'balões',
-  },
-];

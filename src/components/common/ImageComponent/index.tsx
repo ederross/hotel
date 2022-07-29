@@ -27,10 +27,10 @@ const ImageComponent = ({
         style={style}
         layout="fill"
         objectFit="cover"
-        alt={alt} 
+        alt={alt}
         title={title}
-        src={`${photo}`}
-        onError={() => setPhoto('/icons/avatar.svg')}
+        src={`${photo}` || '/images/empty_image.png'}
+        onError={() => setPhoto('/images/empty_image.png')}
         onLoadingComplete={() => setLoading(false)}
       />
     </div>

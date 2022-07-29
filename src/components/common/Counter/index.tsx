@@ -10,9 +10,14 @@ import { AppStore } from '../../../store/types';
 interface ICounterProps {
   quantity: number;
   setQuantity: any;
+  max?: number;
 }
 
-export const Counter = ({ quantity = 0, setQuantity }: ICounterProps) => {
+export const Counter = ({
+  quantity = 0,
+  setQuantity,
+  max = 100,
+}: ICounterProps) => {
   const { t } = useTranslation('common');
 
   const { width } = useWindowSize();
@@ -27,9 +32,8 @@ export const Counter = ({ quantity = 0, setQuantity }: ICounterProps) => {
   };
   const handleAdd = (e) => {
     e.stopPropagation();
-   
 
-    quantity < 1000 && setQuantity(quantity + 1);
+    quantity < max && setQuantity(quantity + 1);
   };
 
   return (

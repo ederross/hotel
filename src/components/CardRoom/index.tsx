@@ -153,7 +153,11 @@ const CardRoom = ({ room, setSelectedRoom }: ICardRoom) => {
               </u>
             )}
           </div>
-          <Counter quantity={quantity} setQuantity={setQuantity} />
+          <Counter
+            quantity={quantity}
+            setQuantity={setQuantity}
+            max={room?.quantity}
+          />
         </div>
       </motion.a>
     </>

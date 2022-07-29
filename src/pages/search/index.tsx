@@ -307,7 +307,9 @@ const Search = ({
                       </h3>
                       {facility?.facilityDetails?.map((item, index) => (
                         <div className={styles.row} key={index}>
-                          <CookieOutlined fontSize={'small'} />
+                          <IconDisplay
+                            displayIconTypeCode={item?.displayIconTypeCode}
+                          />
                           <p>{item?.facilityName || '-'}</p>
                         </div>
                       ))}

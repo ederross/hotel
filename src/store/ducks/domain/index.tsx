@@ -61,6 +61,36 @@ const INITIAL_STATE: TypesDomain = {
       requestDateTime: '',
     },
   },
+  servicePriceDomain: {
+    data: [],
+    links: {
+      self: '',
+      first: '',
+      prev: '',
+      next: '',
+      last: '',
+    },
+    meta: {
+      totalRecords: 0,
+      totalPages: 0,
+      requestDateTime: '',
+    },
+  },
+  serviceTypeDomain: {
+    data: [],
+    links: {
+      self: '',
+      first: '',
+      prev: '',
+      next: '',
+      last: '',
+    },
+    meta: {
+      totalRecords: 0,
+      totalPages: 0,
+      requestDateTime: '',
+    },
+  },
 };
 
 const reducer = (state = INITIAL_STATE, action: any) => {

@@ -6,4 +6,5 @@ export interface Service {
   servicePriceTypeCode: number;
   serviceName: string;
   serviceDescription: string;
+  imageUrl: string;
 }
