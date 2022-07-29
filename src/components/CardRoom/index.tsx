@@ -17,6 +17,7 @@ import {
 import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
 import { IconDisplay } from '../common/IconDisplay';
+import { IconImportDynamically } from '../common/ComponentWithIcon';
 
 interface ICardRoom {
   room: Room;
@@ -110,9 +111,7 @@ const CardRoom = ({ room, setSelectedRoom }: ICardRoom) => {
               key={index}
               title={arrangement?.bedName}
             >
-              <IconDisplay
-                displayIconTypeCode={arrangement.displayIconTypeCode}
-              />
+              <IconImportDynamically iconName="BedtimeOffOutlined" size={20} />
               <h5>{arrangement?.bedQuantity}</h5>
             </div>
           ))}
