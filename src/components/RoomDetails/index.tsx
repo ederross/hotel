@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 import { AmenitieDisplay } from '../common/AmenitieDisplay';
 import { motion } from 'framer-motion';
 import { Room } from '../../../data/room';
+import { IconImportDynamically } from '../common/ComponentWithIcon';
 
 interface IRoomDetailsProps {
   room: Room;
@@ -120,18 +121,21 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
           <div className={styles.content}>
             <div className={styles.infoBox}>
               <div className={styles.iconsContainerHolder}>
-                <div className={styles.iconWithNumberContainer}>
-                  <BedOutlinedIcon fontSize={'small'} />
-                  <h5>3</h5>
-                </div>
-                <div className={styles.iconWithNumberContainer}>
-                  <SingleBedOutlinedIcon fontSize={'small'} />
-                  <h5>1</h5>
-                </div>
-                <div className={styles.iconWithNumberContainer}>
-                  <PersonOutlinedIcon fontSize={'small'} />
-                  <h5>5</h5>
-                </div>
+                {room?.objectDetails?.sleepArrangements?.map(
+                  (arrangement, index) => (
+                    <div
+                      className={styles.iconWithNumberContainer}
+                      key={index}
+                      title={arrangement?.bedName}
+                    >
+                      <IconImportDynamically
+                        iconName={arrangement?.displayIconTypeCode}
+                        size={20}
+                      />
+                      <h5>{arrangement?.bedQuantity}</h5>
+                    </div>
+                  )
+                )}
               </div>
 
               <h2>{room?.objectName || '-'}</h2>
@@ -139,15 +143,19 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
               <p>
                 {room?.objectDescription.substring(
                   0,
-                  showMoreDescription ? room?.objectDescription?.length : 300
+                  showMoreDescription ? room?.objectDescription?.length : 320
                 ) || '-'}
-                <span
-                  onClick={() => setShowMoreDescription(!showMoreDescription)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  {' '}
-                  {showMoreDescription ? t('showLess') : `...${t('showMore')}`}
-                </span>
+                {room?.objectDescription?.length > 320 && (
+                  <span
+                    onClick={() => setShowMoreDescription(!showMoreDescription)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {' '}
+                    {showMoreDescription
+                      ? t('showLess')
+                      : `...${t('showMore')}`}
+                  </span>
+                )}
               </p>
 
               <div className={styles.amenitiesContainer}>

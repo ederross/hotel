@@ -47,6 +47,7 @@ import {
   SetIconsDomain,
 } from '../../store/ducks/domain/actions';
 import { IconDisplay } from '../../components/common/IconDisplay';
+import { IconImportDynamically } from '../../components/common/ComponentWithIcon';
 
 interface ISearch {
   servicesResult: any;
@@ -305,10 +306,11 @@ const Search = ({
                           facility?.facilityCategoryTypeCode
                         )}
                       </h3>
-                      {facility?.facilityDetails?.map((item, index) => (
+                      {facility?.facilityDetails.map((item, index) => (
                         <div className={styles.row} key={index}>
-                          <IconDisplay
-                            displayIconTypeCode={item?.displayIconTypeCode}
+                          <IconImportDynamically
+                            iconName="BedtimeOffOutlined"
+                            size={20}
                           />
                           <p>{item?.facilityName || '-'}</p>
                         </div>

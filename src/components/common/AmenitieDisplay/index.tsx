@@ -4,10 +4,12 @@ import styles from './styles.module.scss';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../../store/types';
 import { IconDisplay } from '../IconDisplay';
+import { IconImportDynamically } from '../ComponentWithIcon';
 
 interface IAmenitiDisplayProps {
   showTitle?: boolean;
   direction?: 'row' | 'column';
+  resume?: boolean;
   amenitie: {
     amenityGroupTypeCode: number;
     sequenceOrder: number;
@@ -25,9 +27,13 @@ export const AmenitieDisplay = ({
   amenitie,
   showTitle = true,
   direction = 'row',
+  resume = false,
 }: IAmenitiDisplayProps) => {
   const { t } = useTranslation('common');
-  const amenitiesList = amenitie?.Amenities.slice(0, 1);
+  const amenitiesList = amenitie?.Amenities.slice(
+    0,
+    resume ? 3 : amenitie.Amenities.length
+  );
 
   const {
     domain: { amenitiesDomain },
@@ -46,7 +52,11 @@ export const AmenitieDisplay = ({
           title={GetAmenitieFromDomain(item.amenityTypeCode)}
           key={index}
         >
-          <IconDisplay displayIconTypeCode={item.displayIconTypeCode} />
+          <IconImportDynamically
+            iconName={item.displayIconTypeCode}
+            size={20}
+          />
+          {/* <IconDisplay displayIconTypeCode={item.displayIconTypeCode} /> */}
           {showTitle && (
             <h5>{t(GetAmenitieFromDomain(item.amenityTypeCode))}</h5>
           )}

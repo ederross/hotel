@@ -111,7 +111,10 @@ const CardRoom = ({ room, setSelectedRoom }: ICardRoom) => {
               key={index}
               title={arrangement?.bedName}
             >
-              <IconImportDynamically iconName="BedtimeOffOutlined" size={20} />
+              <IconImportDynamically
+                iconName={arrangement?.displayIconTypeCode}
+                size={20}
+              />
               <h5>{arrangement?.bedQuantity}</h5>
             </div>
           ))}
@@ -123,7 +126,12 @@ const CardRoom = ({ room, setSelectedRoom }: ICardRoom) => {
 
         <div className={styles.amenitiesContainer}>
           {room?.amenities?.map((item, index) => (
-            <AmenitieDisplay key={index} amenitie={item} direction={'column'} />
+            <AmenitieDisplay
+              key={index}
+              resume
+              amenitie={item}
+              direction={'column'}
+            />
           ))}
         </div>
 

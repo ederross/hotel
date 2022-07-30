@@ -1,7 +1,11 @@
+import moment from 'moment';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 import { Design } from '../../../data/design';
 import { OfficeDetails } from '../../../data/officeDetails';
+import { CleanCart } from '../../store/ducks/cart/actions';
 import styles from './styles.module.scss';
 
 interface IHeroProps {
@@ -11,6 +15,23 @@ interface IHeroProps {
 
 const Hero = ({ officeDetails, design }: IHeroProps) => {
   const { t } = useTranslation('common');
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const handleExploreRooms = (e) => {
+    router.push({
+      pathname: '/search',
+      query: {
+        startDate: moment().add(1, 'day').format('YYYY-MM-DD'),
+        endDate: moment().add(15, 'days').format('YYYY-MM-DD'),
+        adults: 1,
+        children: 0,
+      },
+    });
+    dispatch(CleanCart());
+    console.log('das');
+  };
+
   return (
     <section
       className={`${styles.heroSection}`}
@@ -27,14 +48,18 @@ const Hero = ({ officeDetails, design }: IHeroProps) => {
         <span>
           <p>{officeDetails?.officeName}</p>
           <h1>
-            {officeDetails?.officeSlogan?.substring(0, 42) ||
+            {officeDetails?.officeSlogan?.substring(0, 40) ||
               t('theBestViewInTheCity')}
           </h1>
-          <Link href={'/'}>
-            <a className={`${'btn'}`} title={t('exploreRooms')}>
+          <div onClick={handleExploreRooms}>
+            <a
+              style={{ cursor: 'pointer' }}
+              className={`${'btn'}`}
+              title={t('exploreRooms')}
+            >
               {t('exploreRooms')}
             </a>
-          </Link>
+          </div>
         </span>
       </div>
     </section>

@@ -63,6 +63,7 @@
 
       h4 {
         margin-bottom: 0.5rem;
+        white-space: nowrap;
 
         color: var(--primary-color);
         font-size: 1rem;
@@ -74,6 +75,7 @@
         span {
           color: var(--gray-400);
           font-size: 0.9rem;
+          white-space: nowrap;
         }
       }
 
