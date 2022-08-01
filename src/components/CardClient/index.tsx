@@ -56,7 +56,7 @@ const CardClient = ({ data, index }: ICardClient) => {
             color={'var(--yellow)'}
           />
         </div>
-        <p>"{data.reviewerDescription}"</p>
+        <p>{`"${data.reviewerDescription}"`}</p>
 
         <ul>
           {' '}
