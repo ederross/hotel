@@ -1,7 +1,17 @@
 .ctaItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
   color: var(--dark);
-  padding: 1rem 0;
+  // padding: 1rem 0;
+
+  .description {
+    margin: 1rem 0;
+    font-family: 'SulSansRegular' !important;
+    font-size: 14px;
+    color: var(--gray-500);
+  }
 
   .ctaItemHeader {
     display: flex;
@@ -9,11 +19,10 @@
     justify-content: space-between;
     align-items: flex-end;
 
-    font-family: 'SulSansRegular' !important;
 
     .ctaItemHeaderNotSelected {
       display: flex;
-      align-items: center;
+      justify-content: center;
       .chevronDownIcon {
         width: 18px;
         height: 18px;
@@ -21,8 +30,8 @@
     }
 
     h4 {
-      font-size: 0.85rem;
-      font-weight: 500;
+      font-size: 14px;
+      font-weight: 400;
       color: var(--gray-with-blue-400);
       white-space: nowrap;
 
@@ -36,11 +45,14 @@
 
   .ctaItemContent {
     display: flex;
+    align-items: center;
 
-    padding: 1rem 0 0 1rem;
+    // padding: 1rem 0 0 1rem;
 
-    ul {
-      font-size: 14px;
+    h4{
+      font-weight: 600;
+      font-size: 20px;
+      color: var(--primary-color);
     }
 
    

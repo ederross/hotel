@@ -257,11 +257,11 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
         ${inputCalendars ? styles.inputFocus : null}`}
         style={{
           display:
-            router.pathname !== '/' &&
-            selectedRoom &&
-            // router.pathname !== '/search' &&
-            size.width <= 868 &&
-            'none',
+            router.pathname !== '/' && selectedRoom && size.width <= 868
+              ? 'none'
+              : router.pathname === '/checkout' && size.width <= 868
+              ? 'none'
+              : 'block',
           position:
             router.pathname !== '/' && router.pathname !== '/search'
               ? 'fixed'

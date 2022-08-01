@@ -24,42 +24,49 @@ const OffersAccordion = ({ offers = [] }: IOffersAccordion) => {
             key={index}
             className={styles.ctaItem}
             style={{
-              borderBottom:
-                offers.length - 1 !== index
-                  ? '1px solid var(--gray-150)'
-                  : 'none',
-              padding: ctaSelected !== index ? '1rem 0' : '1.5rem 0',
+              borderRadius: 8,
+              border:
+                ctaSelected === index ? '1px solid var(--gray-150)' : 'none',
+              padding: ctaSelected !== index ? '1rem' : '1rem',
             }}
             onClick={() => setCtaSelected(index)}
           >
             <div className={styles.ctaItemHeader}>
-              <h3>{item?.name}</h3>
+              <div>
+                <h4>{item?.nightQty} noites </h4>
+                <h3 style={{ fontSize: ctaSelected !== index ? 16 : 20 }}>
+                  {item?.name}
+                </h3>
+              </div>
               {ctaSelected !== index && (
                 <>
                   <div className={styles.ctaItemHeaderNotSelected}>
-                    <h4>{currency(item?.regularTotalAmount)}</h4>
+                    {/* <h4>{currency(item?.regularTotalAmount)}</h4> */}
                     <ExpandMoreOutlinedIcon
                       className={styles.chevronDownIcon}
                     />
                   </div>
                 </>
               )}
-              {ctaSelected === index && (
+
+              {/* {ctaSelected === index && (
                 <h4>
                   {item?.nightQty} noites{' '}
                   <span style={{ marginLeft: 8 }}>
                     {currency(item?.regularTotalAmount)}
                   </span>
                 </h4>
-              )}{' '}
+              )}{' '} */}
             </div>
             {ctaSelected === index && (
+              <p className={styles.description}>
+                Não reembolsável, café da manhã incluso, oferta imperdível, all
+                included{' '}
+              </p>
+            )}
+            {ctaSelected === index && (
               <div className={styles.ctaItemContent}>
-                <ul>
-                  <li>Não reembolsável</li>
-                  <li>Café da manhã incluso</li>
-                  <li>All included</li>
-                </ul>
+                <h4>{currency(item?.regularTotalAmount)}</h4>
 
                 <Counter quantity={quantity} setQuantity={setQuantity} />
               </div>
