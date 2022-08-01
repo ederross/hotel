@@ -100,7 +100,7 @@ const Filters = ({
 
           <div className={styles.divisor}></div>
 
-          {events.length > 0 && (
+          {events?.length > 0 && (
             <>
               <div className={styles.eventsContainer}>
                 <h3>{t('nextEvents')}</h3>
@@ -115,7 +115,7 @@ const Filters = ({
                     marginBottom: 48,
                   }}
                 >
-                  {events.map((event, index) => (
+                  {events?.map((event, index) => (
                     <SwiperSlide key={index} style={{ width: 'auto' }}>
                       <CardEventType2 event={event} />
                     </SwiperSlide>
