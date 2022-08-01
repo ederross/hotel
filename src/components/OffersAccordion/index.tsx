@@ -33,7 +33,11 @@ const OffersAccordion = ({ offers = [] }: IOffersAccordion) => {
           >
             <div className={styles.ctaItemHeader}>
               <div>
-                <h4>{item?.nightQty} noites </h4>
+                {ctaSelected !== index ? (
+                  <h4>{currency(item?.regularTotalAmount)}</h4>
+                ) : (
+                  <h4>{item?.nightQty} noites </h4>
+                )}
                 <h3 style={{ fontSize: ctaSelected !== index ? 16 : 20 }}>
                   {item?.name}
                 </h3>
