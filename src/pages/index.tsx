@@ -131,7 +131,7 @@ export default function Home(props: IHomeProps) {
             </div>
           </section>
         </div>
-        <Footer officeDetails={props?.officeDetails} design={props?.design} />
+        <Footer officeDetails={props?.officeDetails} design={props?.design} marginTop={width < 868 && '4rem'} />
       </main>
     </>
   );

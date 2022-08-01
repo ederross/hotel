@@ -19,15 +19,16 @@ import { Design } from '../../../../data/design';
 interface IFooterProps {
   officeDetails: OfficeDetails;
   design: Design;
+  marginTop?: number | string;
 }
 
-const Footer = ({ design, officeDetails }: IFooterProps) => {
+const Footer = ({ design, officeDetails, marginTop}: IFooterProps) => {
   const { t } = useTranslation('common');
   const address = officeDetails?.address;
   const [logoError, setLogoError] = useState(false);
 
   return (
-    <FooterContainer>
+    <FooterContainer style={{marginTop: marginTop}}>
       <ContainerHolder>
         <div className="topContainer">
           <SocialContainer>

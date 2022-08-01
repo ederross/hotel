@@ -72,7 +72,8 @@
   .clientsCardContainer {
     display: flex;
     overflow: auto;
-    @media screen and(min-width: 768px) {
+
+    @media screen and(min-width: 1280px) {
       align-self: center;
     }
 

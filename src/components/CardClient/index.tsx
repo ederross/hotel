@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
+import { IconImportDynamically } from '../common/ComponentWithIcon';
 import styles from './styles.module.scss';
 
 interface ICardClient {
@@ -17,23 +18,50 @@ const CardClient = ({ data, index }: ICardClient) => {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.img}>
+        {/* <div className={styles.img}>
           <Image
             layout="fill"
             objectFit="cover"
             alt={data.reviewerName}
             title={data.reviewerName}
-            // src={
-            //   error || !data.reviewerPhoto
-            //     ? '/icons/avatar.svg'
-            //     : `${data.reviewerPhoto}`
-            // }
             src={imageDate[index]}
             onError={() => setError(true)}
           />
+        </div> */}
+
+        <div className={styles.ratingsContainer}>
+          <IconImportDynamically
+            iconName={'Star'}
+            size={20}
+            color={'var(--yellow)'}
+          />
+          <IconImportDynamically
+            iconName={'Star'}
+            size={20}
+            color={'var(--yellow)'}
+          />
+          <IconImportDynamically
+            iconName={'Star'}
+            size={20}
+            color={'var(--yellow)'}
+          />
+          <IconImportDynamically
+            iconName={'Star'}
+            size={20}
+            color={'var(--yellow)'}
+          />
+          <IconImportDynamically
+            iconName={'Star'}
+            size={20}
+            color={'var(--yellow)'}
+          />
         </div>
-        <h4>{data.reviewerName}</h4>
-        <p>{data.reviewerDescription}</p>
+        <p>"{data.reviewerDescription}"</p>
+
+        <ul>
+          {' '}
+          <li> {data.reviewerName}</li>
+        </ul>
       </div>
     </>
   );
