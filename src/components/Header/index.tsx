@@ -1,5 +1,5 @@
 import { Search, Globe } from 'react-feather';
-import { useRef, useEffect, useState, useLayoutEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import styles from './styles.module.scss';
@@ -24,9 +24,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppStore } from '../../store/types';
 import { motion } from 'framer-motion';
 import CartModal from '../CartModal';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { CleanCart } from '../../store/ducks/cart/actions';
-import { currency } from '../../utils/currency';
+import { GetCalendarSearch } from '../../services/requests/booking';
 
 interface IHeader {
   design: Design;
@@ -196,6 +196,12 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
     document.body.style.overflow = 'initial';
     setCartMobileOpen(false);
   };
+
+  // useEffect(() => {
+  //   GetCalendarSearch('2022-08-01', '2022-09-30')
+  //     .then((res) => console.log('RESULTADO', res))
+  //     .catch((err) => alert(err));
+  // }, []);
 
   // Calendar Events Dots
   function customDayContent(day) {

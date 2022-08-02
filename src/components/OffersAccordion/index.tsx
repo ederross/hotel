@@ -63,10 +63,7 @@ const OffersAccordion = ({ offers = [] }: IOffersAccordion) => {
               )}{' '} */}
             </div>
             {ctaSelected === index && (
-              <p className={styles.description}>
-                Não reembolsável, café da manhã incluso, oferta imperdível, all
-                included{' '}
-              </p>
+              <p className={styles.description}>{item?.priceDescription}</p>
             )}
             {ctaSelected === index && (
               <div className={styles.ctaItemContent}>

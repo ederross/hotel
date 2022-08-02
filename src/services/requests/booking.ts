@@ -41,3 +41,27 @@ export const GetServiceSearch = async () => {
 
   return res;
 };
+
+export const GetCalendarSearch = async (startDate: string, endDate: string) => {
+  const res = await api
+    .get('/booking/calendar-search', {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      },
+      params: {
+        officeId,
+        startDate,
+        endDate,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.log('CALENDAR SEARCH ERROR!', err);
+      return [];
+    });
+
+  return res;
+};

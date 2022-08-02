@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 import { Add, RemoveOutlined } from '@mui/icons-material';
 import { EventsHome } from '../../../data/events';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
-import CardEventType1 from '../cardsEvents/CardEventType1';
 import CardEventType2 from '../cardsEvents/CardEventType2';
 
 interface IWebFilters {
@@ -198,7 +197,11 @@ const WebFilters = ({
                             {index + 1}º {t('children_one')}
                           </h4>
                           <div className={styles.select}>
-                            <select className={styles.selectField} name="pets" id="pet-select">
+                            <select
+                              className={styles.selectField}
+                              name="pets"
+                              id="pet-select"
+                            >
                               <option value="">{t('age')}</option>
                               {[...Array(15)].map((_, index) => (
                                 <option key={index} value="one">
