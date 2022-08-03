@@ -46,7 +46,6 @@ export const GetCalendarSearch = async (startDate: string, endDate: string) => {
   const res = await api
     .get('/booking/calendar-search', {
       headers: {
-        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
       },
       params: {

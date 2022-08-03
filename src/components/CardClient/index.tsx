@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
-import { IconImportDynamically } from '../common/ComponentWithIcon';
 import styles from './styles.module.scss';
 import { Star } from '@mui/icons-material';
 
@@ -32,7 +31,10 @@ const CardClient = ({ data, index }: ICardClient) => {
 
         <div className={styles.ratingsContainer}>
           {[...Array(5)].map((a, index) => (
-            <Star size={20} style={{ color: 'var(--yellow)' }} key={index} />
+            <Star
+              key={index}
+              style={{ fontSize: 20, color: 'var(--yellow)' }}
+            />
           ))}
         </div>
         <p>{`"${data.reviewerDescription}"`}</p>

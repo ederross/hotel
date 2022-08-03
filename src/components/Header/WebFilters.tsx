@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Container } from './styles';
 import styles from './webFilters.module.scss';
 import { DateRangePicker } from 'react-date-range';
@@ -9,10 +9,12 @@ import { Add, RemoveOutlined } from '@mui/icons-material';
 import { EventsHome } from '../../../data/events';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import CardEventType2 from '../cardsEvents/CardEventType2';
+import { GetCalendarSearch } from '../../services/requests/booking';
+import moment from 'moment';
 
 interface IWebFilters {
   closeDatePickerWeb: () => void;
-  customDayContent: (day: any) => JSX.Element;
+  customDayContent: (day: any, calendar: any) => JSX.Element;
   dateState: {
     startDate: Date;
     endDate: Date;
@@ -44,6 +46,8 @@ const WebFilters = ({
   const { locale } = useRouter();
   const { t } = useTranslation('common');
 
+  const [calendarSearch, setCalendarSearch] = useState([]);
+
   const date = new Date();
   const lastDay = new Date(
     date.getFullYear(),
@@ -54,6 +58,25 @@ const WebFilters = ({
 
   const handleUpdateState = (props: Object) =>
     setDateState([{ ...dateState[0], ...props }]);
+
+  const startSearchDay = moment().format('YYYY-MM-DD');
+  const endSearchDay = moment().add(2, 'months').format('YYYY-MM-DD');
+
+  useEffect(() => {
+    GetCalendarSearch(startSearchDay, endSearchDay)
+      .then((res) => setCalendarSearch(res))
+      .catch((err) =>
+        console.log('>> FALHA AO PESQUISAR O CALENDÁRIO <<', err)
+      );
+  }, []);
+
+  const findCalendarDay = (date: Date) => {
+    return calendarSearch.find(
+      (c) =>
+        moment(c.referenceDate).format('YYYY-MM-DD') ===
+        moment(date).format('YYYY-MM-DD')
+    );
+  };
 
   return (
     <>
@@ -103,7 +126,9 @@ const WebFilters = ({
                       locale={locales[locale === 'ptBR' ? 'pt' : locale]}
                       inputRanges={[]}
                       staticRanges={[]}
-                      dayContentRenderer={customDayContent}
+                      dayContentRenderer={(date: Date) =>
+                        customDayContent(date, findCalendarDay(date))
+                      }
                       minDate={new Date()}
                       rangeColors={['var(--primary-color)']}
                       maxDate={maxLength}

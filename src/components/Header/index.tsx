@@ -197,14 +197,8 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
     setCartMobileOpen(false);
   };
 
-  // useEffect(() => {
-  //   GetCalendarSearch('2022-08-01', '2022-09-30')
-  //     .then((res) => console.log('RESULTADO', res))
-  //     .catch((err) => alert(err));
-  // }, []);
-
   // Calendar Events Dots
-  function customDayContent(day) {
+  function customDayContent(day: Date, calendar: any) {
     let extraDot = null;
     let priceDay = null;
     if (isWeekend(day)) {
@@ -220,7 +214,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
     if (isNotSelected) {
       priceDay = (
         <div className={'priceDayIndicator'}>
-          <p>999</p>
+          <p>{calendar?.baseAmount}</p>
         </div>
       );
     }
