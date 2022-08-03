@@ -6,18 +6,19 @@ export interface OfficeDetails {
   segmentTypeCode: number;
   locationTypeCode: number;
 
-  contacts: Contacts[];
+  contacts: any[];
 
   address: {
     countryCode: string;
     stateCode: number;
     cityCode: number;
-    streetName: number;
+    StateName: string;
+    CityName: string;
+    streetName: string;
     streetNumber: string;
-    neighborhoodName: number;
+    neighborhoodName: string;
     postalCode: string;
     additionalInfo: string;
-
     latLong: {
       latitude: number;
       longitude: number;

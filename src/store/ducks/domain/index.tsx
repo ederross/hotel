@@ -103,6 +103,10 @@ const reducer = (state = INITIAL_STATE, action: any) => {
       return { ...state, contactDomain: action.payload.contact };
     case Types.SET_FACILITIES_DOMAIN:
       return { ...state, facilitiesDomain: action.payload.facilities };
+    case Types.SET_SERVICES_DOMAIN:
+      return { ...state, serviceTypeDomain: action.payload.services };
+    case Types.SET_SERVICEPRICES_DOMAIN:
+      return { ...state, servicePriceDomain: action.payload.servicePrices };
     default:
       return state;
   }

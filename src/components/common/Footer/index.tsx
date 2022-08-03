@@ -22,13 +22,13 @@ interface IFooterProps {
   marginTop?: number | string;
 }
 
-const Footer = ({ design, officeDetails, marginTop}: IFooterProps) => {
+const Footer = ({ design, officeDetails, marginTop }: IFooterProps) => {
   const { t } = useTranslation('common');
   const address = officeDetails?.address;
   const [logoError, setLogoError] = useState(false);
 
   return (
-    <FooterContainer style={{marginTop: marginTop}}>
+    <FooterContainer style={{ marginTop: marginTop }}>
       <ContainerHolder>
         <div className="topContainer">
           <SocialContainer>
@@ -56,22 +56,30 @@ const Footer = ({ design, officeDetails, marginTop}: IFooterProps) => {
           <ContactContainer>
             <div>
               <h3>{t('contact')}</h3>
-              <a
-                href="mailto:contac@finehost.com"
-                title="contac@finehost.com"
-                className="row"
-              >
-                <EmailRounded style={{ color: '#fff' }} />
-                <p>contac@finehost.com</p>
-              </a>
-              {officeDetails?.contacts?.map((item, index) => (
-                <div key={index} className="row">
-                  <PhoneAndroidRounded style={{ color: '#fff' }} />
-                  <p>
-                    +{item.countryPhoneCode} {item.phoneNumber}
-                  </p>
-                </div>
-              ))}
+
+              {officeDetails?.contacts
+                .filter((o) => o.contactTypeCode === 1)
+                ?.map((item, index) => (
+                  <div key={index} className="row">
+                    <PhoneAndroidRounded style={{ color: '#fff' }} />
+                    <p>
+                      +{item.countryPhoneCode} {item.phoneNumber}
+                    </p>
+                  </div>
+                ))}
+              {officeDetails?.contacts
+                .filter((o) => o.contactTypeCode === 2)
+                ?.map((item, index) => (
+                  <a
+                    key={index}
+                    href="mailto:contac@finehost.com"
+                    title="contac@finehost.com"
+                    className="row"
+                  >
+                    <EmailRounded style={{ color: '#fff' }} />
+                    <p>{item?.contactText}</p>
+                  </a>
+                ))}
               {address && (
                 <a
                   className="row"
@@ -82,30 +90,44 @@ const Footer = ({ design, officeDetails, marginTop}: IFooterProps) => {
                 >
                   <PinDropRounded style={{ color: '#fff' }} />
                   <p>
-                    {address?.streetName}, {address?.streetNumber},{' '}
-                    {address?.additionalInfo} - {address?.stateCode} |{' '}
-                    {address?.postalCode}
+                    {address?.streetName}, {address?.streetNumber}
+                    {' - '}
+                    {address?.neighborhoodName} | {address?.CityName}
+                    {' - '}
+                    {address?.StateName}
                   </p>
                 </a>
               )}
 
               <div style={{ display: 'flex' }}>
-                {socialData?.map((item, index) => (
-                  <a
-                    href={item.link}
-                    className="socialCircle"
-                    key={index}
-                    title={item.name}
-                    target={'_blank'}
-                    rel="noreferrer"
-                  >
-                    {item.icon === 'Twitter' ? (
-                      <Twitter className="icon" />
-                    ) : (
+                {officeDetails?.contacts
+                  .filter((o) => o.contactTypeCode === 3)
+                  ?.map((item, index) => (
+                    <a
+                      href={`https://www.instagram.com/${item?.contactText}`}
+                      className="socialCircle"
+                      key={index}
+                      title={item.name}
+                      target={'_blank'}
+                      rel="noreferrer"
+                    >
                       <Instagram className="icon" />
-                    )}
-                  </a>
-                ))}
+                    </a>
+                  ))}
+                {officeDetails?.contacts
+                  .filter((o) => o.contactTypeCode === 4)
+                  ?.map((item, index) => (
+                    <a
+                      href={`https://twitter.com/${item?.contactText}`}
+                      className="socialCircle"
+                      key={index}
+                      title={item.name}
+                      target={'_blank'}
+                      rel="noreferrer"
+                    >
+                      <Twitter className="icon" />
+                    </a>
+                  ))}
               </div>
             </div>
           </ContactContainer>
@@ -134,13 +156,3 @@ const Footer = ({ design, officeDetails, marginTop}: IFooterProps) => {
 };
 
 export default Footer;
-
-const socialData = [
-  {
-    name: 'Instagram',
-    url: '',
-    icon: 'Instagram',
-    link: 'https://www.instagram.com',
-  },
-  { name: 'Twitter', url: '', icon: 'Twitter', link: 'https://twitter.com' },
-];

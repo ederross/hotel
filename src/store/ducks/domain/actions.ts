@@ -15,3 +15,11 @@ export const SetFacilitiesDomain = (facilities: Domain) => {
 export const SetAmenitiesDomain = (amenities: Domain) => {
   return action(Types.SET_AMENITIES_DOMAIN, { amenities });
 };
+
+export const SetServicesDomain = (services: Domain) => {
+  return action(Types.SET_SERVICES_DOMAIN, { services });
+};
+
+export const SetServicePricesDomain = (servicePrices: Domain) => {
+  return action(Types.SET_SERVICEPRICES_DOMAIN, { servicePrices });
+};

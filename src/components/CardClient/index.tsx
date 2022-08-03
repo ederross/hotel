@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { IconImportDynamically } from '../common/ComponentWithIcon';
 import styles from './styles.module.scss';
+import { Star } from '@mui/icons-material';
 
 interface ICardClient {
   data: {
@@ -30,31 +31,9 @@ const CardClient = ({ data, index }: ICardClient) => {
         </div> */}
 
         <div className={styles.ratingsContainer}>
-          <IconImportDynamically
-            iconName={'Star'}
-            size={20}
-            color={'var(--yellow)'}
-          />
-          <IconImportDynamically
-            iconName={'Star'}
-            size={20}
-            color={'var(--yellow)'}
-          />
-          <IconImportDynamically
-            iconName={'Star'}
-            size={20}
-            color={'var(--yellow)'}
-          />
-          <IconImportDynamically
-            iconName={'Star'}
-            size={20}
-            color={'var(--yellow)'}
-          />
-          <IconImportDynamically
-            iconName={'Star'}
-            size={20}
-            color={'var(--yellow)'}
-          />
+          {[...Array(5)].map((a, index) => (
+            <Star size={20} style={{ color: 'var(--yellow)' }} key={index} />
+          ))}
         </div>
         <p>{`"${data.reviewerDescription}"`}</p>
 
