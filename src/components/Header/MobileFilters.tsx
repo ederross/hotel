@@ -18,7 +18,7 @@ import { EventsHome } from '../../../data/events';
 interface IFilters {
   closeMobileFilters: () => void;
   handleSubmit: () => void;
-  customDayContent: (day: any) => JSX.Element;
+  customDayContent: (day: any, calendar: any) => JSX.Element;
   dateState: {
     startDate: Date;
     endDate: Date;
@@ -87,7 +87,7 @@ const Filters = ({
               ranges={dateState}
               months={2}
               locale={locales[locale === 'ptBR' ? 'pt' : locale]}
-              dayContentRenderer={customDayContent}
+              dayContentRenderer={(date) => customDayContent(date, null)}
               direction={'vertical'}
               minDate={new Date()}
               rangeColors={['var(--primary-color)']}
