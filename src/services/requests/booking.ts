@@ -13,19 +13,26 @@ export const GetRoomSearch = async ({
   endDate,
   startDate,
 }: IGetRoomSearch) => {
-  return await api.get('/booking/room-search', {
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
-    params: {
-      officeId,
-      startDate,
-      endDate,
-      adults,
-      children,
-    },
-  });
+  return await api
+    .get('/booking/room-search', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        officeId,
+        startDate,
+        endDate,
+        adults,
+        children,
+      },
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      console.log('ROOM SEARCH ERROR!', err);
+      return [];
+    });
 };
 
 export const GetServiceSearch = async () => {
@@ -51,7 +58,6 @@ export const GetCalendarSearch = async (startDate: string, endDate: string) => {
     .get('/booking/calendar-search', {
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
       },
       params: {
         officeId,
