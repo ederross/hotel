@@ -29,7 +29,6 @@ const Hero = ({ officeDetails, design }: IHeroProps) => {
       },
     });
     dispatch(CleanCart());
-    console.log('das');
   };
 
   return (

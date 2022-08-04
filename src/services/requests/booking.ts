@@ -14,6 +14,10 @@ export const GetRoomSearch = async ({
   startDate,
 }: IGetRoomSearch) => {
   return await api.get('/booking/room-search', {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
     params: {
       officeId,
       startDate,
@@ -47,6 +51,7 @@ export const GetCalendarSearch = async (startDate: string, endDate: string) => {
     .get('/booking/calendar-search', {
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
       params: {
         officeId,

@@ -152,7 +152,6 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
     });
     dispatch(CleanCart());
     setTimeout(() => closeCalendar(), 100);
-    console.log('das');
   };
 
   // Scroll Header Animation
@@ -466,7 +465,6 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
                   <span>{t('search')}</span>
                 </div>
               ) : (
-                // <h3>das</h3>
                 <div
                   className={styles.button}
                   // disabled={
