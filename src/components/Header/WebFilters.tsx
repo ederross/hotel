@@ -47,6 +47,7 @@ const WebFilters = ({
   const { t } = useTranslation('common');
 
   const [calendarSearch, setCalendarSearch] = useState([]);
+  const [firstMonth, setFirstMonth] = useState<Date>();
 
   const date = new Date();
   const lastDay = new Date(
@@ -59,8 +60,8 @@ const WebFilters = ({
   const handleUpdateState = (props: Object) =>
     setDateState([{ ...dateState[0], ...props }]);
 
-  const startSearchDay = moment().format('YYYY-MM-DD');
-  const endSearchDay = moment().add(2, 'months').format('YYYY-MM-DD');
+  const startSearchDay = moment(firstMonth).format('YYYY-MM-DD');
+  const endSearchDay = moment(firstMonth).add(2, 'months').format('YYYY-MM-DD');
 
   useEffect(() => {
     GetCalendarSearch(startSearchDay, endSearchDay)
@@ -68,14 +69,15 @@ const WebFilters = ({
       .catch((err) =>
         console.log('>> FALHA AO PESQUISAR O CALENDÁRIO <<', err)
       );
-  }, []);
+  }, [firstMonth]);
 
   const findCalendarDay = (date: Date) => {
-    return calendarSearch.find(
+    const res = calendarSearch?.find(
       (c) =>
         moment(c.referenceDate).format('YYYY-MM-DD') ===
         moment(date).format('YYYY-MM-DD')
     );
+    return res ? res : '-';
   };
 
   return (
@@ -127,7 +129,7 @@ const WebFilters = ({
                       inputRanges={[]}
                       staticRanges={[]}
                       dayContentRenderer={(date: Date) =>
-                        customDayContent(date, findCalendarDay(date))
+                        customDayContent(date, false)
                       }
                       minDate={new Date()}
                       rangeColors={['var(--primary-color)']}
@@ -135,6 +137,11 @@ const WebFilters = ({
                       calendarFocus={'forwards'}
                       preventSnapRefocus
                       showPreview
+                      onShownDateChange={(date) =>
+                        setFirstMonth(
+                          new Date(date.getFullYear(), date.getMonth(), 1)
+                        )
+                      }
                     />
                   </Container>
 

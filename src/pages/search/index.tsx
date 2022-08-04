@@ -130,7 +130,7 @@ const Search = ({
   useEffect(() => {
     if (startDate && endDate && adults && children) {
       GetRoomSearch({ startDate, endDate, adults, children })
-        .then((res) => {
+        .then((res: any) => {
           console.log(res?.data || []);
           setSearchResult(res?.data);
         })

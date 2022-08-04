@@ -200,9 +200,9 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
   function customDayContent(day: Date, calendar: any) {
     let extraDot = null;
     let priceDay = null;
-    if (isWeekend(day)) {
-      extraDot = <div className={'weekdayDot'} />;
-    }
+    // if (isWeekend(day)) {
+    //   extraDot = <div className={'weekdayDot'} />;
+    // }
 
     const today = new Date(checkOutDate);
     const tomorrow = new Date(checkOutDate);
@@ -213,14 +213,14 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
     if (isNotSelected) {
       priceDay = (
         <div className={'priceDayIndicator'}>
-          <p>{calendar?.baseAmount}</p>
+          <p>{calendar?.baseAmount || '-'}</p>
         </div>
       );
     }
     return (
       <>
         <div>
-          {extraDot}
+          {/* {extraDot} */}
           <span>{format(day, 'd')}</span>
           {priceDay}
         </div>
