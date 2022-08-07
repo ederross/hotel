@@ -111,10 +111,10 @@ const CardRoom = ({ room, setSelectedRoom }: ICardRoom) => {
               key={index}
               title={arrangement?.bedName}
             >
-              <IconImportDynamically
+              {/* <IconImportDynamically
                 iconName={arrangement?.displayIconTypeCode}
                 size={20}
-              />
+              /> */}
               <h5>{arrangement?.bedQuantity}</h5>
             </div>
           ))}
