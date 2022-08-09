@@ -325,10 +325,10 @@ const Search = ({
                     </h3>
                     {facility?.facilityDetails.map((item, index) => (
                       <div className={styles.row} key={index}>
-                        {/* <IconImportDynamically
+                        <IconImportDynamically
                           iconName={item?.displayIconTypeCode}
                           size={20}
-                        /> */}
+                        />
                         <p>{item?.facilityName || '-'}</p>
                       </div>
                     ))}
