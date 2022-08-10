@@ -74,7 +74,7 @@ const WebFilters = ({
   const findCalendarDay = (date: Date) => {
     const res = calendarSearch?.find(
       (c) =>
-        moment(c.referenceDate).format('YYYY-MM-DD') ===
+        moment(new Date(c.referenceDate).setUTCHours(3)).format('YYYY-MM-DD') ===
         moment(date).format('YYYY-MM-DD')
     );
     return res ? res : '-';
@@ -129,7 +129,7 @@ const WebFilters = ({
                       inputRanges={[]}
                       staticRanges={[]}
                       dayContentRenderer={(date: Date) =>
-                        customDayContent(date, false)
+                        customDayContent(date, findCalendarDay(date))
                       }
                       minDate={new Date()}
                       rangeColors={['var(--primary-color)']}
