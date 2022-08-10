@@ -252,6 +252,7 @@ const Search = ({
                 <section className={styles.contentResultContainer}>
                   {searchResult?.map((room, index) => (
                     <CardRoom
+                      isResultOneRoom={searchResult?.length === 1 ? true : false}
                       key={index}
                       room={room}
                       setSelectedRoom={setSelectedRoom}
@@ -280,6 +281,7 @@ const Search = ({
                 <div className={styles.contentResultContainer}>
                   {searchResult?.map((room, index) => (
                     <CardRoom
+                      isResultOneRoom={room.length === 1 ? true : false}
                       key={index}
                       room={room}
                       setSelectedRoom={setSelectedRoom}

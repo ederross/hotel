@@ -22,9 +22,10 @@ import { IconImportDynamically } from '../common/ComponentWithIcon';
 interface ICardRoom {
   room: Room;
   setSelectedRoom: React.Dispatch<React.SetStateAction<Room>>;
+  isResultOneRoom?: boolean;
 }
 
-const CardRoom = ({ room, setSelectedRoom }: ICardRoom) => {
+const CardRoom = ({ room, setSelectedRoom, isResultOneRoom}: ICardRoom) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { t } = useTranslation('common');
@@ -69,7 +70,6 @@ const CardRoom = ({ room, setSelectedRoom }: ICardRoom) => {
       })
     );
   };
-
   useEffect(() => {
     if (quantity > 0) {
       handleAddToCart();
@@ -93,16 +93,18 @@ const CardRoom = ({ room, setSelectedRoom }: ICardRoom) => {
         // transition={{ duration: 0.1 }}
         // whileTap={{ scale: 0.99 }}
         className={styles.container}
+        style={{maxWidth: isResultOneRoom ? 364 : '100%'}}
         onClick={handleDetails}
       >
         <CarouselHolder
           discont={mainPrice?.discountPercentage}
           data={imageData}
           styleImageComponent={{
-            borderTopLeftRadius: '1rem',
-            borderTopRightRadius: '1rem',
+            borderTopLeftRadius: '8px',
+            borderTopRightRadius: '8px',
+            height: 456
+
           }}
-          style={{ height: 232 }}
         />
         <div className={styles.iconsContainerHolder}>
           {room?.objectDetails?.sleepArrangements?.map((arrangement, index) => (

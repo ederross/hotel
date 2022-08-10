@@ -86,8 +86,8 @@ const CardService = ({ service }: ICardService) => {
             },
           ]}
           styleImageComponent={{
-            borderTopLeftRadius: '1rem',
-            borderTopRightRadius: '1rem',
+            borderTopLeftRadius: '8px',
+            borderTopRightRadius: '8px',
           }}
           style={{ height: 232 }}
         />
