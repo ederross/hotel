@@ -1,8 +1,8 @@
 import { Types, CartRoom, CartService } from './types';
 import { action } from 'typesafe-actions';
 
-export const AddProductToCart = (room: CartRoom) => {
-  return action(Types.ADD_CART_ROOM, { room });
+export const AddProductToCart = (object: CartRoom) => {
+  return action(Types.ADD_CART_ROOM, { object });
 };
 
 export const RemoveProductToCart = (objectId: string) => {

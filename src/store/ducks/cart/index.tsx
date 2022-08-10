@@ -1,7 +1,8 @@
 import { Types, TypesCart, CartRoom, CartService } from './types';
 
 const INITIAL_STATE: TypesCart = {
-  rooms: [],
+  officeId: '',
+  objects: [],
   services: [],
   loading: false,
   error: false,
@@ -10,26 +11,26 @@ const INITIAL_STATE: TypesCart = {
 const reducer = (state = INITIAL_STATE, action: any) => {
   switch (action.type) {
     case Types.ADD_CART_ROOM:
-      const room: CartRoom = action?.payload?.room;
-      const current = state?.rooms.filter(
-        (item) => item?.objectId !== room?.objectId
+      const object: CartRoom = action?.payload?.object;
+      const current = state?.objects.filter(
+        (item) => item?.objectId !== object?.objectId
       );
 
       return {
         ...state,
-        rooms: [...current, room],
+        objects: [...current, object],
         loading: true,
         error: false,
       };
     case Types.REMOVE_CART_ROOM:
       const objectId = action?.payload?.objectId;
-      const removedRoom = state?.rooms.filter(
+      const removedRoom = state?.objects.filter(
         (item) => item?.objectId !== objectId
       );
 
       return {
         ...state,
-        rooms: [...removedRoom],
+        objects: [...removedRoom],
         loading: true,
         error: false,
       };
@@ -60,7 +61,7 @@ const reducer = (state = INITIAL_STATE, action: any) => {
     case Types.CLEAN_CART:
       return {
         ...state,
-        rooms: [],
+        objects: [],
         services: [],
         loading: true,
         error: false,

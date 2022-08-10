@@ -40,7 +40,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
   const router = useRouter();
 
   const {
-    cart: { rooms, services },
+    cart: { objects, services },
   } = useSelector((state: AppStore) => state);
 
   const headerRef = useRef(null);
@@ -170,21 +170,21 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
 
   // Cart Feedback Animation
   useEffect(() => {
-    if (router.pathname === '/rooms') {
+    if (router.pathname === '/objects') {
       return;
     }
-    if (rooms.length > 0 || services.length > 0) {
+    if (objects.length > 0 || services.length > 0) {
       setScrolled(true);
 
       document.body.style.overflow = 'initial';
-      router.pathname !== '/rooms/[id]' && setOpenCart(true);
+      router.pathname !== '/objects/[id]' && setOpenCart(true);
 
       setInputCalendars(false);
       setInputGuest(false);
       setIsCalendarVisible(false);
       setCartMobileOpen(false);
     }
-  }, [rooms.length > 0, services.length > 0]);
+  }, [objects.length > 0, services.length > 0]);
 
   // Open Cart Modal
   const handleOpenCart = () => {
@@ -241,7 +241,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
     router.pathname === '/search' ? filterString : t('searchPeriod');
 
   const cartLength =
-    rooms.map((a) => a.quantity).reduce((a, b) => a + b, 0) +
+    objects.map((a) => a.quantity).reduce((a, b) => a + b, 0) +
     services.map((s) => s.quantity).reduce((a, b) => a + b, 0);
 
   return (
@@ -447,7 +447,8 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
                 </div>
               </div>
 
-              {router.pathname !== '/search' && router.pathname !== '/rooms' ? (
+              {router.pathname !== '/search' &&
+              router.pathname !== '/objects' ? (
                 <div
                   // type="submit"
                   // disabled={
@@ -538,7 +539,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
               <motion.div
                 className={styles.cart}
                 initial="exit"
-                animate={rooms.length > 0 ? 'enter' : 'exit'}
+                animate={objects.length > 0 ? 'enter' : 'exit'}
                 variants={{
                   enter: {
                     transition: {
@@ -560,7 +561,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
                 style={{ flexDirection: 'column' }}
               >
                 {/* <Menu className={styles.menu} /> */}
-                {rooms && rooms.length > 0 && (
+                {objects && objects.length > 0 && (
                   <motion.div
                     animate={{ scale: 2 }}
                     transition={{ duration: 0.2 }}
@@ -603,7 +604,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
             className={styles.cartFloatingButton}
             onClick={handleOpenCart}
           >
-            {/* {rooms && rooms.length > 0 && (
+            {/* {objects && objects.length > 0 && (
               <motion.div
                 animate={{ scale: 2 }}
                 transition={{ duration: 0.2 }}

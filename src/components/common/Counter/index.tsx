@@ -20,12 +20,6 @@ export const Counter = ({
 }: ICounterProps) => {
   const { t } = useTranslation('common');
 
-  const { width } = useWindowSize();
-
-  const {
-    cart: { rooms, services },
-  } = useSelector((state: AppStore) => state);
-
   const handleRemove = (e) => {
     e.stopPropagation();
     quantity > 0 && setQuantity(quantity - 1);

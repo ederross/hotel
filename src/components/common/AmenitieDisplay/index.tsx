@@ -52,10 +52,10 @@ export const AmenitieDisplay = ({
           title={GetAmenitieFromDomain(item.amenityTypeCode)}
           key={index}
         >
-          {/* <IconImportDynamically
+          <IconImportDynamically
             iconName={item?.displayIconTypeCode}
             size={20}
-          /> */}
+          />
           {/* <IconDisplay displayIconTypeCode={item.displayIconTypeCode} /> */}
           {showTitle && (
             <h5>{t(GetAmenitieFromDomain(item.amenityTypeCode))}</h5>

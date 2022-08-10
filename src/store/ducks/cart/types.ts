@@ -7,20 +7,29 @@ export const Types = {
 };
 
 export interface TypesCart {
+  officeId: string;
   services: CartService[];
-  rooms: CartRoom[];
+  objects: CartRoom[];
   loading: boolean;
   error: boolean;
 }
 
 export interface CartRoom {
   objectId: string;
-  objectName: string;
+  identificationCode: string;
   quantity: number;
-  price: number | null;
-  image: string;
-  adults: number;
-  children: number;
+  prices: CartRoomPrice[];
+  infos: {
+    objectName: string;
+    image: string;
+    adults: number;
+    children: number;
+  };
+}
+
+interface CartRoomPrice {
+  quoteId: string;
+  regularTotalAmount: number;
 }
 
 export interface CartService {

@@ -1,6 +1,5 @@
 import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
-import { Add, RemoveOutlined } from '@mui/icons-material';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 
 import styles from './styles.module.scss';

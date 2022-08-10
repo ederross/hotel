@@ -16,6 +16,8 @@ import { AmenitieDisplay } from '../common/AmenitieDisplay';
 import { motion } from 'framer-motion';
 import { Room } from '../../../data/room';
 import { IconImportDynamically } from '../common/ComponentWithIcon';
+import { useSelector } from 'react-redux';
+import { AppStore } from '../../store/types';
 
 interface IRoomDetailsProps {
   room: Room;
@@ -26,6 +28,14 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
   const { t } = useTranslation('common');
   const [openOffersModal, setOpenOffersModal] = useState(false);
   const [showMoreDescription, setShowMoreDescription] = useState(false);
+
+  const {
+    cart: { objects },
+  } = useSelector((state: AppStore) => state);
+
+  const currentRoom = objects.find((r) => r.objectId === room.objectId);
+
+  const [quantity, setQuantity] = useState(currentRoom?.quantity || 0);
 
   const handleOpenMobileOffersModal = () => {
     if (document.body.style.overflow === 'hidden') {
@@ -128,10 +138,10 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
                       key={index}
                       title={arrangement?.bedName}
                     >
-                      {/* <IconImportDynamically
+                      <IconImportDynamically
                         iconName={arrangement?.displayIconTypeCode}
                         size={20}
-                      /> */}
+                      />
                       <h5>{arrangement?.bedQuantity}</h5>
                     </div>
                   )

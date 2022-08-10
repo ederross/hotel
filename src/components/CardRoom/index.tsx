@@ -25,7 +25,7 @@ interface ICardRoom {
   isResultOneRoom?: boolean;
 }
 
-const CardRoom = ({ room, setSelectedRoom, isResultOneRoom}: ICardRoom) => {
+const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { t } = useTranslation('common');
@@ -33,10 +33,10 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom}: ICardRoom) => {
   const { adults, children }: any = router.query;
 
   const {
-    cart: { rooms },
+    cart: { objects },
   } = useSelector((state: AppStore) => state);
 
-  const currentRoom = rooms.find((r) => r.objectId === room.objectId);
+  const currentRoom = objects?.find((r) => r.objectId === room.objectId);
 
   const [quantity, setQuantity] = useState(currentRoom?.quantity || 0);
 
@@ -50,7 +50,7 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom}: ICardRoom) => {
 
   const handleDetails = () => {
     setSelectedRoom(room);
-    // router.push(`/rooms/${room?.objectId}`);
+    // router.push(`/objects/${room?.objectId}`);
     window.scrollTo(0, 0);
   };
 
@@ -60,12 +60,22 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom}: ICardRoom) => {
   const handleAddToCart = () => {
     dispatch(
       AddProductToCart({
-        adults,
-        children,
-        image: room?.images[0]?.imageUrl,
         objectId: room?.objectId,
-        objectName: room?.objectName,
-        price: room?.prices ? room?.prices[0]?.regularTotalAmount : 0,
+        identificationCode: '',
+        prices: [
+          {
+            quoteId: room?.prices[0]?.quoteId,
+            regularTotalAmount: room?.prices
+              ? room?.prices[0]?.regularTotalAmount
+              : 0,
+          },
+        ],
+        infos: {
+          adults,
+          children,
+          image: room?.images[0]?.imageUrl,
+          objectName: room?.objectName,
+        },
         quantity: quantity,
       })
     );
@@ -93,7 +103,7 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom}: ICardRoom) => {
         // transition={{ duration: 0.1 }}
         // whileTap={{ scale: 0.99 }}
         className={styles.container}
-        style={{maxWidth: isResultOneRoom ? 364 : '100%'}}
+        style={{ maxWidth: isResultOneRoom ? 364 : '100%' }}
         onClick={handleDetails}
       >
         <CarouselHolder
@@ -102,8 +112,7 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom}: ICardRoom) => {
           styleImageComponent={{
             borderTopLeftRadius: '8px',
             borderTopRightRadius: '8px',
-            height: 456
-
+            height: 456,
           }}
         />
         <div className={styles.iconsContainerHolder}>
@@ -113,10 +122,10 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom}: ICardRoom) => {
               key={index}
               title={arrangement?.bedName}
             >
-              {/* <IconImportDynamically
+              <IconImportDynamically
                 iconName={arrangement?.displayIconTypeCode}
                 size={20}
-              /> */}
+              />
               <h5>{arrangement?.bedQuantity}</h5>
             </div>
           ))}

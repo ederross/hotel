@@ -32,7 +32,7 @@ const Checkout = ({ officeDetails, design }: any) => {
   const { t } = useTranslation();
 
   const {
-    cart: { rooms, services },
+    cart: { objects, services },
   } = useSelector((state: AppStore) => state);
 
   // Window Sizes
@@ -128,7 +128,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                     }}
                   >
                     {size.width < 868 &&
-                      rooms.slice(0, 2).map((room, index) => (
+                      objects.slice(0, 2).map((room, index) => (
                         <>
                           <div key={index} className={styles.roomContainer}>
                             <div className={styles.imageRoomHolder}>
@@ -150,42 +150,46 @@ const Checkout = ({ officeDetails, design }: any) => {
                                 className={styles.roomNameAdultChildContainer}
                               >
                                 <h5>
-                                  {room.adults < 2 && room.adults > 0
+                                  {room.infos?.adults < 2 &&
+                                  room.infos?.adults > 0
                                     ? t('adultWithCount_one', {
-                                        count: room.adults,
+                                        count: room.infos?.adults,
                                       })
-                                    : room.adults === 0
+                                    : room.infos?.adults === 0
                                     ? t('adultWithCount_other', {
-                                        count: room.adults,
+                                        count: room.infos?.adults,
                                       })
                                     : t('adultWithCount_other', {
-                                        count: room.adults,
+                                        count: room.infos?.adults,
                                       })}{' '}
                                   {'&'}{' '}
-                                  {room.children < 2 && room.children > 0
+                                  {room.infos?.children < 2 &&
+                                  room.infos?.children > 0
                                     ? t('childrenWithCount_one', {
-                                        count: room.children,
+                                        count: room.infos?.children,
                                       })
-                                    : room.children === 0
+                                    : room.infos?.children === 0
                                     ? t('childrenWithCount_one', {
-                                        count: room.children,
+                                        count: room.infos?.children,
                                       })
                                     : t('childrenWithCount_other', {
-                                        count: room.children,
+                                        count: room.infos?.children,
                                       })}
                                 </h5>
-                                <h4>{room.objectName}</h4>
+                                <h4>{room.infos?.objectName}</h4>
                               </div>
 
                               <div className={styles.roomQtndPriceContainer}>
                                 <h5>{room.quantity + ' ' + t('room')} </h5>
-                                <h4>{currency(room.price)}</h4>
+                                <h4>
+                                  {currency(room.prices[0].regularTotalAmount)}
+                                </h4>
                               </div>
                             </div>
                           </div>
                         </>
                       ))}
-                    {size.width < 868 && rooms.length > 2 && (
+                    {size.width < 868 && objects.length > 2 && (
                       <div
                         style={{ marginTop: '1.5rem' }}
                         className={styles.buttonSeeMoreRoomsContainer}
@@ -427,7 +431,7 @@ const Checkout = ({ officeDetails, design }: any) => {
             </div>
             <div className={styles.webPaymentInfos}>
               <div>
-                {rooms.slice(0, 2).map((room, index) => (
+                {objects.slice(0, 2).map((room, index) => (
                   <div key={index} className={styles.roomContainer}>
                     <div className={styles.imageRoomHolder}>
                       <Image
@@ -447,42 +451,42 @@ const Checkout = ({ officeDetails, design }: any) => {
                     <div className={styles.roomInfo}>
                       <div className={styles.roomNameAdultChildContainer}>
                         <h5>
-                        {room.adults < 2 && room.adults > 0
-                                    ? t('adultWithCount_one', {
-                                        count: room.adults,
-                                      })
-                                    : room.adults === 0
-                                    ? t('adultWithCount_other', {
-                                        count: room.adults,
-                                      })
-                                    : t('adultWithCount_other', {
-                                        count: room.adults,
-                                      })}{' '}
-                                  {'&'}{' '}
-                                  {room.children < 2 && room.children > 0
-                                    ? t('childrenWithCount_one', {
-                                        count: room.children,
-                                      })
-                                    : room.children === 0
-                                    ? t('childrenWithCount_one', {
-                                        count: room.children,
-                                      })
-                                    : t('childrenWithCount_other', {
-                                        count: room.children,
-                                      })}
+                          {room.infos?.adults < 2 && room.infos?.adults > 0
+                            ? t('adultWithCount_one', {
+                                count: room.infos?.adults,
+                              })
+                            : room.infos?.adults === 0
+                            ? t('adultWithCount_other', {
+                                count: room.infos?.adults,
+                              })
+                            : t('adultWithCount_other', {
+                                count: room.infos?.adults,
+                              })}{' '}
+                          {'&'}{' '}
+                          {room.infos?.children < 2 && room.infos?.children > 0
+                            ? t('childrenWithCount_one', {
+                                count: room.infos?.children,
+                              })
+                            : room.infos?.children === 0
+                            ? t('childrenWithCount_one', {
+                                count: room.infos?.children,
+                              })
+                            : t('childrenWithCount_other', {
+                                count: room.infos?.children,
+                              })}
                         </h5>
-                        <h4>{room.objectName}</h4>
+                        <h4>{room.infos?.objectName}</h4>
                       </div>
 
                       <div className={styles.roomQtndPriceContainer}>
                         <h5>{room.quantity + ' ' + t('room')} </h5>
-                        <h4>{currency(room.price)}</h4>
+                        <h4>{currency(room.prices[0].regularTotalAmount)}</h4>
                       </div>
                     </div>
                   </div>
                 ))}
 
-                {rooms.length > 2 && (
+                {objects.length > 2 && (
                   <div className={styles.buttonSeeMoreRoomsContainer}>
                     <motion.button
                       initial={{ scale: 0.9 }}

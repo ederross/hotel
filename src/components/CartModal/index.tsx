@@ -35,7 +35,7 @@ const CartModal = ({
   const size = useWindowSize();
 
   const {
-    cart: { rooms, services },
+    cart: { objects, services },
   } = useSelector((state: AppStore) => state);
 
   const handleCleanCart = () => dispatch(CleanCart());
@@ -69,30 +69,42 @@ const CartModal = ({
           </div>{' '}
           <div className={styles.contentContainer}>
             <div>
-              {rooms.length > 0 && (
+              {objects.length > 0 && (
                 <h3 className={styles.servicesTitle}>{t('Quartos')}</h3>
               )}
-              {rooms.map((room, index) => (
+              {objects.map((room, index) => (
                 <div key={index} className={styles.roomContainer}>
                   <div className={styles.imageRoomHolder}>
-                    <Image src={room?.image} layout={'fill'} />
+                    <Image src={room?.infos?.image} layout={'fill'} />
                   </div>
 
                   <div className={styles.roomInfo}>
                     <div className={styles.roomNameAdultChildContainer}>
                       <div className={styles.row}>
                         <h5>
-                        {room.adults < 2 && room.adults > 0
-                      ? t('adultWithCount_one', { count: room.adults })
-                      : room.adults === 0
-                      ? t('adultWithCount_other', { count: room.adults })
-                      : t('adultWithCount_other', { count: room.adults })}
-                    {' '}{'&'}{' '}
-                    {room.children < 2 && room.children > 0
-                      ? t('childrenWithCount_one', { count: room.children })
-                      : room.children === 0
-                      ? t('childrenWithCount_one', { count: room.children })
-                      : t('childrenWithCount_other', { count: room.children })}
+                          {room.infos?.adults < 2 && room.infos?.adults > 0
+                            ? t('adultWithCount_one', {
+                                count: room.infos?.adults,
+                              })
+                            : room.infos?.adults === 0
+                            ? t('adultWithCount_other', {
+                                count: room.infos?.adults,
+                              })
+                            : t('adultWithCount_other', {
+                                count: room.infos?.adults,
+                              })}{' '}
+                          {'&'}{' '}
+                          {room.infos?.children < 2 && room.infos?.children > 0
+                            ? t('childrenWithCount_one', {
+                                count: room.infos?.children,
+                              })
+                            : room.infos?.children === 0
+                            ? t('childrenWithCount_one', {
+                                count: room.infos?.children,
+                              })
+                            : t('childrenWithCount_other', {
+                                count: room.infos?.children,
+                              })}
                         </h5>
                         {!isCheckoutSeeAllData && (
                           <Delete
@@ -108,18 +120,18 @@ const CartModal = ({
                           />
                         )}
                       </div>
-                      <h4>{room.objectName}</h4>
+                      <h4>{room.infos?.objectName}</h4>
                     </div>
 
                     <div className={styles.roomQtndPriceContainer}>
                       <h5>{room.quantity + ' ' + t('room')} </h5>
-                      <h4>{currency(room.price)}</h4>
+                      <h4>{currency(room.prices[0]?.regularTotalAmount)}</h4>
                     </div>
                   </div>
                 </div>
               ))}
 
-              {rooms && rooms.length > 0 && (
+              {objects && objects.length > 0 && (
                 <div
                   className={styles.divisorContainer}
                   style={{ margin: '20px 0' }}
@@ -174,7 +186,7 @@ const CartModal = ({
               ))}
             </div>
             {/* {!isCheckoutSeeAllData &&
-              (services?.length > 0 || rooms?.length > 0) && (
+              (services?.length > 0 || objects?.length > 0) && (
                 <div
                   style={{ marginTop: '1.5rem' }}
                   className={styles.buttonClearAllContainer}
@@ -194,7 +206,7 @@ const CartModal = ({
 
             {!isCheckoutSeeAllData && (
               <div className={styles.floatButtonContainer}>
-                {rooms && rooms.length > 0 && (
+                {objects && objects.length > 0 && (
                   <motion.button
                     id={'button'}
                     initial={{ scale: 0.9 }}
@@ -212,11 +224,14 @@ const CartModal = ({
                 )}
               </div>
             )}
-            {rooms && rooms.length === 0 && services && services.length === 0 && (
-              <div className={styles.emptyMessageContainer}>
-                <h4>Seu carrinho está vazio</h4>
-              </div>
-            )}
+            {objects &&
+              objects.length === 0 &&
+              services &&
+              services.length === 0 && (
+                <div className={styles.emptyMessageContainer}>
+                  <h4>Seu carrinho está vazio</h4>
+                </div>
+              )}
           </div>
         </div>
         <div
