@@ -4,18 +4,18 @@ import OffersAccordion from '../OffersAccordion';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import styles from './styles.module.scss';
-import { Price } from '../../../data/room';
+import { Price, Room } from '../../../data/room';
 
 interface IOffersRoomModal {
   openOffersModal: boolean;
   handleOpenMobileOffersModal: () => void;
-  offers: Price[];
+  room: Room;
 }
 
 const OffersRoomModal = ({
   openOffersModal,
   handleOpenMobileOffersModal,
-  offers,
+  room,
 }: IOffersRoomModal) => {
   const subMenuAnimate = {
     enter: {
@@ -49,7 +49,7 @@ const OffersRoomModal = ({
               <h3>Ofertas</h3>
             </div>{' '} */}
           <div className={styles.contentContainer}>
-            <OffersAccordion offers={offers} />
+            <OffersAccordion room={room} />
           </div>
         </div>
         <motion.div

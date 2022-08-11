@@ -38,7 +38,9 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
 
   const currentRoom = objects?.find((r) => r.objectId === room.objectId);
 
-  const [quantity, setQuantity] = useState(currentRoom?.quantity || 0);
+  const [quantity, setQuantity] = useState(
+    currentRoom?.prices[0]?.quantity || 0
+  );
 
   const imageData = room?.images?.map((i) => {
     return {
@@ -68,6 +70,7 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
             regularTotalAmount: room?.prices
               ? room?.prices[0]?.regularTotalAmount
               : 0,
+            quantity: quantity,
           },
         ],
         infos: {
@@ -76,7 +79,6 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
           image: room?.images[0]?.imageUrl,
           objectName: room?.objectName,
         },
-        quantity: quantity,
       })
     );
   };
@@ -89,8 +91,8 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
   }, [quantity]);
 
   useEffect(() => {
-    if (currentRoom?.quantity > 0) {
-      setQuantity(currentRoom?.quantity);
+    if (currentRoom?.prices[0]?.quantity > 0) {
+      setQuantity(currentRoom?.prices[0]?.quantity);
     } else {
       setQuantity(0);
     }

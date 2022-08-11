@@ -35,8 +35,6 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
 
   const currentRoom = objects.find((r) => r.objectId === room.objectId);
 
-  const [quantity, setQuantity] = useState(currentRoom?.quantity || 0);
-
   const handleOpenMobileOffersModal = () => {
     if (document.body.style.overflow === 'hidden') {
       setOpenOffersModal(false);
@@ -177,7 +175,7 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
 
             <div className={styles.ctaBoxHolder}>
               <div className={styles.ctaBox}>
-                <OffersAccordion offers={room?.prices} />
+                <OffersAccordion room={room} />
                 <motion.button
                   id={'button'}
                   initial={{ scale: 0.9 }}
@@ -196,7 +194,7 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
       </main>
       {size.width < 868 && openOffersModal && (
         <OffersRoomModal
-          offers={room?.prices}
+          room={room}
           openOffersModal={openOffersModal}
           handleOpenMobileOffersModal={handleOpenMobileOffersModal}
         />

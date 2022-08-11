@@ -4,20 +4,81 @@ import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 
 import styles from './styles.module.scss';
 import { Counter } from '../common/Counter';
-import { Price } from '../../../data/room';
+import { Price, Room } from '../../../data/room';
 import { currency } from '../../utils/currency';
+import { AppStore } from '../../store/types';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  AddProductToCart,
+  RemoveProductToCart,
+} from '../../store/ducks/cart/actions';
+import { useRouter } from 'next/router';
 interface IOffersAccordion {
-  offers: Price[];
+  room: Room;
 }
 
-const OffersAccordion = ({ offers = [] }: IOffersAccordion) => {
+const OffersAccordion = ({ room }: IOffersAccordion) => {
   const { t } = useTranslation('common');
+  const router = useRouter();
+  const dispatch = useDispatch();
   const [ctaSelected, setCtaSelected] = useState(0);
-  const [quantity, setQuantity] = useState(0);
+
+  const {
+    cart: { objects },
+  } = useSelector((state: AppStore) => state);
+
+  const { adults, children }: any = router.query;
+
+  const currentCart = objects.find((r) => r.objectId === room?.objectId);
+
+  const findQuantity = (quoteId: string) =>
+    currentCart?.prices?.find((q) => q.quoteId === quoteId)?.quantity || 0;
+
+  const handleAddToCart = (
+    quantity: number,
+    quoteId: string,
+    regularTotalAmount: number
+  ) => {
+    if (quantity > 0) {
+      dispatch(
+        AddProductToCart({
+          objectId: room.objectId,
+          identificationCode: '',
+          prices: !!currentCart?.prices?.find((p) => p.quoteId === quoteId)
+            ? currentCart?.prices.map((p) =>
+                p.quoteId !== quoteId ? p : { ...p, quantity }
+              )
+            : currentCart
+            ? [
+                ...currentCart?.prices,
+                { quantity, quoteId, regularTotalAmount },
+              ]
+            : [{ quantity, quoteId, regularTotalAmount }],
+          infos: {
+            adults,
+            children,
+            image: room?.images[0]?.imageUrl,
+            objectName: room?.objectName,
+          },
+        })
+      );
+    } else {
+      dispatch(
+        currentCart.prices.length > 1
+          ? AddProductToCart({
+              objectId: currentCart?.objectId,
+              identificationCode: '',
+              prices: currentCart?.prices.filter((p) => p.quoteId !== quoteId),
+              infos: currentCart?.infos,
+            })
+          : dispatch(RemoveProductToCart(currentCart?.objectId))
+      );
+    }
+  };
 
   return (
     <div style={{ width: '100%' }}>
-      {offers?.map((item, index) => {
+      {room?.prices?.map((item, index) => {
         return (
           <div
             key={index}
@@ -68,7 +129,12 @@ const OffersAccordion = ({ offers = [] }: IOffersAccordion) => {
               <div className={styles.ctaItemContent}>
                 <h4>{currency(item?.regularTotalAmount)}</h4>
 
-                <Counter quantity={quantity} setQuantity={setQuantity} />
+                <Counter
+                  quantity={findQuantity(item?.quoteId)}
+                  setQuantity={(q) =>
+                    handleAddToCart(q, item?.quoteId, item.regularTotalAmount)
+                  }
+                />
               </div>
             )}
           </div>

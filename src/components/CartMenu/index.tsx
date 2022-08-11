@@ -107,51 +107,59 @@ const CartMenu = ({ openCart }: ICartMenu) => {
         {objects.length > 0 && (
           <h3 className={styles.servicesTitle}>{t('Quartos')}</h3>
         )}
-        {objects.map((room, index) => (
-          <div key={index} className={styles.roomContainer}>
-            <div className={styles.imageRoomHolder}>
-              <Image src={room?.infos?.image} layout={'fill'} />
-            </div>
-
-            <div className={styles.roomInfo}>
-              <div className={styles.roomNameAdultChildContainer}>
-                <div className={styles.row}>
-                  <h5>
-                    {room.infos?.adults < 2 && room.infos?.adults > 0
-                      ? t('adultWithCount_one', { count: room.infos?.adults })
-                      : room.infos?.adults === 0
-                      ? t('adultWithCount_other', { count: room.infos?.adults })
-                      : t('adultWithCount_other', {
-                          count: room.infos?.adults,
-                        })}{' '}
-                    {'&'}{' '}
-                    {room.infos?.children < 2 && room.infos?.children > 0
-                      ? t('childrenWithCount_one', {
-                          count: room.infos?.children,
-                        })
-                      : room.infos?.children === 0
-                      ? t('childrenWithCount_one', {
-                          count: room.infos?.children,
-                        })
-                      : t('childrenWithCount_other', {
-                          count: room.infos?.children,
-                        })}
-                  </h5>
-                  <Delete
-                    onClick={() => handleRemoveItem(room?.objectId, false)}
-                    className={styles.closeButton}
-                    style={{ cursor: 'pointer', width: 16, color: 'gray' }}
-                  />
+        {objects.map((item, index) => (
+          <>
+            {item?.prices?.map((price, index) => (
+              <div key={index} className={styles.roomContainer}>
+                <div className={styles.imageRoomHolder}>
+                  <Image src={item?.infos?.image} layout={'fill'} />
                 </div>
-                <h4>{room.infos?.objectName}</h4>
-              </div>
 
-              <div className={styles.roomQtndPriceContainer}>
-                <h5>{room.quantity + ' ' + t('room')} </h5>
-                <h4>{currency(room.prices[0]?.regularTotalAmount)}</h4>
+                <div className={styles.roomInfo}>
+                  <div className={styles.roomNameAdultChildContainer}>
+                    <div className={styles.row}>
+                      <h5>
+                        {item.infos?.adults < 2 && item.infos?.adults > 0
+                          ? t('adultWithCount_one', {
+                              count: item.infos?.adults,
+                            })
+                          : item.infos?.adults === 0
+                          ? t('adultWithCount_other', {
+                              count: item.infos?.adults,
+                            })
+                          : t('adultWithCount_other', {
+                              count: item.infos?.adults,
+                            })}{' '}
+                        {'&'}{' '}
+                        {item.infos?.children < 2 && item.infos?.children > 0
+                          ? t('childrenWithCount_one', {
+                              count: item.infos?.children,
+                            })
+                          : item.infos?.children === 0
+                          ? t('childrenWithCount_one', {
+                              count: item.infos?.children,
+                            })
+                          : t('childrenWithCount_other', {
+                              count: item.infos?.children,
+                            })}
+                      </h5>
+                      <Delete
+                        onClick={() => handleRemoveItem(item?.objectId, false)}
+                        className={styles.closeButton}
+                        style={{ cursor: 'pointer', width: 16, color: 'gray' }}
+                      />
+                    </div>
+                    <h4>{item.infos?.objectName}</h4>
+                  </div>
+
+                  <div className={styles.roomQtndPriceContainer}>
+                    <h5>{price?.quantity + ' ' + t('room')}</h5>
+                    <h4>{currency(price?.regularTotalAmount)}</h4>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            ))}
+          </>
         ))}
 
         {objects && objects.length > 0 && (

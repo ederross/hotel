@@ -17,7 +17,6 @@ export interface TypesCart {
 export interface CartRoom {
   objectId: string;
   identificationCode: string;
-  quantity: number;
   prices: CartRoomPrice[];
   infos: {
     objectName: string;
@@ -30,6 +29,7 @@ export interface CartRoom {
 interface CartRoomPrice {
   quoteId: string;
   regularTotalAmount: number;
+  quantity: number;
 }
 
 export interface CartService {
