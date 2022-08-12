@@ -173,7 +173,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
     if (router.pathname === '/objects') {
       return;
     }
-    if (objects.length > 0 || services.length > 0) {
+    if (objects?.length > 0 || services?.length > 0) {
       setScrolled(true);
 
       document.body.style.overflow = 'initial';
@@ -184,7 +184,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
       setIsCalendarVisible(false);
       setCartMobileOpen(false);
     }
-  }, [objects.length > 0, services.length > 0]);
+  }, [objects?.length > 0, services?.length > 0]);
 
   // Open Cart Modal
   const handleOpenCart = () => {
@@ -241,7 +241,11 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
     router.pathname === '/search' ? filterString : t('searchPeriod');
 
   const cartLength =
-    objects.map((a) => a.quantity).reduce((a, b) => a + b, 0) +
+    objects
+      .map((o) =>
+        o?.prices?.map((p) => p?.quantity)?.reduce((a, b) => a + b, 0)
+      )
+      .reduce((a, b) => a + b, 0) +
     services.map((s) => s.quantity).reduce((a, b) => a + b, 0);
 
   return (
@@ -539,7 +543,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
               <motion.div
                 className={styles.cart}
                 initial="exit"
-                animate={objects.length > 0 ? 'enter' : 'exit'}
+                animate={objects?.length > 0 ? 'enter' : 'exit'}
                 variants={{
                   enter: {
                     transition: {

@@ -18,6 +18,8 @@ import { Room } from '../../../data/room';
 import { IconImportDynamically } from '../common/ComponentWithIcon';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../store/types';
+import { PostPaymentMethods } from '../../services/requests/booking';
+import { toast } from 'react-toastify';
 
 interface IRoomDetailsProps {
   room: Room;
@@ -28,12 +30,11 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
   const { t } = useTranslation('common');
   const [openOffersModal, setOpenOffersModal] = useState(false);
   const [showMoreDescription, setShowMoreDescription] = useState(false);
+  const [loadingCheckout, setLoadingCheckout] = useState(false);
 
-  const {
-    cart: { objects },
-  } = useSelector((state: AppStore) => state);
+  const { cart } = useSelector((state: AppStore) => state);
 
-  const currentRoom = objects.find((r) => r.objectId === room.objectId);
+  const currentRoom = cart?.objects.find((r) => r.objectId === room.objectId);
 
   const handleOpenMobileOffersModal = () => {
     if (document.body.style.overflow === 'hidden') {
@@ -48,7 +49,32 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
   // Window Sizes
   const size = useWindowSize();
 
-  const handleReserve = () => router.push('/checkout');
+  const toastConfig = {
+    position: size?.width < 868 ? 'top-left' : 'bottom-right',
+    autoClose: 5000,
+    theme: 'colored',
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  };
+
+  const handleReserve = () => {
+    setLoadingCheckout(true);
+    PostPaymentMethods(cart)
+      .then((res) => {
+        router.push('/checkout');
+        console.log(res.data);
+        setLoadingCheckout(false);
+      })
+      .catch((err) => {
+        console.log('POST PAYMENT METHOD ERROR!', err);
+        setLoadingCheckout(false);
+        toast.error(`Falha ao reservar quartos`, toastConfig as any);
+        return [];
+      });
+  };
 
   const imageData = room.images?.map((image) => {
     return {

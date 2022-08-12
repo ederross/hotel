@@ -131,7 +131,6 @@ const Search = ({
     if (startDate && endDate && adults && children) {
       GetRoomSearch({ startDate, endDate, adults, children })
         .then((res: any) => {
-          console.log(res?.data || []);
           setSearchResult(res?.data);
         })
         .catch(() => {
@@ -252,7 +251,9 @@ const Search = ({
                 <section className={styles.contentResultContainer}>
                   {searchResult?.map((room, index) => (
                     <CardRoom
-                      isResultOneRoom={searchResult?.length === 1 ? true : false}
+                      isResultOneRoom={
+                        searchResult?.length === 1 ? true : false
+                      }
                       key={index}
                       room={room}
                       setSelectedRoom={setSelectedRoom}

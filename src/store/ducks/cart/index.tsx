@@ -1,7 +1,8 @@
+import { officeId } from '../../../services/api';
 import { Types, TypesCart, CartRoom, CartService } from './types';
 
 const INITIAL_STATE: TypesCart = {
-  officeId: '',
+  officeId: officeId,
   objects: [],
   services: [],
   loading: false,

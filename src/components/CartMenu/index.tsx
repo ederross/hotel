@@ -16,6 +16,7 @@ import { CloseOutlined, Delete } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { useWindowSize } from '../../hooks/UseWindowSize';
+import { PostPaymentMethods } from '../../services/requests/booking';
 
 interface ICartMenu {
   openCart: boolean;
@@ -27,11 +28,10 @@ const CartMenu = ({ openCart }: ICartMenu) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const {
-    cart: { objects, services },
-  } = useSelector((state: AppStore) => state);
+  const { cart } = useSelector((state: AppStore) => state);
+  const [loadingCheckout, setLoadingCheckout] = useState(false);
 
-  const currentLength = objects?.length + services?.length;
+  const currentLength = cart?.objects?.length + cart?.services?.length;
 
   const [oldLength, setOldLength] = useState(currentLength);
 
@@ -39,7 +39,21 @@ const CartMenu = ({ openCart }: ICartMenu) => {
 
   const handleCleanCart = () => dispatch(CleanCart());
 
-  const handleReserve = () => router.push('/checkout');
+  const handleReserve = () => {
+    setLoadingCheckout(true);
+    PostPaymentMethods(cart)
+      .then((res) => {
+        router.push('/checkout');
+        console.log(res.data);
+        setLoadingCheckout(false);
+      })
+      .catch((err) => {
+        console.log('POST PAYMENT METHOD ERROR!', err);
+        setLoadingCheckout(false);
+        toast.error(`Falha ao reservar quartos`, toastConfig as any);
+        return [];
+      });
+  };
 
   const handleRemoveItem = (id: any, service: boolean) => {
     if (service) {
@@ -104,10 +118,10 @@ const CartMenu = ({ openCart }: ICartMenu) => {
           e.stopPropagation();
         }}
       >
-        {objects.length > 0 && (
+        {cart?.objects.length > 0 && (
           <h3 className={styles.servicesTitle}>{t('Quartos')}</h3>
         )}
-        {objects.map((item, index) => (
+        {cart?.objects.map((item, index) => (
           <>
             {item?.prices?.map((price, index) => (
               <div key={index} className={styles.roomContainer}>
@@ -162,16 +176,16 @@ const CartMenu = ({ openCart }: ICartMenu) => {
           </>
         ))}
 
-        {objects && objects.length > 0 && (
+        {cart?.objects && cart?.objects.length > 0 && (
           <div className={styles.divisorContainer} style={{ margin: '20px 0' }}>
             <div></div>
           </div>
         )}
 
-        {services.length > 0 && (
+        {cart?.services.length > 0 && (
           <h3 className={styles.servicesTitle}>{t('Serviços')}</h3>
         )}
-        {services.map((room, index) => (
+        {cart?.services.map((room, index) => (
           <div key={index} className={styles.roomContainer}>
             <div className={styles.row}>
               <div
@@ -225,7 +239,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
           </div>
         )} */}
 
-        {objects && objects.length > 0 && (
+        {cart?.objects && cart?.objects.length > 0 && (
           <motion.button
             id={'button'}
             initial={{ scale: 0.9 }}
@@ -242,11 +256,14 @@ const CartMenu = ({ openCart }: ICartMenu) => {
           </motion.button>
         )}
 
-        {objects && objects.length === 0 && services && services.length === 0 && (
-          <div className={styles.emptyMessageContainer}>
-            <h4>Seu carrinho está vazio</h4>
-          </div>
-        )}
+        {cart?.objects &&
+          cart?.objects.length === 0 &&
+          cart?.services &&
+          cart?.services.length === 0 && (
+            <div className={styles.emptyMessageContainer}>
+              <h4>Seu carrinho está vazio</h4>
+            </div>
+          )}
       </motion.div>
     </>
   );
