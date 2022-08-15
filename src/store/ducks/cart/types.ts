@@ -3,11 +3,17 @@ export const Types = {
   REMOVE_CART_ROOM: '@cart/REMOVE_CART_ROOM',
   ADD_CART_SERVICE: '@cart/ADD_CART_SERVICE',
   REMOVE_CART_SERVICE: '@cart/REMOVE_SERVICE_ROOM',
+  SET_CART_INFOS: '@cart/SET_CART_INFOS',
   CLEAN_CART: '@cart/REMOVE_CART',
 };
 
 export interface TypesCart {
   officeId: string;
+  infos: {
+    totalGuest: number;
+    startDate: string;
+    endDate: string;
+  };
   services: CartService[];
   objects: CartRoom[];
   loading: boolean;

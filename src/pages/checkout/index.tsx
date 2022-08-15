@@ -5,14 +5,12 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
-import Card from 'react-credit-cards';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { ChevronLeft, ChevronDown, ChevronUp } from 'react-feather';
+import { ChevronLeft } from 'react-feather';
 import { useSelector } from 'react-redux';
 import CartModal from '../../components/CartModal';
 import { CheckoutSucessModal } from '../../components/CheckoutSucessModal';
-import Footer from '../../components/common/Footer';
 import FooterCheckout from '../../components/common/FooterCheckout';
 import Input from '../../components/common/Input';
 import DynamicInfoModal from '../../components/DynamicInfoModal';
@@ -21,25 +19,29 @@ import { useWindowSize } from '../../hooks/UseWindowSize';
 import {
   GetOfficeDesign,
   GetOfficeDetails,
+  GetOfficePolicies,
 } from '../../services/requests/office';
 import { AppStore } from '../../store/types';
 import { currency } from '../../utils/currency';
 
 import styles from './styles.module.scss';
 import CreditCard from '../../components/CreditCard';
+import { PoliciesContainer } from '../../components/PoliciesContainer';
+import moment from 'moment';
 
-const Checkout = ({ officeDetails, design }: any) => {
+const Checkout = ({ design, policies }: any) => {
   const { t } = useTranslation();
 
   const {
-    cart: { objects, services },
+    cart: { objects, services, infos },
+    checkout: { data: checkout },
+    domain: { paymentMethodTypeDomain },
   } = useSelector((state: AppStore) => state);
 
   // Window Sizes
   const size = useWindowSize();
   const [scrolled, setScrolled] = useState(false);
   const router = useRouter();
-  const [policy, setPolicy] = useState(0);
   const [successModalVisible, setSuccessModalVisible] = useState(false);
   const [showCartModal, setShowCartModal] = useState(false);
   const [showDynamicInfoModal, setShowDynamicInfoModal] = useState(false);
@@ -128,65 +130,60 @@ const Checkout = ({ officeDetails, design }: any) => {
                     }}
                   >
                     {size.width < 868 &&
-                      objects.slice(0, 2).map((room, index) => (
+                      objects.slice(0, 2).map((item, index) => (
                         <>
-                          <div key={index} className={styles.roomContainer}>
-                            <div className={styles.imageRoomHolder}>
-                              <Image
-                                src={
-                                  index === 1
-                                    ? 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80'
-                                    : index == 2
-                                    ? 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-                                    : 'https://images.unsplash.com/photo-1574643156929-51fa098b0394?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-                                }
-                                alt={'Room photo'}
-                                layout={'fill'}
-                              />
-                            </div>
-
-                            <div className={styles.roomInfo}>
-                              <div
-                                className={styles.roomNameAdultChildContainer}
-                              >
-                                <h5>
-                                  {room.infos?.adults < 2 &&
-                                  room.infos?.adults > 0
-                                    ? t('adultWithCount_one', {
-                                        count: room.infos?.adults,
-                                      })
-                                    : room.infos?.adults === 0
-                                    ? t('adultWithCount_other', {
-                                        count: room.infos?.adults,
-                                      })
-                                    : t('adultWithCount_other', {
-                                        count: room.infos?.adults,
-                                      })}{' '}
-                                  {'&'}{' '}
-                                  {room.infos?.children < 2 &&
-                                  room.infos?.children > 0
-                                    ? t('childrenWithCount_one', {
-                                        count: room.infos?.children,
-                                      })
-                                    : room.infos?.children === 0
-                                    ? t('childrenWithCount_one', {
-                                        count: room.infos?.children,
-                                      })
-                                    : t('childrenWithCount_other', {
-                                        count: room.infos?.children,
-                                      })}
-                                </h5>
-                                <h4>{room.infos?.objectName}</h4>
+                          {item?.prices?.map((price, index) => (
+                            <div key={index} className={styles.roomContainer}>
+                              <div className={styles.imageRoomHolder}>
+                                <Image
+                                  src={item?.infos?.image}
+                                  layout={'fill'}
+                                />
                               </div>
 
-                              <div className={styles.roomQtndPriceContainer}>
-                                <h5>{room.quantity + ' ' + t('room')} </h5>
-                                <h4>
-                                  {currency(room.prices[0].regularTotalAmount)}
-                                </h4>
+                              <div className={styles.roomInfo}>
+                                <div
+                                  className={styles.roomNameAdultChildContainer}
+                                >
+                                  <div className={styles.row}>
+                                    <h5>
+                                      {item.infos?.adults < 2 &&
+                                      item.infos?.adults > 0
+                                        ? t('adultWithCount_one', {
+                                            count: item.infos?.adults,
+                                          })
+                                        : item.infos?.adults === 0
+                                        ? t('adultWithCount_other', {
+                                            count: item.infos?.adults,
+                                          })
+                                        : t('adultWithCount_other', {
+                                            count: item.infos?.adults,
+                                          })}{' '}
+                                      {'&'}{' '}
+                                      {item.infos?.children < 2 &&
+                                      item.infos?.children > 0
+                                        ? t('childrenWithCount_one', {
+                                            count: item.infos?.children,
+                                          })
+                                        : item.infos?.children === 0
+                                        ? t('childrenWithCount_one', {
+                                            count: item.infos?.children,
+                                          })
+                                        : t('childrenWithCount_other', {
+                                            count: item.infos?.children,
+                                          })}
+                                    </h5>
+                                  </div>
+                                  <h4>{item.infos?.objectName}</h4>
+                                </div>
+
+                                <div className={styles.roomQtndPriceContainer}>
+                                  <h5>{price?.quantity + ' ' + t('room')}</h5>
+                                  <h4>{currency(price?.regularTotalAmount)}</h4>
+                                </div>
                               </div>
                             </div>
-                          </div>
+                          ))}
                         </>
                       ))}
                     {size.width < 868 && objects.length > 2 && (
@@ -249,7 +246,10 @@ const Checkout = ({ officeDetails, design }: any) => {
                     <div className={styles.infoHolder}>
                       <div>
                         <h4>{t('dates')}</h4>
-                        <h5>23 - 29 de mai.</h5>
+                        <h5>
+                          {moment(infos?.startDate).format('DD/MM')} -{' '}
+                          {moment(infos?.endDate).format('DD/MM')}
+                        </h5>
                       </div>
                       <div>
                         <h4>
@@ -258,7 +258,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                             {t('guest_other')}
                           </span>
                         </h4>
-                        <h5>12</h5>
+                        <h5>{infos?.totalGuest}</h5>
                       </div>
                     </div>
 
@@ -289,23 +289,11 @@ const Checkout = ({ officeDetails, design }: any) => {
                       {' '}
                       {t('accommodation')}+ {t('service_other')}
                     </h5>
-                    <h5>{currency(8574.72)}</h5>
-                  </div>
-                  {/* <div className={styles.row}>
-                    <u>
-                      <h5>Serviços</h5>
-                    </u>
-                    <h5>{currency(98)}</h5>
-                  </div> */}
-                  <div className={styles.row}>
-                    <u
-                      onClick={() =>
-                        setShowDynamicInfoModal(!showDynamicInfoModal)
-                      }
-                    >
-                      <h5>{t('taxes')}</h5>
-                    </u>
-                    <h5>{currency(98)}</h5>
+                    <h5>
+                      {currency(
+                        checkout[0]?.paymentDetails[0]?.paymentTotalAmount
+                      )}
+                    </h5>
                   </div>
                   <div className={styles.row}>
                     <u
@@ -315,7 +303,17 @@ const Checkout = ({ officeDetails, design }: any) => {
                     >
                       <h5>{t('taxes')}</h5>
                     </u>
-                    <h5>{currency(98)}</h5>
+                    <h5>{currency(0)}</h5>
+                  </div>
+                  <div className={styles.row}>
+                    <u
+                      onClick={() =>
+                        setShowDynamicInfoModal(!showDynamicInfoModal)
+                      }
+                    >
+                      <h5>{t('taxes')}</h5>
+                    </u>
+                    <h5>{currency(0)}</h5>
                   </div>
 
                   {/* <div className={styles.mobMoreInfoHolder}>
@@ -420,9 +418,15 @@ const Checkout = ({ officeDetails, design }: any) => {
                   style={{ marginBottom: '0.5rem' }}
                 >
                   <select name="arrivalForecast" id="pet-select">
-                    <option value="">{t('creditCard')}</option>
-                    <option value="">PIX</option>
-                    <option value="">TED</option>
+                    {checkout?.map((item, index) => (
+                      <option key={index} value={item?.paymentMethodTypeCode}>
+                        {paymentMethodTypeDomain?.data?.find(
+                          (domain) =>
+                            domain.domainItemCode ===
+                            item?.paymentMethodTypeCode
+                        )?.domainItemValue || item?.paymentMethodTypeCode}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -431,59 +435,56 @@ const Checkout = ({ officeDetails, design }: any) => {
             </div>
             <div className={styles.webPaymentInfos}>
               <div>
-                {objects.slice(0, 2).map((room, index) => (
-                  <div key={index} className={styles.roomContainer}>
-                    <div className={styles.imageRoomHolder}>
-                      <Image
-                        src={
-                          index === 1
-                            ? 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80'
-                            : index == 2
-                            ? 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-                            : 'https://images.unsplash.com/photo-1574643156929-51fa098b0394?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-                        }
-                        layout={'fill'}
-                        // width={124}
-                        // height={124}
-                      />
-                    </div>
+                {objects.slice(0, 2).map((item, index) => (
+                  <>
+                    {item?.prices?.map((price, index) => (
+                      <div key={index} className={styles.roomContainer}>
+                        <div className={styles.imageRoomHolder}>
+                          <Image src={item?.infos?.image} layout={'fill'} />
+                        </div>
 
-                    <div className={styles.roomInfo}>
-                      <div className={styles.roomNameAdultChildContainer}>
-                        <h5>
-                          {room.infos?.adults < 2 && room.infos?.adults > 0
-                            ? t('adultWithCount_one', {
-                                count: room.infos?.adults,
-                              })
-                            : room.infos?.adults === 0
-                            ? t('adultWithCount_other', {
-                                count: room.infos?.adults,
-                              })
-                            : t('adultWithCount_other', {
-                                count: room.infos?.adults,
-                              })}{' '}
-                          {'&'}{' '}
-                          {room.infos?.children < 2 && room.infos?.children > 0
-                            ? t('childrenWithCount_one', {
-                                count: room.infos?.children,
-                              })
-                            : room.infos?.children === 0
-                            ? t('childrenWithCount_one', {
-                                count: room.infos?.children,
-                              })
-                            : t('childrenWithCount_other', {
-                                count: room.infos?.children,
-                              })}
-                        </h5>
-                        <h4>{room.infos?.objectName}</h4>
-                      </div>
+                        <div className={styles.roomInfo}>
+                          <div className={styles.roomNameAdultChildContainer}>
+                            <div className={styles.row}>
+                              <h5>
+                                {item.infos?.adults < 2 &&
+                                item.infos?.adults > 0
+                                  ? t('adultWithCount_one', {
+                                      count: item.infos?.adults,
+                                    })
+                                  : item.infos?.adults === 0
+                                  ? t('adultWithCount_other', {
+                                      count: item.infos?.adults,
+                                    })
+                                  : t('adultWithCount_other', {
+                                      count: item.infos?.adults,
+                                    })}{' '}
+                                {'&'}{' '}
+                                {item.infos?.children < 2 &&
+                                item.infos?.children > 0
+                                  ? t('childrenWithCount_one', {
+                                      count: item.infos?.children,
+                                    })
+                                  : item.infos?.children === 0
+                                  ? t('childrenWithCount_one', {
+                                      count: item.infos?.children,
+                                    })
+                                  : t('childrenWithCount_other', {
+                                      count: item.infos?.children,
+                                    })}
+                              </h5>
+                            </div>
+                            <h4>{item.infos?.objectName}</h4>
+                          </div>
 
-                      <div className={styles.roomQtndPriceContainer}>
-                        <h5>{room.quantity + ' ' + t('room')} </h5>
-                        <h4>{currency(room.prices[0].regularTotalAmount)}</h4>
+                          <div className={styles.roomQtndPriceContainer}>
+                            <h5>{price?.quantity + ' ' + t('room')}</h5>
+                            <h4>{currency(price?.regularTotalAmount)}</h4>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    ))}
+                  </>
                 ))}
 
                 {objects.length > 2 && (
@@ -542,7 +543,11 @@ const Checkout = ({ officeDetails, design }: any) => {
                   <h5>
                     {t('accommodation')}+ {t('service_other')}
                   </h5>
-                  <h5>{currency(8574.72)}</h5>
+                  <h5>
+                    {currency(
+                      checkout[0]?.paymentDetails[0]?.paymentTotalAmount
+                    )}
+                  </h5>
                 </div>
                 <div className={styles.row}>
                   <u
@@ -553,7 +558,7 @@ const Checkout = ({ officeDetails, design }: any) => {
                   >
                     <h5>{t('fees')}</h5>
                   </u>
-                  <h5>{currency(98)}</h5>
+                  <h5>{currency(0)}</h5>
                 </div>
                 <div className={styles.row}>
                   <u
@@ -564,14 +569,18 @@ const Checkout = ({ officeDetails, design }: any) => {
                   >
                     <h5>{t('taxes')}</h5>
                   </u>
-                  <h5>{currency(98)}</h5>
+                  <h5>{currency(0)}</h5>
                 </div>
               </div>
 
               <div>
                 <div className={styles.row}>
                   <h4>{t('total')} (BRL)</h4>
-                  <h4>{currency(2298)}</h4>
+                  <h4>
+                    {currency(
+                      checkout[0]?.paymentDetails[0]?.paymentTotalAmount
+                    )}
+                  </h4>
                 </div>
                 <motion.button
                   id={'button'}
@@ -600,152 +609,8 @@ const Checkout = ({ officeDetails, design }: any) => {
               </div>
             </div>
           </div>
-          <div className={styles.webPoliticsContainer}>
-            <h3>{t('policy_other')}</h3>
-            <h5>
-              {t('reservationNonRefundable')}{' '}
-              <a title="Políticas de reembolso" href="">
-                {t('knowMore')}
-              </a>
-            </h5>
-            <h5>
-              Lorem ipsum dolor sit amet{' '}
-              <a title="Política de Causas de Força Maior" href="">
-                {t('knowMore')}
-              </a>
-            </h5>
-            <div className={styles.policyCardContainer}>
-              <div className={styles.policyCard}>
-                <h3>{t('houseRules')}</h3>
-              </div>
-              <div className={styles.policyCard}>
-                <h3>
-                  {' '}
-                  {t('health')} {'&'} {t('security')}
-                </h3>
-                <p>
-                  Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem
-                  ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
-                  dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor
-                  sit amet
-                </p>
-              </div>
-              <div className={styles.policyCard}>
-                <h3>{t('cancellationPolicy')}</h3>
-                <p>
-                  Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem
-                  ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
-                  dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor
-                  sit amet
-                </p>
-              </div>
-            </div>
 
-            <h6>
-              Lorem ipsum dolor sit amet. Lorem Ipsum dolor Lorem ipsum dolor
-              sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit
-              ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet Lorem
-              ipsum dolor sit ametLorem ipsum dolor sit amet
-            </h6>
-          </div>
-
-          <div className={styles.mobPoliticsContainer}>
-            <h3>{t('policy_other')}</h3>
-            <h5>
-              Lorem ipsum dolor sit amet{' '}
-              <a title="Políticas de reembolso" href="">
-                {t('knowMore')}
-              </a>
-            </h5>
-            <h5>
-              Lorem ipsum dolor sit amet{' '}
-              <a title="Política de Causas de Força Maior" href="">
-                {t('knowMore')}
-              </a>
-            </h5>
-            <div className={styles.policyCardContainer}>
-              <div className={styles.policyCard} onClick={() => setPolicy(0)}>
-                <div className={styles.row}>
-                  <h3>{t('houseRules')}</h3>
-                  {policy === 0 ? (
-                    <ChevronUp
-                      className={styles.chevronIcon}
-                      width={18}
-                      height={18}
-                    />
-                  ) : (
-                    <ChevronDown
-                      className={styles.chevronIcon}
-                      width={18}
-                      height={18}
-                    />
-                  )}
-                </div>
-                {policy === 0 && (
-                  <p>
-                    Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem
-                    ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
-                    dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor
-                    sit amet
-                  </p>
-                )}
-              </div>
-              <div className={styles.policyCard} onClick={() => setPolicy(1)}>
-                <div className={styles.row}>
-                  <h3>
-                    {t('health')} {'&'} {t('security')}
-                  </h3>
-                  {policy === 1 ? (
-                    <ChevronUp
-                      className={styles.chevronIcon}
-                      width={18}
-                      height={18}
-                    />
-                  ) : (
-                    <ChevronDown
-                      className={styles.chevronIcon}
-                      width={18}
-                      height={18}
-                    />
-                  )}
-                </div>
-                {policy === 1 && (
-                  <p>
-                    Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem
-                    ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
-                    dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor
-                    sit amet
-                  </p>
-                )}
-              </div>
-              <div className={styles.policyCard} onClick={() => setPolicy(2)}>
-                <div className={styles.row}>
-                  <h3>{t('cancellationPolicy')}</h3>
-                  {policy === 2 ? (
-                    <ChevronUp
-                      className={styles.chevronIcon}
-                      width={18}
-                      height={18}
-                    />
-                  ) : (
-                    <ChevronDown
-                      className={styles.chevronIcon}
-                      width={18}
-                      height={18}
-                    />
-                  )}
-                </div>
-                {policy === 2 && (
-                  <p>
-                    Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem
-                    ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
-                    dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor
-                    sit amet
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
+          <PoliciesContainer policies={policies} />
 
           <div className={styles.mobConfirmContainer}>
             <h6>
@@ -795,11 +660,13 @@ const Checkout = ({ officeDetails, design }: any) => {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const officeDetails = await GetOfficeDetails();
   const design = await GetOfficeDesign();
+  const policies = await GetOfficePolicies();
 
   return {
     props: {
       officeDetails,
       design,
+      policies,
       ...(await serverSideTranslations(locale, ['common'])),
     },
     revalidate: 60,

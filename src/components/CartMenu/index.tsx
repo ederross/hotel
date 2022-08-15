@@ -17,6 +17,7 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { useWindowSize } from '../../hooks/UseWindowSize';
 import { PostPaymentMethods } from '../../services/requests/booking';
+import { SetCheckoutRedux } from '../../store/ducks/checkout/actions';
 
 interface ICartMenu {
   openCart: boolean;
@@ -45,6 +46,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
       .then((res) => {
         router.push('/checkout');
         console.log(res.data);
+        res?.data && dispatch(SetCheckoutRedux(res?.data));
         setLoadingCheckout(false);
       })
       .catch((err) => {

@@ -38,6 +38,7 @@ import {
   GetContactDomain,
   GetFacilitiesDomain,
   GetIconsDomain,
+  GetPaymethodDomain,
   GetServicePricesDomain,
   GetServicesDomain,
 } from '../../services/requests/domain';
@@ -47,11 +48,13 @@ import {
   SetContactDomain,
   SetFacilitiesDomain,
   SetIconsDomain,
+  SetPaymethodDomain,
   SetServicePricesDomain,
   SetServicesDomain,
 } from '../../store/ducks/domain/actions';
 import { IconDisplay } from '../../components/common/IconDisplay';
 import { IconImportDynamically } from '../../components/common/ComponentWithIcon';
+import { SetCartInfos } from '../../store/ducks/cart/actions';
 
 interface ISearch {
   servicesResult: any;
@@ -64,6 +67,7 @@ interface ISearch {
   amenititiesDomain: Domain;
   servicesDomain: Domain;
   servicePricesDomain: Domain;
+  paymethodDomain: Domain;
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -79,6 +83,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const amenititiesDomain = await GetAmenitiesDomain();
   const servicesDomain = await GetServicesDomain();
   const servicePricesDomain = await GetServicePricesDomain();
+  const paymethodDomain = await GetPaymethodDomain();
 
   return {
     props: {
@@ -92,6 +97,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       amenititiesDomain,
       servicesDomain,
       servicePricesDomain,
+      paymethodDomain,
       ...(await serverSideTranslations(locale, ['common'])),
     },
     revalidate: 60,
@@ -109,6 +115,7 @@ const Search = ({
   servicePricesDomain,
   servicesDomain,
   iconsDomain,
+  paymethodDomain,
 }: ISearch) => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -138,6 +145,13 @@ const Search = ({
           setSearchResult([]);
         });
     }
+    dispatch(
+      SetCartInfos({
+        totalGuest: parseInt(adults) + parseInt(children),
+        endDate,
+        startDate,
+      })
+    );
   }, [startDate, endDate, adults, children]);
 
   useEffect(() => {
@@ -147,6 +161,7 @@ const Search = ({
     dispatch(SetFacilitiesDomain(facilitiesDomain));
     dispatch(SetServicesDomain(servicesDomain));
     dispatch(SetServicePricesDomain(servicePricesDomain));
+    dispatch(SetPaymethodDomain(paymethodDomain));
   }, []);
 
   const GetFacilityFromDomain = (facilityCategoryTypeCode: number) =>

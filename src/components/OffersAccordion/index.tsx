@@ -131,6 +131,7 @@ const OffersAccordion = ({ room }: IOffersAccordion) => {
 
                 <Counter
                   quantity={findQuantity(item?.quoteId)}
+                  max={room?.quantity}
                   setQuantity={(q) =>
                     handleAddToCart(q, item?.quoteId, item.regularTotalAmount)
                   }

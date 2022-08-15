@@ -48,3 +48,11 @@ export const GetServicePricesDomain = async () =>
       },
     })
   ).data;
+export const GetPaymethodDomain = async () =>
+  await (
+    await api.get('/domain/paymentMethodTypeCode', {
+      headers: {
+        'Accept-Language': 'pt-BR',
+      },
+    })
+  ).data;

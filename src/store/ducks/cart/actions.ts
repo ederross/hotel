@@ -17,6 +17,10 @@ export const RemoveServiceToCart = (serviceId: number) => {
   return action(Types.REMOVE_CART_SERVICE, { serviceId });
 };
 
+export const SetCartInfos = (infos: any) => {
+  return action(Types.SET_CART_INFOS, { infos });
+};
+
 export const CleanCart = () => {
   return action(Types.CLEAN_CART, {});
 };

@@ -3,6 +3,11 @@ import { Types, TypesCart, CartRoom, CartService } from './types';
 
 const INITIAL_STATE: TypesCart = {
   officeId: officeId,
+  infos: {
+    totalGuest: 0,
+    endDate: '',
+    startDate: '',
+  },
   objects: [],
   services: [],
   loading: false,
@@ -59,6 +64,13 @@ const reducer = (state = INITIAL_STATE, action: any) => {
         loading: true,
         error: false,
       };
+    case Types.SET_CART_INFOS:
+      return {
+        ...state,
+        infos: action.payload.infos,
+        loading: false,
+        error: false,
+      };
     case Types.CLEAN_CART:
       return {
         ...state,
@@ -67,6 +79,7 @@ const reducer = (state = INITIAL_STATE, action: any) => {
         loading: true,
         error: false,
       };
+
     default:
       return state;
   }

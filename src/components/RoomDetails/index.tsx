@@ -16,10 +16,11 @@ import { AmenitieDisplay } from '../common/AmenitieDisplay';
 import { motion } from 'framer-motion';
 import { Room } from '../../../data/room';
 import { IconImportDynamically } from '../common/ComponentWithIcon';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppStore } from '../../store/types';
 import { PostPaymentMethods } from '../../services/requests/booking';
 import { toast } from 'react-toastify';
+import { SetCheckoutRedux } from '../../store/ducks/checkout/actions';
 
 interface IRoomDetailsProps {
   room: Room;
@@ -28,6 +29,7 @@ interface IRoomDetailsProps {
 
 export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
   const { t } = useTranslation('common');
+  const dispatch = useDispatch();
   const [openOffersModal, setOpenOffersModal] = useState(false);
   const [showMoreDescription, setShowMoreDescription] = useState(false);
   const [loadingCheckout, setLoadingCheckout] = useState(false);
@@ -65,7 +67,7 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
     PostPaymentMethods(cart)
       .then((res) => {
         router.push('/checkout');
-        console.log(res.data);
+        res?.data && dispatch(SetCheckoutRedux(res?.data));
         setLoadingCheckout(false);
       })
       .catch((err) => {

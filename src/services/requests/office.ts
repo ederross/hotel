@@ -89,3 +89,17 @@ export const GetOfficeFacilities = async () => {
 
   return res;
 };
+
+export const GetOfficePolicies = async () => {
+  const res = await api
+    .get(`/offices/${officeId}/policies`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch(() => {
+      console.log('OFFICE POLICIES ERROR!');
+      return {};
+    });
+
+  return res;
+};
