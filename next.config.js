@@ -10,7 +10,7 @@ const nextConfig = {
       'images.unsplash.com',
       'hospeda.in',
       'img.freepik.com',
-      'images.pexels.com'
+      'images.pexels.com',
     ],
   },
   compiler: {
@@ -21,3 +21,14 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+// module.exports = {
+//   async rewrites() {
+//     return [
+//       {
+//         source: '/api/:path*',
+//         destination: 'https://api.example.com/:path*',
+//       },
+//     ];
+//   },
+// };
