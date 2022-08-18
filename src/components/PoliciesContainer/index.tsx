@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Policy } from '../../../data/policies';
 import styles from './styles.module.scss';
 import { ChevronDown, ChevronUp } from 'react-feather';
+import { IconImportDynamically } from '../common/ComponentWithIcon';
 interface IPoliciesContainerProps {
   policies: Policy;
 }
@@ -22,26 +23,29 @@ export const PoliciesContainer = ({ policies }: IPoliciesContainerProps) => {
             {t('knowMore')}
           </a>
         </h5>
-        <h5>
-          Lorem ipsum dolor sit amet{' '}
-          <a title="Política de Causas de Força Maior" href="">
-            {t('knowMore')}
-          </a>
-        </h5>
         <div className={styles.policyCardContainer}>
           {policies?.policies?.map((item, index) => (
             <div key={index} className={styles.policyCard}>
               <h3>{item?.PolicyDescription}</h3>
+              {item?.Rules?.map((rule, index) => (
+                <div className={styles.row} key={index}>
+                  <IconImportDynamically
+                    iconName={rule?.DisplayIconTypeCode}
+                    size={20}
+                  />
+                  <p>{rule?.PolicyRuleDescription || '-'}</p>
+                </div>
+              ))}
             </div>
           ))}
         </div>
-
+        <h3>{t('additional_infos')}</h3>
         <h6>
-          {policies?.bookTerms?.substring(
+          {policies?.additionalInfo?.substring(
             0,
-            showMoreDescription ? policies?.bookTerms?.length : 250
+            showMoreDescription ? policies?.additionalInfo?.length : 250
           ) || '-'}
-          {policies?.bookTerms?.length > 250 && (
+          {policies?.additionalInfo?.length > 250 && (
             <span
               onClick={() => setShowMoreDescription(!showMoreDescription)}
               style={{ cursor: 'pointer' }}

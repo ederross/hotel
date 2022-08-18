@@ -12,7 +12,7 @@ import {
   RemoveProductToCart,
   RemoveServiceToCart,
 } from '../../store/ducks/cart/actions';
-import { CloseOutlined, Delete } from '@mui/icons-material';
+import { Delete } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { useWindowSize } from '../../hooks/UseWindowSize';
@@ -44,7 +44,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
     setLoadingCheckout(true);
     PostPaymentMethods(cart)
       .then((res) => {
-        router.push('/checkout');
+        res?.data?.length > 0 && router.push('/checkout');
         console.log(res.data);
         res?.data && dispatch(SetCheckoutRedux(res?.data));
         setLoadingCheckout(false);
