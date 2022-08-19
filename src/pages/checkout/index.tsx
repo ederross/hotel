@@ -28,9 +28,19 @@ import styles from './styles.module.scss';
 import CreditCard from '../../components/CreditCard';
 import { PoliciesContainer } from '../../components/PoliciesContainer';
 import moment from 'moment';
+import { Policy } from '../../../data/policies';
+import { Design } from '../../../data/design';
 
-const Checkout = ({ design, policies }: any) => {
+interface ICheckout {
+  design: Design;
+  policies: Policy;
+}
+
+const Checkout = ({ design, policies }: ICheckout) => {
   const { t } = useTranslation();
+  // Window Sizes
+  const size = useWindowSize();
+  const router = useRouter();
 
   const {
     cart: { objects, services, infos },
@@ -38,13 +48,20 @@ const Checkout = ({ design, policies }: any) => {
     domain: { paymentMethodTypeDomain },
   } = useSelector((state: AppStore) => state);
 
-  // Window Sizes
-  const size = useWindowSize();
+  useEffect(() => {
+    if (checkout?.length <= 0) {
+      router.push(`/`);
+    }
+  }, [checkout]);
+
   const [scrolled, setScrolled] = useState(false);
-  const router = useRouter();
   const [successModalVisible, setSuccessModalVisible] = useState(false);
   const [showCartModal, setShowCartModal] = useState(false);
   const [showDynamicInfoModal, setShowDynamicInfoModal] = useState(false);
+
+  const [selectedPayMethod, setSelectedPayMethod] = useState(
+    checkout[0]?.paymentMethodTypeCode || 0
+  );
 
   const handleCloseCartInfoModal = () => {
     document.body.style.overflow = 'initial';
@@ -77,6 +94,22 @@ const Checkout = ({ design, policies }: any) => {
 
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const checkInStart = parseInt(
+    policies?.bookPolicy?.checkinWindow?.startTime?.substring(0, 2)
+  );
+
+  const checkInEnd =
+    parseInt(policies?.bookPolicy?.checkinWindow?.endTime?.substring(0, 2)) ||
+    parseInt(policies?.bookPolicy?.checkinWindow?.startTime?.substring(0, 2)) +
+      0;
+  const checkInOptions = checkInEnd - checkInStart + 1;
+
+  const handleConfirm = () => {
+    if (checkout?.length > 0) {
+      handleOpenCheckoutSuccessModal();
+    }
+  };
 
   return (
     <>
@@ -269,11 +302,15 @@ const Checkout = ({ design, policies }: any) => {
                       <h4>{t('arrivalForecast')}</h4>
                       <div className={styles.cSelect}>
                         <select name="arrivalForecast" id="pet-select">
-                          <option value="">12h</option>
-                          <option value="">13h</option>
-                          <option value="">14h</option>
-                          <option value="">15h</option>
-                          <option value="">16h</option>
+                          {[...Array(checkInOptions)].map((_, index) => (
+                            <option key={index} value="">
+                              {checkInStart + index}:
+                              {policies?.bookPolicy?.checkinWindow?.startTime?.substring(
+                                3,
+                                5
+                              )}
+                            </option>
+                          ))}
                         </select>
                       </div>
                     </div>
@@ -380,30 +417,36 @@ const Checkout = ({ design, policies }: any) => {
                 <div className={styles.payWithContainer}>
                   <h3 className={styles.title}>{t('paymentMethod')}</h3>
                   <div className={styles.payWithLogosContainer}>
-                    <div className={styles.payWithLogosBox}>
-                      <Image
-                        src={'/icons/card.svg'}
-                        layout={'fill'}
-                        objectFit={'contain'}
-                        alt={'Credit Card Logo'}
-                      />
-                    </div>
-                    <div className={styles.payWithLogosBox}>
-                      <Image
-                        src={'/icons/bank.svg'}
-                        layout={'fill'}
-                        objectFit={'contain'}
-                        alt={'Credit Card Logo'}
-                      />
-                    </div>
-                    <div className={styles.payWithLogosBox}>
-                      <Image
-                        src={'/icons/pix.svg'}
-                        layout={'fill'}
-                        objectFit={'contain'}
-                        alt={'Credit Card Logo'}
-                      />
-                    </div>
+                    {checkout.find((c) => c.paymentMethodTypeCode === 1) && (
+                      <div className={styles.payWithLogosBox}>
+                        <Image
+                          src={'/icons/card.svg'}
+                          layout={'fill'}
+                          objectFit={'contain'}
+                          alt={'Credit Card Logo'}
+                        />
+                      </div>
+                    )}
+                    {checkout.find((c) => c.paymentMethodTypeCode === 4) && (
+                      <div className={styles.payWithLogosBox}>
+                        <Image
+                          src={'/icons/bank.svg'}
+                          layout={'fill'}
+                          objectFit={'contain'}
+                          alt={'Credit Card Logo'}
+                        />
+                      </div>
+                    )}
+                    {checkout.find((c) => c.paymentMethodTypeCode === 3) && (
+                      <div className={styles.payWithLogosBox}>
+                        <Image
+                          src={'/icons/pix.svg'}
+                          layout={'fill'}
+                          objectFit={'contain'}
+                          alt={'Credit Card Logo'}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -417,7 +460,13 @@ const Checkout = ({ design, policies }: any) => {
                   className={styles.cSelect}
                   style={{ marginBottom: '0.5rem' }}
                 >
-                  <select name="arrivalForecast" id="pet-select">
+                  <select
+                    name="arrivalForecast"
+                    id="pet-select"
+                    onChange={(e) =>
+                      setSelectedPayMethod(parseInt(e.target.value))
+                    }
+                  >
                     {checkout?.map((item, index) => (
                       <option key={index} value={item?.paymentMethodTypeCode}>
                         {paymentMethodTypeDomain?.data?.find(
@@ -430,7 +479,7 @@ const Checkout = ({ design, policies }: any) => {
                   </select>
                 </div>
 
-                <CreditCard />
+                {selectedPayMethod === 1 && <CreditCard />}
               </div>
             </div>
             <div className={styles.webPaymentInfos}>
@@ -589,7 +638,7 @@ const Checkout = ({ design, policies }: any) => {
                   transition={{ duration: 0.2 }}
                   whileTap={{ scale: 0.9 }}
                   className={styles.confirmBtn}
-                  onClick={handleOpenCheckoutSuccessModal}
+                  onClick={handleConfirm}
                 >
                   {t('confirmPay')}
                 </motion.button>
@@ -630,7 +679,7 @@ const Checkout = ({ design, policies }: any) => {
               transition={{ duration: 0.2 }}
               whileTap={{ scale: 0.9 }}
               className={styles.confirmBtn}
-              onClick={handleOpenCheckoutSuccessModal}
+              onClick={handleConfirm}
             >
               {t('confirmPay')}
             </motion.button>

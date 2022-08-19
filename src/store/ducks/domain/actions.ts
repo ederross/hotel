@@ -27,3 +27,7 @@ export const SetServicePricesDomain = (servicePrices: Domain) => {
 export const SetPaymethodDomain = (paymentMethodTypeDomain: Domain) => {
   return action(Types.SET_PAYMETHOD_DOMAIN, { paymentMethodTypeDomain });
 };
+
+export const SetPolicyDomain = (policyTypeCode: Domain) => {
+  return action(Types.SET_POLICY_DOMAIN, { policyTypeCode });
+};

@@ -39,6 +39,7 @@ import {
   GetFacilitiesDomain,
   GetIconsDomain,
   GetPaymethodDomain,
+  GetPolicyDomain,
   GetServicePricesDomain,
   GetServicesDomain,
 } from '../../services/requests/domain';
@@ -49,6 +50,7 @@ import {
   SetFacilitiesDomain,
   SetIconsDomain,
   SetPaymethodDomain,
+  SetPolicyDomain,
   SetServicePricesDomain,
   SetServicesDomain,
 } from '../../store/ducks/domain/actions';
@@ -68,6 +70,7 @@ interface ISearch {
   servicesDomain: Domain;
   servicePricesDomain: Domain;
   paymethodDomain: Domain;
+  policyDomain: Domain;
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -84,6 +87,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const servicesDomain = await GetServicesDomain();
   const servicePricesDomain = await GetServicePricesDomain();
   const paymethodDomain = await GetPaymethodDomain();
+  const policyDomain = await GetPolicyDomain();
 
   return {
     props: {
@@ -98,6 +102,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       servicesDomain,
       servicePricesDomain,
       paymethodDomain,
+      policyDomain,
       ...(await serverSideTranslations(locale, ['common'])),
     },
     revalidate: 60,
@@ -116,6 +121,7 @@ const Search = ({
   servicesDomain,
   iconsDomain,
   paymethodDomain,
+  policyDomain,
 }: ISearch) => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -162,6 +168,7 @@ const Search = ({
     dispatch(SetServicesDomain(servicesDomain));
     dispatch(SetServicePricesDomain(servicePricesDomain));
     dispatch(SetPaymethodDomain(paymethodDomain));
+    dispatch(SetPolicyDomain(policyDomain));
   }, []);
 
   const GetFacilityFromDomain = (facilityCategoryTypeCode: number) =>

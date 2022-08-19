@@ -6,6 +6,7 @@ export const Types = {
   SET_SERVICES_DOMAIN: '@domain/SET_SERVICES_DOMAIN',
   SET_SERVICEPRICES_DOMAIN: '@domain/SET_SERVICEPRICES_DOMAIN',
   SET_PAYMETHOD_DOMAIN: '@domain/SET_PAYMETHOD_DOMAIN',
+  SET_POLICY_DOMAIN: '@domain/SET_POLICY_DOMAIN',
 };
 
 export interface TypesDomain {
@@ -16,6 +17,7 @@ export interface TypesDomain {
   servicePriceDomain: Domain;
   serviceTypeDomain: Domain;
   paymentMethodTypeDomain: Domain;
+  policyTypeDomain: Domain;
 }
 
 export interface Domain {

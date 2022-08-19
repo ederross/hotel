@@ -2,6 +2,7 @@ export interface Policy {
   bookPolicy: {
     checkinWindow: {
       startTime: string;
+      endTime: string;
     };
     checkoutTime: {
       startTime: string;

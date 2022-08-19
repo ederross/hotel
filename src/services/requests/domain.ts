@@ -56,3 +56,12 @@ export const GetPaymethodDomain = async () =>
       },
     })
   ).data;
+
+export const GetPolicyDomain = async () =>
+  await (
+    await api.get('/domain/policyTypeCode', {
+      headers: {
+        'Accept-Language': 'pt-BR',
+      },
+    })
+  ).data;

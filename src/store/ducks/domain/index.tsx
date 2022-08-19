@@ -106,6 +106,21 @@ const INITIAL_STATE: TypesDomain = {
       requestDateTime: '',
     },
   },
+  policyTypeDomain: {
+    data: [],
+    links: {
+      self: '',
+      first: '',
+      prev: '',
+      next: '',
+      last: '',
+    },
+    meta: {
+      totalRecords: 0,
+      totalPages: 0,
+      requestDateTime: '',
+    },
+  },
 };
 
 const reducer = (state = INITIAL_STATE, action: any) => {
@@ -122,6 +137,8 @@ const reducer = (state = INITIAL_STATE, action: any) => {
       return { ...state, serviceTypeDomain: action.payload.services };
     case Types.SET_SERVICEPRICES_DOMAIN:
       return { ...state, servicePriceDomain: action.payload.servicePrices };
+    case Types.SET_POLICY_DOMAIN:
+      return { ...state, policyTypeDomain: action.payload.policyTypeCode };
     case Types.SET_PAYMETHOD_DOMAIN:
       return {
         ...state,

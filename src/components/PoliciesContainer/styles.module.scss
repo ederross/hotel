@@ -71,10 +71,18 @@
     border: 1.5px var(--gray-400) solid;
 
     h3 {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.2rem;
       font-size: 0.9rem;
       font-weight: 500;
     }
+
+    h4 {
+      margin-bottom: 1rem;
+      font-size: 0.75rem;
+      font-weight: 450;
+      color: var(--gray-400)
+    }
+
 
     p {
       font-size: 0.8rem;

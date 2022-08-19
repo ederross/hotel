@@ -4,6 +4,8 @@ import { Policy } from '../../../data/policies';
 import styles from './styles.module.scss';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { IconImportDynamically } from '../common/ComponentWithIcon';
+import { useSelector } from 'react-redux';
+import { AppStore } from '../../store/types';
 interface IPoliciesContainerProps {
   policies: Policy;
 }
@@ -12,6 +14,10 @@ export const PoliciesContainer = ({ policies }: IPoliciesContainerProps) => {
   const { t } = useTranslation();
   const [policy, setPolicy] = useState(0);
   const [showMoreDescription, setShowMoreDescription] = useState(false);
+
+  const {
+    domain: { policyTypeDomain },
+  } = useSelector((state: AppStore) => state);
 
   return (
     <>
@@ -26,7 +32,12 @@ export const PoliciesContainer = ({ policies }: IPoliciesContainerProps) => {
         <div className={styles.policyCardContainer}>
           {policies?.policies?.map((item, index) => (
             <div key={index} className={styles.policyCard}>
-              <h3>{item?.PolicyDescription}</h3>
+              <h3>
+                {policyTypeDomain?.data?.find(
+                  (p) => p.domainItemCode === item.PolicyTypeCode
+                )?.domainItemValue || '-'}
+              </h3>
+              <h4>{item.PolicyDescription}</h4>
               {item?.Rules?.map((rule, index) => (
                 <div className={styles.row} key={index}>
                   <IconImportDynamically
