@@ -766,6 +766,11 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.5.tgz#db5a11bf66bdab39569719555b0f76e138d7bd64"
   integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
 
+"@react-br-forms/cpf-cnpj-mask@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@react-br-forms/cpf-cnpj-mask/-/cpf-cnpj-mask-1.0.6.tgz#34bfd22d8d4bbe69e1f71a0770b3d0f33a75eb30"
+  integrity sha512-zZFDpJC45vx1jqB2E47/wfs7vF4Mjz/rm/0uqrkJgZWUdZ2eMMceBK9g+Xqbh6wVj6vx89gAQ+2CxH5UEAL9Iw==
+
 "@react-hook/media-query@^1.1.1":
   version "1.1.1"
   resolved "https://registry.npmjs.org/@react-hook/media-query/-/media-query-1.1.1.tgz"
@@ -2803,6 +2808,11 @@ react-redux@^8.0.2:
     hoist-non-react-statics "^3.3.2"
     react-is "^18.0.0"
     use-sync-external-store "^1.0.0"
+
+react-telefone-brasileiro@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-telefone-brasileiro/-/react-telefone-brasileiro-1.0.5.tgz#65ebeb909422baeda0da6a21406a015334d33879"
+  integrity sha512-dKmcY5ak0ji8zOYqh/P6Ka8EggVezcqj3kx1s2Ga7Xq94eyZDERIXj327bvqHDbpj/bksBHhSVEVeA0nhnOxYw==
 
 react-toastify@^9.0.7:
   version "9.0.7"

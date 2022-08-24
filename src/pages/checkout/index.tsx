@@ -31,6 +31,8 @@ import moment from 'moment';
 import { Policy } from '../../../data/policies';
 import { Design } from '../../../data/design';
 
+import InputWithMask from '../../components/common/InputWithMask';
+
 interface ICheckout {
   design: Design;
   policies: Policy;
@@ -58,6 +60,10 @@ const Checkout = ({ design, policies }: ICheckout) => {
   const [successModalVisible, setSuccessModalVisible] = useState(false);
   const [showCartModal, setShowCartModal] = useState(false);
   const [showDynamicInfoModal, setShowDynamicInfoModal] = useState(false);
+
+  const [cpf, setCpf] = useState('');
+  const [mask, setMask] = useState();
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   const [selectedPayMethod, setSelectedPayMethod] = useState(
     checkout[0]?.paymentMethodTypeCode || 0
@@ -394,17 +400,24 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   name="Nome"
                   placeholder="Nome"
                 />
-                <Input
-                  label={t('telephone')}
-                  type="text"
-                  name="Nome"
-                  placeholder="Nome"
+
+            
+                <InputWithMask
+                  label={'Telefone'}
+                  typeInput="PHONE"
+                  name="Telefone"
+                  placeholder="Telefone"
+                  value={phoneNumber}
+                  setValue={setPhoneNumber}
                 />
-                <Input
+
+                <InputWithMask
                   label={'CPF'}
-                  type="text"
+                  typeInput="CPF"
                   name="Nome"
                   placeholder="Nome"
+                  value={cpf}
+                  setValue={setCpf}
                 />
 
                 <div
