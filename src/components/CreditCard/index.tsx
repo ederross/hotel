@@ -73,7 +73,7 @@ const CreditCard = () => {
       <div className={styles.cardInfoHolder}>
         <input
           name="name"
-          placeholder={'Nome do titular'}
+          placeholder={t('cardholderName')}
           className={styles.cardHolderName}
           required
           onFocus={handleInputFocus}

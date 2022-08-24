@@ -391,7 +391,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                 <Input
                   label={t('name')}
                   type="text"
-                  name="aa"
+                  name={t('name')}
                   placeholder={t('name')}
                 />
                 <Input
@@ -401,12 +401,11 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   placeholder="Nome"
                 />
 
-            
                 <InputWithMask
-                  label={'Telefone'}
+                  label={t('phoneNumber')}
                   typeInput="PHONE"
-                  name="Telefone"
-                  placeholder="Telefone"
+                  name={t('phoneNumber')}
+                  placeholder={t('phoneNumber')}
                   value={phoneNumber}
                   setValue={setPhoneNumber}
                 />
@@ -414,8 +413,8 @@ const Checkout = ({ design, policies }: ICheckout) => {
                 <InputWithMask
                   label={'CPF'}
                   typeInput="CPF"
-                  name="Nome"
-                  placeholder="Nome"
+                  name="CPF"
+                  placeholder="CPF"
                   value={cpf}
                   setValue={setCpf}
                 />
