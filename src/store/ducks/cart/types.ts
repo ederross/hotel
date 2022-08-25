@@ -36,6 +36,16 @@ interface CartRoomPrice {
   quoteId: string;
   regularTotalAmount: number;
   quantity: number;
+  priceDescription: string;
+  checkIn: string;
+  checkOut: string;
+  taxes: number;
+  fees: number;
+  travelers: {
+    adults: number;
+    childrens: number;
+    ages: number[];
+  };
 }
 
 export interface CartService {

@@ -8,6 +8,45 @@ interface IGetRoomSearch {
   children: string;
 }
 
+interface IPaymentBooking {
+  totalAmont: number;
+  installmentCount: number;
+  paymentMethod: {
+    paymentMethodTypeCode: number;
+    paymentDetails: [
+      {
+        paymentInstallmentCount: number;
+        paymentTotalAmount: number;
+      }
+    ];
+    methodDetails: [
+      {
+        cardSchemeTypeCode: number | null;
+        encryptedCardNumber: string | null;
+        encryptedExpiryYear: string | null;
+        encryptedSecurityCode: string | null;
+      }
+    ];
+  };
+}
+
+interface IClientBooking {
+  clientName: string;
+  documentNumber: string;
+  contacts: [
+    {
+      contactTypeCode: number;
+      contactText: string;
+    },
+    {
+      contactTypeCode: number;
+      CountryPhoneCode: string;
+      StatePhoneCode: string;
+      PhoneNumber: string;
+    }
+  ];
+}
+
 export const GetRoomSearch = async ({
   adults,
   children,
@@ -99,6 +138,65 @@ export const PostPaymentMethods = async (cart: TypesCart) => {
       services: cart?.services?.map((s) => {
         return { serviceId: s.serviceId, quantity: s.quantity };
       }),
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+};
+
+export const PostBooking = async (
+  cart: TypesCart,
+  client: IClientBooking,
+  payment: IPaymentBooking
+) => {
+  return await api.post(
+    '/booking',
+    {
+      officeId: cart?.officeId,
+      client: {
+        personTypeCode: 'F',
+        documentTypeCode: 1,
+        ...client,
+      },
+      objects: cart?.objects?.map((o) => {
+        return {
+          objectId: parseInt(o?.objectId),
+          identificationCode: '',
+          quantity: o?.prices
+            ?.map((p) => p?.quantity)
+            ?.reduce((a, b) => a + b, 0),
+          prices: o?.prices?.map((p) => {
+            return {
+              quoteId: p?.quoteId,
+              priceDescription: p.priceDescription,
+              checkIn: p?.checkIn,
+              checkOut: p?.checkOut,
+              rates: p?.taxes,
+              travelers: p?.travelers,
+            };
+          }),
+        };
+      }),
+      services: cart?.services?.map((s) => {
+        return { serviceId: s.serviceId, quantity: s.quantity };
+      }),
+      charge: {
+        totalAmont: payment?.totalAmont,
+        installmentCount: payment?.totalAmont,
+        payers: [
+          {
+            personTypeCode: 'F',
+            documentTypeCode: 1,
+            personName: client?.clientName,
+            documentNumber: client?.documentNumber,
+            payerEmail: client?.contacts[0]?.contactText,
+            paymentMethod: payment?.paymentMethod,
+          },
+        ],
+      },
     },
     {
       headers: {

@@ -27,33 +27,76 @@ const OffersAccordion = ({ room }: IOffersAccordion) => {
     cart: { objects },
   } = useSelector((state: AppStore) => state);
 
-  const { adults, children }: any = router.query;
+  const { startDate, endDate, adults, children }: any = router.query;
 
   const currentCart = objects.find((r) => r.objectId === room?.objectId);
 
   const findQuantity = (quoteId: string) =>
     currentCart?.prices?.find((q) => q.quoteId === quoteId)?.quantity || 0;
 
-  const handleAddToCart = (
-    quantity: number,
-    quoteId: string,
-    regularTotalAmount: number
-  ) => {
+  const handleAddToCart = (quantity: number, price: Price) => {
     if (quantity > 0) {
       dispatch(
         AddProductToCart({
           objectId: room.objectId,
           identificationCode: '',
-          prices: !!currentCart?.prices?.find((p) => p.quoteId === quoteId)
+          prices: !!currentCart?.prices?.find(
+            (p) => p.quoteId === price?.quoteId
+          )
             ? currentCart?.prices.map((p) =>
-                p.quoteId !== quoteId ? p : { ...p, quantity }
+                p.quoteId !== price?.quoteId
+                  ? p
+                  : {
+                      ...p,
+                      quantity,
+                      checkIn: startDate,
+                      checkOut: endDate,
+                      priceDescription: price?.priceDescription,
+                      taxes: p.taxes,
+                      fees: p.fees,
+                      travelers: {
+                        adults,
+                        childrens: children,
+                        ages: [],
+                      },
+                    }
               )
             : currentCart
             ? [
                 ...currentCart?.prices,
-                { quantity, quoteId, regularTotalAmount },
+                {
+                  quantity,
+                  quoteId: price?.quoteId,
+                  regularTotalAmount: price?.regularTotalAmount,
+                  checkIn: startDate,
+                  checkOut: endDate,
+                  priceDescription: room?.prices[0].priceDescription,
+                  taxes: price?.taxes,
+                  fees: price?.fees,
+                  travelers: {
+                    adults,
+                    childrens: children,
+                    ages: [],
+                  },
+                },
               ]
-            : [{ quantity, quoteId, regularTotalAmount }],
+            : [
+                {
+                  quantity,
+                  quoteId: price?.quoteId,
+                  regularTotalAmount: price?.regularTotalAmount,
+                  checkIn: startDate,
+                  checkOut: endDate,
+                  priceDescription: room?.prices[0].priceDescription,
+                  taxes: price?.taxes,
+                  fees: price?.fees,
+                  travelers: {
+                    adults,
+                    childrens: children,
+                    ages: [],
+                  },
+                },
+              ],
           infos: {
             adults,
             children,
@@ -68,7 +111,9 @@ const OffersAccordion = ({ room }: IOffersAccordion) => {
           ? AddProductToCart({
               objectId: currentCart?.objectId,
               identificationCode: '',
-              prices: currentCart?.prices.filter((p) => p.quoteId !== quoteId),
+              prices: currentCart?.prices.filter(
+                (p) => p.quoteId !== price?.quoteId
+              ),
               infos: currentCart?.infos,
             })
           : dispatch(RemoveProductToCart(currentCart?.objectId))
@@ -132,9 +177,7 @@ const OffersAccordion = ({ room }: IOffersAccordion) => {
                 <Counter
                   quantity={findQuantity(item?.quoteId)}
                   max={room?.quantity}
-                  setQuantity={(q) =>
-                    handleAddToCart(q, item?.quoteId, item.regularTotalAmount)
-                  }
+                  setQuantity={(q) => handleAddToCart(q, item)}
                 />
               </div>
             )}

@@ -30,7 +30,7 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
   const dispatch = useDispatch();
   const { t } = useTranslation('common');
 
-  const { adults, children }: any = router.query;
+  const { startDate, endDate, adults, children }: any = router.query;
 
   const {
     cart: { objects },
@@ -71,6 +71,16 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
               ? room?.prices[0]?.regularTotalAmount
               : 0,
             quantity: quantity,
+            checkIn: startDate,
+            checkOut: endDate,
+            priceDescription: room?.prices[0].priceDescription,
+            taxes: room?.prices[0].taxes,
+            fees: room?.prices[0].fees,
+            travelers: {
+              adults,
+              childrens: children,
+              ages: [],
+            },
           },
         ],
         infos: {

@@ -32,6 +32,7 @@ import { Policy } from '../../../data/policies';
 import { Design } from '../../../data/design';
 
 import InputWithMask from '../../components/common/InputWithMask';
+import { PostBooking } from '../../services/requests/booking';
 
 interface ICheckout {
   design: Design;
@@ -45,10 +46,12 @@ const Checkout = ({ design, policies }: ICheckout) => {
   const router = useRouter();
 
   const {
-    cart: { objects, services, infos },
+    cart,
     checkout: { data: checkout },
     domain: { paymentMethodTypeDomain },
   } = useSelector((state: AppStore) => state);
+
+  const { objects, services, infos } = cart;
 
   useEffect(() => {
     if (checkout?.length <= 0) {
@@ -61,8 +64,9 @@ const Checkout = ({ design, policies }: ICheckout) => {
   const [showCartModal, setShowCartModal] = useState(false);
   const [showDynamicInfoModal, setShowDynamicInfoModal] = useState(false);
 
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [cpf, setCpf] = useState('');
-  const [mask, setMask] = useState();
   const [phoneNumber, setPhoneNumber] = useState('');
 
   const [selectedPayMethod, setSelectedPayMethod] = useState(
@@ -113,7 +117,42 @@ const Checkout = ({ design, policies }: ICheckout) => {
 
   const handleConfirm = () => {
     if (checkout?.length > 0) {
-      handleOpenCheckoutSuccessModal();
+      PostBooking(
+        cart,
+        {
+          clientName: name,
+          contacts: [
+            { contactText: email, contactTypeCode: 2 },
+            {
+              contactTypeCode: 1,
+              CountryPhoneCode: '55',
+              PhoneNumber: phoneNumber.substring(3, 11),
+              StatePhoneCode: phoneNumber.substring(0, 2),
+            },
+          ],
+          documentNumber: cpf,
+        },
+        {
+          installmentCount: 1,
+          paymentMethod: {
+            methodDetails: [
+              {
+                cardSchemeTypeCode: 1,
+                encryptedCardNumber: '',
+                encryptedExpiryYear: '',
+                encryptedSecurityCode: '',
+              },
+            ],
+            paymentDetails: [
+              { paymentInstallmentCount: 0, paymentTotalAmount: 0 },
+            ],
+            paymentMethodTypeCode: 0,
+          },
+          totalAmont: selectedPayMethod,
+        }
+      ).then((res) => {
+        handleOpenCheckoutSuccessModal();
+      });
     }
   };
 
@@ -145,7 +184,9 @@ const Checkout = ({ design, policies }: ICheckout) => {
             <h4>{t('total')}(BRL)</h4>
           </div>
           <div>
-            <h3>R$ 148,00</h3>
+            <h3>
+              {currency(checkout[0]?.paymentDetails[0]?.paymentTotalAmount)}
+            </h3>
           </div>
         </div>
 
@@ -346,7 +387,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                     >
                       <h5>{t('taxes')}</h5>
                     </u>
-                    <h5>{currency(0)}</h5>
+                    <h5>{currency(cart.objects[0]?.prices[0].taxes)}</h5>
                   </div>
                   <div className={styles.row}>
                     <u
@@ -356,7 +397,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                     >
                       <h5>{t('taxes')}</h5>
                     </u>
-                    <h5>{currency(0)}</h5>
+                    <h5>{currency(cart.objects[0]?.prices[0].taxes)}</h5>
                   </div>
 
                   {/* <div className={styles.mobMoreInfoHolder}>
@@ -619,7 +660,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   >
                     <h5>{t('fees')}</h5>
                   </u>
-                  <h5>{currency(0)}</h5>
+                  <h5>{currency(cart.objects[0]?.prices[0].fees)}</h5>
                 </div>
                 <div className={styles.row}>
                   <u
@@ -630,7 +671,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   >
                     <h5>{t('taxes')}</h5>
                   </u>
-                  <h5>{currency(0)}</h5>
+                  <h5>{currency(cart.objects[0]?.prices[0].taxes)}</h5>
                 </div>
               </div>
 
