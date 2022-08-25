@@ -30,6 +30,9 @@ import {
   GetOfficeImages,
   GetOfficeReviews,
 } from '../services/requests/office';
+import { useEffect } from 'react';
+import { SetCheckoutRedux } from '../store/ducks/checkout/actions';
+import { useDispatch } from 'react-redux';
 interface IHomeProps {
   officeDetails: OfficeDetails;
   design: Design;
@@ -40,6 +43,7 @@ interface IHomeProps {
 
 export default function Home(props: IHomeProps) {
   const { width } = useWindowSize();
+  const dispatch = useDispatch();
   const { t } = useTranslation('common');
 
   const swiperStyle = {
@@ -57,6 +61,10 @@ export default function Home(props: IHomeProps) {
     paddingBottom: 16,
     marginBottom: 48,
   };
+
+  useEffect(() => {
+    dispatch(SetCheckoutRedux([]));
+  }, []);
 
   return (
     <>
@@ -131,7 +139,11 @@ export default function Home(props: IHomeProps) {
             </div>
           </section>
         </div>
-        <Footer officeDetails={props?.officeDetails} design={props?.design} marginTop={width < 868 && '4rem'} />
+        <Footer
+          officeDetails={props?.officeDetails}
+          design={props?.design}
+          marginTop={width < 868 && '4rem'}
+        />
       </main>
     </>
   );

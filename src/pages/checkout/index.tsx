@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { ChevronLeft } from 'react-feather';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CartModal from '../../components/CartModal';
 import { CheckoutSucessModal } from '../../components/CheckoutSucessModal';
 import FooterCheckout from '../../components/common/FooterCheckout';
@@ -33,6 +33,9 @@ import { Design } from '../../../data/design';
 
 import InputWithMask from '../../components/common/InputWithMask';
 import { PostBooking } from '../../services/requests/booking';
+import { toast } from 'react-toastify';
+import { CleanCart } from '../../store/ducks/cart/actions';
+import { SetCheckoutRedux } from '../../store/ducks/checkout/actions';
 
 interface ICheckout {
   design: Design;
@@ -44,6 +47,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
   // Window Sizes
   const size = useWindowSize();
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const {
     cart,
@@ -59,6 +63,17 @@ const Checkout = ({ design, policies }: ICheckout) => {
     }
   }, [checkout]);
 
+  const toastConfig = {
+    position: size?.width < 868 ? 'top-left' : 'bottom-right',
+    autoClose: 5000,
+    theme: 'colored',
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  };
+
   const [scrolled, setScrolled] = useState(false);
   const [successModalVisible, setSuccessModalVisible] = useState(false);
   const [showCartModal, setShowCartModal] = useState(false);
@@ -68,10 +83,13 @@ const Checkout = ({ design, policies }: ICheckout) => {
   const [email, setEmail] = useState('');
   const [cpf, setCpf] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [confirmData, setConfirmData] = useState<any>();
 
   const [selectedPayMethod, setSelectedPayMethod] = useState(
     checkout[0]?.paymentMethodTypeCode || 0
   );
+
+  const [selectedPayMethodDetails, setSelectedPayMethodDetails] = useState(0);
 
   const handleCloseCartInfoModal = () => {
     document.body.style.overflow = 'initial';
@@ -90,6 +108,8 @@ const Checkout = ({ design, policies }: ICheckout) => {
   const handleCloseCheckoutSuccessModal = () => {
     document.body.style.overflow = 'initial';
     setSuccessModalVisible(!successModalVisible);
+    dispatch(CleanCart());
+    router.push(`/`);
   };
 
   useEffect(() => {
@@ -116,6 +136,9 @@ const Checkout = ({ design, policies }: ICheckout) => {
   const checkInOptions = checkInEnd - checkInStart + 1;
 
   const handleConfirm = () => {
+    const currentPaymentDetails = checkout?.find(
+      (c) => c.paymentMethodTypeCode === selectedPayMethod
+    )?.paymentDetails[selectedPayMethodDetails];
     if (checkout?.length > 0) {
       PostBooking(
         cart,
@@ -126,33 +149,47 @@ const Checkout = ({ design, policies }: ICheckout) => {
             {
               contactTypeCode: 1,
               CountryPhoneCode: '55',
-              PhoneNumber: phoneNumber.substring(3, 11),
-              StatePhoneCode: phoneNumber.substring(0, 2),
+              PhoneNumber: phoneNumber.replace(/[^0-9]+/g, '').substring(2, 11),
+              StatePhoneCode: phoneNumber
+                .replace(/[^0-9]+/g, '')
+                .substring(0, 2),
             },
           ],
-          documentNumber: cpf,
+          documentNumber: cpf.replace(/[^0-9]+/g, ''),
         },
         {
-          installmentCount: 1,
+          installmentCount: currentPaymentDetails?.paymentInstallmentCount || 0,
           paymentMethod: {
-            methodDetails: [
+            methodDetails:
+              selectedPayMethod === 1
+                ? [
+                    {
+                      cardSchemeTypeCode: 1,
+                      encryptedCardNumber: '',
+                      encryptedExpiryYear: '',
+                      encryptedSecurityCode: '',
+                    },
+                  ]
+                : null,
+            paymentDetails: [
               {
-                cardSchemeTypeCode: 1,
-                encryptedCardNumber: '',
-                encryptedExpiryYear: '',
-                encryptedSecurityCode: '',
+                paymentInstallmentCount:
+                  currentPaymentDetails?.paymentInstallmentCount,
+                paymentTotalAmount: currentPaymentDetails?.paymentTotalAmount,
               },
             ],
-            paymentDetails: [
-              { paymentInstallmentCount: 0, paymentTotalAmount: 0 },
-            ],
-            paymentMethodTypeCode: 0,
+            paymentMethodTypeCode: selectedPayMethod,
           },
           totalAmont: selectedPayMethod,
         }
-      ).then((res) => {
-        handleOpenCheckoutSuccessModal();
-      });
+      )
+        .then((res) => {
+          setConfirmData({ ...res?.data, email });
+          handleOpenCheckoutSuccessModal();
+        })
+        .catch((err) =>
+          toast.error(`Falha ao confirmar reserva!`, toastConfig as any)
+        );
     }
   };
 
@@ -387,7 +424,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                     >
                       <h5>{t('taxes')}</h5>
                     </u>
-                    <h5>{currency(cart.objects[0]?.prices[0].taxes)}</h5>
+                    <h5>{currency(0)}</h5>
                   </div>
                   <div className={styles.row}>
                     <u
@@ -397,7 +434,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                     >
                       <h5>{t('taxes')}</h5>
                     </u>
-                    <h5>{currency(cart.objects[0]?.prices[0].taxes)}</h5>
+                    <h5>{currency(0)}</h5>
                   </div>
 
                   {/* <div className={styles.mobMoreInfoHolder}>
@@ -434,12 +471,16 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   type="text"
                   name={t('name')}
                   placeholder={t('name')}
+                  value={name}
+                  setValue={setName}
                 />
                 <Input
                   label={t('email')}
                   type="text"
                   name="Nome"
                   placeholder="Nome"
+                  value={email}
+                  setValue={setEmail}
                 />
 
                 <InputWithMask
@@ -516,6 +557,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   <select
                     name="arrivalForecast"
                     id="pet-select"
+                    style={{ margin: '0 0 16px' }}
                     onChange={(e) =>
                       setSelectedPayMethod(parseInt(e.target.value))
                     }
@@ -530,8 +572,30 @@ const Checkout = ({ design, policies }: ICheckout) => {
                       </option>
                     ))}
                   </select>
+                  {selectedPayMethod && (
+                    <select
+                      name="arrivalForecast"
+                      id="det-select"
+                      style={{ margin: '0 0 8px' }}
+                      onChange={(e) =>
+                        setSelectedPayMethodDetails(parseInt(e.target.value))
+                      }
+                    >
+                      {checkout
+                        ?.find(
+                          (c) => c.paymentMethodTypeCode === selectedPayMethod
+                        )
+                        .paymentDetails.map((item, index) => (
+                          <option key={index} value={index}>
+                            {item?.paymentInstallmentCount}
+                            {'x de '}
+                            {currency(item.firstInstallmentAmount)}
+                            {item?.isDownPayment ? ' (pagamento sinal)' : ''}
+                          </option>
+                        ))}
+                    </select>
+                  )}
                 </div>
-
                 {selectedPayMethod === 1 && <CreditCard />}
               </div>
             </div>
@@ -660,7 +724,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   >
                     <h5>{t('fees')}</h5>
                   </u>
-                  <h5>{currency(cart.objects[0]?.prices[0].fees)}</h5>
+                  <h5>{currency(0)}</h5>
                 </div>
                 <div className={styles.row}>
                   <u
@@ -671,7 +735,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   >
                     <h5>{t('taxes')}</h5>
                   </u>
-                  <h5>{currency(cart.objects[0]?.prices[0].taxes)}</h5>
+                  <h5>{currency(0)}</h5>
                 </div>
               </div>
 
@@ -752,7 +816,8 @@ const Checkout = ({ design, policies }: ICheckout) => {
       )}
       {successModalVisible && (
         <CheckoutSucessModal
-          handleCloseCheckoutSucessModal={handleOpenCheckoutSuccessModal}
+          data={confirmData}
+          handleCloseCheckoutSucessModal={handleCloseCheckoutSuccessModal}
         />
       )}
     </>

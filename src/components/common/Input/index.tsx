@@ -7,11 +7,18 @@ interface IInput {
   label: string;
   name: string;
   placeholder: string;
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<any>>;
 }
 
-const Input = ({ type = 'text', label, name, placeholder }: IInput) => {
-  const [value, setValue] = useState('');
-
+const Input = ({
+  type = 'text',
+  label,
+  name,
+  placeholder,
+  value,
+  setValue,
+}: IInput) => {
   function handleChange(e) {
     setValue(e.target.value);
   }

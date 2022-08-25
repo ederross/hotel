@@ -163,7 +163,7 @@ export const PostBooking = async (
       },
       objects: cart?.objects?.map((o) => {
         return {
-          objectId: parseInt(o?.objectId),
+          objectId: o?.objectId,
           identificationCode: '',
           quantity: o?.prices
             ?.map((p) => p?.quantity)
@@ -174,8 +174,12 @@ export const PostBooking = async (
               priceDescription: p.priceDescription,
               checkIn: p?.checkIn,
               checkOut: p?.checkOut,
-              rates: p?.taxes,
-              travelers: p?.travelers,
+              rates: p?.taxes || [],
+              travelers: {
+                ...p?.travelers,
+                adults: parseInt(p?.travelers?.adults as any),
+                childrens: parseInt(p?.travelers?.childrens as any),
+              },
             };
           }),
         };

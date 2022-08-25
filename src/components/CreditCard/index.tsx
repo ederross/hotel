@@ -46,9 +46,9 @@ const CreditCard = () => {
     // setName({ [target.name]: target.value });
   };
 
-  const cardType = CreditCardType(
-    number.substring(0, 4)
-  )[0]?.niceType.toLowerCase().replaceAll(' ', '');
+  const cardType = CreditCardType(number.substring(0, 4))[0]
+    ?.niceType.toLowerCase()
+    .replaceAll(' ', '');
 
   const cardFlag =
     !cardType || number.length < 1 || cardTypeError
@@ -117,12 +117,6 @@ const CreditCard = () => {
             placeholder={'CVV'}
             className={styles.cvvInput}
           />
-        </div>
-        <div className={styles.cSelect} style={{ marginTop: '0.5rem' }}>
-          <select name="arrivalForecast" id="pet-select">
-            <option value="">{t('installment')}</option>
-            <option value="">1x</option>
-          </select>
         </div>
       </div>
     </>

@@ -39,8 +39,8 @@ interface CartRoomPrice {
   priceDescription: string;
   checkIn: string;
   checkOut: string;
-  taxes: number;
-  fees: number;
+  taxes: string[];
+  fees: string[];
   travelers: {
     adults: number;
     childrens: number;

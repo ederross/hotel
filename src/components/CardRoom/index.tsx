@@ -74,8 +74,8 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
             checkIn: startDate,
             checkOut: endDate,
             priceDescription: room?.prices[0].priceDescription,
-            taxes: room?.prices[0].taxes,
-            fees: room?.prices[0].fees,
+            taxes: room?.prices[0]?.taxes || [],
+            fees: room?.prices[0]?.fees || [],
             travelers: {
               adults,
               childrens: children,
@@ -84,8 +84,8 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
           },
         ],
         infos: {
-          adults,
-          children,
+          adults: parseInt(adults),
+          children: parseInt(children),
           image: room?.images[0]?.imageUrl,
           objectName: room?.objectName,
         },
