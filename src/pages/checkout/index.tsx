@@ -22,7 +22,7 @@ import {
   GetOfficePolicies,
 } from '../../services/requests/office';
 import { AppStore } from '../../store/types';
-import { currency } from '../../utils/currency';
+import { currency, emailValidator } from '../../utils/currency';
 
 import styles from './styles.module.scss';
 import CreditCard from '../../components/CreditCard';
@@ -35,8 +35,7 @@ import InputWithMask from '../../components/common/InputWithMask';
 import { PostBooking } from '../../services/requests/booking';
 import { toast } from 'react-toastify';
 import { CleanCart } from '../../store/ducks/cart/actions';
-import { SetCheckoutRedux } from '../../store/ducks/checkout/actions';
-
+import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 interface ICheckout {
   design: Design;
   policies: Policy;
@@ -83,6 +82,10 @@ const Checkout = ({ design, policies }: ICheckout) => {
   const [email, setEmail] = useState('');
   const [cpf, setCpf] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [phoneNumberError, setPhoneNumberError] = useState('');
+  const [cpfError, setCpfError] = useState('');
   const [confirmData, setConfirmData] = useState<any>();
 
   const [selectedPayMethod, setSelectedPayMethod] = useState(
@@ -135,61 +138,84 @@ const Checkout = ({ design, policies }: ICheckout) => {
       0;
   const checkInOptions = checkInEnd - checkInStart + 1;
 
+  const VerifyFields = () => {
+    const verifyName = name.length < 2;
+    const verifyEmail = !emailValidator(email);
+    const verifyCPF = !cpfValidator.isValid(cpf.replace(/[^0-9]+/g, ''));
+    const verifyPhone = phoneNumber.replace(/[^0-9]+/g, '').length < 8;
+
+    setNameError(verifyName ? 'Digite o nome completo.' : '');
+    setEmailError(verifyEmail ? 'Digite um e-mail válido.' : '');
+    setPhoneNumberError(
+      verifyPhone ? 'Digite um número de celular válido.' : ''
+    );
+    setCpfError(verifyCPF ? 'Digite um CPF válido.' : '');
+
+    return !verifyName && !verifyPhone && !verifyCPF && !verifyEmail;
+  };
+
   const handleConfirm = () => {
-    const currentPaymentDetails = checkout?.find(
-      (c) => c.paymentMethodTypeCode === selectedPayMethod
-    )?.paymentDetails[selectedPayMethodDetails];
-    if (checkout?.length > 0) {
-      PostBooking(
-        cart,
-        {
-          clientName: name,
-          contacts: [
-            { contactText: email, contactTypeCode: 2 },
-            {
-              contactTypeCode: 1,
-              CountryPhoneCode: '55',
-              PhoneNumber: phoneNumber.replace(/[^0-9]+/g, '').substring(2, 11),
-              StatePhoneCode: phoneNumber
-                .replace(/[^0-9]+/g, '')
-                .substring(0, 2),
-            },
-          ],
-          documentNumber: cpf.replace(/[^0-9]+/g, ''),
-        },
-        {
-          installmentCount: currentPaymentDetails?.paymentInstallmentCount || 0,
-          paymentMethod: {
-            methodDetails:
-              selectedPayMethod === 1
-                ? [
-                    {
-                      cardSchemeTypeCode: 1,
-                      encryptedCardNumber: '',
-                      encryptedExpiryYear: '',
-                      encryptedSecurityCode: '',
-                    },
-                  ]
-                : null,
-            paymentDetails: [
+    if (VerifyFields()) {
+      const currentPaymentDetails = checkout?.find(
+        (c) => c.paymentMethodTypeCode === selectedPayMethod
+      )?.paymentDetails[selectedPayMethodDetails];
+      if (checkout?.length > 0) {
+        PostBooking(
+          cart,
+          {
+            clientName: name,
+            contacts: [
+              { contactText: email, contactTypeCode: 2 },
               {
-                paymentInstallmentCount:
-                  currentPaymentDetails?.paymentInstallmentCount,
-                paymentTotalAmount: currentPaymentDetails?.paymentTotalAmount,
+                contactTypeCode: 1,
+                CountryPhoneCode: '55',
+                PhoneNumber: phoneNumber
+                  .replace(/[^0-9]+/g, '')
+                  .substring(2, 11),
+                StatePhoneCode: phoneNumber
+                  .replace(/[^0-9]+/g, '')
+                  .substring(0, 2),
               },
             ],
-            paymentMethodTypeCode: selectedPayMethod,
+            documentNumber: cpf.replace(/[^0-9]+/g, ''),
           },
-          totalAmont: selectedPayMethod,
-        }
-      )
-        .then((res) => {
-          setConfirmData({ ...res?.data, email });
-          handleOpenCheckoutSuccessModal();
-        })
-        .catch((err) =>
-          toast.error(`Falha ao confirmar reserva!`, toastConfig as any)
-        );
+          {
+            installmentCount:
+              currentPaymentDetails?.paymentInstallmentCount || 0,
+            paymentMethod: {
+              methodDetails:
+                selectedPayMethod === 1
+                  ? [
+                      {
+                        cardSchemeTypeCode: 1,
+                        encryptedCardNumber: '',
+                        encryptedExpiryYear: '',
+                        encryptedSecurityCode: '',
+                      },
+                    ]
+                  : null,
+              paymentDetails: [
+                {
+                  paymentInstallmentCount:
+                    currentPaymentDetails?.paymentInstallmentCount,
+                  paymentTotalAmount: currentPaymentDetails?.paymentTotalAmount,
+                },
+              ],
+              paymentMethodTypeCode: selectedPayMethod,
+            },
+            totalAmont: selectedPayMethod,
+          }
+        )
+          .then((res) => {
+            setConfirmData({ ...res?.data, email });
+            handleOpenCheckoutSuccessModal();
+          })
+          .catch((err) =>
+            toast.error(`Falha ao confirmar reserva!`, toastConfig as any)
+          );
+      }
+    } else {
+      toast.error(`Preencha os dados corretamente`, toastConfig as any);
     }
   };
 
@@ -473,6 +499,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   placeholder={t('name')}
                   value={name}
                   setValue={setName}
+                  downMessage={nameError}
                 />
                 <Input
                   label={t('email')}
@@ -481,6 +508,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   placeholder="Nome"
                   value={email}
                   setValue={setEmail}
+                  downMessage={emailError}
                 />
 
                 <InputWithMask
@@ -490,6 +518,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   placeholder={t('phoneNumber')}
                   value={phoneNumber}
                   setValue={setPhoneNumber}
+                  downMessage={phoneNumberError}
                 />
 
                 <InputWithMask
@@ -499,6 +528,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   placeholder="CPF"
                   value={cpf}
                   setValue={setCpf}
+                  downMessage={cpfError}
                 />
 
                 <div

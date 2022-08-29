@@ -10,6 +10,7 @@ interface IInput {
   placeholder: string;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<any>>;
+  downMessage?: string;
 }
 
 const InputWithMask = ({
@@ -19,6 +20,7 @@ const InputWithMask = ({
   value,
   setValue,
   placeholder,
+  downMessage,
 }: IInput) => {
   return (
     <>
@@ -29,6 +31,9 @@ const InputWithMask = ({
             value={value}
             temDDD
             onChange={(event) => setValue(event.target.value)}
+            style={{
+              borderColor: downMessage ? '#FF2424' : 'rgb(194, 194, 194)',
+            }}
           />
         ) : (
           <CpfCnpj
@@ -39,6 +44,9 @@ const InputWithMask = ({
               setValue(event.target.value);
               type === typeInput;
             }}
+            style={{
+              borderColor: downMessage ? '#FF2424' : 'rgb(194, 194, 194)',
+            }}
           />
         )}
         <label
@@ -47,6 +55,9 @@ const InputWithMask = ({
         >
           {label}
         </label>
+        {!!downMessage && (
+          <p className={styles.downMessage}>{`${downMessage}`}</p>
+        )}
       </div>
     </>
   );

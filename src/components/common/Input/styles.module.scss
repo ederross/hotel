@@ -27,6 +27,12 @@
   left: 16px;
 }
 
+.downMessage {
+  font-size: 12px;
+  color: #ff2424;
+  margin: 4px;
+}
+
 .inputContainer input {
   color: #000;
   border: 1px solid rgb(194, 194, 194);
@@ -44,3 +50,5 @@
 .inputContainer input:focus {
   box-shadow: 0 0 0 1px #000;
 }
+
+

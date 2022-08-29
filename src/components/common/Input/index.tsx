@@ -9,6 +9,7 @@ interface IInput {
   placeholder: string;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<any>>;
+  downMessage?: string;
 }
 
 const Input = ({
@@ -18,6 +19,7 @@ const Input = ({
   placeholder,
   value,
   setValue,
+  downMessage,
 }: IInput) => {
   function handleChange(e) {
     setValue(e.target.value);
@@ -31,6 +33,9 @@ const Input = ({
           type={type}
           value={value}
           onChange={handleChange}
+          style={{
+            borderColor: downMessage ? '#FF2424' : 'rgb(194, 194, 194)',
+          }}
         />
         <label
           className={`${styles.label} ${value && styles.filled}`}
@@ -38,6 +43,9 @@ const Input = ({
         >
           {label}
         </label>
+        {!!downMessage && (
+          <p className={styles.downMessage}>{`${downMessage}`}</p>
+        )}
       </div>
     </>
   );
