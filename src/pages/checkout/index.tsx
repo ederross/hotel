@@ -219,6 +219,10 @@ const Checkout = ({ design, policies }: ICheckout) => {
     }
   };
 
+  const payInfos = checkout?.find(
+    (c) => c.paymentMethodTypeCode === selectedPayMethod
+  ).paymentDetails[selectedPayMethodDetails];
+
   return (
     <>
       <Head>
@@ -247,9 +251,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
             <h4>{t('total')}(BRL)</h4>
           </div>
           <div>
-            <h3>
-              {currency(checkout[0]?.paymentDetails[0]?.paymentTotalAmount)}
-            </h3>
+            <h3>{currency(payInfos.paymentTotalAmount)}</h3>
           </div>
         </div>
 
@@ -436,11 +438,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                       {' '}
                       {t('accommodation')}+ {t('service_other')}
                     </h5>
-                    <h5>
-                      {currency(
-                        checkout[0]?.paymentDetails[0]?.paymentTotalAmount
-                      )}
-                    </h5>
+                    <h5>{currency(payInfos.paymentTotalAmount)}</h5>
                   </div>
                   <div className={styles.row}>
                     <u
@@ -739,11 +737,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   <h5>
                     {t('accommodation')}+ {t('service_other')}
                   </h5>
-                  <h5>
-                    {currency(
-                      checkout[0]?.paymentDetails[0]?.paymentTotalAmount
-                    )}
-                  </h5>
+                  <h5>{currency(payInfos.paymentTotalAmount)}</h5>
                 </div>
                 <div className={styles.row}>
                   <u
@@ -772,11 +766,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
               <div>
                 <div className={styles.row}>
                   <h4>{t('total')} (BRL)</h4>
-                  <h4>
-                    {currency(
-                      checkout[0]?.paymentDetails[0]?.paymentTotalAmount
-                    )}
-                  </h4>
+                  <h4>{currency(payInfos.paymentTotalAmount)}</h4>
                 </div>
                 <motion.button
                   id={'button'}
