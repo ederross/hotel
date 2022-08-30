@@ -213,7 +213,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
     if (isNotSelected) {
       priceDay = (
         <div className={'priceDayIndicator'}>
-          <p>{calendar?.baseAmount || '-'}</p>
+          <p>{calendar?.baseAmount}</p>
         </div>
       );
     }
@@ -221,7 +221,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
       <>
         <div>
           {/* {extraDot} */}
-          <span>{format(day, 'd')}</span>
+          <span className="priceDay">{format(day, 'd')}</span>
           {priceDay}
         </div>
       </>

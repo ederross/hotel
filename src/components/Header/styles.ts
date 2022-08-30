@@ -211,9 +211,9 @@ export const Container = styled.div`
   .rdrDayNumber span {
     /* color: var(--dark-text); */
   }
-  .rdrDayPassive .rdrDayNumber span {
+  .rdrDayPassive {
     /* color: var(--dark-text); */
-    opacity: 0.33;
+    opacity: 0;
   }
   .rdrDayToday .rdrDayNumber span:after {
     /* background: var(--primary-color); */

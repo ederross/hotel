@@ -74,8 +74,9 @@ const WebFilters = ({
   const findCalendarDay = (date: Date) => {
     const res = calendarSearch?.find(
       (c) =>
-        moment(new Date(c.referenceDate).setUTCHours(3)).format('YYYY-MM-DD') ===
-        moment(date).format('YYYY-MM-DD')
+        moment(new Date(c.referenceDate).setUTCHours(3)).format(
+          'YYYY-MM-DD'
+        ) === moment(date).format('YYYY-MM-DD')
     );
     return res ? res : '-';
   };
