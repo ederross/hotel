@@ -36,12 +36,14 @@ import { PostBooking } from '../../services/requests/booking';
 import { toast } from 'react-toastify';
 import { CleanCart } from '../../store/ducks/cart/actions';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
+import { OfficeDetails } from '../../../data/officeDetails';
 interface ICheckout {
   design: Design;
   policies: Policy;
+  officeDetails: OfficeDetails;
 }
 
-const Checkout = ({ design, policies }: ICheckout) => {
+const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
   const { t } = useTranslation();
   // Window Sizes
   const size = useWindowSize();
@@ -436,7 +438,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   <div className={styles.row}>
                     <h5>
                       {' '}
-                      {t('accommodation')}+ {t('service_other')}
+                      {t('accommodation')} + {t('service_other')}
                     </h5>
                     <h5>{currency(payInfos.paymentTotalAmount)}</h5>
                   </div>
@@ -735,7 +737,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                 <h4>{t('priceInfo')}</h4>
                 <div className={styles.row}>
                   <h5>
-                    {t('accommodation')}+ {t('service_other')}
+                    {t('accommodation')} + {t('service_other')}
                   </h5>
                   <h5>{currency(payInfos.paymentTotalAmount)}</h5>
                 </div>
@@ -837,6 +839,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
       {successModalVisible && (
         <CheckoutSucessModal
           data={confirmData}
+          officeDetails={officeDetails}
           handleCloseCheckoutSucessModal={handleCloseCheckoutSuccessModal}
         />
       )}
