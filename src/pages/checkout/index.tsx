@@ -37,6 +37,7 @@ import { toast } from 'react-toastify';
 import { CleanCart } from '../../store/ducks/cart/actions';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 import { OfficeDetails } from '../../../data/officeDetails';
+
 interface ICheckout {
   design: Design;
   policies: Policy;
@@ -45,6 +46,7 @@ interface ICheckout {
 
 const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
   const { t } = useTranslation();
+
   // Window Sizes
   const size = useWindowSize();
   const router = useRouter();
@@ -567,12 +569,6 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                     )}
                   </div>
                 </div>
-
-                {/* <input
-                  type="text"
-                  className={styles.defaultInput}
-                  placeholder="Cartão de crédito"
-                /> */}
 
                 <div
                   className={styles.cSelect}
