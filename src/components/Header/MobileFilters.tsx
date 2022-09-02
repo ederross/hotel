@@ -189,12 +189,8 @@ const Filters = ({
                   <h4>
                     {index + 1}º {t('children_one')}
                   </h4>
-                  <div className={styles.select}>
-                    <select
-                      className={styles.selectField}
-                      name="pets"
-                      id="pet-select"
-                    >
+                  <div className={styles.cSelect}>
+                    <select>
                       <option value="">{t('age')}</option>
                       {[...Array(15)].map((_, index) => (
                         <option key={index} value="one">
@@ -286,6 +282,11 @@ const Container = styled.div`
   }
 
   .rdrDayNumber {
+  }
+
+  .rdrMonthAndYearPickers select {
+    font-size: 16px;
+    font-family: 'SulSansRegular';
   }
 `;
 

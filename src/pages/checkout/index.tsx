@@ -223,7 +223,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
 
   const payInfos = checkout?.find(
     (c) => c.paymentMethodTypeCode === selectedPayMethod
-  ).paymentDetails[selectedPayMethodDetails];
+  )?.paymentDetails[selectedPayMethodDetails];
 
   return (
     <>
@@ -253,7 +253,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
             <h4>{t('total')}(BRL)</h4>
           </div>
           <div>
-            <h3>{currency(payInfos.paymentTotalAmount)}</h3>
+            <h3>{currency(payInfos?.paymentTotalAmount)}</h3>
           </div>
         </div>
 
@@ -440,7 +440,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                       {' '}
                       {t('accommodation')} + {t('service_other')}
                     </h5>
-                    <h5>{currency(payInfos.paymentTotalAmount)}</h5>
+                    <h5>{currency(payInfos?.paymentTotalAmount)}</h5>
                   </div>
                   <div className={styles.row}>
                     <u
@@ -739,7 +739,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                   <h5>
                     {t('accommodation')} + {t('service_other')}
                   </h5>
-                  <h5>{currency(payInfos.paymentTotalAmount)}</h5>
+                  <h5>{currency(payInfos?.paymentTotalAmount)}</h5>
                 </div>
                 <div className={styles.row}>
                   <u
@@ -768,7 +768,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
               <div>
                 <div className={styles.row}>
                   <h4>{t('total')} (BRL)</h4>
-                  <h4>{currency(payInfos.paymentTotalAmount)}</h4>
+                  <h4>{currency(payInfos?.paymentTotalAmount)}</h4>
                 </div>
                 <motion.button
                   id={'button'}
