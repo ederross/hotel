@@ -275,7 +275,6 @@
             color: var(--gray-400);
             font-weight: 300;
           }
-
         }
       }
 
@@ -395,10 +394,6 @@
         }
       }
     }
-
-    
-
-    
 
     .mobConfirmContainer {
       margin-top: 1rem;
@@ -682,12 +677,10 @@
   padding-left: 12px;
 }
 
-
 .cSelect {
   position: relative;
   width: 100%;
 
-  
   // looks funny, needs work
   &:focus {
     outline: none;
@@ -697,14 +690,13 @@
   &:before {
     content: '';
     position: absolute;
-    top: 48%;
+    top: 36%;
     right: 16px;
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 6px 4px 0 4px;
-    border-color: var(--primary-color) transparent transparent
-      transparent;
+    border-color: var(--primary-color) transparent transparent transparent;
     pointer-events: none;
   }
 
@@ -720,6 +712,5 @@
     &:hover {
       color: rgb(72, 72, 72);
     }
-
   }
 }

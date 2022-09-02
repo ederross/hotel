@@ -462,12 +462,6 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                     </u>
                     <h5>{currency(0)}</h5>
                   </div>
-
-                  {/* <div className={styles.mobMoreInfoHolder}>
-                    <u>
-                      <h5>Mais informações</h5>
-                    </u>
-                  </div> */}
                 </div>
               )}
               <div style={{ padding: '0 1rem 1rem' }}>
@@ -586,7 +580,6 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                 >
                   <select
                     name="arrivalForecast"
-                    id="pet-select"
                     style={{ margin: '0 0 16px' }}
                     onChange={(e) =>
                       setSelectedPayMethod(parseInt(e.target.value))
@@ -602,7 +595,12 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                       </option>
                     ))}
                   </select>
-                  {selectedPayMethod && (
+                </div>
+                {selectedPayMethod && (
+                  <div
+                    className={styles.cSelect}
+                    style={{ marginBottom: '0.5rem' }}
+                  >
                     <select
                       name="arrivalForecast"
                       id="det-select"
@@ -624,8 +622,8 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                           </option>
                         ))}
                     </select>
-                  )}
-                </div>
+                  </div>
+                )}
                 {selectedPayMethod === 1 && <CreditCard />}
               </div>
             </div>
