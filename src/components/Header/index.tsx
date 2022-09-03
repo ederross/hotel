@@ -11,7 +11,7 @@ import 'react-date-range/dist/theme/default.css';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
 
-import { isWeekend, format } from 'date-fns';
+import { format } from 'date-fns';
 import { useWindowSize } from '../../hooks/UseWindowSize';
 import { Design } from '../../../data/design';
 import { useTranslation } from 'next-i18next';
@@ -26,7 +26,6 @@ import { motion } from 'framer-motion';
 import CartModal from '../CartModal';
 import { ToastContainer } from 'react-toastify';
 import { CleanCart } from '../../store/ducks/cart/actions';
-import { GetCalendarSearch } from '../../services/requests/booking';
 
 interface IHeader {
   design: Design;
@@ -213,7 +212,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
     if (isNotSelected) {
       priceDay = (
         <div className={'priceDayIndicator'}>
-          <p>{calendar?.baseAmount || '-'}</p>
+          <p>{calendar?.baseAmount}</p>
         </div>
       );
     }
@@ -221,7 +220,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
       <>
         <div>
           {/* {extraDot} */}
-          <span>{format(day, 'd')}</span>
+          <span className="priceDay">{format(day, 'd')}</span>
           {priceDay}
         </div>
       </>

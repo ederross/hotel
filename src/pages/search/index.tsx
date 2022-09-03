@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import styles from './search.module.scss';
-import {
-  HotelOutlined,
-  AttractionsOutlined,
-  CookieOutlined,
-} from '@mui/icons-material';
+import { HotelOutlined, AttractionsOutlined } from '@mui/icons-material';
 import CardRoom from '../../components/CardRoom';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -28,7 +24,6 @@ import {
   GetOfficeDetails,
   GetOfficeFacilities,
 } from '../../services/requests/office';
-import { mockSearchResults } from '../../../mock/mockSearchResult';
 import { Room } from '../../../data/room';
 import { RoomDetails } from '../../components/RoomDetails';
 import { Facility } from '../../../data/facilities';
@@ -54,7 +49,6 @@ import {
   SetServicePricesDomain,
   SetServicesDomain,
 } from '../../store/ducks/domain/actions';
-import { IconDisplay } from '../../components/common/IconDisplay';
 import { IconImportDynamically } from '../../components/common/ComponentWithIcon';
 import { SetCartInfos } from '../../store/ducks/cart/actions';
 

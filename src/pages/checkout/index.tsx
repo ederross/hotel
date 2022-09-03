@@ -37,13 +37,16 @@ import { toast } from 'react-toastify';
 import { CleanCart } from '../../store/ducks/cart/actions';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 import { encrypt, OpenSSL_encrypt_hospeda } from '../../utils/encrypt';
+import { OfficeDetails } from '../../../data/officeDetails';
 interface ICheckout {
   design: Design;
   policies: Policy;
+  officeDetails: OfficeDetails;
 }
 
-const Checkout = ({ design, policies }: ICheckout) => {
+const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
   const { t } = useTranslation();
+
   // Window Sizes
   const size = useWindowSize();
   const router = useRouter();
@@ -263,7 +266,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
             <h4>{t('total')}(BRL)</h4>
           </div>
           <div>
-            <h3>{currency(payInfos.paymentTotalAmount)}</h3>
+            <h3>{currency(payInfos?.paymentTotalAmount)}</h3>
           </div>
         </div>
 
@@ -448,9 +451,9 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   <div className={styles.row}>
                     <h5>
                       {' '}
-                      {t('accommodation')}+ {t('service_other')}
+                      {t('accommodation')} + {t('service_other')}
                     </h5>
-                    <h5>{currency(payInfos.paymentTotalAmount)}</h5>
+                    <h5>{currency(payInfos?.paymentTotalAmount)}</h5>
                   </div>
                   <div className={styles.row}>
                     <u
@@ -472,12 +475,6 @@ const Checkout = ({ design, policies }: ICheckout) => {
                     </u>
                     <h5>{currency(0)}</h5>
                   </div>
-
-                  {/* <div className={styles.mobMoreInfoHolder}>
-                    <u>
-                      <h5>Mais informações</h5>
-                    </u>
-                  </div> */}
                 </div>
               )}
               <div style={{ padding: '0 1rem 1rem' }}>
@@ -584,19 +581,12 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   </div>
                 </div>
 
-                {/* <input
-                  type="text"
-                  className={styles.defaultInput}
-                  placeholder="Cartão de crédito"
-                /> */}
-
                 <div
                   className={styles.cSelect}
                   style={{ marginBottom: '0.5rem' }}
                 >
                   <select
                     name="arrivalForecast"
-                    id="pet-select"
                     style={{ margin: '0 0 16px' }}
                     onChange={(e) =>
                       setSelectedPayMethod(parseInt(e.target.value))
@@ -612,7 +602,12 @@ const Checkout = ({ design, policies }: ICheckout) => {
                       </option>
                     ))}
                   </select>
-                  {selectedPayMethod && (
+                </div>
+                {selectedPayMethod && (
+                  <div
+                    className={styles.cSelect}
+                    style={{ marginBottom: '0.5rem' }}
+                  >
                     <select
                       name="arrivalForecast"
                       id="det-select"
@@ -634,8 +629,8 @@ const Checkout = ({ design, policies }: ICheckout) => {
                           </option>
                         ))}
                     </select>
-                  )}
-                </div>
+                  </div>
+                )}
                 {selectedPayMethod === 1 && (
                   <CreditCard
                     cardNumber={cardNumber}
@@ -756,9 +751,9 @@ const Checkout = ({ design, policies }: ICheckout) => {
                 <h4>{t('priceInfo')}</h4>
                 <div className={styles.row}>
                   <h5>
-                    {t('accommodation')}+ {t('service_other')}
+                    {t('accommodation')} + {t('service_other')}
                   </h5>
-                  <h5>{currency(payInfos.paymentTotalAmount)}</h5>
+                  <h5>{currency(payInfos?.paymentTotalAmount)}</h5>
                 </div>
                 <div className={styles.row}>
                   <u
@@ -787,7 +782,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
               <div>
                 <div className={styles.row}>
                   <h4>{t('total')} (BRL)</h4>
-                  <h4>{currency(payInfos.paymentTotalAmount)}</h4>
+                  <h4>{currency(payInfos?.paymentTotalAmount)}</h4>
                 </div>
                 <motion.button
                   id={'button'}
@@ -858,6 +853,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
       {successModalVisible && (
         <CheckoutSucessModal
           data={confirmData}
+          officeDetails={officeDetails}
           handleCloseCheckoutSucessModal={handleCloseCheckoutSuccessModal}
         />
       )}
