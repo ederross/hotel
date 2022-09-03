@@ -12,15 +12,25 @@ import styles from './styles.module.scss';
 import CreditCardType from 'credit-card-type';
 import { useTranslation } from 'next-i18next';
 
-const CreditCard = () => {
-  const [name, setName] = useState();
-  const [number, setNumber] = useState('');
-  const [expires, setExpires] = useState();
-  const [cvc, setCvc] = useState();
+interface ICreditCard {
+  cardNumber: string;
+  expiryYear: string;
+  securityCode: string;
+  setCardNumber: React.Dispatch<React.SetStateAction<string>>;
+  setExpiryYear: React.Dispatch<React.SetStateAction<string>>;
+  setSecurityCode: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const CreditCard = ({
+  cardNumber,
+  expiryYear,
+  securityCode,
+  setCardNumber,
+  setExpiryYear,
+  setSecurityCode,
+}: ICreditCard) => {
   const [focused, setFocused] = useState(false);
   const [issuer, setIssuer] = useState();
-  const [formData, setFormData] = useState();
-  const [expiry, setExpiry] = useState();
   const [cardTypeError, setCardTypeError] = useState(false);
 
   const { t } = useTranslation();
@@ -35,7 +45,7 @@ const CreditCard = () => {
 
   const handleInputChange = ({ target }) => {
     if (target.name === 'number') {
-      setNumber(target.value);
+      setCardNumber(target.value);
       target.value = formatCreditCardNumber(target.value);
     } else if (target.name === 'expiry') {
       target.value = formatExpirationDate(target.value);
@@ -46,12 +56,12 @@ const CreditCard = () => {
     // setName({ [target.name]: target.value });
   };
 
-  const cardType = CreditCardType(number.substring(0, 4))[0]
+  const cardType = CreditCardType(cardNumber.substring(0, 4))[0]
     ?.niceType.toLowerCase()
     .replaceAll(' ', '');
 
   const cardFlag =
-    !cardType || number.length < 1 || cardTypeError
+    !cardType || cardNumber.length < 1 || cardTypeError
       ? '/icons/card.svg'
       : `/icons/${cardType}.svg`;
 
@@ -104,7 +114,8 @@ const CreditCard = () => {
             pattern="\d\d/\d\d"
             name="expiry"
             required
-            onChange={handleInputChange}
+            value={expiryYear}
+            onChange={(v) => setExpiryYear(v.target.value)}
             placeholder={t('validity')}
             className={styles.validityInput}
           />
@@ -113,7 +124,8 @@ const CreditCard = () => {
             name="cvc"
             pattern="\d{3,4}"
             required
-            onChange={handleInputChange}
+            value={securityCode}
+            onChange={(v) => setSecurityCode(v.target.value)}
             placeholder={'CVV'}
             className={styles.cvvInput}
           />

@@ -124,7 +124,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
           <h3 className={styles.servicesTitle}>{t('Quartos')}</h3>
         )}
         {cart?.objects.map((item, index) => (
-          <>
+          <div key={index}>
             {item?.prices?.map((price, index) => (
               <div key={index} className={styles.roomContainer}>
                 <div className={styles.imageRoomHolder}>
@@ -175,7 +175,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
                 </div>
               </div>
             ))}
-          </>
+          </div>
         ))}
 
         {cart?.objects && cart?.objects.length > 0 && (

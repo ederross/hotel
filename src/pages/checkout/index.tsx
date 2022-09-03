@@ -36,6 +36,7 @@ import { PostBooking } from '../../services/requests/booking';
 import { toast } from 'react-toastify';
 import { CleanCart } from '../../store/ducks/cart/actions';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
+import { encrypt, OpenSSL_encrypt_hospeda } from '../../utils/encrypt';
 interface ICheckout {
   design: Design;
   policies: Policy;
@@ -87,6 +88,10 @@ const Checkout = ({ design, policies }: ICheckout) => {
   const [phoneNumberError, setPhoneNumberError] = useState('');
   const [cpfError, setCpfError] = useState('');
   const [confirmData, setConfirmData] = useState<any>();
+
+  const [cardNumber, setCardNumber] = useState('');
+  const [expiryYear, setExpiryYear] = useState('');
+  const [securityCode, setSecurityCode] = useState<any>();
 
   const [selectedPayMethod, setSelectedPayMethod] = useState(
     checkout[0]?.paymentMethodTypeCode || 0
@@ -188,9 +193,10 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   ? [
                       {
                         cardSchemeTypeCode: 1,
-                        encryptedCardNumber: '',
-                        encryptedExpiryYear: '',
-                        encryptedSecurityCode: '',
+                        encryptedCardNumber:
+                          OpenSSL_encrypt_hospeda(cardNumber),
+                        encryptedExpiryYear: expiryYear,
+                        encryptedSecurityCode: securityCode,
                       },
                     ]
                   : null,
@@ -215,13 +221,19 @@ const Checkout = ({ design, policies }: ICheckout) => {
           );
       }
     } else {
-      toast.error(`Preencha os dados corretamente`, toastConfig as any);
+      const v = encrypt(cardNumber);
+      console.log(v);
+      console.log(
+        'W8Ic1mg8ZmsTCbAfVO9trDWnV32RJ3rILQ5wZB/mL845cnJzhq8I4Np31ilTRqMFjyVMrAsqTBhZRExWk+SU9CW47J+IHBrEu0qPBYgPlO3Hmrd24EWLN+y22bLtz2SEXKCrQfhxeq1t8uh91i4m1b6sVqMvjps2q9XpW3v4qQ4=' ===
+          v
+      );
+      // toast.error(`Preencha os dados corretamente`, toastConfig as any);
     }
   };
 
   const payInfos = checkout?.find(
     (c) => c.paymentMethodTypeCode === selectedPayMethod
-  ).paymentDetails[selectedPayMethodDetails];
+  )?.paymentDetails[selectedPayMethodDetails];
 
   return (
     <>
@@ -276,7 +288,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                   >
                     {size.width < 868 &&
                       objects.slice(0, 2).map((item, index) => (
-                        <>
+                        <div key={index}>
                           {item?.prices?.map((price, index) => (
                             <div key={index} className={styles.roomContainer}>
                               <div className={styles.imageRoomHolder}>
@@ -329,7 +341,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                               </div>
                             </div>
                           ))}
-                        </>
+                        </div>
                       ))}
                     {size.width < 868 && objects.length > 2 && (
                       <div
@@ -624,13 +636,22 @@ const Checkout = ({ design, policies }: ICheckout) => {
                     </select>
                   )}
                 </div>
-                {selectedPayMethod === 1 && <CreditCard />}
+                {selectedPayMethod === 1 && (
+                  <CreditCard
+                    cardNumber={cardNumber}
+                    expiryYear={expiryYear}
+                    securityCode={securityCode}
+                    setCardNumber={setCardNumber}
+                    setExpiryYear={setExpiryYear}
+                    setSecurityCode={setSecurityCode}
+                  />
+                )}
               </div>
             </div>
             <div className={styles.webPaymentInfos}>
               <div>
                 {objects.slice(0, 2).map((item, index) => (
-                  <>
+                  <div key={index}>
                     {item?.prices?.map((price, index) => (
                       <div key={index} className={styles.roomContainer}>
                         <div className={styles.imageRoomHolder}>
@@ -678,7 +699,7 @@ const Checkout = ({ design, policies }: ICheckout) => {
                         </div>
                       </div>
                     ))}
-                  </>
+                  </div>
                 ))}
 
                 {objects.length > 2 && (

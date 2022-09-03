@@ -64,6 +64,7 @@ export default function Home(props: IHomeProps) {
 
   useEffect(() => {
     dispatch(SetCheckoutRedux([]));
+    sessionStorage.removeItem('cart');
   }, []);
 
   return (
