@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     moment.locale(locale);
-  }, []);
+  }, [locale]);
 
   return (
     <>

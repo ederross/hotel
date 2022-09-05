@@ -33,6 +33,7 @@ import {
 import { useEffect } from 'react';
 import { SetCheckoutRedux } from '../store/ducks/checkout/actions';
 import { useDispatch } from 'react-redux';
+import { CleanCart } from '../store/ducks/cart/actions';
 interface IHomeProps {
   officeDetails: OfficeDetails;
   design: Design;
@@ -64,8 +65,8 @@ export default function Home(props: IHomeProps) {
 
   useEffect(() => {
     dispatch(SetCheckoutRedux([]));
-    sessionStorage.removeItem('cart');
-  }, []);
+    dispatch(CleanCart());
+  }, [dispatch]);
 
   return (
     <>

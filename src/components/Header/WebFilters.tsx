@@ -69,7 +69,7 @@ const WebFilters = ({
       .catch((err) =>
         console.log('>> FALHA AO PESQUISAR O CALENDÁRIO <<', err)
       );
-  }, [firstMonth]);
+  }, [startSearchDay, firstMonth, endSearchDay]);
 
   const findCalendarDay = (date: Date) => {
     const res = calendarSearch?.find(

@@ -50,7 +50,7 @@ const CarouselHolder = ({
 
   useEffect(() => {
     setSelected && setSelected(currSlide);
-  }, [currSlide]);
+  }, [currSlide, setSelected]);
 
   return (
     <CarouselHolderStyles style={style}>

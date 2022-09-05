@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 import CarouselHolder from '../common/CarouselHolder';
-import { Add, RemoveOutlined } from '@mui/icons-material';
 import { Service } from '../../../data/services';
 import { currency } from '../../utils/currency';
 import { Counter } from '../common/Counter';
@@ -11,8 +10,6 @@ import {
   AddServiceToCart,
   RemoveServiceToCart,
 } from '../../store/ducks/cart/actions';
-import { useWindowSize } from '../../hooks/UseWindowSize';
-import { toast } from 'react-toastify';
 import { useTranslation } from 'next-i18next';
 
 interface ICardService {
@@ -34,28 +31,23 @@ const CardService = ({ service }: ICardService) => {
   );
 
   const { t } = useTranslation('common');
-  const { width } = useWindowSize();
 
   const [quantity, setQuantity] = useState(currentService?.quantity);
 
-  const handleAddToCart = () => {
-    dispatch(
-      AddServiceToCart({
-        serviceId: service?.serviceId,
-        serviceName: service?.serviceName,
-        price: service?.serviceAmount || 0,
-        quantity: quantity,
-      })
-    );
+  const cartItem = service && {
+    serviceId: service?.serviceId,
+    serviceName: service?.serviceName,
+    price: service?.serviceAmount || 0,
+    quantity: quantity,
   };
 
   useEffect(() => {
-    if (quantity > 0) {
-      handleAddToCart();
+    if (quantity > 0 && service) {
+      dispatch(AddServiceToCart(cartItem));
     } else {
       dispatch(RemoveServiceToCart(service?.serviceId));
     }
-  }, [quantity]);
+  }, [quantity, dispatch, service?.serviceId]);
 
   useEffect(() => {
     if (currentService?.quantity > 0) {

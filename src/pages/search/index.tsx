@@ -152,7 +152,7 @@ const Search = ({
         startDate,
       })
     );
-  }, [startDate, endDate, adults, children]);
+  }, [startDate, endDate, adults, children, dispatch]);
 
   useEffect(() => {
     dispatch(SetIconsDomain(iconsDomain));
@@ -163,7 +163,17 @@ const Search = ({
     dispatch(SetServicePricesDomain(servicePricesDomain));
     dispatch(SetPaymethodDomain(paymethodDomain));
     dispatch(SetPolicyDomain(policyDomain));
-  }, []);
+  }, [
+    dispatch,
+    iconsDomain,
+    amenititiesDomain,
+    contactDomain,
+    facilitiesDomain,
+    servicesDomain,
+    servicePricesDomain,
+    paymethodDomain,
+    policyDomain,
+  ]);
 
   const GetFacilityFromDomain = (facilityCategoryTypeCode: number) =>
     facilitiesDomainRedux.data.find(

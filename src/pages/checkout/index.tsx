@@ -64,7 +64,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
     if (checkout?.length <= 0) {
       router.push(`/`);
     }
-  }, [checkout]);
+  }, [checkout, router]);
 
   const toastConfig = {
     position: size?.width < 868 ? 'top-left' : 'bottom-right',
@@ -292,6 +292,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                                 <Image
                                   src={item?.infos?.image}
                                   layout={'fill'}
+                                  alt={item?.infos?.objectName}
                                 />
                               </div>
 
@@ -644,7 +645,11 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                     {item?.prices?.map((price, index) => (
                       <div key={index} className={styles.roomContainer}>
                         <div className={styles.imageRoomHolder}>
-                          <Image src={item?.infos?.image} layout={'fill'} />
+                          <Image
+                            src={item?.infos?.image}
+                            layout={'fill'}
+                            alt={item?.infos?.objectName}
+                          />
                         </div>
 
                         <div className={styles.roomInfo}>

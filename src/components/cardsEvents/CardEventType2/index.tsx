@@ -31,7 +31,7 @@ const CardEventType2 = ({ event }: ICardEventType2) => {
               ? 'images/empty_image.png'
               : event?.imageUrl
           }
-          alt=""
+          alt={event?.eventName}
         />
         <div className={styles.contentContainer}>
           <h4>{event?.eventName}</h4>

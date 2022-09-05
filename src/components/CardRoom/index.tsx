@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import styles from './styles.module.scss';
-import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
 import CarouselHolder from '../common/CarouselHolder';
 import { Room } from '../../../data/room';
 import { useRouter } from 'next/router';
@@ -16,7 +15,6 @@ import {
 } from '../../store/ducks/cart/actions';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
-import { IconDisplay } from '../common/IconDisplay';
 import { IconImportDynamically } from '../common/ComponentWithIcon';
 
 interface ICardRoom {
@@ -59,54 +57,46 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
   const mainPrice = room?.prices && room?.prices[0];
   const formattedValue = currency(mainPrice?.regularTotalAmount);
 
-  const handleAddToCart = () => {
-    dispatch(
-      AddProductToCart({
-        objectId: room?.objectId,
-        identificationCode: '',
-        prices: [
-          {
-            quoteId: room?.prices[0]?.quoteId,
-            regularTotalAmount: room?.prices
-              ? room?.prices[0]?.regularTotalAmount
-              : 0,
-            quantity: quantity,
-            checkIn: startDate,
-            checkOut: endDate,
-            priceDescription: room?.prices[0].priceDescription,
-            taxes: room?.prices[0]?.taxes || [],
-            fees: room?.prices[0]?.fees || [],
-            travelers: {
-              adults,
-              childrens: children,
-              ages: [],
-            },
-          },
-        ],
-        infos: {
-          adults: parseInt(adults),
-          children: parseInt(children),
-          image: room?.images[0]?.imageUrl,
-          objectName: room?.objectName,
+  const cartItem = room && {
+    objectId: room?.objectId,
+    identificationCode: '',
+    prices: [
+      {
+        quoteId: room?.prices[0]?.quoteId,
+        regularTotalAmount: room?.prices
+          ? room?.prices[0]?.regularTotalAmount
+          : 0,
+        quantity: quantity,
+        checkIn: startDate,
+        checkOut: endDate,
+        priceDescription: room?.prices[0].priceDescription,
+        taxes: room?.prices[0]?.taxes || [],
+        fees: room?.prices[0]?.fees || [],
+        travelers: {
+          adults,
+          childrens: children,
+          ages: [],
         },
-      })
-    );
+      },
+    ],
+    infos: {
+      adults: parseInt(adults),
+      children: parseInt(children),
+      image: room?.images[0]?.imageUrl,
+      objectName: room?.objectName,
+    },
   };
-  useEffect(() => {
-    if (quantity > 0) {
-      handleAddToCart();
-    } else {
-      dispatch(RemoveProductToCart(room?.objectId));
-    }
-  }, [quantity]);
 
   useEffect(() => {
-    if (currentRoom?.prices[0]?.quantity > 0) {
+    if (currentRoom?.prices[0]?.quantity > 0 && room) {
       setQuantity(currentRoom?.prices[0]?.quantity);
+      dispatch(AddProductToCart(cartItem));
     } else {
       setQuantity(0);
+      dispatch(RemoveProductToCart(room?.objectId));
     }
-  }, [currentRoom]);
+  }, [currentRoom, room]);
+
   return (
     <>
       <motion.a

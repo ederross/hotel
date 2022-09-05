@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import { useSelector, useDispatch } from 'react-redux';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { currency } from '../../utils/currency';
 
 import styles from './styles.module.scss';
@@ -65,16 +65,18 @@ const CartMenu = ({ openCart }: ICartMenu) => {
     }
   };
 
-  const toastConfig = {
-    position: width < 868 ? 'top-left' : 'bottom-right',
-    autoClose: 5000,
-    theme: 'colored',
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-  };
+  const toastConfig = useMemo(() => {
+    return {
+      position: width < 868 ? 'top-left' : 'bottom-right',
+      autoClose: 5000,
+      theme: 'colored',
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    };
+  }, [width]);
 
   useEffect(() => {
     if (width > 868) {
@@ -85,7 +87,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
       }
       setOldLength(currentLength);
     }
-  }, [currentLength]);
+  }, [currentLength, oldLength, toastConfig, width, t]);
 
   const subMenuAnimate = {
     enter: {
@@ -128,7 +130,11 @@ const CartMenu = ({ openCart }: ICartMenu) => {
             {item?.prices?.map((price, index) => (
               <div key={index} className={styles.roomContainer}>
                 <div className={styles.imageRoomHolder}>
-                  <Image src={item?.infos?.image} layout={'fill'} />
+                  <Image
+                    src={item?.infos?.image}
+                    layout={'fill'}
+                    alt={item?.infos?.objectName}
+                  />
                 </div>
 
                 <div className={styles.roomInfo}>

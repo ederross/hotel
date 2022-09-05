@@ -75,7 +75,11 @@ const CartModal = ({
               {objects.map((room, index) => (
                 <div key={index} className={styles.roomContainer}>
                   <div className={styles.imageRoomHolder}>
-                    <Image src={room?.infos?.image} layout={'fill'} />
+                    <Image
+                      src={room?.infos?.image}
+                      layout={'fill'}
+                      alt={room?.infos?.objectName}
+                    />
                   </div>
 
                   <div className={styles.roomInfo}>

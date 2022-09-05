@@ -183,7 +183,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
       setIsCalendarVisible(false);
       setCartMobileOpen(false);
     }
-  }, [objects?.length > 0, services?.length > 0]);
+  }, [objects?.length, services?.length, router.pathname]);
 
   // Open Cart Modal
   const handleOpenCart = () => {

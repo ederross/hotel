@@ -42,7 +42,14 @@ export const Counter = ({
         />
       </button>
       <h5>{quantity}</h5>
-      <button onClick={handleAdd}>
+      <button
+        onClick={handleAdd}
+        title={
+          max !== 1
+            ? `${max} reservas disponíveis`
+            : `${max} reserva disponível`
+        }
+      >
         <Add className={styles.addIcon} />
       </button>
     </div>
