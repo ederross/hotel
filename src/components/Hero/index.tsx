@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { Design } from '../../../data/design';
 import { OfficeDetails } from '../../../data/officeDetails';
-import { CleanCart } from '../../store/ducks/cart/actions';
+import { CleanCart, SetCartInfos } from '../../store/ducks/cart/actions';
 import styles from './styles.module.scss';
 
 interface IHeroProps {
@@ -28,6 +28,16 @@ const Hero = ({ officeDetails, design }: IHeroProps) => {
         children: 0,
       },
     });
+    dispatch(
+      SetCartInfos({
+        totalGuest: 1,
+        startDate: moment().add(1, 'day').format('YYYY-MM-DD'),
+        endDate: moment().add(15, 'days').format('YYYY-MM-DD'),
+        adults: 1,
+        children: 0,
+        ages: [],
+      })
+    );
     dispatch(CleanCart());
   };
 

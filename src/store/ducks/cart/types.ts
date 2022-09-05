@@ -13,6 +13,9 @@ export interface TypesCart {
     totalGuest: number;
     startDate: string;
     endDate: string;
+    adults: number;
+    children: number;
+    ages: number[];
   };
   services: CartService[];
   objects: CartRoom[];

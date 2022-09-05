@@ -51,7 +51,7 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
   const handleDetails = () => {
     setSelectedRoom(room);
     // router.push(`/objects/${room?.objectId}`);
-    window.scrollTo(0, 0);
+    window?.scrollTo(0, 0);
   };
 
   const mainPrice = room?.prices && room?.prices[0];

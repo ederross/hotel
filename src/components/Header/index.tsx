@@ -25,7 +25,7 @@ import { AppStore } from '../../store/types';
 import { motion } from 'framer-motion';
 import CartModal from '../CartModal';
 import { ToastContainer } from 'react-toastify';
-import { CleanCart } from '../../store/ducks/cart/actions';
+import { CleanCart, SetCartInfos } from '../../store/ducks/cart/actions';
 
 interface IHeader {
   design: Design;
@@ -39,7 +39,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
   const router = useRouter();
 
   const {
-    cart: { objects, services },
+    cart: { objects, services, infos },
   } = useSelector((state: AppStore) => state);
 
   const headerRef = useRef(null);
@@ -76,7 +76,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
   const checkOutDate = moment(dateState[0].endDate).format('YYYY-MM-DD');
   const numberOfAdults = dateState[0].adults;
   const numberOfChildren = dateState[0].children;
-  const [childrenAges, setChildrenAges] = useState<number[]>([]);
+  const [childrenAges, setChildrenAges] = useState<number[]>(infos?.ages || []);
 
   const openDatePicker = () => {
     setOpenCart(false);
@@ -120,7 +120,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
       setCartMobileOpen(false);
     } else {
       router.pathname === '/' ? (document.body.style.overflow = 'initial') : '';
-      if (window.scrollY > 10) {
+      if (window?.scrollY > 10) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -150,21 +150,31 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
       },
     });
     dispatch(CleanCart());
+    dispatch(
+      SetCartInfos({
+        totalGuest: numberOfAdults + numberOfChildren,
+        startDate: checkInDate,
+        endDate: checkOutDate,
+        adults: numberOfAdults,
+        children: numberOfChildren,
+        ages: childrenAges,
+      })
+    );
     setTimeout(() => closeCalendar(), 100);
   };
 
   // Scroll Header Animation
   useEffect(() => {
     const onScroll = () => {
-      if (window.scrollY > 10) {
+      if (window?.scrollY > 10) {
         setScrolled(true);
       } else {
         setScrolled(false);
       }
     };
-    window.addEventListener('scroll', onScroll);
+    window?.addEventListener('scroll', onScroll);
 
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => window?.removeEventListener('scroll', onScroll);
   }, []);
 
   // Cart Feedback Animation

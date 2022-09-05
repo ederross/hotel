@@ -190,7 +190,17 @@ const Filters = ({
                     {index + 1}º {t('children_one')}
                   </h4>
                   <div className={styles.cSelect}>
-                    <select>
+                    <select
+                      onChange={(v) =>
+                        setChildrenAges([
+                          ...[...Array(numberOfChildren)].map((_, i) =>
+                            i === index
+                              ? parseInt(v.target.value as any)
+                              : childrenAges[i || 0] || 0
+                          ),
+                        ])
+                      }
+                    >
                       <option value="">{t('age')}</option>
                       {[...Array(15)].map((_, index) => (
                         <option key={index} value="one">

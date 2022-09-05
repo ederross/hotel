@@ -124,6 +124,7 @@ const Search = ({
 
   const {
     domain: { facilitiesDomain: facilitiesDomainRedux },
+    cart: { infos },
   } = useSelector((state: AppStore) => state);
 
   const [selectedTab, setSelectedTab] = useState('rooms');
@@ -136,7 +137,13 @@ const Search = ({
 
   useEffect(() => {
     if (startDate && endDate && adults && children) {
-      GetRoomSearch({ startDate, endDate, adults, children })
+      GetRoomSearch({
+        startDate,
+        endDate,
+        adults,
+        children,
+        ages: infos?.ages || [],
+      })
         .then((res: any) => {
           setSearchResult(res?.data);
         })
@@ -148,8 +155,11 @@ const Search = ({
     dispatch(
       SetCartInfos({
         totalGuest: parseInt(adults) + parseInt(children),
-        endDate,
         startDate,
+        endDate,
+        adults,
+        children,
+        ages: infos?.ages || [],
       })
     );
   }, [startDate, endDate, adults, children, dispatch]);

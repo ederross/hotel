@@ -11,6 +11,8 @@ import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import CardEventType2 from '../cardsEvents/CardEventType2';
 import { GetCalendarSearch } from '../../services/requests/booking';
 import moment from 'moment';
+import { AppStore } from '../../store/types';
+import { useSelector } from 'react-redux';
 
 interface IWebFilters {
   closeDatePickerWeb: () => void;
@@ -45,6 +47,10 @@ const WebFilters = ({
 }: IWebFilters) => {
   const { locale } = useRouter();
   const { t } = useTranslation('common');
+
+  const {
+    cart: { infos },
+  } = useSelector((state: AppStore) => state);
 
   const [calendarSearch, setCalendarSearch] = useState([]);
   const [firstMonth, setFirstMonth] = useState<Date>();
@@ -230,10 +236,21 @@ const WebFilters = ({
                             {index + 1}º {t('children_one')}
                           </h4>
                           <div className={styles.cSelect}>
-                            <select>
-                              <option value="">{t('age')}</option>
+                            <select
+                              value={childrenAges[index] || ''}
+                              onChange={(v) =>
+                                setChildrenAges([
+                                  ...[...Array(numberOfChildren)].map((_, i) =>
+                                    i === index
+                                      ? parseInt(v.target.value as any)
+                                      : childrenAges[i || 0] || 0
+                                  ),
+                                ])
+                              }
+                            >
+                              <option value={''}>{t('age')}</option>
                               {[...Array(15)].map((_, index) => (
-                                <option key={index} value="one">
+                                <option key={index} value={index + 1}>
                                   {index + 1}
                                 </option>
                               ))}

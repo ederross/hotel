@@ -125,15 +125,15 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
 
   useEffect(() => {
     const onScroll = () => {
-      if (window.scrollY > 10) {
+      if (window?.scrollY > 10) {
         setScrolled(true);
       } else {
         setScrolled(false);
       }
     };
-    window.addEventListener('scroll', onScroll);
+    window?.addEventListener('scroll', onScroll);
 
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => window?.removeEventListener('scroll', onScroll);
   }, []);
 
   const checkInStart = parseInt(

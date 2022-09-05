@@ -47,7 +47,7 @@ export default function Home(props: IHomeProps) {
   const dispatch = useDispatch();
   const { t } = useTranslation('common');
 
-  const swiperStyle = {
+  const swiperStyle = !!window && {
     paddingLeft:
       width >= 320 && width < 524
         ? '1rem'
