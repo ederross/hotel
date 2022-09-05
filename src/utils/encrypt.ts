@@ -1,8 +1,5 @@
-import { AES } from 'crypto-js';
-import crypto from 'crypto';
+import JSEncrypt from 'jsencrypt';
 
-const ENC_KEY = 'bf3c199c2470cb477d907b1e0917c17b'; // set random encryption key
-const IV = '5183666c72eec9e4';
 const publicKey = `
   -----BEGIN PUBLIC KEY-----
   MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC65FzNvUWXwJPUvyadJwqVEztz
@@ -12,34 +9,19 @@ const publicKey = `
   -----END PUBLIC KEY-----
   `;
 
-export const encrypt = (val: string) => {
-  let cipher = crypto.createCipheriv('aes-256-cbc', ENC_KEY, IV);
-  let encrypted = cipher.update(val, 'utf8', 'base64');
-  encrypted += cipher.final('base64');
-  return encrypted;
-};
-
 export const OpenSSL_encrypt_hospeda = (data: string) => {
   try {
-    // var encrypt = new JSEncrypt();
     const str = data.split(' ').join('');
-
-    // ------------------------------------------------------
-    const ciphertext = AES.encrypt(str, publicKey).toString();
+    var crypt = new JSEncrypt();
+    crypt.setKey(publicKey);
+    var ciphertext = crypt.encrypt(str);
     return `${ciphertext}`;
-
-    // encrypt.setPublicKey(publicKey);
-
-    // var encrypted: string = encrypt.encrypt(data);
-    // var emBase64 = Buffer.from(encrypted, 'base64');
-
-    // return `${emBase64}`;
   } catch (error) {
-    console.log('FALHA NA CRIPTOGRAFIA DO CARTÃO');
+    console.log('FALHA NA CRIPTOGRAFIA DO CARTÃO', error);
     return data;
   }
 };
 
-// 5278 4702 9097 6066
+// 5278470290976066
 // validade: 06/2024
 // CVV: 232

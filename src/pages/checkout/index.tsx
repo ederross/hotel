@@ -36,7 +36,7 @@ import { PostBooking } from '../../services/requests/booking';
 import { toast } from 'react-toastify';
 import { CleanCart } from '../../store/ducks/cart/actions';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
-import { encrypt, OpenSSL_encrypt_hospeda } from '../../utils/encrypt';
+import { OpenSSL_encrypt_hospeda } from '../../utils/encrypt';
 import { OfficeDetails } from '../../../data/officeDetails';
 interface ICheckout {
   design: Design;
@@ -224,13 +224,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
           );
       }
     } else {
-      const v = encrypt(cardNumber);
-      console.log(v);
-      console.log(
-        'W8Ic1mg8ZmsTCbAfVO9trDWnV32RJ3rILQ5wZB/mL845cnJzhq8I4Np31ilTRqMFjyVMrAsqTBhZRExWk+SU9CW47J+IHBrEu0qPBYgPlO3Hmrd24EWLN+y22bLtz2SEXKCrQfhxeq1t8uh91i4m1b6sVqMvjps2q9XpW3v4qQ4=' ===
-          v
-      );
-      // toast.error(`Preencha os dados corretamente`, toastConfig as any);
+      toast.error(`Preencha os dados corretamente`, toastConfig as any);
     }
   };
 
