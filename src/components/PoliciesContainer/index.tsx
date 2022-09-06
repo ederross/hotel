@@ -8,9 +8,13 @@ import { useSelector } from 'react-redux';
 import { AppStore } from '../../store/types';
 interface IPoliciesContainerProps {
   policies: Policy;
+  handleBookingPolicies: () => void;
 }
 
-export const PoliciesContainer = ({ policies }: IPoliciesContainerProps) => {
+export const PoliciesContainer = ({
+  policies,
+  handleBookingPolicies,
+}: IPoliciesContainerProps) => {
   const { t } = useTranslation();
   const [policy, setPolicy] = useState(0);
   const [showMoreDescription, setShowMoreDescription] = useState(false);
@@ -24,8 +28,8 @@ export const PoliciesContainer = ({ policies }: IPoliciesContainerProps) => {
       <div className={styles.webPoliticsContainer}>
         <h3>{t('policy_other')}</h3>
         <h5>
-          {t('reservationNonRefundable')}{' '}
-          <a title="Políticas de reembolso" href="">
+          {t('bookingPolicies')}{' '}
+          <a title="Políticas de reembolso" onClick={handleBookingPolicies}>
             {t('knowMore')}
           </a>
         </h5>
@@ -72,9 +76,7 @@ export const PoliciesContainer = ({ policies }: IPoliciesContainerProps) => {
         <h3>{t('policy_other')}</h3>
         <h5>
           Lorem ipsum dolor sit amet{' '}
-          <a title="Políticas de reembolso" href="">
-            {t('knowMore')}
-          </a>
+          <a title="Políticas de reembolso">{t('knowMore')}</a>
         </h5>
         <h5>
           Lorem ipsum dolor sit amet{' '}

@@ -255,7 +255,7 @@ const Container = styled.div`
     p {
       line-height: 8px;
       font-size: 12px;
-      color: gray;
+      color: var(--primary-color);
       margin: 0;
     }
   }

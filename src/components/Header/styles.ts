@@ -52,7 +52,7 @@ export const Container = styled.div`
     p {
       line-height: 8px;
       font-size: 12px;
-      color: yellow;
+      color: var(--red-700);
       margin: 0;
     }
 
@@ -68,7 +68,6 @@ export const Container = styled.div`
       p {
         line-height: 8px;
         font-size: 9px;
-        color: gray;
         margin: 0;
       }
     }

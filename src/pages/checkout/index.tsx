@@ -798,7 +798,10 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                   {t('confirmPay')}
                 </motion.button>
 
-                <div className={styles.termsArea}>
+                <div
+                  className={styles.termsArea}
+                  onClick={() => setShowDynamicInfoModal(!showDynamicInfoModal)}
+                >
                   <h6>
                     {t('byClickingButtonAboveAgreePolicies')}:
                     <strong>
@@ -814,7 +817,12 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
             </div>
           </div>
 
-          <PoliciesContainer policies={policies} />
+          <PoliciesContainer
+            policies={policies}
+            handleBookingPolicies={() =>
+              setShowDynamicInfoModal(!showDynamicInfoModal)
+            }
+          />
 
           <div className={styles.mobConfirmContainer}>
             <h6>
@@ -850,7 +858,10 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
         />
       )}
       {showDynamicInfoModal && (
-        <DynamicInfoModal handleCloseDynamicInfo={handleCloseDynamicInfo} />
+        <DynamicInfoModal
+          handleCloseDynamicInfo={handleCloseDynamicInfo}
+          data={policies?.bookTerms}
+        />
       )}
       {successModalVisible && (
         <CheckoutSucessModal

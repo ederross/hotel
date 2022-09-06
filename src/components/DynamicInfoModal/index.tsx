@@ -20,11 +20,13 @@ import styles from './styles.module.scss';
 interface ICartModal {
   handleCloseDynamicInfo: () => void;
   isCheckoutSeeAllData?: boolean;
+  data: string;
 }
 
 const DynamicInfoModal = ({
   handleCloseDynamicInfo,
   isCheckoutSeeAllData,
+  data,
 }: ICartModal) => {
   const { t, i18n } = useTranslation('common');
   const router = useRouter();
@@ -50,7 +52,9 @@ const DynamicInfoModal = ({
               className={styles.closeButton}
             />
           </div>{' '}
-          <div className={styles.contentContainer}></div>
+          <div className={styles.contentContainer}>
+            <p>{data}</p>
+          </div>
         </div>
         <div
           onClick={handleCloseDynamicInfo}

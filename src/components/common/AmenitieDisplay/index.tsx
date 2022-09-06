@@ -32,7 +32,7 @@ export const AmenitieDisplay = ({
   const { t } = useTranslation('common');
   const amenitiesList = amenitie?.Amenities.slice(
     0,
-    resume ? 3 : amenitie.Amenities.length
+    resume ? 4 : amenitie.Amenities.length
   );
 
   const {
