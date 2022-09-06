@@ -65,20 +65,16 @@ const CartMenu = ({ openCart }: ICartMenu) => {
     }
   };
 
-  const toastConfig =
-    !!window &&
-    useMemo(() => {
-      return {
-        position: width < 868 ? 'top-left' : 'bottom-right',
-        autoClose: 5000,
-        theme: 'colored',
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      };
-    }, [width]);
+  const toastConfig = {
+    position: width < 868 ? 'top-left' : 'bottom-right',
+    autoClose: 5000,
+    theme: 'colored',
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  };
 
   useEffect(() => {
     if (width > 868) {
