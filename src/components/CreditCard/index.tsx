@@ -11,6 +11,7 @@ import {
 import styles from './styles.module.scss';
 import CreditCardType from 'credit-card-type';
 import { useTranslation } from 'next-i18next';
+import { OpenSSL_encrypt_hospeda } from '../../utils/encrypt';
 
 interface ICreditCard {
   cardNumber: string;
@@ -30,6 +31,7 @@ const CreditCard = ({
   setSecurityCode,
 }: ICreditCard) => {
   const [focused, setFocused] = useState(false);
+  const [currentNumber, setCurrentNumber] = useState('');
   const [issuer, setIssuer] = useState();
   const [cardTypeError, setCardTypeError] = useState(false);
 
@@ -43,9 +45,13 @@ const CreditCard = ({
     setFocused(target.name);
   };
 
+  useEffect(() => {
+    setCardNumber(OpenSSL_encrypt_hospeda(currentNumber));
+  }, [currentNumber]);
+
   const handleInputChange = ({ target }) => {
     if (target.name === 'number') {
-      setCardNumber(target.value);
+      setCurrentNumber(target.value);
       target.value = formatCreditCardNumber(target.value);
     } else if (target.name === 'expiry') {
       target.value = formatExpirationDate(target.value);

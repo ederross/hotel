@@ -25,7 +25,6 @@ import { AppStore } from '../../store/types';
 import { currency, emailValidator } from '../../utils/currency';
 
 import styles from './styles.module.scss';
-import CreditCard from '../../components/CreditCard';
 import { PoliciesContainer } from '../../components/PoliciesContainer';
 import moment from 'moment';
 import { Policy } from '../../../data/policies';
@@ -36,13 +35,18 @@ import { PostBooking } from '../../services/requests/booking';
 import { toast } from 'react-toastify';
 import { CleanCart } from '../../store/ducks/cart/actions';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
-import { OpenSSL_encrypt_hospeda } from '../../utils/encrypt';
 import { OfficeDetails } from '../../../data/officeDetails';
 interface ICheckout {
   design: Design;
   policies: Policy;
   officeDetails: OfficeDetails;
 }
+
+import dynamic from 'next/dynamic';
+
+const CreditCard = dynamic(() => import('../../components/CreditCard'), {
+  ssr: false,
+});
 
 const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
   const { t } = useTranslation();
@@ -196,8 +200,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                   ? [
                       {
                         cardSchemeTypeCode: 1,
-                        encryptedCardNumber:
-                          OpenSSL_encrypt_hospeda(cardNumber),
+                        encryptedCardNumber: cardNumber,
                         encryptedExpiryYear: expiryYear,
                         encryptedSecurityCode: securityCode,
                       },

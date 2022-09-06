@@ -88,12 +88,18 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
   };
 
   useEffect(() => {
-    if (currentRoom?.prices[0]?.quantity > 0 && room) {
-      setQuantity(currentRoom?.prices[0]?.quantity);
+    if (quantity > 0) {
       dispatch(AddProductToCart(cartItem));
     } else {
-      setQuantity(0);
       dispatch(RemoveProductToCart(room?.objectId));
+    }
+  }, [quantity]);
+
+  useEffect(() => {
+    if (currentRoom?.prices[0]?.quantity > 0) {
+      setQuantity(currentRoom?.prices[0]?.quantity);
+    } else {
+      setQuantity(0);
     }
   }, [currentRoom, room]);
 
