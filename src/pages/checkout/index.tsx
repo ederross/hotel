@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import nextI18nConfig from '../../../next-i18next.config';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -347,7 +348,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       officeDetails,
       design,
       policies,
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
     },
     revalidate: 60,
   };

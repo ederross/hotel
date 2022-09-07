@@ -5,6 +5,7 @@ import { HotelOutlined, AttractionsOutlined } from '@mui/icons-material';
 import CardRoom from '../../components/CardRoom';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import nextI18nConfig from '../../../next-i18next.config';
 import { GetStaticProps } from 'next';
 import Header from '../../components/Header';
 import { useTranslation } from 'next-i18next';
@@ -97,7 +98,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       servicePricesDomain,
       paymethodDomain,
       policyDomain,
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
     },
     revalidate: 60,
   };

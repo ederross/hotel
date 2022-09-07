@@ -18,6 +18,7 @@ import { EventsHome } from '../../data/events';
 import { Design } from '../../data/design';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import nextI18nConfig from '../../next-i18next.config';
 import CardClient from '../components/CardClient';
 import { HotelImages } from '../../data/images';
 import HotelImagesSlider from '../components/HotelImagesSlider';
@@ -165,7 +166,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       reviews,
       events,
       images,
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
     },
     revalidate: 60,
   };
