@@ -20,6 +20,15 @@ interface ICreditCard {
   setCardNumber: React.Dispatch<React.SetStateAction<string>>;
   setExpiryYear: React.Dispatch<React.SetStateAction<string>>;
   setSecurityCode: React.Dispatch<React.SetStateAction<string>>;
+  fieldErrors: {
+    name: string;
+    email: string;
+    phone: string;
+    cpf: string;
+    cardNumber: string;
+    expiryYear: string;
+    securityCode: string;
+  };
 }
 
 const CreditCard = ({
@@ -29,6 +38,7 @@ const CreditCard = ({
   setCardNumber,
   setExpiryYear,
   setSecurityCode,
+  fieldErrors,
 }: ICreditCard) => {
   const [focused, setFocused] = useState(false);
   const [currentNumber, setCurrentNumber] = useState('');
@@ -94,7 +104,14 @@ const CreditCard = ({
           required
           onFocus={handleInputFocus}
         />
-        <div className={styles.cardNumberContainer}>
+        <div
+          className={styles.cardNumberContainer}
+          style={{
+            borderColor: fieldErrors.cardNumber
+              ? '#FF2424'
+              : 'rgb(194, 194, 194)',
+          }}
+        >
           <input
             type="tel"
             name="number"
@@ -124,6 +141,11 @@ const CreditCard = ({
             onChange={(v) => setExpiryYear(v.target.value)}
             placeholder={t('validity')}
             className={styles.validityInput}
+            style={{
+              borderColor: fieldErrors.expiryYear
+                ? '#FF2424'
+                : 'rgb(194, 194, 194)',
+            }}
           />
           <input
             type="tel"
@@ -134,6 +156,11 @@ const CreditCard = ({
             onChange={(v) => setSecurityCode(v.target.value)}
             placeholder={'CVV'}
             className={styles.cvvInput}
+            style={{
+              borderColor: fieldErrors.securityCode
+                ? '#FF2424'
+                : 'rgb(194, 194, 194)',
+            }}
           />
         </div>
       </div>

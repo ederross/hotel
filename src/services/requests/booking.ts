@@ -9,7 +9,7 @@ interface IGetRoomSearch {
   ages: number[];
 }
 
-interface IPaymentBooking {
+export interface IPaymentBooking {
   totalAmont: number;
   installmentCount: number;
   paymentMethod: {
@@ -31,7 +31,7 @@ interface IPaymentBooking {
   };
 }
 
-interface IClientBooking {
+export interface IClientBooking {
   clientName: string;
   documentNumber: string;
   contacts: [
