@@ -6,5 +6,5 @@ export interface Design {
   browserTitle: string;
   metaDescription: string;
   metaKeywords: string;
-  css: string;
+  templateName: 'default' | 'magenta';
 }

@@ -1,67 +1,67 @@
 import api from '../api';
 
-export const GetIconsDomain = async () =>
+export const GetIconsDomain = async (AcceptLanguage: string) =>
   await (
     await api.get('/domain/iconTypeCode', {
       headers: {
-        'Accept-Language': 'pt-BR',
+        'Accept-Language': AcceptLanguage,
       },
     })
   ).data;
-export const GetContactDomain = async () =>
+export const GetContactDomain = async (AcceptLanguage: string) =>
   await (
     await api.get('/domain/contactTypeCode', {
       headers: {
-        'Accept-Language': 'pt-BR',
+        'Accept-Language': AcceptLanguage,
       },
     })
   ).data;
-export const GetFacilitiesDomain = async () =>
+export const GetFacilitiesDomain = async (AcceptLanguage: string) =>
   await (
     await api.get('/domain/facilityCategoryTypeCode', {
       headers: {
-        'Accept-Language': 'pt-BR',
+        'Accept-Language': AcceptLanguage,
       },
     })
   ).data;
-export const GetAmenitiesDomain = async () =>
+export const GetAmenitiesDomain = async (AcceptLanguage: string) =>
   await (
     await api.get('/domain/amenityTypeCode', {
       headers: {
-        'Accept-Language': 'pt-BR',
+        'Accept-Language': AcceptLanguage,
       },
     })
   ).data;
-export const GetServicesDomain = async () =>
+export const GetServicesDomain = async (AcceptLanguage: string) =>
   await (
     await api.get('/domain/serviceTypeCode', {
       headers: {
-        'Accept-Language': 'pt-BR',
+        'Accept-Language': AcceptLanguage,
       },
     })
   ).data;
-export const GetServicePricesDomain = async () =>
+export const GetServicePricesDomain = async (AcceptLanguage: string) =>
   await (
     await api.get('/domain/servicePriceTypeCode', {
       headers: {
-        'Accept-Language': 'pt-BR',
+        'Accept-Language': AcceptLanguage,
       },
     })
   ).data;
-export const GetPaymethodDomain = async () =>
+export const GetPaymethodDomain = async (AcceptLanguage: string) =>
   await (
     await api.get('/domain/paymentMethodTypeCode', {
       headers: {
-        'Accept-Language': 'pt-BR',
+        'Accept-Language': AcceptLanguage,
       },
     })
   ).data;
 
-export const GetPolicyDomain = async () =>
+export const GetPolicyDomain = async (AcceptLanguage: string) =>
   await (
     await api.get('/domain/policyTypeCode', {
       headers: {
-        'Accept-Language': 'pt-BR',
+        'Accept-Language': AcceptLanguage,
       },
     })
   ).data;

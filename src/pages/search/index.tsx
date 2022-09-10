@@ -76,14 +76,14 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const facilities = await GetOfficeFacilities();
 
   //Domain
-  const iconsDomain = await GetIconsDomain();
-  const facilitiesDomain = await GetFacilitiesDomain();
-  const contactDomain = await GetContactDomain();
-  const amenititiesDomain = await GetAmenitiesDomain();
-  const servicesDomain = await GetServicesDomain();
-  const servicePricesDomain = await GetServicePricesDomain();
-  const paymethodDomain = await GetPaymethodDomain();
-  const policyDomain = await GetPolicyDomain();
+  const iconsDomain = await GetIconsDomain(locale);
+  const facilitiesDomain = await GetFacilitiesDomain(locale);
+  const contactDomain = await GetContactDomain(locale);
+  const amenititiesDomain = await GetAmenitiesDomain(locale);
+  const servicesDomain = await GetServicesDomain(locale);
+  const servicePricesDomain = await GetServicePricesDomain(locale);
+  const paymethodDomain = await GetPaymethodDomain(locale);
+  const policyDomain = await GetPolicyDomain(locale);
 
   return {
     props: {
