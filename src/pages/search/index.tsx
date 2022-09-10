@@ -191,6 +191,12 @@ const Search = ({
       (i) => i.domainItemCode === facilityCategoryTypeCode
     )?.domainItemValue || '-';
 
+  const pluralProfix = new Intl.PluralRules('pt-BR').select(
+    searchResult?.length
+  );
+
+  console.log('-->>', router.locale, pluralProfix);
+
   return (
     <>
       <Head>
@@ -230,7 +236,7 @@ const Search = ({
                 <div style={{ flex: 1, paddingTop: 1 }}>
                   <h2>
                     <span>{formattedNumber(searchResult?.length) || 0}</span>{' '}
-                    {t('roomsWith_other')}{' '}
+                    {t(`roomsWith_${pluralProfix}`)}{' '}
                     <span>{formattedNumber(servicesResult?.length) || 0}</span>{' '}
                     {t('servicesWereFound_other')}
                   </h2>

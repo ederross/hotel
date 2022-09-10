@@ -45,7 +45,7 @@ const LanguageSwitcher = ({
 
   const handleLang = (lang: string) => {
     document.body.style.overflow = 'initial';
-    router.push('/', '/', { locale: lang });
+    router.push(router.pathname, '/', { locale: lang });
     moment.locale(lang);
     handleCloseLanguageSwitcher();
   };
@@ -68,20 +68,20 @@ const LanguageSwitcher = ({
           <h3>{t('chooseLanguageRegion')}</h3>
           <div className={styles.contentContainer}>
             <button
-              onClick={() => handleLang('ptBR')}
+              onClick={() => handleLang('pt-BR')}
               className={styles.languageSwitcherButton}
               style={{
-                border: locale === 'ptBR' ? '1px solid var(--dark)' : 'none',
+                border: locale === 'pt-BR' ? '1px solid var(--dark)' : 'none',
               }}
             >
               <h4>Portugues</h4>
               <h5>Brasil</h5>
             </button>
             <button
-              onClick={() => handleLang('enUS')}
+              onClick={() => handleLang('en-US')}
               className={styles.languageSwitcherButton}
               style={{
-                border: locale === 'enUS' ? '1px solid var(--dark)' : 'none',
+                border: locale === 'en-US' ? '1px solid var(--dark)' : 'none',
               }}
             >
               <h4>English</h4>
