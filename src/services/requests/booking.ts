@@ -1,5 +1,6 @@
 import { TypesCart } from '../../store/ducks/cart/types';
 import api, { officeId } from '../api';
+import qs from 'qs';
 
 interface IGetRoomSearch {
   startDate: string;
@@ -56,7 +57,7 @@ export const GetRoomSearch = async ({
   ages = [],
 }: IGetRoomSearch) => {
   return await api
-    .get('/booking/room-search', {
+    .get(`/booking/room-search/?${ages.map((a) => `age=${a}`).join('&')}`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -66,7 +67,6 @@ export const GetRoomSearch = async ({
         endDate,
         adults,
         children,
-        ages,
       },
     })
     .then((response) => {

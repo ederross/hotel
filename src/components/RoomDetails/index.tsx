@@ -73,7 +73,7 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
       .catch((err) => {
         console.log('POST PAYMENT METHOD ERROR!', err);
         setLoadingCheckout(false);
-        toast.error(`Falha ao reservar quartos`, toastConfig as any);
+        toast.error(t(`bookingError`), toastConfig as any);
         return [];
       });
   };

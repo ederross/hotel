@@ -52,6 +52,7 @@ import {
 } from '../../store/ducks/domain/actions';
 import { IconImportDynamically } from '../../components/common/ComponentWithIcon';
 import { SetCartInfos } from '../../store/ducks/cart/actions';
+import { pluralProfix } from '../../utils/pluralRules';
 
 interface ISearch {
   servicesResult: any;
@@ -191,12 +192,6 @@ const Search = ({
       (i) => i.domainItemCode === facilityCategoryTypeCode
     )?.domainItemValue || '-';
 
-  const pluralProfix = new Intl.PluralRules('pt-BR').select(
-    searchResult?.length
-  );
-
-  console.log('-->>', router.locale, pluralProfix);
-
   return (
     <>
       <Head>
@@ -236,9 +231,19 @@ const Search = ({
                 <div style={{ flex: 1, paddingTop: 1 }}>
                   <h2>
                     <span>{formattedNumber(searchResult?.length) || 0}</span>{' '}
-                    {t(`roomsWith_${pluralProfix}`)}{' '}
+                    {t(
+                      `roomsWith_${pluralProfix(
+                        searchResult?.length,
+                        router.locale
+                      )}`
+                    )}{' '}
                     <span>{formattedNumber(servicesResult?.length) || 0}</span>{' '}
-                    {t('servicesWereFound_other')}
+                    {t(
+                      `servicesWereFound_${pluralProfix(
+                        servicesResult?.length,
+                        router.locale
+                      )}`
+                    )}
                   </h2>
                 </div>
               )}

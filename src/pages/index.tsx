@@ -66,7 +66,6 @@ export default function Home(props: IHomeProps) {
 
   useEffect(() => {
     dispatch(SetCheckoutRedux([]));
-    dispatch(CleanCart());
   }, [dispatch]);
 
   return (

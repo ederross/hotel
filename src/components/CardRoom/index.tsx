@@ -16,6 +16,7 @@ import {
 import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
 import { IconImportDynamically } from '../common/ComponentWithIcon';
+import { pluralProfix } from '../../utils/pluralRules';
 
 interface ICardRoom {
   room: Room;
@@ -170,12 +171,24 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
                 ,{formattedValue.split(',')[1]}
               </span>{' '}
               <span style={{ marginLeft: '0.4rem' }}>
-                {mainPrice?.nightQty} {t('nights')}
+                {mainPrice?.nightQty}{' '}
+                {t(`night_${pluralProfix(mainPrice?.nightQty, router.locale)}`)}
               </span>
             </h4>
             {room?.prices?.length > 1 && (
               <u style={{ cursor: 'pointer' }} onClick={handleDetails}>
-                <h5>+{room?.prices?.length - 1 + ' ' + t('offers')}</h5>
+                <h5>
+                  +
+                  {room?.prices?.length -
+                    1 +
+                    ' ' +
+                    t(
+                      `offers_${pluralProfix(
+                        room?.prices.length - 1,
+                        router.locale
+                      )}`
+                    )}
+                </h5>
               </u>
             )}
           </div>

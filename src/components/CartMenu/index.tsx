@@ -85,7 +85,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
       }
       setOldLength(currentLength);
     }
-  }, [currentLength, oldLength, toastConfig, width, t]);
+  }, [currentLength]);
 
   const subMenuAnimate = {
     enter: {

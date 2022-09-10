@@ -176,11 +176,11 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
             handleOpenCheckoutSuccessModal();
           })
           .catch((err) =>
-            toast.error(`Falha ao confirmar reserva!`, toastConfig as any)
+            toast.error(t('createBookingError'), toastConfig as any)
           );
       }
     } else {
-      toast.error(`Preencha os dados corretamente`, toastConfig as any);
+      toast.error(`dataMissing`, toastConfig as any);
     }
   };
 

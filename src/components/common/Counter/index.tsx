@@ -2,10 +2,6 @@ import React from 'react';
 import { RemoveOutlined, Add } from '@mui/icons-material';
 import { useTranslation } from 'next-i18next';
 import styles from './styles.module.scss';
-import { toast } from 'react-toastify';
-import { useWindowSize } from '../../../hooks/UseWindowSize';
-import { useSelector } from 'react-redux';
-import { AppStore } from '../../../store/types';
 
 interface ICounterProps {
   quantity: number;

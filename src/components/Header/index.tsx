@@ -26,6 +26,7 @@ import { motion } from 'framer-motion';
 import CartModal from '../CartModal';
 import { ToastContainer } from 'react-toastify';
 import { CleanCart, SetCartInfos } from '../../store/ducks/cart/actions';
+import { pluralProfix } from '../../utils/pluralRules';
 
 interface IHeader {
   design: Design;
@@ -437,18 +438,13 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
                   <span className="guestNumber">
                     {numberOfChildren > 0 || numberOfAdults > 0 ? (
                       <p>
-                        {numberOfAdults + numberOfChildren < 2 &&
-                        numberOfAdults + numberOfChildren > 0
-                          ? t('guestWithCount_one', {
-                              count: numberOfAdults + numberOfChildren,
-                            })
-                          : numberOfAdults + numberOfChildren === 0
-                          ? t('guestWithCount_other', {
-                              count: numberOfAdults + numberOfChildren,
-                            })
-                          : t('guestWithCount_other', {
-                              count: numberOfAdults + numberOfChildren,
-                            })}
+                        {numberOfAdults + numberOfChildren}{' '}
+                        {t(
+                          `guest_${pluralProfix(
+                            numberOfAdults + numberOfChildren,
+                            router.locale
+                          )}`
+                        )}
                       </p>
                     ) : (
                       // t('guestWithCount_one', {
