@@ -233,7 +233,7 @@ const CartModal = ({
               services &&
               services.length === 0 && (
                 <div className={styles.emptyMessageContainer}>
-                  <h4>Seu carrinho está vazio</h4>
+                  <h4>{t('emptyCart')}</h4>
                 </div>
               )}
           </div>
