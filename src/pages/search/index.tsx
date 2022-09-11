@@ -233,8 +233,9 @@ const Search = ({
               </section>
               <div className={styles.webResults}>
                 <section className={styles.contentResultContainer}>
-                  {Array.from(new Array(4)).map(() => (
+                  {Array.from(new Array(4)).map((_, index) => (
                     <Skeleton
+                      key={index}
                       animation="wave"
                       variant="rectangular"
                       width={'100%'}
@@ -249,8 +250,9 @@ const Search = ({
                   style={{ paddingLeft: 16, paddingRight: 16 }}
                   className={styles.serviceResultContainer}
                 >
-                  {Array.from(new Array(4)).map(() => (
+                  {Array.from(new Array(4)).map((_, index) => (
                     <Skeleton
+                      key={index}
                       style={{ marginBottom: 16 }}
                       animation="wave"
                       variant="rectangular"
