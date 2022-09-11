@@ -162,7 +162,14 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
       ],
     },
   });
+
   const [selectedPayMethodDetails, setSelectedPayMethodDetails] = useState(0);
+
+  const payInfos = checkout?.find(
+    (c) =>
+      c.paymentMethodTypeCode ===
+      paymentBooking.paymentMethod.paymentMethodTypeCode
+  )?.paymentDetails[selectedPayMethodDetails];
 
   const handleConfirm = () => {
     if (VerifyCheckoutFields(client, paymentBooking, setFieldErrors)) {
@@ -183,12 +190,6 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
       toast.error(`dataMissing`, toastConfig as any);
     }
   };
-
-  const payInfos = checkout?.find(
-    (c) =>
-      c.paymentMethodTypeCode ===
-      paymentBooking.paymentMethod.paymentMethodTypeCode
-  )?.paymentDetails[selectedPayMethodDetails];
 
   return (
     <>

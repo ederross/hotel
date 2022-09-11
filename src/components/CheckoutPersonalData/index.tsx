@@ -237,7 +237,10 @@ export const CheckoutPersonalData = ({
           >
             {checkout
               ?.find((c) => c.paymentMethodTypeCode === selectedPayMethod)
-              .paymentDetails.map((item, index) => (
+              .paymentDetails.sort(
+                (a: any, b: any) => b.isDownPayment - a.isDownPayment
+              )
+              .map((item, index) => (
                 <option key={index} value={index}>
                   {item?.paymentInstallmentCount}
                   {'x de '}

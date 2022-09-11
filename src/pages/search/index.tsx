@@ -131,6 +131,7 @@ const Search = ({
 
   const [selectedTab, setSelectedTab] = useState('rooms');
   const [searchResult, setSearchResult] = useState<any>();
+  const [searchLoading, setSearchLoading] = useState(true);
   const { startDate, endDate, adults, children }: any = router.query;
   const [selectedRoom, setSelectedRoom] = useState<Room>(undefined);
 
@@ -139,6 +140,7 @@ const Search = ({
 
   useEffect(() => {
     if (startDate && endDate && adults && children) {
+      setSearchLoading(true);
       GetRoomSearch({
         startDate,
         endDate,
@@ -148,11 +150,15 @@ const Search = ({
       })
         .then((res: any) => {
           setSearchResult(res?.data);
+          setSearchLoading(false);
         })
         .catch(() => {
           console.log('>>> FALHA AO PEGAR A PESQUISA DE QUARTOS! <<<');
           setSearchResult([]);
+          setSearchLoading(false);
         });
+    } else {
+      setSearchLoading(false);
     }
     dispatch(
       SetCartInfos({
@@ -217,81 +223,89 @@ const Search = ({
         )}
 
         <>
-          {!selectedRoom && (
-            <section className={styles.filterInfo}>
-              {!searchResult || searchResult?.errors ? (
-                <>
-                  <section className={styles.filterInfo}>
-                    <div style={{ flex: 1, paddingTop: 1 }}>
-                      <h2>{t('noResultWereFound')}</h2>
-                    </div>
-                  </section>
-                </>
-              ) : (
-                <div style={{ flex: 1, paddingTop: 1 }}>
-                  <h2>
-                    <span>{formattedNumber(searchResult?.length) || 0}</span>{' '}
-                    {t(
-                      `roomsWith_${pluralProfix(
-                        searchResult?.length,
-                        router.locale
-                      )}`
-                    )}{' '}
-                    <span>{formattedNumber(servicesResult?.length) || 0}</span>{' '}
-                    {t(
-                      `servicesWereFound_${pluralProfix(
-                        servicesResult?.length,
-                        router.locale
-                      )}`
-                    )}
-                  </h2>
+          {searchLoading ? (
+            <div>
+              <h1>Carregando...</h1>
+            </div>
+          ) : (
+            !selectedRoom && (
+              <section className={styles.filterInfo}>
+                {!searchResult || searchResult?.errors ? (
+                  <>
+                    <section className={styles.filterInfo}>
+                      <div style={{ flex: 1, paddingTop: 1 }}>
+                        <h2>{t('noResultWereFound')}</h2>
+                      </div>
+                    </section>
+                  </>
+                ) : (
+                  <div style={{ flex: 1, paddingTop: 1 }}>
+                    <h2>
+                      <span>{formattedNumber(searchResult?.length) || 0}</span>{' '}
+                      {t(
+                        `roomsWith_${pluralProfix(
+                          searchResult?.length,
+                          router.locale
+                        )}`
+                      )}{' '}
+                      <span>
+                        {formattedNumber(servicesResult?.length) || 0}
+                      </span>{' '}
+                      {t(
+                        `servicesWereFound_${pluralProfix(
+                          servicesResult?.length,
+                          router.locale
+                        )}`
+                      )}
+                    </h2>
+                  </div>
+                )}
+                <div className={styles.filtersMobileSection}>
+                  <motion.div
+                    initial={{ scale: 0.9 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    style={
+                      selectedTab === 'rooms'
+                        ? {
+                            borderBottom: '6px solid black',
+                          }
+                        : { opacity: 0.35, paddingBottom: '1.4rem' }
+                    }
+                    className={styles.filterButtonContainer}
+                    onClick={() => {
+                      (document.body.style.overflow = 'initial'),
+                        setSelectedTab('rooms');
+                    }}
+                  >
+                    <HotelOutlined style={{ marginBottom: '0.2rem' }} />
+                    <h4>{t('room_other')}</h4>
+                  </motion.div>
+                  <motion.div
+                    initial={{ scale: 0.9 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    style={
+                      selectedTab === 'services'
+                        ? {
+                            borderBottom: '6px solid black',
+                          }
+                        : { opacity: 0.35, paddingBottom: '1.4rem' }
+                    }
+                    className={styles.filterButtonContainer}
+                    onClick={() => {
+                      (document.body.style.overflow = 'initial'),
+                        setSelectedTab('services');
+                    }}
+                  >
+                    <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
+                    <h4>{t('service_other')}</h4>
+                  </motion.div>
                 </div>
-              )}
-              <div className={styles.filtersMobileSection}>
-                <motion.div
-                  initial={{ scale: 0.9 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  style={
-                    selectedTab === 'rooms'
-                      ? {
-                          borderBottom: '6px solid black',
-                        }
-                      : { opacity: 0.35, paddingBottom: '1.4rem' }
-                  }
-                  className={styles.filterButtonContainer}
-                  onClick={() => {
-                    (document.body.style.overflow = 'initial'),
-                      setSelectedTab('rooms');
-                  }}
-                >
-                  <HotelOutlined style={{ marginBottom: '0.2rem' }} />
-                  <h4>{t('room_other')}</h4>
-                </motion.div>
-                <motion.div
-                  initial={{ scale: 0.9 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  style={
-                    selectedTab === 'services'
-                      ? {
-                          borderBottom: '6px solid black',
-                        }
-                      : { opacity: 0.35, paddingBottom: '1.4rem' }
-                  }
-                  className={styles.filterButtonContainer}
-                  onClick={() => {
-                    (document.body.style.overflow = 'initial'),
-                      setSelectedTab('services');
-                  }}
-                >
-                  <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
-                  <h4>{t('service_other')}</h4>
-                </motion.div>
-              </div>
-            </section>
+              </section>
+            )
           )}
           <div className={styles.webResults}>
             {!selectedRoom && (

@@ -29,7 +29,11 @@ export const PoliciesContainer = ({
         <h3>{t('policy_other')}</h3>
         <h5>
           {t('bookingPolicies')}{' '}
-          <a title="Políticas de reembolso" onClick={handleBookingPolicies}>
+          <a
+            title="Políticas de reembolso"
+            style={{ cursor: 'pointer' }}
+            onClick={handleBookingPolicies}
+          >
             {t('knowMore')}
           </a>
         </h5>
@@ -54,7 +58,7 @@ export const PoliciesContainer = ({
             </div>
           ))}
         </div>
-        <h3>{t('additional_infos')}</h3>
+        <h3>{t('additionalInfos')}</h3>
         <h6>
           {policies?.additionalInfo?.substring(
             0,
