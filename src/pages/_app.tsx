@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import '@material/react-material-icon/dist/material-icon.css';
 import { useRouter } from 'next/router';
 
+import 'react-loading-skeleton/dist/skeleton.css'
+
 import { appWithTranslation } from 'next-i18next';
 import nextI18nConfig from '../../next-i18next.config';
 import moment from 'moment';
