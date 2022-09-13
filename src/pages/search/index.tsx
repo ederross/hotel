@@ -53,6 +53,7 @@ import {
 import { IconImportDynamically } from '../../components/common/ComponentWithIcon';
 import { SetCartInfos } from '../../store/ducks/cart/actions';
 import { pluralProfix } from '../../utils/pluralRules';
+import { dynamicOffice, officeId } from '../../services/api';
 
 interface ISearch {
   servicesResult: any;

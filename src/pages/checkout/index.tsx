@@ -77,7 +77,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
   const [scrolled, setScrolled] = useState(false);
   const [successModalVisible, setSuccessModalVisible] = useState(false);
   const [showCartModal, setShowCartModal] = useState(false);
-  const [showDynamicInfoModal, setShowDynamicInfoModal] = useState(false);
+  const [showDynamicInfoModal, setShowDynamicInfoModal] = useState('');
   const [confirmData, setConfirmData] = useState<any>();
 
   const handleCloseCartInfoModal = () => {
@@ -87,7 +87,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
 
   const handleCloseDynamicInfo = () => {
     document.body.style.overflow = 'initial';
-    setShowDynamicInfoModal(false);
+    setShowDynamicInfoModal('');
   };
 
   const handleOpenCheckoutSuccessModal = () => {
@@ -284,9 +284,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
 
           <PoliciesContainer
             policies={policies}
-            handleBookingPolicies={() =>
-              setShowDynamicInfoModal(!showDynamicInfoModal)
-            }
+            handleBookingPolicies={() => setShowDynamicInfoModal('book')}
           />
 
           <div className={styles.mobConfirmContainer}>
@@ -325,7 +323,8 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
       {showDynamicInfoModal && (
         <DynamicInfoModal
           handleCloseDynamicInfo={handleCloseDynamicInfo}
-          data={policies?.bookTerms}
+          data={policies}
+          type={showDynamicInfoModal}
         />
       )}
       {successModalVisible && (

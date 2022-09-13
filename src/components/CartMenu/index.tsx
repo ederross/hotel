@@ -18,6 +18,7 @@ import { toast } from 'react-toastify';
 import { useWindowSize } from '../../hooks/UseWindowSize';
 import { PostPaymentMethods } from '../../services/requests/booking';
 import { SetCheckoutRedux } from '../../store/ducks/checkout/actions';
+import { pluralProfix } from '../../utils/pluralRules';
 
 interface ICartMenu {
   openCart: boolean;
@@ -121,7 +122,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
         }}
       >
         {cart?.objects.length > 0 && (
-          <h3 className={styles.servicesTitle}>{t('Quartos')}</h3>
+          <h3 className={styles.servicesTitle}>{t('room_other')}</h3>
         )}
         {cart?.objects.map((item, index) => (
           <div key={index}>
@@ -139,29 +140,19 @@ const CartMenu = ({ openCart }: ICartMenu) => {
                   <div className={styles.roomNameAdultChildContainer}>
                     <div className={styles.row}>
                       <h5>
-                        {item.infos?.adults < 2 && item.infos?.adults > 0
-                          ? t('adultWithCount_one', {
-                              count: item.infos?.adults,
-                            })
-                          : item.infos?.adults === 0
-                          ? t('adultWithCount_other', {
-                              count: item.infos?.adults,
-                            })
-                          : t('adultWithCount_other', {
-                              count: item.infos?.adults,
-                            })}{' '}
+                        {t(
+                          `adult_${pluralProfix(
+                            item.infos?.adults,
+                            router.locale
+                          )}`
+                        )}
                         {'&'}{' '}
-                        {item.infos?.children < 2 && item.infos?.children > 0
-                          ? t('childrenWithCount_one', {
-                              count: item.infos?.children,
-                            })
-                          : item.infos?.children === 0
-                          ? t('childrenWithCount_one', {
-                              count: item.infos?.children,
-                            })
-                          : t('childrenWithCount_other', {
-                              count: item.infos?.children,
-                            })}
+                        {t(
+                          `adult_${pluralProfix(
+                            item.infos?.children,
+                            router.locale
+                          )}`
+                        )}
                       </h5>
                       <Delete
                         onClick={() => handleRemoveItem(item?.objectId, false)}

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Policy } from '../../../data/policies';
 import { useWindowSize } from '../../hooks/UseWindowSize';
 import {
   CleanCart,
@@ -20,13 +21,15 @@ import styles from './styles.module.scss';
 interface ICartModal {
   handleCloseDynamicInfo: () => void;
   isCheckoutSeeAllData?: boolean;
-  data: string;
+  data: Policy;
+  type: string;
 }
 
 const DynamicInfoModal = ({
   handleCloseDynamicInfo,
   isCheckoutSeeAllData,
   data,
+  type,
 }: ICartModal) => {
   const { t, i18n } = useTranslation('common');
   const router = useRouter();
@@ -46,14 +49,28 @@ const DynamicInfoModal = ({
       >
         <div className={styles.modal}>
           <div className={styles.modalHeader}>
-            <h3 className={styles.modalTitle}>{t('taxFees')}</h3>
+            <h3 className={styles.modalTitle}>
+              {t(
+                type === 'fees'
+                  ? 'fees'
+                  : type === 'taxes'
+                  ? 'taxes'
+                  : 'bookTerms'
+              )}
+            </h3>
             <CloseOutlined
               onClick={handleCloseDynamicInfo}
               className={styles.closeButton}
             />
           </div>{' '}
           <div className={styles.contentContainer}>
-            <p>{data}</p>
+            <p>
+              {type === 'fees'
+                ? data?.feePolicy?.Description
+                : type === 'taxes'
+                ? data?.taxPolicy?.Description
+                : data?.bookTerms}
+            </p>
           </div>
         </div>
         <div

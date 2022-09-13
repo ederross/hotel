@@ -46,13 +46,13 @@ export const CheckoutPaymentInfo = ({
         <h5>{currency(payInfos?.paymentTotalAmount)}</h5>
       </div>
       <div className={styles.row}>
-        <u onClick={() => setShowDynamicInfoModal(!showDynamicInfoModal)}>
+        <u onClick={() => setShowDynamicInfoModal('fees')}>
           <h5>{t('fees')}</h5>
         </u>
         <h5>{currency(0)}</h5>
       </div>
       <div className={styles.row}>
-        <u onClick={() => setShowDynamicInfoModal(!showDynamicInfoModal)}>
+        <u onClick={() => setShowDynamicInfoModal('taxes')}>
           <h5>{t('taxes')}</h5>
         </u>
         <h5>{currency(0)}</h5>
@@ -173,7 +173,7 @@ export const CheckoutPaymentInfo = ({
         <div className={styles.row}>
           <u
             style={{ cursor: 'pointer' }}
-            onClick={() => setShowDynamicInfoModal(!showDynamicInfoModal)}
+            onClick={() => setShowDynamicInfoModal('fees')}
           >
             <h5>{t('fees')}</h5>
           </u>
@@ -182,7 +182,7 @@ export const CheckoutPaymentInfo = ({
         <div className={styles.row}>
           <u
             style={{ cursor: 'pointer' }}
-            onClick={() => setShowDynamicInfoModal(!showDynamicInfoModal)}
+            onClick={() => setShowDynamicInfoModal('taxes')}
           >
             <h5>{t('taxes')}</h5>
           </u>
@@ -209,7 +209,7 @@ export const CheckoutPaymentInfo = ({
 
         <div
           className={styles.termsArea}
-          onClick={() => setShowDynamicInfoModal(!showDynamicInfoModal)}
+          onClick={() => setShowDynamicInfoModal('book')}
         >
           <h6>
             {t('byClickingButtonAboveAgreePolicies')}:

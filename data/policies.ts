@@ -13,6 +13,14 @@ export interface Policy {
   additionalInfo: string;
   upfrontPercentage: number;
   bookTerms: string;
+  taxPolicy: {
+    FeeTypeCode: number;
+    Description: string;
+  };
+  feePolicy: {
+    FeeTypeCode: number;
+    Description: string;
+  };
 }
 
 interface Policies {
