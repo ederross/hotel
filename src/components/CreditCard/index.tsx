@@ -66,7 +66,7 @@ const CreditCard = ({
     } else if (target.name === 'expiry') {
       target.value = formatExpirationDate(target.value);
     } else if (target.name === 'cvc') {
-      target.value = formatCVC(target.value);
+      setSecurityCode(formatCVC(target.value));
     }
 
     // setName({ [target.name]: target.value });
@@ -116,7 +116,8 @@ const CreditCard = ({
             type="tel"
             name="number"
             placeholder={t('cardNumber')}
-            //   pattern="[\d| ]{16,22}"
+            pattern="[\d| ]{16,16}"
+            maxLength={19}
             required
             onChange={handleInputChange}
             onFocus={handleInputFocus}
@@ -138,7 +139,9 @@ const CreditCard = ({
             name="expiry"
             required
             value={expiryYear}
-            onChange={(v) => setExpiryYear(v.target.value)}
+            onChange={(v) =>
+              setExpiryYear(formatExpirationDate(v.target.value))
+            }
             placeholder={t('validity')}
             className={styles.validityInput}
             style={{
@@ -153,7 +156,9 @@ const CreditCard = ({
             pattern="\d{3,4}"
             required
             value={securityCode}
-            onChange={(v) => setSecurityCode(v.target.value)}
+            onChange={(v) => {
+              setSecurityCode(formatCVC(v.target.value));
+            }}
             placeholder={'CVV'}
             className={styles.cvvInput}
             style={{

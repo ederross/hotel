@@ -50,6 +50,8 @@ import {
   SetServicePricesDomain,
   SetServicesDomain,
 } from '../../store/ducks/domain/actions';
+
+import Skeleton from '@mui/material/Skeleton';
 import { IconImportDynamically } from '../../components/common/ComponentWithIcon';
 import { SetCartInfos } from '../../store/ducks/cart/actions';
 import { pluralProfix } from '../../utils/pluralRules';
@@ -225,157 +227,195 @@ const Search = ({
 
         <>
           {searchLoading ? (
-            <div>
-              <h1>Carregando...</h1>
-            </div>
-          ) : (
-            !selectedRoom && (
+            <>
               <section className={styles.filterInfo}>
-                {!searchResult || searchResult?.errors ? (
-                  <>
-                    <section className={styles.filterInfo}>
-                      <div style={{ flex: 1, paddingTop: 1 }}>
-                        <h2>{t('noResultWereFound')}</h2>
-                      </div>
-                    </section>
-                  </>
-                ) : (
-                  <div style={{ flex: 1, paddingTop: 1 }}>
-                    <h2>
-                      <span>{formattedNumber(searchResult?.length) || 0}</span>{' '}
-                      {t(
-                        `roomsWith_${pluralProfix(
-                          searchResult?.length,
-                          router.locale
-                        )}`
-                      )}{' '}
-                      <span>
-                        {formattedNumber(servicesResult?.length) || 0}
-                      </span>{' '}
-                      {t(
-                        `servicesWereFound_${pluralProfix(
-                          servicesResult?.length,
-                          router.locale
-                        )}`
-                      )}
-                    </h2>
-                  </div>
-                )}
-                <div className={styles.filtersMobileSection}>
-                  <motion.div
-                    initial={{ scale: 0.9 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    style={
-                      selectedTab === 'rooms'
-                        ? {
-                            borderBottom: '6px solid black',
-                          }
-                        : { opacity: 0.35, paddingBottom: '1.4rem' }
-                    }
-                    className={styles.filterButtonContainer}
-                    onClick={() => {
-                      (document.body.style.overflow = 'initial'),
-                        setSelectedTab('rooms');
-                    }}
-                  >
-                    <HotelOutlined style={{ marginBottom: '0.2rem' }} />
-                    <h4>{t('room_other')}</h4>
-                  </motion.div>
-                  <motion.div
-                    initial={{ scale: 0.9 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    style={
-                      selectedTab === 'services'
-                        ? {
-                            borderBottom: '6px solid black',
-                          }
-                        : { opacity: 0.35, paddingBottom: '1.4rem' }
-                    }
-                    className={styles.filterButtonContainer}
-                    onClick={() => {
-                      (document.body.style.overflow = 'initial'),
-                        setSelectedTab('services');
-                    }}
-                  >
-                    <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
-                    <h4>{t('service_other')}</h4>
-                  </motion.div>
-                </div>
+                <Skeleton animation="wave" width={300} />
+                <Skeleton animation="wave" width={300} />
               </section>
-            )
-          )}
-          <div className={styles.webResults}>
-            {!selectedRoom && (
-              <>
+              <div className={styles.webResults}>
                 <section className={styles.contentResultContainer}>
-                  {searchResult?.map((room, index) => (
-                    <CardRoom
-                      isResultOneRoom={
-                        searchResult?.length === 1 ? true : false
-                      }
+                  {Array.from(new Array(4)).map((_, index) => (
+                    <Skeleton
                       key={index}
-                      room={room}
-                      setSelectedRoom={setSelectedRoom}
+                      animation="wave"
+                      variant="rectangular"
+                      width={'100%'}
+                      height={316}
                     />
                   ))}
                 </section>
-              </>
-            )}
-            <section className={styles.serviceResultContainer}>
-              <h4 className={styles.subtitle}>{t('look')}</h4>
-              <h2 className={styles.title}>{t('availableServices')}</h2>
-              <div className={styles.contentResultContainer}>
-                {servicesResult?.map((service, index) => (
-                  <CardService key={index} service={service} />
-                ))}
               </div>
-            </section>
-          </div>
-
-          {/* Mobile */}
-          <div className={styles.mobileResults}>
-            {selectedTab === 'rooms' && !selectedRoom && (
-              <section className={styles.serviceResultContainer}>
-                <h4 className={styles.subtitle}>{t('look')}</h4>
-                <h2 className={styles.title}>{t('availableRooms')}</h2>
-                <div className={styles.contentResultContainer}>
-                  {searchResult?.map((room, index) => (
-                    <CardRoom
-                      isResultOneRoom={room.length === 1 ? true : false}
+              {/* Mobile Results */}
+              <div className={styles.mobileResults}>
+                <section
+                  style={{ paddingLeft: 16, paddingRight: 16 }}
+                  className={styles.serviceResultContainer}
+                >
+                  {Array.from(new Array(4)).map((_, index) => (
+                    <Skeleton
                       key={index}
-                      room={room}
-                      setSelectedRoom={setSelectedRoom}
+                      style={{ marginBottom: 16 }}
+                      animation="wave"
+                      variant="rectangular"
+                      width={'100%'}
+                      height={200}
                     />
                   ))}
+                </section>
+              </div>
+            </>
+          ) : (
+            !selectedRoom && (
+              <>
+                <section className={styles.filterInfo}>
+                  {!searchResult || searchResult?.errors ? (
+                    <>
+                      <section className={styles.filterInfo}>
+                        <div style={{ flex: 1, paddingTop: 1 }}>
+                          <h2>{t('noResultWereFound')}</h2>
+                        </div>
+                      </section>
+                    </>
+                  ) : (
+                    <div style={{ flex: 1, paddingTop: 1 }}>
+                      <h2>
+                        <span>
+                          {formattedNumber(searchResult?.length) || 0}
+                        </span>{' '}
+                        {t(
+                          `roomsWith_${pluralProfix(
+                            searchResult?.length,
+                            router.locale
+                          )}`
+                        )}{' '}
+                        <span>
+                          {formattedNumber(servicesResult?.length) || 0}
+                        </span>{' '}
+                        {t(
+                          `servicesWereFound_${pluralProfix(
+                            servicesResult?.length,
+                            router.locale
+                          )}`
+                        )}
+                      </h2>
+                    </div>
+                  )}
+                  <div className={styles.filtersMobileSection}>
+                    <motion.div
+                      initial={{ scale: 0.9 }}
+                      animate={{ scale: 1 }}
+                      transition={{ duration: 0.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      style={
+                        selectedTab === 'rooms'
+                          ? {
+                              borderBottom: '6px solid black',
+                            }
+                          : { opacity: 0.35, paddingBottom: '1.4rem' }
+                      }
+                      className={styles.filterButtonContainer}
+                      onClick={() => {
+                        (document.body.style.overflow = 'initial'),
+                          setSelectedTab('rooms');
+                      }}
+                    >
+                      <HotelOutlined style={{ marginBottom: '0.2rem' }} />
+                      <h4>{t('room_other')}</h4>
+                    </motion.div>
+                    <motion.div
+                      initial={{ scale: 0.9 }}
+                      animate={{ scale: 1 }}
+                      transition={{ duration: 0.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      style={
+                        selectedTab === 'services'
+                          ? {
+                              borderBottom: '6px solid black',
+                            }
+                          : { opacity: 0.35, paddingBottom: '1.4rem' }
+                      }
+                      className={styles.filterButtonContainer}
+                      onClick={() => {
+                        (document.body.style.overflow = 'initial'),
+                          setSelectedTab('services');
+                      }}
+                    >
+                      <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
+                      <h4>{t('service_other')}</h4>
+                    </motion.div>
+                  </div>
+                </section>
+                {/* Desktop Results */}
+                <div className={styles.webResults}>
+                  {!selectedRoom && (
+                    <>
+                      <section className={styles.contentResultContainer}>
+                        {searchResult?.map((room, index) => (
+                          <CardRoom
+                            isResultOneRoom={
+                              searchResult?.length === 1 ? true : false
+                            }
+                            key={index}
+                            room={room}
+                            setSelectedRoom={setSelectedRoom}
+                          />
+                        ))}
+                      </section>
+                    </>
+                  )}
+                  <section className={styles.serviceResultContainer}>
+                    <h4 className={styles.subtitle}>{t('look')}</h4>
+                    <h2 className={styles.title}>{t('availableServices')}</h2>
+                    <div className={styles.contentResultContainer}>
+                      {servicesResult?.map((service, index) => (
+                        <CardService key={index} service={service} />
+                      ))}
+                    </div>
+                  </section>
                 </div>
-              </section>
-            )}
-            {selectedTab === 'services' || selectedRoom ? (
-              <section
-                className={styles.serviceResultContainer}
-                style={{
-                  marginTop: selectedRoom && '2rem',
-                  borderTop: selectedRoom && '1px solid var(--gray-150)',
-                  paddingTop: selectedRoom && '2rem',
-                  paddingBottom: width < 868 && '8rem',
-                }}
-              >
-                <h4 className={styles.subtitle}>{t('look')}</h4>
-                <h2 className={styles.title}>{t('availableServices')}</h2>
-                <div className={styles.contentResultContainer}>
-                  {servicesResult?.map((service, index) => (
-                    <CardService key={index} service={service} />
-                  ))}
+                {/* Mobile Results */}
+                <div className={styles.mobileResults}>
+                  {selectedTab === 'rooms' && !selectedRoom && (
+                    <section className={styles.serviceResultContainer}>
+                      <h4 className={styles.subtitle}>{t('look')}</h4>
+                      <h2 className={styles.title}>{t('availableRooms')}</h2>
+                      <div className={styles.contentResultContainer}>
+                        {searchResult?.map((room, index) => (
+                          <CardRoom
+                            isResultOneRoom={room.length === 1 ? true : false}
+                            key={index}
+                            room={room}
+                            setSelectedRoom={setSelectedRoom}
+                          />
+                        ))}
+                      </div>
+                    </section>
+                  )}
+                  {selectedTab === 'services' || selectedRoom ? (
+                    <section
+                      className={styles.serviceResultContainer}
+                      style={{
+                        marginTop: selectedRoom && '2rem',
+                        borderTop: selectedRoom && '1px solid var(--gray-150)',
+                        paddingTop: selectedRoom && '2rem',
+                        paddingBottom: width < 868 && '8rem',
+                      }}
+                    >
+                      <h4 className={styles.subtitle}>{t('look')}</h4>
+                      <h2 className={styles.title}>{t('availableServices')}</h2>
+                      <div className={styles.contentResultContainer}>
+                        {servicesResult?.map((service, index) => (
+                          <CardService key={index} service={service} />
+                        ))}
+                      </div>
+                    </section>
+                  ) : (
+                    <div />
+                  )}
                 </div>
-              </section>
-            ) : (
-              <div />
-            )}
-          </div>
+              </>
+            )
+          )}
 
           {!selectedRoom && facilities && (
             <section className={styles.facilitiesContainerHolder}>
