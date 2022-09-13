@@ -6,7 +6,7 @@ import CardRoom from '../../components/CardRoom';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import nextI18nConfig from '../../../next-i18next.config';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps, GetStaticProps } from 'next';
 import Header from '../../components/Header';
 import { useTranslation } from 'next-i18next';
 import Footer from '../../components/common/Footer';
@@ -72,11 +72,15 @@ interface ISearch {
   policyDomain: Domain;
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const officeDetails = await GetOfficeDetails();
-  const design = await GetOfficeDesign();
-  const servicesResult = await GetServiceSearch();
-  const facilities = await GetOfficeFacilities();
+export const getServerSideProps: GetServerSideProps = async ({
+  locale,
+  req,
+}) => {
+  const id = dynamicOffice ? req.headers.host : officeId;
+  const officeDetails = await GetOfficeDetails(id);
+  const design = await GetOfficeDesign(id);
+  const servicesResult = await GetServiceSearch(id);
+  const facilities = await GetOfficeFacilities(id);
 
   //Domain
   const iconsDomain = await GetIconsDomain(locale);
@@ -104,7 +108,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       policyDomain,
       ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
     },
-    revalidate: 60,
   };
 };
 
@@ -112,7 +115,7 @@ const Search = ({
   servicesResult,
   officeDetails,
   design,
-  facilities,
+  facilities = [],
   amenititiesDomain,
   contactDomain,
   facilitiesDomain,
@@ -154,6 +157,7 @@ const Search = ({
         adults,
         children,
         ages: infos?.ages || [],
+        officeId: dynamicOffice ? window?.location?.hostname : officeId,
       })
         .then((res: any) => {
           setSearchResult(res?.data);
@@ -367,15 +371,17 @@ const Search = ({
                       </section>
                     </>
                   )}
-                  <section className={styles.serviceResultContainer}>
-                    <h4 className={styles.subtitle}>{t('look')}</h4>
-                    <h2 className={styles.title}>{t('availableServices')}</h2>
-                    <div className={styles.contentResultContainer}>
-                      {servicesResult?.map((service, index) => (
-                        <CardService key={index} service={service} />
-                      ))}
-                    </div>
-                  </section>
+                  {servicesResult?.length > 0 && (
+                    <section className={styles.serviceResultContainer}>
+                      <h4 className={styles.subtitle}>{t('look')}</h4>
+                      <h2 className={styles.title}>{t('availableServices')}</h2>
+                      <div className={styles.contentResultContainer}>
+                        {servicesResult?.map((service, index) => (
+                          <CardService key={index} service={service} />
+                        ))}
+                      </div>
+                    </section>
+                  )}
                 </div>
                 {/* Mobile Results */}
                 <div className={styles.mobileResults}>
@@ -421,29 +427,30 @@ const Search = ({
             )
           )}
 
-          {!selectedRoom && facilities && (
+          {!selectedRoom && facilities?.length > 0 && (
             <section className={styles.facilitiesContainerHolder}>
               <h4 className={styles.subtitle}>{t('look')}</h4>
               <h2 className={styles.title}>{t('whatThisPlaceOffer')}</h2>
               <div className={styles.facilitiesCardContainer}>
-                {facilities?.map((facility, index) => (
-                  <div key={index} className={styles.facilitiesCard}>
-                    <h3>
-                      {GetFacilityFromDomain(
-                        facility?.facilityCategoryTypeCode
-                      )}
-                    </h3>
-                    {facility?.facilityDetails.map((item, index) => (
-                      <div className={styles.row} key={index}>
-                        <IconImportDynamically
-                          iconName={item?.displayIconTypeCode}
-                          size={20}
-                        />
-                        <p>{item?.facilityName || '-'}</p>
-                      </div>
-                    ))}
-                  </div>
-                ))}
+                {!!facilities &&
+                  facilities?.map((facility, index) => (
+                    <div key={index} className={styles.facilitiesCard}>
+                      <h3>
+                        {GetFacilityFromDomain(
+                          facility?.facilityCategoryTypeCode
+                        )}
+                      </h3>
+                      {facility?.facilityDetails.map((item, index) => (
+                        <div className={styles.row} key={index}>
+                          <IconImportDynamically
+                            iconName={item?.displayIconTypeCode}
+                            size={20}
+                          />
+                          <p>{item?.facilityName || '-'}</p>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
               </div>
             </section>
           )}

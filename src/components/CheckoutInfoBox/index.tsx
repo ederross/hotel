@@ -9,6 +9,8 @@ import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../store/types';
 import { Policy } from '../../../data/policies';
+import { pluralProfix } from '../../utils/pluralRules';
+import { useRouter } from 'next/router';
 
 interface ICheckoutInfoBox {
   policies: Policy;
@@ -17,6 +19,7 @@ interface ICheckoutInfoBox {
 export const CheckoutInfoBox = ({ policies }: ICheckoutInfoBox) => {
   const size = useWindowSize();
   const { t } = useTranslation();
+  const router = useRouter();
 
   const checkInStart = parseInt(
     policies?.bookPolicy?.checkinWindow?.startTime?.substring(0, 2)
@@ -59,30 +62,19 @@ export const CheckoutInfoBox = ({ policies }: ICheckoutInfoBox) => {
                       <div className={styles.roomNameAdultChildContainer}>
                         <div className={styles.row}>
                           <h5>
-                            {item.infos?.adults < 2 && item.infos?.adults > 0
-                              ? t('adultWithCount_one', {
-                                  count: item.infos?.adults,
-                                })
-                              : item.infos?.adults === 0
-                              ? t('adultWithCount_other', {
-                                  count: item.infos?.adults,
-                                })
-                              : t('adultWithCount_other', {
-                                  count: item.infos?.adults,
-                                })}{' '}
-                            {'&'}{' '}
-                            {item.infos?.children < 2 &&
-                            item.infos?.children > 0
-                              ? t('childrenWithCount_one', {
-                                  count: item.infos?.children,
-                                })
-                              : item.infos?.children === 0
-                              ? t('childrenWithCount_one', {
-                                  count: item.infos?.children,
-                                })
-                              : t('childrenWithCount_other', {
-                                  count: item.infos?.children,
-                                })}
+                            {t(
+                              `adult_${pluralProfix(
+                                item.infos?.adults,
+                                router.locale
+                              )}`
+                            )}
+                            {' & '}
+                            {t(
+                              `children_${pluralProfix(
+                                item.infos?.children,
+                                router.locale
+                              )}`
+                            )}
                           </h5>
                         </div>
                         <h4>{item.infos?.objectName}</h4>
@@ -180,7 +172,7 @@ export const CheckoutInfoBox = ({ policies }: ICheckoutInfoBox) => {
             <h4>{t('arrivalForecast')}</h4>
             <div className={styles.cSelect}>
               <select name="arrivalForecast" id="pet-select">
-                {[...Array(checkInOptions)].map((_, index) => (
+                {[...Array(checkInOptions || 0)].map((_, index) => (
                   <option key={index} value="">
                     {checkInStart + index}:
                     {policies?.bookPolicy?.checkinWindow?.startTime?.substring(

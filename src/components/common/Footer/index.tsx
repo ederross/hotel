@@ -58,7 +58,7 @@ const Footer = ({ design, officeDetails, marginTop }: IFooterProps) => {
               <h3>{t('contact')}</h3>
 
               {officeDetails?.contacts
-                .filter((o) => o.contactTypeCode === 1)
+                ?.filter((o) => o.contactTypeCode === 1)
                 ?.map((item, index) => (
                   <div key={index} className="row">
                     <PhoneAndroidRounded style={{ color: '#fff' }} />
@@ -68,7 +68,7 @@ const Footer = ({ design, officeDetails, marginTop }: IFooterProps) => {
                   </div>
                 ))}
               {officeDetails?.contacts
-                .filter((o) => o.contactTypeCode === 2)
+                ?.filter((o) => o.contactTypeCode === 2)
                 ?.map((item, index) => (
                   <a
                     key={index}
@@ -101,7 +101,7 @@ const Footer = ({ design, officeDetails, marginTop }: IFooterProps) => {
 
               <div style={{ display: 'flex' }}>
                 {officeDetails?.contacts
-                  .filter((o) => o.contactTypeCode === 3)
+                  ?.filter((o) => o.contactTypeCode === 3)
                   ?.map((item, index) => (
                     <a
                       href={`https://www.instagram.com/${item?.contactText}`}
@@ -115,7 +115,7 @@ const Footer = ({ design, officeDetails, marginTop }: IFooterProps) => {
                     </a>
                   ))}
                 {officeDetails?.contacts
-                  .filter((o) => o.contactTypeCode === 4)
+                  ?.filter((o) => o.contactTypeCode === 4)
                   ?.map((item, index) => (
                     <a
                       href={`https://twitter.com/${item?.contactText}`}

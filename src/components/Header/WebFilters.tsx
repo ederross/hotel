@@ -7,12 +7,13 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { Add, RemoveOutlined } from '@mui/icons-material';
 import { EventsHome } from '../../../data/events';
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import CardEventType2 from '../cardsEvents/CardEventType2';
 import { GetCalendarSearch } from '../../services/requests/booking';
 import moment from 'moment';
 import { AppStore } from '../../store/types';
 import { useSelector } from 'react-redux';
+import { dynamicOffice, officeId } from '../../services/api';
 
 interface IWebFilters {
   closeDatePickerWeb: () => void;
@@ -70,7 +71,11 @@ const WebFilters = ({
   const endSearchDay = moment(firstMonth).add(2, 'months').format('YYYY-MM-DD');
 
   useEffect(() => {
-    GetCalendarSearch(startSearchDay, endSearchDay)
+    GetCalendarSearch(
+      startSearchDay,
+      endSearchDay,
+      dynamicOffice ? window?.location?.hostname : officeId
+    )
       .then((res) => setCalendarSearch(res))
       .catch((err) =>
         console.log('>> FALHA AO PESQUISAR O CALENDÁRIO <<', err)

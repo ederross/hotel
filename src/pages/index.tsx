@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps, GetStaticProps } from 'next';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 
@@ -32,6 +32,7 @@ import {
 import { useEffect } from 'react';
 import { SetCheckoutRedux } from '../store/ducks/checkout/actions';
 import { useDispatch } from 'react-redux';
+import { dynamicOffice, officeId } from '../services/api';
 interface IHomeProps {
   officeDetails: OfficeDetails;
   design: Design;
@@ -153,12 +154,17 @@ export default function Home(props: IHomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const officeDetails = await GetOfficeDetails();
-  const design = await GetOfficeDesign();
-  const reviews = await GetOfficeReviews();
-  const images = await GetOfficeImages();
-  const events = await GetOfficeEvents();
+export const getServerSideProps: GetServerSideProps = async ({
+  locale,
+  req,
+}) => {
+  const id = dynamicOffice ? req.headers.host : officeId;
+
+  const officeDetails = await GetOfficeDetails(id);
+  const design = await GetOfficeDesign(id);
+  const reviews = await GetOfficeReviews(id);
+  const images = await GetOfficeImages(id);
+  const events = await GetOfficeEvents(id);
 
   return {
     props: {
@@ -169,6 +175,14 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       images,
       ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
     },
-    revalidate: 60,
   };
 };
+
+// export const getStaticProps: GetStaticProps = async ({ locale }) => {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
+//     },
+//     revalidate: 60,
+//   };
+// };

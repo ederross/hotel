@@ -1,8 +1,8 @@
 import { TypesCart } from '../../store/ducks/cart/types';
-import api, { officeId } from '../api';
-import qs from 'qs';
+import api from '../api';
 
 interface IGetRoomSearch {
+  officeId: string;
   startDate: string;
   endDate: string;
   adults: string;
@@ -55,6 +55,7 @@ export const GetRoomSearch = async ({
   endDate,
   startDate,
   ages = [],
+  officeId,
 }: IGetRoomSearch) => {
   return await api
     .get(`/booking/room-search/?${ages.map((a) => `age=${a}`).join('&')}`, {
@@ -78,32 +79,36 @@ export const GetRoomSearch = async ({
     });
 };
 
-export const GetServiceSearch = async () => {
+export const GetServiceSearch = async (id: string) => {
   const res = await api
     .get('/booking/services', {
       params: {
-        officeId,
+        officeId: id,
       },
     })
     .then((response) => {
       return response.data;
     })
     .catch((err) => {
-      console.log('SERVICE SEARCH ERROR!', err);
+      console.log('SERVICE SEARCH ERROR!');
       return [];
     });
 
   return res;
 };
 
-export const GetCalendarSearch = async (startDate: string, endDate: string) => {
+export const GetCalendarSearch = async (
+  startDate: string,
+  endDate: string,
+  id: string
+) => {
   const res = await api
     .get('/booking/calendar-search', {
       headers: {
         'Content-Type': 'application/json',
       },
       params: {
-        officeId,
+        officeId: id,
         startDate,
         endDate,
       },

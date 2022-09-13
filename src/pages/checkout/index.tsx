@@ -1,6 +1,6 @@
 import { VerifiedUserOutlined } from '@mui/icons-material';
 import { motion } from 'framer-motion';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps, GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import nextI18nConfig from '../../../next-i18next.config';
@@ -40,6 +40,7 @@ import { CheckoutInfoBox } from '../../components/CheckoutInfoBox';
 import { PoliciesContainer } from '../../components/PoliciesContainer';
 import { CheckoutPaymentInfo } from '../../components/CheckoutPaymentInfo';
 import { VerifyCheckoutFields } from '../../utils/verifyCheckoutFields';
+import { dynamicOffice, officeId } from '../../services/api';
 interface ICheckout {
   design: Design;
   policies: Policy;
@@ -342,10 +343,14 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const officeDetails = await GetOfficeDetails();
-  const design = await GetOfficeDesign();
-  const policies = await GetOfficePolicies();
+export const getServerSideProps: GetServerSideProps = async ({
+  locale,
+  req,
+}) => {
+  const id = dynamicOffice ? req.headers.host : officeId;
+  const officeDetails = await GetOfficeDetails(id);
+  const design = await GetOfficeDesign(id);
+  const policies = await GetOfficePolicies(id);
 
   return {
     props: {
@@ -354,7 +359,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       policies,
       ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
     },
-    revalidate: 60,
   };
 };
 

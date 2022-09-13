@@ -1,9 +1,9 @@
 import moment from 'moment';
-import api, { officeId } from '../api';
+import api from '../api';
 
-export const GetOfficeDetails = async () => {
+export const GetOfficeDetails = async (id: string) => {
   const res = await api
-    .get(`/offices/${officeId}`)
+    .get(`/offices/${id}`)
     .then((response) => {
       return response.data;
     })
@@ -15,9 +15,9 @@ export const GetOfficeDetails = async () => {
   return res;
 };
 
-export const GetOfficeDesign = async () => {
+export const GetOfficeDesign = async (id: string) => {
   const res = await api
-    .get(`/offices/${officeId}/design`)
+    .get(`/offices/${id}/design`)
     .then((response) => {
       return response.data;
     })
@@ -29,9 +29,9 @@ export const GetOfficeDesign = async () => {
   return res;
 };
 
-export const GetOfficeReviews = async () => {
+export const GetOfficeReviews = async (id: string) => {
   const res = await api
-    .get(`/offices/${officeId}/reviews`)
+    .get(`/offices/${id}/reviews`)
     .then((response) => {
       return response.data;
     })
@@ -43,9 +43,9 @@ export const GetOfficeReviews = async () => {
   return res;
 };
 
-export const GetOfficeImages = async () => {
+export const GetOfficeImages = async (id: string) => {
   const res = await api
-    .get(`/offices/${officeId}/images`)
+    .get(`/offices/${id}/images`)
     .then((response) => {
       return response.data;
     })
@@ -57,9 +57,9 @@ export const GetOfficeImages = async () => {
   return res;
 };
 
-export const GetOfficeEvents = async () => {
+export const GetOfficeEvents = async (id: string) => {
   const res = await api
-    .get(`/offices/${officeId}/events`, {
+    .get(`/offices/${id}/events`, {
       params: {
         startDate: moment().format('YYYY-MM-DD'),
         endDate: moment().add(2, 'M').format('YYYY-MM-DD'),
@@ -76,23 +76,23 @@ export const GetOfficeEvents = async () => {
   return res;
 };
 
-export const GetOfficeFacilities = async () => {
+export const GetOfficeFacilities = async (id: string) => {
   const res = await api
-    .get(`/offices/${officeId}/facilities`)
+    .get(`/offices/${id}/facilities`)
     .then((response) => {
       return response.data;
     })
     .catch(() => {
       console.log('OFFICE FACILITIES ERROR!');
-      return {};
+      return [];
     });
 
   return res;
 };
 
-export const GetOfficePolicies = async () => {
+export const GetOfficePolicies = async (id: string) => {
   const res = await api
-    .get(`/offices/${officeId}/policies`)
+    .get(`/offices/${id}/policies`)
     .then((response) => {
       return response.data;
     })
