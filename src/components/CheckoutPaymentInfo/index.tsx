@@ -8,6 +8,8 @@ import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../store/types';
 import { VerifiedUserOutlined } from '@mui/icons-material';
+import { useRouter } from 'next/router';
+import { pluralProfix } from '../../utils/pluralRules';
 
 interface ICheckoutPaymentInfo {
   handleConfirm: () => void;
@@ -30,6 +32,7 @@ export const CheckoutPaymentInfo = ({
 }: ICheckoutPaymentInfo) => {
   const size = useWindowSize();
   const { t } = useTranslation();
+  const router = useRouter();
 
   const {
     cart: { infos, objects, services },
@@ -77,29 +80,19 @@ export const CheckoutPaymentInfo = ({
                   <div className={styles.roomNameAdultChildContainer}>
                     <div className={styles.row}>
                       <h5>
-                        {item.infos?.adults < 2 && item.infos?.adults > 0
-                          ? t('adultWithCount_one', {
-                              count: item.infos?.adults,
-                            })
-                          : item.infos?.adults === 0
-                          ? t('adultWithCount_other', {
-                              count: item.infos?.adults,
-                            })
-                          : t('adultWithCount_other', {
-                              count: item.infos?.adults,
-                            })}{' '}
-                        {'&'}{' '}
-                        {item.infos?.children < 2 && item.infos?.children > 0
-                          ? t('childrenWithCount_one', {
-                              count: item.infos?.children,
-                            })
-                          : item.infos?.children === 0
-                          ? t('childrenWithCount_one', {
-                              count: item.infos?.children,
-                            })
-                          : t('childrenWithCount_other', {
-                              count: item.infos?.children,
-                            })}
+                        {t(
+                          `adult_${pluralProfix(
+                            item.infos?.adults,
+                            router.locale
+                          )}`
+                        )}
+                        {' & '}
+                        {t(
+                          `children_${pluralProfix(
+                            item.infos?.children,
+                            router.locale
+                          )}`
+                        )}
                       </h5>
                     </div>
                     <h4>{item.infos?.objectName}</h4>

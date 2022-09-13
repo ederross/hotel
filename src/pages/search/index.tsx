@@ -127,6 +127,10 @@ const Search = ({
   const { t } = useTranslation('common');
   const { width } = useWindowSize();
 
+  useEffect(() => {
+    document.documentElement.className = design?.templateName || 'default';
+  }, [design]);
+
   const {
     domain: { facilitiesDomain: facilitiesDomainRedux },
     cart: { infos },

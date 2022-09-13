@@ -146,9 +146,9 @@ const CartMenu = ({ openCart }: ICartMenu) => {
                             router.locale
                           )}`
                         )}
-                        {'&'}{' '}
+                        {' & '}
                         {t(
-                          `adult_${pluralProfix(
+                          `children_${pluralProfix(
                             item.infos?.children,
                             router.locale
                           )}`

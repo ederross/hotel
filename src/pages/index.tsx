@@ -22,8 +22,6 @@ import nextI18nConfig from '../../next-i18next.config';
 import CardClient from '../components/CardClient';
 import { HotelImages } from '../../data/images';
 import HotelImagesSlider from '../components/HotelImagesSlider';
-import { URLSearchParams } from 'url';
-import moment from 'moment';
 import {
   GetOfficeDesign,
   GetOfficeDetails,
@@ -34,7 +32,6 @@ import {
 import { useEffect } from 'react';
 import { SetCheckoutRedux } from '../store/ducks/checkout/actions';
 import { useDispatch } from 'react-redux';
-import { CleanCart } from '../store/ducks/cart/actions';
 interface IHomeProps {
   officeDetails: OfficeDetails;
   design: Design;
@@ -47,6 +44,11 @@ export default function Home(props: IHomeProps) {
   const { width } = useWindowSize();
   const dispatch = useDispatch();
   const { t } = useTranslation('common');
+
+  useEffect(() => {
+    document.documentElement.className =
+      props?.design?.templateName || 'default';
+  }, [props]);
 
   const swiperStyle = {
     paddingLeft:
@@ -69,7 +71,7 @@ export default function Home(props: IHomeProps) {
   }, [dispatch]);
 
   return (
-    <>
+    <div>
       <Head>
         <title>{props?.design?.browserTitle}</title>
         <meta name="description" content={props?.design?.metaDescription} />
@@ -147,7 +149,7 @@ export default function Home(props: IHomeProps) {
           marginTop={width < 868 && '4rem'}
         />
       </main>
-    </>
+    </div>
   );
 }
 

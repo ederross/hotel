@@ -52,6 +52,10 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    document.documentElement.className = design?.templateName || 'default';
+  }, [design]);
+
   const {
     cart,
     checkout: { data: checkout },

@@ -1,5 +1,6 @@
 import { AppProps } from 'next/app';
 import '../../styles/globals.css';
+import '../../styles/themes.css';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -7,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '@material/react-material-icon/dist/material-icon.css';
 import { useRouter } from 'next/router';
 
-import 'react-loading-skeleton/dist/skeleton.css'
+import 'react-loading-skeleton/dist/skeleton.css';
 
 import { appWithTranslation } from 'next-i18next';
 import nextI18nConfig from '../../next-i18next.config';
@@ -19,6 +20,7 @@ import { useEffect } from 'react';
 import NextNProgress from 'nextjs-progressbar';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
+
 function MyApp({ Component, pageProps }: AppProps) {
   const { locale } = useRouter();
 
