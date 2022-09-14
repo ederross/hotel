@@ -223,7 +223,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
     if (isNotSelected) {
       priceDay = (
         <div className={'priceDayIndicator'}>
-          <p>{calendar?.baseAmount}</p>
+          <p>{calendar?.baseAmount ? `$ ${calendar?.baseAmount}` : ''}</p>
         </div>
       );
     }

@@ -55,7 +55,7 @@ const DynamicInfoModal = ({
                   ? 'fees'
                   : type === 'taxes'
                   ? 'taxes'
-                  : 'bookTerms'
+                  : 'reservationPolicies'
               )}
             </h3>
             <CloseOutlined
@@ -64,7 +64,7 @@ const DynamicInfoModal = ({
             />
           </div>{' '}
           <div className={styles.contentContainer}>
-            <p>
+            <p style={{ whiteSpace: 'pre-line' }}>
               {type === 'fees'
                 ? data?.feePolicy?.Description
                 : type === 'taxes'
