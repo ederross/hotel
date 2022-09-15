@@ -23,6 +23,7 @@ import {
 import {
   GetOfficeDesign,
   GetOfficeDetails,
+  GetOfficeEvents,
   GetOfficeFacilities,
 } from '../../services/requests/office';
 import { Room } from '../../../data/room';
@@ -56,12 +57,14 @@ import { IconImportDynamically } from '../../components/common/ComponentWithIcon
 import { SetCartInfos } from '../../store/ducks/cart/actions';
 import { pluralProfix } from '../../utils/pluralRules';
 import { dynamicOffice, officeId } from '../../services/api';
+import { EventsHome } from '../../../data/events';
 
 interface ISearch {
   servicesResult: any;
   officeDetails: OfficeDetails;
   design: Design;
   facilities: Facility[];
+  events: EventsHome[];
   iconsDomain: Domain;
   facilitiesDomain: Domain;
   contactDomain: Domain;
@@ -81,6 +84,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   const design = await GetOfficeDesign(id);
   const servicesResult = await GetServiceSearch(id);
   const facilities = await GetOfficeFacilities(id);
+  const events = await GetOfficeEvents(id);
 
   //Domain
   const iconsDomain = await GetIconsDomain(locale);
@@ -98,6 +102,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       officeDetails,
       design,
       facilities,
+      events,
       iconsDomain,
       facilitiesDomain,
       contactDomain,
@@ -116,6 +121,7 @@ const Search = ({
   officeDetails,
   design,
   facilities = [],
+  events = [],
   amenititiesDomain,
   contactDomain,
   facilitiesDomain,
@@ -228,7 +234,7 @@ const Search = ({
               : '6rem 0 0',
         }}
       >
-        <Header selectedRoom={selectedRoom} design={design} />
+        <Header selectedRoom={selectedRoom} design={design} events={events} />
         {selectedRoom && (
           <RoomDetails room={selectedRoom} setSelectedRoom={setSelectedRoom} />
         )}
@@ -276,11 +282,11 @@ const Search = ({
             !selectedRoom && (
               <>
                 <section className={styles.filterInfo}>
-                  {!searchResult || searchResult?.errors ? (
+                  {searchResult.length < 1 || searchResult?.errors ? (
                     <>
                       <section className={styles.filterInfo}>
                         <div style={{ flex: 1, paddingTop: 1 }}>
-                          <h2>{t('noResultWereFound')}</h2>
+                          <h2>{t('noRoomAvailable')}</h2>
                         </div>
                       </section>
                     </>

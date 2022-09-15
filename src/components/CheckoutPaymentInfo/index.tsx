@@ -208,10 +208,7 @@ export const CheckoutPaymentInfo = ({
             {t('byClickingButtonAboveAgreePolicies')}:
             <strong>
               {' '}
-              <u>
-                {t('reservationPolicies')}, {t('refundPolicy')} {t('and')}{' '}
-                {t('bookingRescheduling')}
-              </u>
+              <u>{t('reservationPolicies')}</u>
             </strong>
           </h6>
         </div>

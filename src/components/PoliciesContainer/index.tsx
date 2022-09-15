@@ -28,7 +28,7 @@ export const PoliciesContainer = ({
       <div className={styles.webPoliticsContainer}>
         <h3>{t('policy_other')}</h3>
         <h5>
-          {t('bookingPolicies')}{' '}
+          {t('reservationPolicies')}{' '}
           <a
             title="Políticas de reembolso"
             style={{ cursor: 'pointer' }}

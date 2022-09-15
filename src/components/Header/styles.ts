@@ -52,7 +52,7 @@ export const Container = styled.div`
     p {
       line-height: 8px;
       font-size: 12px;
-      color: var(--red-700);
+      color: var(--gray-400);
       margin: 0;
     }
 
