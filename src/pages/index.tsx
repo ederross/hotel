@@ -154,18 +154,36 @@ export default function Home(props: IHomeProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  locale,
-  req,
-}) => {
-  const id = dynamicOffice ? req.headers.host : officeId;
+// export const getServerSideProps: GetServerSideProps = async ({
+//   locale,
+//   req,
+// }) => {
+//   const id = dynamicOffice ? req.headers.host : officeId;
 
-  const officeDetails = await GetOfficeDetails(id);
-  const design = await GetOfficeDesign(id);
-  const reviews = await GetOfficeReviews(id);
-  const images = await GetOfficeImages(id);
-  const events = await GetOfficeEvents(id);
+//   const officeDetails = await GetOfficeDetails(id);
+//   const design = await GetOfficeDesign(id);
+//   const reviews = await GetOfficeReviews(id);
+//   const images = await GetOfficeImages(id);
+//   const events = await GetOfficeEvents(id);
 
+//   return {
+//     props: {
+//       officeDetails,
+//       design,
+//       reviews,
+//       events,
+//       images,
+//       ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
+//     },
+//   };
+// };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const officeDetails = await GetOfficeDetails(officeId);
+  const design = await GetOfficeDesign(officeId);
+  const reviews = await GetOfficeReviews(officeId);
+  const images = await GetOfficeImages(officeId);
+  const events = await GetOfficeEvents(officeId);
   return {
     props: {
       officeDetails,
@@ -175,14 +193,6 @@ export const getServerSideProps: GetServerSideProps = async ({
       images,
       ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
     },
+    revalidate: 60,
   };
 };
-
-// export const getStaticProps: GetStaticProps = async ({ locale }) => {
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
-//     },
-//     revalidate: 60,
-//   };
-// };

@@ -12,7 +12,7 @@
   background: white;
   border-radius: 1rem;
   display: flex;
-  padding: 2rem 3rem 0;
+  padding: 2rem 0 0;
   flex-direction: column;
   color: var(--dark-text);
   padding-bottom: 1rem;
@@ -75,10 +75,9 @@
   .eventsContainer {
     width: 100%;
     min-height: 200px;
-    padding-left: 4rem;
-    padding-right: 4rem;
 
     h3 {
+      margin-left: 6rem;
       padding: 0 1rem;
       margin-bottom: 0.6rem;
       font-weight: 500;

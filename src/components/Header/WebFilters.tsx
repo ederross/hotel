@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { Add, RemoveOutlined } from '@mui/icons-material';
 import { EventsHome } from '../../../data/events';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper';
 import CardEventType2 from '../cardsEvents/CardEventType2';
 import { GetCalendarSearch } from '../../services/requests/booking';
 import moment from 'moment';
@@ -164,7 +165,9 @@ const WebFilters = ({
                         spaceBetween={16}
                         slidesPerView={'auto'}
                         freeMode={true}
-                        style={{ padding: '0 2rem 1rem 1rem' }}
+                        navigation={true}
+                        modules={[Navigation]}
+                        style={{ padding: '0 7rem 1rem 7rem' }}
                       >
                         {events?.map((event, index) => (
                           <SwiperSlide key={index} style={{ width: 'auto' }}>

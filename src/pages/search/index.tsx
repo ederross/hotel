@@ -75,47 +75,6 @@ interface ISearch {
   policyDomain: Domain;
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  locale,
-  req,
-}) => {
-  const id = dynamicOffice ? req.headers.host : officeId;
-  const officeDetails = await GetOfficeDetails(id);
-  const design = await GetOfficeDesign(id);
-  const servicesResult = await GetServiceSearch(id);
-  const facilities = await GetOfficeFacilities(id);
-  const events = await GetOfficeEvents(id);
-
-  //Domain
-  const iconsDomain = await GetIconsDomain(locale);
-  const facilitiesDomain = await GetFacilitiesDomain(locale);
-  const contactDomain = await GetContactDomain(locale);
-  const amenititiesDomain = await GetAmenitiesDomain(locale);
-  const servicesDomain = await GetServicesDomain(locale);
-  const servicePricesDomain = await GetServicePricesDomain(locale);
-  const paymethodDomain = await GetPaymethodDomain(locale);
-  const policyDomain = await GetPolicyDomain(locale);
-
-  return {
-    props: {
-      servicesResult,
-      officeDetails,
-      design,
-      facilities,
-      events,
-      iconsDomain,
-      facilitiesDomain,
-      contactDomain,
-      amenititiesDomain,
-      servicesDomain,
-      servicePricesDomain,
-      paymethodDomain,
-      policyDomain,
-      ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
-    },
-  };
-};
-
 const Search = ({
   servicesResult,
   officeDetails,
@@ -473,3 +432,82 @@ const Search = ({
 };
 
 export default Search;
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const officeDetails = await GetOfficeDetails(officeId);
+  const design = await GetOfficeDesign(officeId);
+  const servicesResult = await GetServiceSearch(officeId);
+  const facilities = await GetOfficeFacilities(officeId);
+  const events = await GetOfficeEvents(officeId);
+
+  //Domain
+  const iconsDomain = await GetIconsDomain(locale);
+  const facilitiesDomain = await GetFacilitiesDomain(locale);
+  const contactDomain = await GetContactDomain(locale);
+  const amenititiesDomain = await GetAmenitiesDomain(locale);
+  const servicesDomain = await GetServicesDomain(locale);
+  const servicePricesDomain = await GetServicePricesDomain(locale);
+  const paymethodDomain = await GetPaymethodDomain(locale);
+  const policyDomain = await GetPolicyDomain(locale);
+
+  return {
+    props: {
+      servicesResult,
+      officeDetails,
+      design,
+      facilities,
+      events,
+      iconsDomain,
+      facilitiesDomain,
+      contactDomain,
+      amenititiesDomain,
+      servicesDomain,
+      servicePricesDomain,
+      paymethodDomain,
+      policyDomain,
+      ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
+      revalidate: 60,
+    },
+  };
+};
+
+// export const getServerSideProps: GetServerSideProps = async ({
+//   locale,
+//   req,
+// }) => {
+//   const id = dynamicOffice ? req.headers.host : officeId;
+//   const officeDetails = await GetOfficeDetails(id);
+//   const design = await GetOfficeDesign(id);
+//   const servicesResult = await GetServiceSearch(id);
+//   const facilities = await GetOfficeFacilities(id);
+//   const events = await GetOfficeEvents(id);
+
+//   //Domain
+//   const iconsDomain = await GetIconsDomain(locale);
+//   const facilitiesDomain = await GetFacilitiesDomain(locale);
+//   const contactDomain = await GetContactDomain(locale);
+//   const amenititiesDomain = await GetAmenitiesDomain(locale);
+//   const servicesDomain = await GetServicesDomain(locale);
+//   const servicePricesDomain = await GetServicePricesDomain(locale);
+//   const paymethodDomain = await GetPaymethodDomain(locale);
+//   const policyDomain = await GetPolicyDomain(locale);
+
+//   return {
+//     props: {
+//       servicesResult,
+//       officeDetails,
+//       design,
+//       facilities,
+//       events,
+//       iconsDomain,
+//       facilitiesDomain,
+//       contactDomain,
+//       amenititiesDomain,
+//       servicesDomain,
+//       servicePricesDomain,
+//       paymethodDomain,
+//       policyDomain,
+//       ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
+//     },
+//   };
+// };
