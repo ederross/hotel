@@ -38,6 +38,24 @@ export const PoliciesContainer = ({
           </a>
         </h5>
         <div className={styles.policyCardContainer}>
+          <div className={styles.policyCard}>
+            <h3>{t('accommodationRules')}</h3>
+            <h6 style={{ marginTop: 16 }}>{t('checkIn')}</h6>
+            <div className={styles.row}>
+              <IconImportDynamically iconName={1517} size={20} />
+              <p>{policies.bookPolicy.checkinWindow.startTime}</p>
+            </div>
+            <h6 style={{ marginTop: 16 }}>{t('checkOut')}</h6>
+            <div className={styles.row}>
+              <IconImportDynamically iconName={1517} size={20} />
+              <p>{policies.bookPolicy.checkoutTime.endTime}</p>
+            </div>
+            <h6 style={{ marginTop: 16 }}>{t('upFrontPercentage')}</h6>
+            <div className={styles.row}>
+              <IconImportDynamically iconName={1285} size={20} />
+              <p>{policies.upfrontPercentage}%</p>
+            </div>
+          </div>
           {policies?.policies?.map((item, index) => (
             <div key={index} className={styles.policyCard}>
               <h3>
