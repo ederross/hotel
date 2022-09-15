@@ -1,0 +1,217 @@
+.modalContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+
+  width: 100vw;
+  height: 100vh;
+
+  .modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    overflow: auto;
+    z-index: 99;
+
+    background-color: rgba(255, 255, 255);
+    width: 100%;
+
+    color: rgba(0, 0, 0);
+
+    .mobSuccessModalHeader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      min-height: 86px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      background-color: #000;
+      padding-bottom: 16px;
+
+      span {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 300;
+      }
+    }
+
+    .mobStatusHeaderContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 72px;
+      margin-top: 86px;
+      background-color: #f9f9f9;
+      border-bottom: 1px solid #ccc;
+
+      .statusContainer {
+        display: flex;
+        padding: 0 2rem;
+
+        .statusBox {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .circleProgress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background: #2ab59c;
+            border-radius: 18px;
+
+            .disabledCircle {
+              width: 10px;
+              height: 10px;
+              background: #fff;
+              border-radius: 10px;
+            }
+          }
+
+          .title {
+            margin-left: 4px;
+            font-size: 12px;
+          }
+
+          .line {
+            width: 12px;
+            height: 1px;
+            margin-left: 6px;
+            margin-right: 6px;
+            background-color: #c8c8c8;
+          }
+        }
+      }
+    }
+
+    .mobTimelineCount {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 72px;
+      padding: 1rem 0;
+      border-bottom: 1px solid #ccc;
+
+      .mobTimelineTitle {
+        font-size: 14px;
+        color: #93a2ab;
+        margin-bottom: 12px;
+      }
+
+      .mobTimeline {
+        font-size: 20px;
+        color: #000;
+        margin-bottom: 12px;
+      }
+
+      .mobDate {
+        font-size: 12px;
+        color: #2ab59c;
+      }
+    }
+
+    .mobResultContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 72px;
+      padding: 2rem 0;
+      border-bottom: 1px solid #ccc;
+
+      .mobPixResultTitle {
+        font-size: 24px;
+      }
+      .mobPixCode {
+        font-size: 14px;
+        color: #93a2ab;
+        margin-bottom: 1rem;
+      }
+
+      .mobButton {
+        width: 162px;
+        height: 48px;
+        background-color: transparent;
+        border: 1px solid #ccc;
+      }
+    }
+
+    .mobReturnFeedbackContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 72px;
+      padding: 2rem 1rem;
+
+      .checkIconContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 64px;
+        height: 64px;
+        border-radius: 8px;
+
+        border: 1px solid #2ab59c;
+        margin-bottom: 2rem;
+
+        .circleProgress {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 24px;
+          height: 24px;
+          background: #2ab59c;
+          border-radius: 24px;
+
+          .disabledCircle {
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border-radius: 10px;
+          }
+        }
+      }
+
+      .mobReturnFeedbackTitle {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+
+      .mobReturnFeedbackDescription {
+        text-align: center;
+        color: #828282;
+        font-size: 14px;
+        margin-bottom: 2rem;
+      }
+
+      .mobReturnLocalizationTitle {
+        font-size: 16px;
+        color: #2ab59c;
+      }
+
+      .mobReturnButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 56px;
+        border-radius: 4px;
+        background-color: #000;
+      }
+    }
+  }
+}

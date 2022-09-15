@@ -41,6 +41,7 @@ import { PoliciesContainer } from '../../components/PoliciesContainer';
 import { CheckoutPaymentInfo } from '../../components/CheckoutPaymentInfo';
 import { VerifyCheckoutFields } from '../../utils/verifyCheckoutFields';
 import { dynamicOffice, officeId } from '../../services/api';
+import { CheckoutSucessModalAllMethods } from '../../components/CheckoutSucessModalAllMethods';
 interface ICheckout {
   design: Design;
   policies: Policy;
@@ -204,9 +205,10 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
         <meta name="keywords" content={design?.metaKeywords} />
         <link rel="icon" href={design?.favIconUrl} />
       </Head>
-      <Header design={design} />
+      {/* TODO: SUMIR QUANDO MODAL DE SUCESSO APARECER */}
+      {/* <Header design={design} /> */}
       <main className={styles.mainBox}>
-        <div
+        {/* <div
           className={styles.mobHeader}
           style={{
             boxShadow: scrolled ? '0px 1px 7px -2px #C8C8C8' : null,
@@ -217,7 +219,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
           </div>
 
           <h2>Checkout</h2>
-        </div>
+        </div> */}
 
         <div className={styles.mobTotalPrice}>
           <div>
@@ -339,6 +341,11 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
           handleCloseCheckoutSucessModal={handleCloseCheckoutSuccessModal}
         />
       )}
+      <CheckoutSucessModalAllMethods
+        data={confirmData}
+        officeDetails={officeDetails}
+        handleCloseCheckoutSucessModal={handleCloseCheckoutSuccessModal}
+      />
     </>
   );
 };
