@@ -17,6 +17,7 @@
 
     background-color: rgba(255, 255, 255);
     width: 100%;
+    min-height: 800px;
 
     color: rgba(0, 0, 0);
 
@@ -113,6 +114,16 @@
         margin-bottom: 12px;
       }
 
+      .mobSuccessPaymentSubtitle {
+        font-size: 14px;
+        color: #93a2ab;
+      }
+
+      .mobSuccessPaymentTitle {
+        font-size: 24px;
+        color: #2ab59c;
+      }
+
       .mobDate {
         font-size: 12px;
         color: #2ab59c;
@@ -130,7 +141,8 @@
       border-bottom: 1px solid #ccc;
 
       .mobPixResultTitle {
-        font-size: 24px;
+        font-size: 20px;
+        color: #666666;
       }
       .mobPixCode {
         font-size: 14px;
@@ -143,6 +155,57 @@
         height: 48px;
         background-color: transparent;
         border: 1px solid #ccc;
+      }
+    }
+
+    .cardDetailsResultContainer {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+
+      border-bottom: 1px solid #ccc;
+
+      .holderTitle {
+        font-weight: 400;
+        color: #93a2ab;
+        font-size: 14px;
+      }
+      .holderDescription {
+        font-weight: 400;
+        font-size: 14px;
+      }
+
+      .holderCardDetails {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .accItemHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; 
+      padding: 3rem 24px;
+      height: 72px;
+      width: 100%;
+
+      background-color: #2ab59c;
+
+      .accSubtitle {
+        font-weight: 200;
+        font-size: 12px;
+        color: #FFF;
+        margin-bottom: 4px;
+      }
+
+      .accTitle {
+        font-size: 20px;
+        color: #FFF;
+      }
+
+      .chevronDownIcon {
+        color: #FFF
       }
     }
 
@@ -211,6 +274,11 @@
         height: 56px;
         border-radius: 4px;
         background-color: #000;
+        border: none;
+
+        .mobReturnButtonTitle {
+          color: #fff;
+        }
       }
     }
   }

@@ -166,6 +166,7 @@ const OffersAccordion = ({ room }: IOffersAccordion) => {
                   </span>
                 </h4>
               )}{' '} */}
+
             </div>
             {ctaSelected === index && (
               <p className={styles.description}>{item?.priceDescription}</p>
