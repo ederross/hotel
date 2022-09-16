@@ -54,7 +54,7 @@ const Hero = ({ officeDetails, design }: IHeroProps) => {
       }}
     >
       <div className={styles.heroInner}>
-        <span>
+        <div>
           <p>{officeDetails?.officeName}</p>
           <h1>
             {officeDetails?.officeSlogan?.substring(0, 40) ||
@@ -69,7 +69,7 @@ const Hero = ({ officeDetails, design }: IHeroProps) => {
               {t('exploreRooms')}
             </a>
           </div>
-        </span>
+        </div>
       </div>
     </section>
   );
