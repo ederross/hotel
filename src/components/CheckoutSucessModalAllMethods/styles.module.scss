@@ -7,10 +7,13 @@
   width: 100vw;
   height: 100vh;
 
+  @media screen and (min-width: 1024px) {
+    height: auto;
+  }
+
   .modal {
     position: relative;
     display: flex;
-    flex-direction: column;
 
     overflow: auto;
     z-index: 99;
@@ -21,6 +24,138 @@
 
     color: rgba(0, 0, 0);
 
+    flex-direction: column;
+
+    @media screen and (min-width: 1024px) {
+      flex-direction: row;
+    }
+
+    .desktopContainer {
+      display: flex;
+      max-width: 1200px;
+      width: 100%;
+      height: 100vh;
+      margin: 0 auto;
+
+
+      // Left side
+      .desktopPaymentStatusBox {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content:space-between;
+        padding: 4rem 2rem 4rem 2rem;
+
+        .mainTitle {
+          font-size: 24px;
+          font-weight: 400;
+          margin-bottom: 4px;
+        }
+
+        .mainDescription {
+          font-size: 14px;
+          font-weight: 400;
+          max-width: 70%;
+          margin-bottom: 16px;
+
+          span {
+            color: #828282;
+          }
+        }
+        .checkIconWithCodeHolder {
+          display: flex;
+          width: 100%;
+          height: auto;
+          align-items: center;
+
+          .bookingCode {
+            color: #93a2ab;
+          }
+        }
+
+        .bookingTitle {
+          font-size: 20px;
+          margin-top: 1rem;
+          margin-bottom: 16px;
+        }
+
+        .desktopStatusContainer {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          
+
+          .statusContainerHeader {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+          }
+
+          .statusHolder {
+            display: flex;
+            flex-direction: column;
+            z-index: 99;
+
+            .statusTitle {
+              font-size: 18px;
+              margin-top: 8px;
+            }
+            .statusDescription {
+              font-size: 14px;
+              color: #aebfc9;
+            }
+
+            .statusCodeInfoBox {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              justify-content: center;
+            }
+          }
+        }
+      }
+
+        // Rigth Side
+      .desktopPaymentInfo {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .paymentInfoHeader {
+          display: flex;
+          width: 100%;
+          margin-bottom: 8px;
+          justify-content: flex-start;
+          flex-direction: column;
+
+          .date {
+            font-size: 12px;
+            margin-bottom: 4px;
+
+            span {
+              color: #2AB59C;
+            }
+          }
+
+          .dateTimeline {
+            font-size: 20px;
+          }
+        }
+
+        .cardInfo {
+          display: flex;
+          min-height: 200px;
+          width: 100%;
+
+        
+        }
+      }
+    }
+
+    // MOBILE
     .mobSuccessModalHeader {
       position: fixed;
       top: 0;
@@ -49,47 +184,6 @@
       margin-top: 86px;
       background-color: #f9f9f9;
       border-bottom: 1px solid #ccc;
-
-      .statusContainer {
-        display: flex;
-        padding: 0 2rem;
-
-        .statusBox {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          .circleProgress {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 18px;
-            height: 18px;
-            background: #2ab59c;
-            border-radius: 18px;
-
-            .disabledCircle {
-              width: 10px;
-              height: 10px;
-              background: #fff;
-              border-radius: 10px;
-            }
-          }
-
-          .title {
-            margin-left: 4px;
-            font-size: 12px;
-          }
-
-          .line {
-            width: 12px;
-            height: 1px;
-            margin-left: 6px;
-            margin-right: 6px;
-            background-color: #c8c8c8;
-          }
-        }
-      }
     }
 
     .mobTimelineCount {
@@ -114,15 +208,6 @@
         margin-bottom: 12px;
       }
 
-      .mobSuccessPaymentSubtitle {
-        font-size: 14px;
-        color: #93a2ab;
-      }
-
-      .mobSuccessPaymentTitle {
-        font-size: 24px;
-        color: #2ab59c;
-      }
 
       .mobDate {
         font-size: 12px;
@@ -144,69 +229,9 @@
         font-size: 20px;
         color: #666666;
       }
-      .mobPixCode {
-        font-size: 14px;
-        color: #93a2ab;
-        margin-bottom: 1rem;
-      }
+    
 
-      .mobButton {
-        width: 162px;
-        height: 48px;
-        background-color: transparent;
-        border: 1px solid #ccc;
-      }
-    }
-
-    .cardDetailsResultContainer {
-      display: flex;
-      flex-direction: column;
-      padding: 1rem;
-
-      border-bottom: 1px solid #ccc;
-
-      .holderTitle {
-        font-weight: 400;
-        color: #93a2ab;
-        font-size: 14px;
-      }
-      .holderDescription {
-        font-weight: 400;
-        font-size: 14px;
-      }
-
-      .holderCardDetails {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 1rem;
-      }
-    }
-
-    .accItemHeader {
-      display: flex;
-      align-items: center;
-      justify-content: space-between; 
-      padding: 3rem 24px;
-      height: 72px;
-      width: 100%;
-
-      background-color: #2ab59c;
-
-      .accSubtitle {
-        font-weight: 200;
-        font-size: 12px;
-        color: #FFF;
-        margin-bottom: 4px;
-      }
-
-      .accTitle {
-        font-size: 20px;
-        color: #FFF;
-      }
-
-      .chevronDownIcon {
-        color: #FFF
-      }
+   
     }
 
     .mobReturnFeedbackContainer {
@@ -217,36 +242,6 @@
       width: 100%;
       min-height: 72px;
       padding: 2rem 1rem;
-
-      .checkIconContainer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        width: 64px;
-        height: 64px;
-        border-radius: 8px;
-
-        border: 1px solid #2ab59c;
-        margin-bottom: 2rem;
-
-        .circleProgress {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 24px;
-          height: 24px;
-          background: #2ab59c;
-          border-radius: 24px;
-
-          .disabledCircle {
-            width: 10px;
-            height: 10px;
-            background: #fff;
-            border-radius: 10px;
-          }
-        }
-      }
 
       .mobReturnFeedbackTitle {
         font-size: 20px;
@@ -259,11 +254,6 @@
         color: #828282;
         font-size: 14px;
         margin-bottom: 2rem;
-      }
-
-      .mobReturnLocalizationTitle {
-        font-size: 16px;
-        color: #2ab59c;
       }
 
       .mobReturnButton {
@@ -281,5 +271,267 @@
         }
       }
     }
+  }
+}
+
+// Components
+
+.valueBox{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 24px;
+  padding: 24px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: #F9F9F9;
+
+  .value {
+    font-size: 18px;
+    color: #2AB59C;
+  }
+}
+
+.mobSuccessPaymentSubtitle {
+  font-size: 14px;
+  color: #93a2ab;
+}
+
+.mobSuccessPaymentTitle {
+  font-size: 24px;
+  color: #2ab59c;
+}
+
+.pixObsTitle {
+  margin-top: 2rem;
+  font-size: 14px;
+}
+
+.pixObs {
+  font-size: 12px;
+}
+
+.mobPixCode {
+  font-size: 14px;
+  color: #93a2ab;
+  margin-bottom: 1rem;
+}
+
+.mobButton {
+  cursor: pointer;
+  width: 160px;
+  height: 42px;
+  background-color: #FFF;
+  border: 1px solid #ccc;
+  font-size: 12px;
+}
+
+.qrCodeContainerDesk {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+
+.backHome {
+  font-size: 14px;
+  color: #2AB59C;
+}
+
+
+.accItemHeader {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3rem 24px;
+  height: 72px;
+  width: 100%;
+
+  background-color: #2ab59c;
+
+  .accSubtitle {
+    font-weight: 200;
+    font-size: 12px;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .accTitle {
+    font-size: 18px;
+    color: #fff;
+  }
+
+  .chevronDownIcon {
+    color: #fff;
+  }
+}
+
+
+.copyInfoContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0 0 12px 0;
+
+  .copyInfo {
+    font-size: 14px;
+    color: #2AB59C;
+  }
+}
+
+
+.cardDetailsResultContainerDesk {
+  display: flex;
+  flex-direction: column;
+
+
+  .holderTitle {
+    color: #93A2AB;
+    font-weight: 400;
+    font-size: 14px;
+  }
+  .holderDescription {
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  .holderCardDetails {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+
+}
+
+.cardDetailsResultContainer {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #ccc;
+
+  .CaTitle {
+    font-weight: 400;
+    color: #93a2ab;
+    font-size: 14px;
+  }
+  .holderDescription {
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  .holderCardDetails {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .valueBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 24px;
+    padding: 2rem;
+    background-color: #F9F9F9;
+  }
+}
+
+.checkIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+
+  border: 1px solid #2ab59c;
+  margin-bottom: 2rem;
+
+  .circleProgress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: #2ab59c;
+    border-radius: 24px;
+
+    .disabledCircle {
+      width: 10px;
+      height: 10px;
+      background: #fff;
+      border-radius: 10px;
+    }
+  }
+}
+
+.localizationTitle {
+  font-size: 16px;
+  color: #2ab59c;
+}
+
+.line {
+  width: 80%;
+  height: 1px;
+  border: none;
+  margin: 1rem 0;
+  background-color: #c8c8c8;
+}
+
+.statusLine {
+  width: 12px;
+  height: 1px;
+  margin-left: 6px;
+  margin-right: 6px;
+  background-color: #c8c8c8;
+}
+
+.statusLineDesktop {
+  width: 55%;
+
+  margin-left: 6px;
+  margin-right: 6px;
+  border-bottom: 1px dashed #c8c8c8;
+  position: relative;
+  bottom: -18px;
+}
+
+.statusContainer {
+  display: flex;
+  padding: 0 2rem;
+
+  .statusBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .title {
+      margin-left: 4px;
+      font-size: 12px;
+    }
+  }
+}
+
+.circleProgress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #2ab59c;
+  border-radius: 36px;
+  border: 8px solid #fff;
+  position: relative;
+  left: -8px;
+
+  .disabledCircle {
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border-radius: 10px;
   }
 }
