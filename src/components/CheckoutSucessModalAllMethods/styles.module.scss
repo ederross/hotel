@@ -142,6 +142,7 @@
 
           .dateTimeline {
             font-size: 20px;
+            color: #fff;
           }
         }
 
@@ -472,6 +473,7 @@
 .localizationTitle {
   font-size: 16px;
   color: #2ab59c;
+  margin-left: 8px;
 }
 
 .line {
@@ -534,4 +536,16 @@
     background: #fff;
     border-radius: 10px;
   }
+}
+
+.locationContainer {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  align-self: flex-start;
+}
+
+.confirmBtn {
+  cursor: pointer;
+
 }

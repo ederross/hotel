@@ -102,7 +102,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
   };
   const handleCloseCheckoutSuccessModal = () => {
     document.body.style.overflow = 'initial';
-    setSuccessModalVisible(!successModalVisible);
+    setSuccessModalVisible(false);
     dispatch(CleanCart());
     router.push(`/`);
   };
@@ -335,17 +335,13 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
         />
       )}
       {successModalVisible && (
-        <CheckoutSucessModal
+        <CheckoutSucessModalAllMethods
           data={confirmData}
+          payInfos={payInfos}
           officeDetails={officeDetails}
           handleCloseCheckoutSucessModal={handleCloseCheckoutSuccessModal}
         />
       )}
-      <CheckoutSucessModalAllMethods
-        data={confirmData}
-        officeDetails={officeDetails}
-        handleCloseCheckoutSucessModal={handleCloseCheckoutSuccessModal}
-      />
     </>
   );
 };

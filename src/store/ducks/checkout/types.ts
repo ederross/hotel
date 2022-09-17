@@ -28,4 +28,7 @@ export interface methodDetailsTypes {
   account: string;
   accountDigit: string;
   addInformation: string;
+  deadlinePaymentDate: string;
+  qrCodeUrl: string;
+  keyCode: string;
 }
