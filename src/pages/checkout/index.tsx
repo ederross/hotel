@@ -350,26 +350,23 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
   );
 };
 
-// export const getServerSideProps: GetServerSideProps = async ({
-//   locale,
-//   req,
-// }) => {
-//   const id = dynamicOffice ? req.headers.host : officeId;
-//   const officeDetails = await GetOfficeDetails(id);
-//   const design = await GetOfficeDesign(id);
-//   const policies = await GetOfficePolicies(id);
+export const getServerSideProps: GetServerSideProps = async ({ locale, req }) => {
+  const id = dynamicOffice ? req.headers.host.split('.')[0] : officeId;
+  const officeDetails = await GetOfficeDetails(id);
+  const design = await GetOfficeDesign(id);
+  const policies = await GetOfficePolicies(id);
 
-//   return {
-//     props: {
-//       officeDetails,
-//       design,
-//       policies,
-//       ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
-//     },
-//   };
-// };
+  return {
+    props: {
+      officeDetails,
+      design,
+      policies,
+      ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
+    },
+  };
+};
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+/*export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const officeDetails = await GetOfficeDetails(officeId);
   const design = await GetOfficeDesign(officeId);
   const policies = await GetOfficePolicies(officeId);
@@ -383,6 +380,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     },
     revalidate: 60,
   };
-};
+};*/
 
 export default Checkout; // 893
