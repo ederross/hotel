@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import styles from './search.module.scss';
-import { HotelOutlined, AttractionsOutlined } from '@mui/icons-material';
+import { HotelOutlined, AttractionsOutlined, ContentCutOutlined } from '@mui/icons-material';
 import CardRoom from '../../components/CardRoom';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -472,7 +472,7 @@ export default Search;
 };*/
 
 export const getServerSideProps: GetServerSideProps = async ({ locale, req }) => {
-  const id = dynamicOffice ? req.headers.host : officeId;
+  const id = dynamicOffice ? req.headers.host.split('.')[0] : officeId;
   const officeDetails = await GetOfficeDetails(id);
   const design = await GetOfficeDesign(id);
   const servicesResult = await GetServiceSearch(id);
