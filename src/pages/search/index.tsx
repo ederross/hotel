@@ -122,7 +122,7 @@ const Search = ({
         adults,
         children,
         ages: infos?.ages || [],
-        officeId: dynamicOffice ? window?.location?.hostname : officeId,
+        officeId: dynamicOffice ? window?.location?.hostname.split('.')[0] : officeId,
       })
         .then((res: any) => {
           setSearchResult(res?.data);
