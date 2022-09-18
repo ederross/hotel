@@ -75,7 +75,7 @@ const WebFilters = ({
     GetCalendarSearch(
       startSearchDay,
       endSearchDay,
-      dynamicOffice ? window?.location?.hostname : officeId
+      dynamicOffice ? window?.location?.hostname.split('.')[0] : officeId
     )
       .then((res) => setCalendarSearch(res))
       .catch((err) =>
