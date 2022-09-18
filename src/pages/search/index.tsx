@@ -433,7 +433,7 @@ const Search = ({
 
 export default Search;
 
-export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const officeDetails = await GetOfficeDetails(officeId);
   const design = await GetOfficeDesign(officeId);
   const servicesResult = await GetServiceSearch(officeId);
