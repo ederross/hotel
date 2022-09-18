@@ -369,7 +369,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
 //   };
 // };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
   const officeDetails = await GetOfficeDetails(officeId);
   const design = await GetOfficeDesign(officeId);
   const policies = await GetOfficePolicies(officeId);

@@ -178,7 +178,7 @@ export default function Home(props: IHomeProps) {
 //   };
 // };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
   const officeDetails = await GetOfficeDetails(officeId);
   const design = await GetOfficeDesign(officeId);
   const reviews = await GetOfficeReviews(officeId);
