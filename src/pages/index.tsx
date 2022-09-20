@@ -154,31 +154,28 @@ export default function Home(props: IHomeProps) {
   );
 }
 
-// export const getServerSideProps: GetServerSideProps = async ({
-//   locale,
-//   req,
-// }) => {
-//   const id = dynamicOffice ? req.headers.host : officeId;
+export const getServerSideProps: GetServerSideProps = async ({ locale, req }) => {
+  const id = dynamicOffice ? req.headers.host.split('.')[0] : officeId;
 
-//   const officeDetails = await GetOfficeDetails(id);
-//   const design = await GetOfficeDesign(id);
-//   const reviews = await GetOfficeReviews(id);
-//   const images = await GetOfficeImages(id);
-//   const events = await GetOfficeEvents(id);
+  const officeDetails = await GetOfficeDetails(id);
+  const design = await GetOfficeDesign(id);
+  const reviews = await GetOfficeReviews(id);
+  const images = await GetOfficeImages(id);
+  const events = await GetOfficeEvents(id);
 
-//   return {
-//     props: {
-//       officeDetails,
-//       design,
-//       reviews,
-//       events,
-//       images,
-//       ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
-//     },
-//   };
-// };
+  return {
+    props: {
+      officeDetails,
+      design,
+      reviews,
+      events,
+      images,
+      ...(await serverSideTranslations(locale, ['common'], nextI18nConfig)),
+    },
+  };
+};
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+/*export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const officeDetails = await GetOfficeDetails(officeId);
   const design = await GetOfficeDesign(officeId);
   const reviews = await GetOfficeReviews(officeId);
@@ -195,4 +192,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     },
     revalidate: 60,
   };
-};
+};*/
