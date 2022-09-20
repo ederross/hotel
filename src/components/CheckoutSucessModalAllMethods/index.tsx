@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import React, { useState } from 'react';
 import { OfficeDetails } from '../../../data/officeDetails';
-import { PlaceOutlined } from '@mui/icons-material';
+import { PlaceOutlined, CheckOutlined } from '@mui/icons-material';
 import ExpandLessOutlined from '@mui/icons-material/ExpandLessOutlined';
 import ExpandMoreOutlined from '@mui/icons-material/ExpandMoreOutlined';
 import styles from './styles.module.scss';
@@ -11,7 +11,11 @@ import moment from 'moment';
 import QRCode from 'react-qr-code';
 import Countdown from 'react-countdown';
 import { currency } from '../../utils/currency';
-import { PaymethodTypes } from '../../store/ducks/checkout/types';
+import {
+  methodDetailsTypes,
+  PaymethodTypes,
+} from '../../store/ducks/checkout/types';
+import { IPaymentBooking } from '../../services/requests/booking';
 
 export const items = [
   {
@@ -36,6 +40,7 @@ interface ICheckoutSucessModal {
   handleCloseCheckoutSucessModal: () => void;
   officeDetails: OfficeDetails;
   payInfos: any;
+  paymentBooking: IPaymentBooking;
   data: {
     email: string;
     BookingNumber: string;
@@ -55,13 +60,41 @@ export const CheckoutSucessModalAllMethods = ({
   data,
   payInfos,
   officeDetails,
+  paymentBooking,
 }: ICheckoutSucessModal) => {
   const { t, i18n } = useTranslation('common');
   const address = officeDetails?.address;
 
   const [ctaSelected, setCtaSelected] = useState(0);
 
-  const payment = data?.payment;
+  const payType = paymentBooking?.paymentMethod?.paymentMethodTypeCode;
+
+  const payment: any =
+    payType === 4
+      ? {
+          methodDetails: items as any,
+          paymentDetails: [],
+          paymentMethodTypeCode: 4,
+        }
+      : data?.payment;
+
+  const handleCopyAccount = (item: methodDetailsTypes) => {
+    navigator.clipboard.writeText(
+      `${
+        t('bank') +
+        ': ' +
+        item?.bankCode +
+        '\n' +
+        t('agency') +
+        ': ' +
+        item?.bankName +
+        '\n' +
+        t('account') +
+        ': ' +
+        item?.account
+      }`
+    );
+  };
 
   return (
     <>
@@ -143,7 +176,14 @@ export const CheckoutSucessModalAllMethods = ({
                                   ? '#2ab59c'
                                   : '#dfdfdf',
                             }}
-                          ></div>
+                          >
+                            {(data?.bookingStatusCode === 1 ||
+                              data?.bookingStatusCode === 2) && (
+                              <CheckOutlined
+                                style={{ color: '#FFF', fontSize: 24 }}
+                              />
+                            )}
+                          </div>
                           <span className={styles.statusTitle}>
                             {t('booking')}
                           </span>
@@ -167,7 +207,14 @@ export const CheckoutSucessModalAllMethods = ({
                                   ? '#2ab59c'
                                   : '#dfdfdf',
                             }}
-                          ></div>
+                          >
+                            {(data?.bookingStatusCode === 1 ||
+                              data?.bookingStatusCode === 2) && (
+                              <CheckOutlined
+                                style={{ color: '#FFF', fontSize: 24 }}
+                              />
+                            )}
+                          </div>
                           <span className={styles.statusTitle}>
                             {t('payment')}
                           </span>
@@ -187,7 +234,13 @@ export const CheckoutSucessModalAllMethods = ({
                                   ? '#2ab59c'
                                   : '#dfdfdf',
                             }}
-                          ></div>
+                          >
+                            {data?.bookingStatusCode === 1 && (
+                              <CheckOutlined
+                                style={{ color: '#FFF', fontSize: 24 }}
+                              />
+                            )}
+                          </div>
                           <span className={styles.statusTitle}>
                             {t('confirm')}
                           </span>
@@ -210,14 +263,16 @@ export const CheckoutSucessModalAllMethods = ({
 
             <div className={styles.desktopPaymentInfo}>
               {/* DEPÓSITO */}
-              {/* <div className={styles.paymentInfoHeader}>
-                <span className={styles.date}>
-                  Efetue o pagamento até <span>(Segunda, 30 Jun, 2020)</span>
-                </span>
-                <span className={styles.dateTimeline}>
-                  01 dia : 1 hora : 3 min : 52 seg
-                </span>
-              </div> */}
+              {/* {payType === 4 && (
+                <div className={styles.paymentInfoHeader}>
+                  <span className={styles.date}>
+                    Efetue o pagamento até <span>(Segunda, 30 Jun, 2020)</span>
+                  </span>
+                  <span className={styles.dateTimeline}>
+                    01 dia : 1 hora : 3 min : 52 seg
+                  </span>
+                </div>
+              )} */}
 
               <div
                 className={styles.cardInfo}
@@ -226,7 +281,7 @@ export const CheckoutSucessModalAllMethods = ({
                 <div
                   className={styles.cardDetailsResultContainerDesk}
                   style={
-                    payment?.paymentMethodTypeCode === 3
+                    payType === 3
                       ? {
                           height: 'auto',
                           backgroundColor: '#2AB59C',
@@ -236,7 +291,7 @@ export const CheckoutSucessModalAllMethods = ({
                       : { border: '1px solid #E0E0E0', padding: '32px 24px' }
                   }
                 >
-                  {payment?.paymentMethodTypeCode === 3 && (
+                  {payType === 3 && (
                     <div className={styles.paymentInfoHeader}>
                       <span className={styles.date} style={{ color: '#FFF' }}>
                         {t('deadlineMessage') + ' '}
@@ -304,8 +359,8 @@ export const CheckoutSucessModalAllMethods = ({
                   )}
 
                   {/* DEPÓSITO */}
-                  {payment?.paymentMethodTypeCode === 4 &&
-                    items?.map((item, index) => {
+                  {payType === 4 &&
+                    payment?.methodDetails.map((item, index) => {
                       return (
                         <div
                           key={index}
@@ -383,14 +438,14 @@ export const CheckoutSucessModalAllMethods = ({
                                     </span>
                                   </div>
                                 </div>
-                                <div className={styles.holderCardDetails}>
+                                {/* <div className={styles.holderCardDetails}>
                                   <span className={styles.holderTitle}>
                                     {t('favored')}
                                   </span>
                                   <span className={styles.holderDescription}>
-                                    João Gomes
+                                    {item.addInformation}
                                   </span>
-                                </div>
+                                </div> */}
                                 <div className={styles.holderCardDetails}>
                                   <span className={styles.holderTitle}>
                                     {t('obs')}
@@ -400,9 +455,12 @@ export const CheckoutSucessModalAllMethods = ({
                                   </span>
                                 </div>
                               </div>
-                              <div className={styles.copyInfoContainer}>
+                              <div
+                                className={styles.copyInfoContainer}
+                                onClick={() => handleCopyAccount(item)}
+                              >
                                 <span className={styles.copyInfo}>
-                                  {t('copyInfo')}
+                                  {t('copy')}
                                 </span>
                               </div>
                             </>
@@ -411,7 +469,7 @@ export const CheckoutSucessModalAllMethods = ({
                       );
                     })}
                   {/* CREDIT CARD */}
-                  {payment?.paymentMethodTypeCode === 1 && (
+                  {payType === 1 && (
                     <>
                       <span className={styles.mobSuccessPaymentSubtitle}>
                         {t('success')}
@@ -425,7 +483,10 @@ export const CheckoutSucessModalAllMethods = ({
                       <div className={styles.holderCardDetails}>
                         <span className={styles.holderTitle}>{t('name')}</span>
                         <span className={styles.holderDescription}>
-                          Airton Senna Santos Filho
+                          {
+                            paymentBooking?.paymentMethod?.methodDetails[0]
+                              ?.cardHolder
+                          }
                         </span>
                       </div>
                       <div className={styles.holderCardDetails}>
@@ -433,7 +494,7 @@ export const CheckoutSucessModalAllMethods = ({
                           {t('cardNumber')}
                         </span>
                         <span className={styles.holderDescription}>
-                          ************065
+                          **** **** **** ****
                         </span>
                       </div>
                       <div
@@ -447,12 +508,20 @@ export const CheckoutSucessModalAllMethods = ({
                             {t('validity')}
                           </span>
                           <span className={styles.holderDescription}>
-                            02/30
+                            {
+                              paymentBooking?.paymentMethod?.methodDetails[0]
+                                ?.encryptedExpiryYear
+                            }
                           </span>
                         </div>
                         <div className={styles.holderCardDetails}>
                           <span className={styles.holderTitle}>{t('cvv')}</span>
-                          <span className={styles.holderDescription}>054</span>
+                          <span className={styles.holderDescription}>
+                            {
+                              paymentBooking?.paymentMethod?.methodDetails[0]
+                                ?.encryptedSecurityCode
+                            }
+                          </span>
                         </div>
                       </div>
                     </>

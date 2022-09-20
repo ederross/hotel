@@ -376,6 +376,7 @@
   justify-content: center;
   width: 100%;
   padding: 0 0 12px 0;
+  cursor: pointer;
 
   .copyInfo {
     font-size: 14px;
@@ -461,15 +462,6 @@
     background: #2ab59c;
     border-radius: 24px;
   }
-  .disabledCircle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 10px;
-    height: 10px;
-    background: #fff;
-    border-radius: 10px;
-  }
 }
 
 .localizationTitle {
@@ -501,7 +493,7 @@
   margin-right: 6px;
   border-bottom: 1px dashed #c8c8c8;
   position: relative;
-  bottom: -18px;
+  bottom: -32px;
 }
 
 .statusContainer {
@@ -524,20 +516,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 64px;
+  height: 64px;
   background: #2ab59c;
-  border-radius: 36px;
+  border-radius: 64px;
   border: 8px solid #fff;
   position: relative;
   left: -8px;
-
-  .disabledCircle {
-    width: 10px;
-    height: 10px;
-    background: #fff;
-    border-radius: 10px;
-  }
 }
 
 .locationContainer {

@@ -17,6 +17,8 @@ interface ICreditCard {
   cardNumber: string;
   expiryYear: string;
   securityCode: string;
+  cardHolder: string;
+  setCardHolder: React.Dispatch<React.SetStateAction<string>>;
   setCardNumber: React.Dispatch<React.SetStateAction<string>>;
   setExpiryYear: React.Dispatch<React.SetStateAction<string>>;
   setSecurityCode: React.Dispatch<React.SetStateAction<string>>;
@@ -38,6 +40,8 @@ const CreditCard = ({
   setCardNumber,
   setExpiryYear,
   setSecurityCode,
+  cardHolder,
+  setCardHolder,
   fieldErrors,
 }: ICreditCard) => {
   const [focused, setFocused] = useState(false);
@@ -103,6 +107,8 @@ const CreditCard = ({
           className={styles.cardHolderName}
           required
           onFocus={handleInputFocus}
+          value={cardHolder}
+          onChange={(v) => setCardHolder(v.target.value)}
         />
         <div
           className={styles.cardNumberContainer}

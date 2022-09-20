@@ -56,6 +56,7 @@ export const CheckoutPersonalData = ({
   const [cardNumber, setCardNumber] = useState('');
   const [expiryYear, setExpiryYear] = useState('');
   const [securityCode, setSecurityCode] = useState<any>();
+  const [cardHolder, setCardHolder] = useState('');
 
   const [selectedPayMethod, setSelectedPayMethod] = useState(
     checkout[0]?.paymentMethodTypeCode || 0
@@ -81,6 +82,7 @@ export const CheckoutPersonalData = ({
                   encryptedCardNumber: cardNumber,
                   encryptedExpiryYear: expiryYear,
                   encryptedSecurityCode: securityCode,
+                  cardHolder: cardHolder,
                 },
               ]
             : null,
@@ -256,6 +258,8 @@ export const CheckoutPersonalData = ({
           cardNumber={cardNumber}
           expiryYear={expiryYear}
           securityCode={securityCode}
+          cardHolder={cardHolder}
+          setCardHolder={setCardHolder}
           setCardNumber={setCardNumber}
           setExpiryYear={setExpiryYear}
           setSecurityCode={setSecurityCode}

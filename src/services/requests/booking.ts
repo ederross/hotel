@@ -24,6 +24,7 @@ export interface IPaymentBooking {
     methodDetails: [
       {
         cardSchemeTypeCode: number | null;
+        cardHolder: string | null;
         encryptedCardNumber: string | null;
         encryptedExpiryYear: string | null;
         encryptedSecurityCode: string | null;

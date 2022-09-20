@@ -161,6 +161,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
       methodDetails: [
         {
           cardSchemeTypeCode: null,
+          cardHolder: null,
           encryptedCardNumber: null,
           encryptedExpiryYear: null,
           encryptedSecurityCode: null,
@@ -340,13 +341,17 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
           payInfos={payInfos}
           officeDetails={officeDetails}
           handleCloseCheckoutSucessModal={handleCloseCheckoutSuccessModal}
+          paymentBooking={paymentBooking}
         />
       )}
     </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale, req }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  locale,
+  req,
+}) => {
   const id = dynamicOffice ? req.headers.host.split('.')[0] : officeId;
   const officeDetails = await GetOfficeDetails(id);
   const design = await GetOfficeDesign(id);
