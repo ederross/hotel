@@ -460,13 +460,15 @@
     height: 24px;
     background: #2ab59c;
     border-radius: 24px;
-
-    .disabledCircle {
-      width: 10px;
-      height: 10px;
-      background: #fff;
-      border-radius: 10px;
-    }
+  }
+  .disabledCircle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border-radius: 10px;
   }
 }
 

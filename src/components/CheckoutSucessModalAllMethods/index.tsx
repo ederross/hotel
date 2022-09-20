@@ -96,8 +96,7 @@ export const CheckoutSucessModalAllMethods = ({
                 </div>
                 <span className={styles.mainTitle}>{t('success')}</span>
                 <span className={styles.mainDescription}>
-                  Falta muito pouco para sua hospedagem! Acompanhe o status de
-                  sua reserva através do e-mail: <span>{data?.email}</span>
+                  {t('checkoutMessage')} <span>{data?.email}</span>
                 </span>
                 <a
                   className={styles.locationContainer}
@@ -135,13 +134,22 @@ export const CheckoutSucessModalAllMethods = ({
                     >
                       <div className={styles.statusHolder}>
                         <div className={styles.statusCodeInfoBox}>
-                          <div className={styles.circleProgress}></div>
+                          <div
+                            className={styles.circleProgress}
+                            style={{
+                              backgroundColor:
+                                data?.bookingStatusCode === 1 ||
+                                data?.bookingStatusCode === 2
+                                  ? '#2ab59c'
+                                  : '#dfdfdf',
+                            }}
+                          ></div>
                           <span className={styles.statusTitle}>
                             {t('booking')}
                           </span>
                         </div>
                         <span className={styles.statusDescription}>
-                          Order was received and scheduled
+                          {t('orderReceivedScheduled')}
                         </span>
                       </div>
 
@@ -150,7 +158,16 @@ export const CheckoutSucessModalAllMethods = ({
                         style={{ marginLeft: 4, marginRight: 42 }}
                       >
                         <div className={styles.statusCodeInfoBox}>
-                          <div className={styles.circleProgress}></div>
+                          <div
+                            className={styles.circleProgress}
+                            style={{
+                              backgroundColor:
+                                data?.bookingStatusCode === 1 ||
+                                data?.bookingStatusCode === 2
+                                  ? '#2ab59c'
+                                  : '#dfdfdf',
+                            }}
+                          ></div>
                           <span className={styles.statusTitle}>
                             {t('payment')}
                           </span>
@@ -162,7 +179,15 @@ export const CheckoutSucessModalAllMethods = ({
 
                       <div className={styles.statusHolder}>
                         <div className={styles.statusCodeInfoBox}>
-                          <div className={styles.circleProgress}></div>
+                          <div
+                            className={styles.circleProgress}
+                            style={{
+                              backgroundColor:
+                                data?.bookingStatusCode === 1
+                                  ? '#2ab59c'
+                                  : '#dfdfdf',
+                            }}
+                          ></div>
                           <span className={styles.statusTitle}>
                             {t('confirm')}
                           </span>
@@ -214,7 +239,7 @@ export const CheckoutSucessModalAllMethods = ({
                   {payment?.paymentMethodTypeCode === 3 && (
                     <div className={styles.paymentInfoHeader}>
                       <span className={styles.date} style={{ color: '#FFF' }}>
-                        Efetue o pagamento até{' '}
+                        {t('deadlineMessage') + ' '}
                         <span style={{ color: '#FFF' }}>
                           {moment(
                             payment?.methodDetails[0]?.deadlinePaymentDate
@@ -261,7 +286,7 @@ export const CheckoutSucessModalAllMethods = ({
                             )
                           }
                         >
-                          Copiar
+                          {t('copy')}
                         </button>
                       </div>
 
@@ -273,7 +298,7 @@ export const CheckoutSucessModalAllMethods = ({
                       </span>
 
                       <span style={{ color: '#FFF' }} className={styles.pixObs}>
-                        Favor responder o e-mail com o comprovante do depósito.
+                        {payment?.methodDetails[0]?.additionalInformation}
                       </span>
                     </div>
                   )}

@@ -63,7 +63,9 @@ const WebFilters = ({
     date.getMonth() + 2,
     0
   ).getDate();
-  const maxLength = new Date(date.getFullYear() + 2, 11, lastDay);
+  const [maxLength, setMaxLength] = useState(
+    new Date(date.getFullYear() + 2, 11, lastDay)
+  );
 
   const handleUpdateState = (props: Object) =>
     setDateState([{ ...dateState[0], ...props }]);
