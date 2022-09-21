@@ -19,6 +19,7 @@ import { currency } from '../../utils/currency';
 import { toast } from 'react-toastify';
 
 import styles from './styles.module.scss';
+import { pluralProfix } from '../../utils/pluralRules';
 
 interface ICartModal {
   handleCloseCartModal: () => void;
@@ -59,7 +60,6 @@ const CartModal = ({
       .then((res) => {
         handleCloseCartModal();
         res?.data?.length > 0 && router.push('/checkout');
-        console.log(res.data);
         res?.data && dispatch(SetCheckoutRedux(res?.data));
         setLoadingCheckout(false);
       })
@@ -100,7 +100,7 @@ const CartModal = ({
           <div className={styles.contentContainer}>
             <div>
               {objects.length > 0 && (
-                <h3 className={styles.servicesTitle}>{t('Quartos')}</h3>
+                <h3 className={styles.servicesTitle}>{t('rooms')}</h3>
               )}
               {objects.map((room, index) => (
                 <div key={index} className={styles.roomContainer}>
@@ -116,29 +116,19 @@ const CartModal = ({
                     <div className={styles.roomNameAdultChildContainer}>
                       <div className={styles.row}>
                         <h5>
-                          {room.infos?.adults < 2 && room.infos?.adults > 0
-                            ? t('adultWithCount_one', {
-                                count: room.infos?.adults,
-                              })
-                            : room.infos?.adults === 0
-                            ? t('adultWithCount_other', {
-                                count: room.infos?.adults,
-                              })
-                            : t('adultWithCount_other', {
-                                count: room.infos?.adults,
-                              })}{' '}
-                          {'&'}{' '}
-                          {room.infos?.children < 2 && room.infos?.children > 0
-                            ? t('childrenWithCount_one', {
-                                count: room.infos?.children,
-                              })
-                            : room.infos?.children === 0
-                            ? t('childrenWithCount_one', {
-                                count: room.infos?.children,
-                              })
-                            : t('childrenWithCount_other', {
-                                count: room.infos?.children,
-                              })}
+                          {t(
+                            `adult_${pluralProfix(
+                              room.infos?.adults,
+                              router.locale
+                            )}`
+                          )}
+                          {' & '}
+                          {t(
+                            `children_${pluralProfix(
+                              room.infos?.children,
+                              router.locale
+                            )}`
+                          )}
                         </h5>
                         {!isCheckoutSeeAllData && (
                           <Delete

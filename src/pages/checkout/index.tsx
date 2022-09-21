@@ -210,18 +210,20 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
       {/* TODO: SUMIR QUANDO MODAL DE SUCESSO APARECER */}
       {/* <Header design={design} /> */}
       <main className={styles.mainBox}>
-        {/* <div
-          className={styles.mobHeader}
-          style={{
-            boxShadow: scrolled ? '0px 1px 7px -2px #C8C8C8' : null,
-          }}
-        >
-          <div onClick={() => router.back()} className={styles.btnGoBack}>
-            <ChevronLeft width={24} height={24} />
-          </div>
+        {!successModalVisible && (
+          <div
+            className={styles.mobHeader}
+            style={{
+              boxShadow: scrolled ? '0px 1px 7px -2px #C8C8C8' : null,
+            }}
+          >
+            <div onClick={() => router.back()} className={styles.btnGoBack}>
+              <ChevronLeft width={24} height={24} />
+            </div>
 
-          <h2>Checkout</h2>
-        </div> */}
+            <h2>{t('checkout')}</h2>
+          </div>
+        )}
 
         <div className={styles.mobTotalPrice}>
           <div>
@@ -297,16 +299,18 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
           />
 
           <div className={styles.mobConfirmContainer}>
-            <h6>
-              {t('byClickingButtonBelowAgreePolicies')}:{' '}
-              <strong>
-                {' '}
-                <u>
-                  {t('reservationPolicies')}, {t('refundPolicy')} {t('and')}{' '}
-                  {t('bookingRescheduling')}
-                </u>
-              </strong>
-            </h6>
+            <div
+              className={styles.termsArea}
+              onClick={() => setShowDynamicInfoModal('book')}
+            >
+              <h6>
+                {t('byClickingButtonAboveAgreePolicies')}:
+                <strong>
+                  {' '}
+                  <u>{t('reservationPolicies')}</u>
+                </strong>
+              </h6>
+            </div>
 
             <motion.button
               initial={{ scale: 0.9 }}

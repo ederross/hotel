@@ -16,7 +16,7 @@ export const PoliciesContainer = ({
   handleBookingPolicies,
 }: IPoliciesContainerProps) => {
   const { t } = useTranslation();
-  const [policy, setPolicy] = useState(0);
+  const [policy, setPolicy] = useState(null);
   const [showMoreDescription, setShowMoreDescription] = useState(false);
 
   const {
@@ -97,19 +97,22 @@ export const PoliciesContainer = ({
       <div className={styles.mobPoliticsContainer}>
         <h3>{t('policy_other')}</h3>
         <h5>
-          Lorem ipsum dolor sit amet{' '}
-          <a title="Políticas de reembolso">{t('knowMore')}</a>
-        </h5>
-        <h5>
-          Lorem ipsum dolor sit amet{' '}
-          <a title="Política de Causas de Força Maior" href="">
+          {t('reservationPolicies')}{' '}
+          <a
+            title="Políticas de reembolso"
+            style={{ cursor: 'pointer' }}
+            onClick={handleBookingPolicies}
+          >
             {t('knowMore')}
           </a>
         </h5>
         <div className={styles.policyCardContainer}>
-          <div className={styles.policyCard} onClick={() => setPolicy(0)}>
+          <div
+            className={styles.policyCard}
+            onClick={() => setPolicy(policy === 0 ? null : 0)}
+          >
             <div className={styles.row}>
-              <h3>{t('houseRules')}</h3>
+              <h3>{t('accommodationRules')}</h3>
               {policy === 0 ? (
                 <ChevronUp
                   className={styles.chevronIcon}
@@ -125,13 +128,68 @@ export const PoliciesContainer = ({
               )}
             </div>
             {policy === 0 && (
-              <p>
-                Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem
-                ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
-                dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit
-                amet
-              </p>
+              <>
+                <h6 style={{ marginTop: 16 }}>{t('checkIn')}</h6>
+                <div className={styles.row}>
+                  <IconImportDynamically iconName={1517} size={20} />
+                  <p>{policies.bookPolicy.checkinWindow.startTime}</p>
+                </div>
+                <h6 style={{ marginTop: 16 }}>{t('checkOut')}</h6>
+                <div className={styles.row}>
+                  <IconImportDynamically iconName={1517} size={20} />
+                  <p>{policies.bookPolicy.checkoutTime.endTime}</p>
+                </div>
+                <h6 style={{ marginTop: 16 }}>{t('upFrontPercentage')}</h6>
+                <div className={styles.row}>
+                  <IconImportDynamically iconName={1285} size={20} />
+                  <p>{policies.upfrontPercentage}%</p>
+                </div>
+              </>
             )}
+            {policies?.policies?.map((item, policeIndex) => (
+              <div
+                key={policeIndex}
+                className={styles.policyCard}
+                onClick={() =>
+                  setPolicy(policy === policeIndex + 1 ? null : policeIndex + 1)
+                }
+              >
+                <div className={styles.row}>
+                  <h3>
+                    {policyTypeDomain?.data?.find(
+                      (p) => p.domainItemCode === item.PolicyTypeCode
+                    )?.domainItemValue || '-'}
+                  </h3>
+                  {policy === 0 ? (
+                    <ChevronUp
+                      className={styles.chevronIcon}
+                      width={18}
+                      height={18}
+                    />
+                  ) : (
+                    <ChevronDown
+                      className={styles.chevronIcon}
+                      width={18}
+                      height={18}
+                    />
+                  )}
+                </div>
+                {policy === policeIndex + 1 && (
+                  <>
+                    <h4>{item.PolicyDescription}</h4>
+                    {item?.Rules?.map((rule, index) => (
+                      <div className={styles.row} key={index}>
+                        <IconImportDynamically
+                          iconName={rule?.DisplayIconTypeCode}
+                          size={20}
+                        />
+                        <p>{rule?.PolicyRuleDescription || '-'}</p>
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </div>

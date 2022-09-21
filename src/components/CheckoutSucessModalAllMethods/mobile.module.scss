@@ -167,6 +167,7 @@
         align-items: flex-end;
         background-color: #000;
         padding-bottom: 16px;
+        z-index: 1;
   
         span {
           color: #fff;
@@ -460,20 +461,10 @@
       height: 24px;
       background: #2ab59c;
       border-radius: 24px;
-  
-      .disabledCircle {
-        width: 10px;
-        height: 10px;
-        background: #fff;
-        border-radius: 10px;
-      }
     }
   }
   
-  .localizationTitle {
-    font-size: 16px;
-    color: #2ab59c;
-  }
+  
   
   .line {
     width: 80%;
@@ -528,12 +519,17 @@
     border: 8px solid #fff;
     position: relative;
     left: -8px;
-  
-    .disabledCircle {
-      width: 10px;
-      height: 10px;
-      background: #fff;
-      border-radius: 10px;
+  }
+
+  .locationContainer {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    align-self: center;
+
+    .localizationTitle {
+      font-size: 16px;
+      color: #2ab59c;
     }
   }
   

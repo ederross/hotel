@@ -46,7 +46,6 @@ const CartMenu = ({ openCart }: ICartMenu) => {
     PostPaymentMethods(cart)
       .then((res) => {
         res?.data?.length > 0 && router.push('/checkout');
-        console.log(res.data);
         res?.data && dispatch(SetCheckoutRedux(res?.data));
         setLoadingCheckout(false);
       })

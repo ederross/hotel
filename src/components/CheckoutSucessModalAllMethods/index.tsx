@@ -17,7 +17,7 @@ import {
 } from '../../store/ducks/checkout/types';
 import { IPaymentBooking } from '../../services/requests/booking';
 
-export const items = [
+export const depositMock = [
   {
     bankCode: '001',
     bankName: 'Banco do Brasil',
@@ -63,16 +63,16 @@ export const CheckoutSucessModalAllMethods = ({
   paymentBooking,
 }: ICheckoutSucessModal) => {
   const { t, i18n } = useTranslation('common');
-  const address = officeDetails?.address;
 
   const [ctaSelected, setCtaSelected] = useState(0);
 
   const payType = paymentBooking?.paymentMethod?.paymentMethodTypeCode;
+  const address = officeDetails?.address;
 
   const payment: any =
     payType === 4
       ? {
-          methodDetails: items as any,
+          methodDetails: depositMock as any,
           paymentDetails: [],
           paymentMethodTypeCode: 4,
         }
