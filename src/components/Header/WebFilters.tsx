@@ -14,7 +14,6 @@ import { GetCalendarSearch } from '../../services/requests/booking';
 import moment from 'moment';
 import { AppStore } from '../../store/types';
 import { useSelector } from 'react-redux';
-import { dynamicOffice, officeId } from '../../services/api';
 
 interface IWebFilters {
   closeDatePickerWeb: () => void;
@@ -33,6 +32,8 @@ interface IWebFilters {
   childrenAges: number[];
   setChildrenAges: Dispatch<SetStateAction<number[]>>;
   events?: EventsHome[];
+  calendarSearch: any[];
+  setFirstMonth: Dispatch<SetStateAction<Date>>;
 }
 
 const WebFilters = ({
@@ -46,6 +47,8 @@ const WebFilters = ({
   childrenAges,
   setChildrenAges,
   events,
+  calendarSearch,
+  setFirstMonth,
 }: IWebFilters) => {
   const { locale } = useRouter();
   const { t } = useTranslation('common');
@@ -53,9 +56,6 @@ const WebFilters = ({
   const {
     cart: { infos },
   } = useSelector((state: AppStore) => state);
-
-  const [calendarSearch, setCalendarSearch] = useState([]);
-  const [firstMonth, setFirstMonth] = useState<Date>();
 
   const date = new Date();
   const lastDay = new Date(
@@ -69,21 +69,6 @@ const WebFilters = ({
 
   const handleUpdateState = (props: Object) =>
     setDateState([{ ...dateState[0], ...props }]);
-
-  const startSearchDay = moment(firstMonth).format('YYYY-MM-DD');
-  const endSearchDay = moment(firstMonth).add(2, 'months').format('YYYY-MM-DD');
-
-  useEffect(() => {
-    GetCalendarSearch(
-      startSearchDay,
-      endSearchDay,
-      dynamicOffice ? window?.location?.hostname.split('.')[0] : officeId
-    )
-      .then((res) => setCalendarSearch(res))
-      .catch((err) =>
-        console.log('>> FALHA AO PESQUISAR O CALENDÁRIO <<', err)
-      );
-  }, [startSearchDay, firstMonth, endSearchDay]);
 
   const findCalendarDay = (date: Date) => {
     const res = calendarSearch?.find(

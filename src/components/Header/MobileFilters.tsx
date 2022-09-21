@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { Add, Close, RemoveOutlined } from '@mui/icons-material';
 import { EventsHome } from '../../../data/events';
+import moment from 'moment';
 
 interface IFilters {
   closeMobileFilters: () => void;
@@ -33,6 +34,8 @@ interface IFilters {
   childrenAges: number[];
   setChildrenAges: Dispatch<SetStateAction<number[]>>;
   events?: EventsHome[];
+  calendarSearch: any[];
+  setFirstMonth: Dispatch<SetStateAction<Date>>;
 }
 
 const Filters = ({
@@ -47,6 +50,8 @@ const Filters = ({
   childrenAges,
   setChildrenAges,
   events,
+  calendarSearch,
+  setFirstMonth,
 }: IFilters) => {
   const { locale } = useRouter();
   const { t } = useTranslation('common');
@@ -61,6 +66,16 @@ const Filters = ({
 
   const handleUpdateState = (props: Object) =>
     setDateState([{ ...dateState[0], ...props }]);
+
+  const findCalendarDay = (date: Date) => {
+    const res = calendarSearch?.find(
+      (c) =>
+        moment(new Date(c.referenceDate).setUTCHours(3)).format(
+          'YYYY-MM-DD'
+        ) === moment(date).format('YYYY-MM-DD')
+    );
+    return res ? res : '-';
+  };
 
   return (
     <>
@@ -87,7 +102,9 @@ const Filters = ({
               ranges={dateState}
               months={2}
               locale={locales[locale === 'ptBR' ? 'pt' : locale]}
-              dayContentRenderer={(date) => customDayContent(date, null)}
+              dayContentRenderer={(date: Date) =>
+                customDayContent(date, findCalendarDay(date))
+              }
               direction={'vertical'}
               minDate={new Date()}
               rangeColors={['var(--primary-color)']}
@@ -95,6 +112,9 @@ const Filters = ({
               showPreview
               maxDate={maxDateLength}
               preventSnapRefocus
+              onShownDateChange={(date) =>
+                setFirstMonth(new Date(date.getFullYear(), date.getMonth(), 1))
+              }
             />
           </Container>
 

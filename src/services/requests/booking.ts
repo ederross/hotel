@@ -103,6 +103,7 @@ export const GetCalendarSearch = async (
   endDate: string,
   id: string
 ) => {
+  console.log('[CALENDAR] Pesquisando valores...');
   const res = await api
     .get('/booking/calendar-search', {
       headers: {

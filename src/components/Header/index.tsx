@@ -27,6 +27,8 @@ import CartModal from '../CartModal';
 import { ToastContainer } from 'react-toastify';
 import { CleanCart, SetCartInfos } from '../../store/ducks/cart/actions';
 import { pluralProfix } from '../../utils/pluralRules';
+import { GetCalendarSearch } from '../../services/requests/booking';
+import { dynamicOffice, officeId } from '../../services/api';
 
 interface IHeader {
   design: Design;
@@ -52,6 +54,35 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
   const [openLanguageSwitcher, setOpenLanguageSwitcher] = useState(false);
   const [openCart, setOpenCart] = useState(false);
   const [cartMobileOpen, setCartMobileOpen] = useState(false);
+
+  //calendar
+  const [loadingCalendar, setLoadingCalendar] = useState(false);
+  const [calendarSearch, setCalendarSearch] = useState([]);
+  const [firstMonth, setFirstMonth] = useState<Date>();
+
+  const startSearchDay = moment(firstMonth).format('YYYY-MM-DD');
+  const endSearchDay = moment(firstMonth).add(2, 'months').format('YYYY-MM-DD');
+
+  useEffect(() => {
+    if (inputCalendars) {
+      setLoadingCalendar(true);
+      if (!loadingCalendar) {
+        GetCalendarSearch(
+          startSearchDay,
+          endSearchDay,
+          dynamicOffice ? window?.location?.hostname.split('.')[0] : officeId
+        )
+          .then((res) => {
+            setCalendarSearch(res);
+            setLoadingCalendar(false);
+          })
+          .catch((err) => {
+            console.log('>> FALHA AO PESQUISAR O CALENDÁRIO <<', err);
+            setLoadingCalendar(false);
+          });
+      }
+    }
+  }, [startSearchDay, firstMonth, endSearchDay, inputCalendars]);
 
   const { startDate, endDate, adults, children }: any = router.query;
 
@@ -506,6 +537,8 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
               setChildrenAges={setChildrenAges}
               numberOfChildren={numberOfChildren}
               events={events}
+              calendarSearch={calendarSearch}
+              setFirstMonth={setFirstMonth}
             />
           )}
 
@@ -522,6 +555,8 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
               setChildrenAges={setChildrenAges}
               numberOfChildren={numberOfChildren}
               events={events}
+              calendarSearch={calendarSearch}
+              setFirstMonth={setFirstMonth}
             />
           )}
           {openLanguageSwitcher && (
