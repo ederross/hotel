@@ -7,8 +7,36 @@ import ExpandMoreOutlined from '@mui/icons-material/ExpandMoreOutlined';
 import { useTranslation } from 'next-i18next';
 import { items } from '.';
 import Link from 'next/link';
+import { OfficeDetails } from '../../../data/officeDetails';
+import { IPaymentBooking } from '../../services/requests/booking';
+import { PaymethodTypes } from '../../store/ducks/checkout/types';
 
-const CheckoutSucessModalAllMethods = () => {
+interface ICheckoutSucessModal {
+  handleCloseCheckoutSucessModal: () => void;
+  officeDetails: OfficeDetails;
+  payInfos: any;
+  paymentBooking: IPaymentBooking;
+  data: {
+    email: string;
+    BookingNumber: string;
+    bookingStatusCode: number;
+    bookingStatusMsg: string;
+    bookingDetail: {
+      checkIn: string;
+      checkOut: string;
+    };
+    welcomeMsg: string;
+    payment: PaymethodTypes;
+  };
+}
+
+export const CheckoutSucessModalAllMethodsMobile = ({
+  handleCloseCheckoutSucessModal,
+  data,
+  payInfos,
+  officeDetails,
+  paymentBooking,
+}: ICheckoutSucessModal) => {
   const { t, i18n } = useTranslation('common');
 
   const [ctaSelected, setCtaSelected] = useState(0);
@@ -200,5 +228,3 @@ const CheckoutSucessModalAllMethods = () => {
     </>
   );
 };
-
-export default CheckoutSucessModalAllMethods;

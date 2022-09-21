@@ -42,6 +42,7 @@ import { CheckoutPaymentInfo } from '../../components/CheckoutPaymentInfo';
 import { VerifyCheckoutFields } from '../../utils/verifyCheckoutFields';
 import { dynamicOffice, officeId } from '../../services/api';
 import { CheckoutSucessModalAllMethods } from '../../components/CheckoutSucessModalAllMethods';
+import { CheckoutSucessModalAllMethodsMobile } from '../../components/CheckoutSucessModalAllMethods/Mobile';
 interface ICheckout {
   design: Design;
   policies: Policy;
@@ -335,14 +336,27 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
           type={showDynamicInfoModal}
         />
       )}
+
       {successModalVisible && (
-        <CheckoutSucessModalAllMethods
-          data={confirmData}
-          payInfos={payInfos}
-          officeDetails={officeDetails}
-          handleCloseCheckoutSucessModal={handleCloseCheckoutSuccessModal}
-          paymentBooking={paymentBooking}
-        />
+        <>
+          {size.width < 868 ? (
+            <CheckoutSucessModalAllMethodsMobile
+              data={confirmData}
+              payInfos={payInfos}
+              officeDetails={officeDetails}
+              handleCloseCheckoutSucessModal={handleCloseCheckoutSuccessModal}
+              paymentBooking={paymentBooking}
+            />
+          ) : (
+            <CheckoutSucessModalAllMethods
+              data={confirmData}
+              payInfos={payInfos}
+              officeDetails={officeDetails}
+              handleCloseCheckoutSucessModal={handleCloseCheckoutSuccessModal}
+              paymentBooking={paymentBooking}
+            />
+          )}
+        </>
       )}
     </>
   );

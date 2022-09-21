@@ -7,13 +7,16 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useWindowSize } from '../../hooks/UseWindowSize';
+import { PostPaymentMethods } from '../../services/requests/booking';
 import {
   CleanCart,
   RemoveProductToCart,
   RemoveServiceToCart,
 } from '../../store/ducks/cart/actions';
+import { SetCheckoutRedux } from '../../store/ducks/checkout/actions';
 import { AppStore } from '../../store/types';
 import { currency } from '../../utils/currency';
+import { toast } from 'react-toastify';
 
 import styles from './styles.module.scss';
 
@@ -34,12 +37,39 @@ const CartModal = ({
   // Window Sizes
   const size = useWindowSize();
 
-  const {
-    cart: { objects, services },
-  } = useSelector((state: AppStore) => state);
+  const toastConfig = {
+    position: size?.width < 868 ? 'top-left' : 'bottom-right',
+    autoClose: 5000,
+    theme: 'colored',
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  };
+
+  const { cart } = useSelector((state: AppStore) => state);
+  const [loadingCheckout, setLoadingCheckout] = useState(false);
+  const { objects, services } = cart;
 
   const handleCleanCart = () => dispatch(CleanCart());
-  const handleReserve = () => router.push('/checkout');
+  const handleReserve = () => {
+    setLoadingCheckout(true);
+    PostPaymentMethods(cart)
+      .then((res) => {
+        handleCloseCartModal();
+        res?.data?.length > 0 && router.push('/checkout');
+        console.log(res.data);
+        res?.data && dispatch(SetCheckoutRedux(res?.data));
+        setLoadingCheckout(false);
+      })
+      .catch((err) => {
+        console.log('POST PAYMENT METHOD ERROR!', err);
+        setLoadingCheckout(false);
+        toast.error(`Falha ao reservar quartos`, toastConfig as any);
+        return [];
+      });
+  };
 
   const handleRemoveItem = (id: any, service: boolean) => {
     if (service) {

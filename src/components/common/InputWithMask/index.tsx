@@ -29,7 +29,7 @@ const InputWithMask = ({
           <TelefoneBrasileiroInput
             className={styles.inputWithMask}
             value={value}
-            temDDD
+            temDDD={true}
             onChange={(event) => setValue(event.target.value)}
             style={{
               borderColor: downMessage ? '#FF2424' : 'rgb(194, 194, 194)',
