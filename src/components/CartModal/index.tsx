@@ -100,7 +100,7 @@ const CartModal = ({
           <div className={styles.contentContainer}>
             <div>
               {objects.length > 0 && (
-                <h3 className={styles.servicesTitle}>{t('rooms')}</h3>
+                <h3 className={styles.servicesTitle}>{t('room_other')}</h3>
               )}
               {objects.map((room, index) => (
                 <div key={index} className={styles.roomContainer}>

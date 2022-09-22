@@ -82,7 +82,6 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
   };
 
   const [scrolled, setScrolled] = useState(false);
-  const [successModalVisible, setSuccessModalVisible] = useState(false);
   const [showCartModal, setShowCartModal] = useState(false);
   const [showDynamicInfoModal, setShowDynamicInfoModal] = useState('');
   const [confirmData, setConfirmData] = useState<any>();
@@ -96,14 +95,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
     document.body.style.overflow = 'initial';
     setShowDynamicInfoModal('');
   };
-
-  const handleOpenCheckoutSuccessModal = () => {
-    document.body.style.overflow = 'hidden';
-    setSuccessModalVisible(true);
-  };
   const handleCloseCheckoutSuccessModal = () => {
-    document.body.style.overflow = 'initial';
-    setSuccessModalVisible(false);
     dispatch(CleanCart());
     router.push(`/`);
   };
@@ -188,7 +180,6 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
               ...res?.data,
               email: client?.contacts[0]?.contactText,
             });
-            handleOpenCheckoutSuccessModal();
           })
           .catch((err) =>
             toast.error(t('createBookingError'), toastConfig as any)
@@ -207,141 +198,127 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
         <meta name="keywords" content={design?.metaKeywords} />
         <link rel="icon" href={design?.favIconUrl} />
       </Head>
-      {/* TODO: SUMIR QUANDO MODAL DE SUCESSO APARECER */}
-      {/* <Header design={design} /> */}
-      <main className={styles.mainBox}>
-        {!successModalVisible && (
-          <div
-            className={styles.mobHeader}
-            style={{
-              boxShadow: scrolled ? '0px 1px 7px -2px #C8C8C8' : null,
-            }}
-          >
-            <div onClick={() => router.back()} className={styles.btnGoBack}>
-              <ChevronLeft width={24} height={24} />
-            </div>
 
-            <h2>{t('checkout')}</h2>
-          </div>
-        )}
-
-        <div className={styles.mobTotalPrice}>
-          <div>
-            <h4>{t('total')}(BRL)</h4>
-          </div>
-          <div>
-            <h3>{currency(payInfos?.paymentTotalAmount)}</h3>
-          </div>
-        </div>
-
-        <div className={styles.contentBox}>
-          <div className={styles.mainContainer}>
-            <div className={styles.inputsContainer}>
-              <div className={styles.contentHeaderDesk}>
-                <div className={styles.btnGoBackDesk} onClick={router.back}>
-                  <ChevronLeft width={18} height={18} />
-                </div>
-                <h2 className={styles.titleHeaderDesk}>Checkout</h2>
-              </div>
-
-              <CheckoutInfoBox policies={policies} />
-              <CheckoutPaymentInfo
-                handleConfirm={handleConfirm}
-                payInfos={payInfos}
-                setShowCartModal={setShowCartModal}
-                setShowDynamicInfoModal={setShowDynamicInfoModal}
-                showCartModal={showCartModal}
-                showDynamicInfoModal={showDynamicInfoModal}
-                isMobile
-              />
-              <div style={{ padding: '0 1rem 1rem' }}>
-                {size.width < 868 && (
-                  <div
-                    className={styles.lgpdAdviceContainer}
-                    style={{ padding: '0 0 1rem 0' }}
-                  >
-                    <VerifiedUserOutlined className={styles.lockIcon} />
-                    <h4>{t('lgpdMessage')}</h4>
-                  </div>
-                )}
-              </div>
-              {size.width > 868 && (
-                <div
-                  className={styles.divisorContainer}
-                  style={{ padding: '0 1rem' }}
-                >
-                  <div></div>
-                </div>
-              )}
-              <CheckoutPersonalData
-                setClient={setClient}
-                client={client}
-                paymentBooking={paymentBooking}
-                setPaymentBooking={setPaymentBooking}
-                selectedPayMethodDetails={selectedPayMethodDetails}
-                setSelectedPayMethodDetails={setSelectedPayMethodDetails}
-                fieldErrors={fieldErrors}
-              />
-            </div>
-            <CheckoutPaymentInfo
-              handleConfirm={handleConfirm}
-              payInfos={payInfos}
-              setShowCartModal={setShowCartModal}
-              setShowDynamicInfoModal={setShowDynamicInfoModal}
-              showCartModal={showCartModal}
-              showDynamicInfoModal={showDynamicInfoModal}
-            />
-          </div>
-
-          <PoliciesContainer
-            policies={policies}
-            handleBookingPolicies={() => setShowDynamicInfoModal('book')}
-          />
-
-          <div className={styles.mobConfirmContainer}>
+      {!confirmData ? (
+        <>
+          <Header design={design} />
+          <main className={styles.mainBox}>
             <div
-              className={styles.termsArea}
-              onClick={() => setShowDynamicInfoModal('book')}
+              className={styles.mobHeader}
+              style={{
+                boxShadow: scrolled ? '0px 1px 7px -2px #C8C8C8' : null,
+              }}
             >
-              <h6>
-                {t('byClickingButtonAboveAgreePolicies')}:
-                <strong>
-                  {' '}
-                  <u>{t('reservationPolicies')}</u>
-                </strong>
-              </h6>
+              <div onClick={() => router.back()} className={styles.btnGoBack}>
+                <ChevronLeft width={24} height={24} />
+              </div>
+
+              <h2>{t('checkout')}</h2>
             </div>
 
-            <motion.button
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.2 }}
-              whileTap={{ scale: 0.9 }}
-              className={styles.confirmBtn}
-              onClick={handleConfirm}
-            >
-              {t('confirmPay')}
-            </motion.button>
-          </div>
-        </div>
-      </main>
-      <FooterCheckout />
+            <div className={styles.mobTotalPrice}>
+              <div>
+                <h4>{t('total')}(BRL)</h4>
+              </div>
+              <div>
+                <h3>{currency(payInfos?.paymentTotalAmount)}</h3>
+              </div>
+            </div>
 
-      {showCartModal && (
-        <CartModal
-          isCheckoutSeeAllData
-          handleCloseCartModal={handleCloseCartInfoModal}
-        />
-      )}
-      {showDynamicInfoModal && (
-        <DynamicInfoModal
-          handleCloseDynamicInfo={handleCloseDynamicInfo}
-          data={policies}
-          type={showDynamicInfoModal}
-        />
-      )}
+            <div className={styles.contentBox}>
+              <div className={styles.mainContainer}>
+                <div className={styles.inputsContainer}>
+                  <div className={styles.contentHeaderDesk}>
+                    <div className={styles.btnGoBackDesk} onClick={router.back}>
+                      <ChevronLeft width={18} height={18} />
+                    </div>
+                    <h2 className={styles.titleHeaderDesk}>Checkout</h2>
+                  </div>
 
-      {successModalVisible && (
+                  <CheckoutInfoBox policies={policies} />
+                  <CheckoutPaymentInfo
+                    handleConfirm={handleConfirm}
+                    payInfos={payInfos}
+                    setShowCartModal={setShowCartModal}
+                    setShowDynamicInfoModal={setShowDynamicInfoModal}
+                    showCartModal={showCartModal}
+                    showDynamicInfoModal={showDynamicInfoModal}
+                    isMobile
+                  />
+                  <div style={{ padding: '0 1rem 1rem' }}>
+                    {size.width < 868 && (
+                      <div
+                        className={styles.lgpdAdviceContainer}
+                        style={{ padding: '0 0 1rem 0' }}
+                      >
+                        <VerifiedUserOutlined className={styles.lockIcon} />
+                        <h4>{t('lgpdMessage')}</h4>
+                      </div>
+                    )}
+                  </div>
+                  {size.width > 868 && (
+                    <div
+                      className={styles.divisorContainer}
+                      style={{ padding: '0 1rem' }}
+                    >
+                      <div></div>
+                    </div>
+                  )}
+                  <CheckoutPersonalData
+                    setClient={setClient}
+                    client={client}
+                    paymentBooking={paymentBooking}
+                    setPaymentBooking={setPaymentBooking}
+                    selectedPayMethodDetails={selectedPayMethodDetails}
+                    setSelectedPayMethodDetails={setSelectedPayMethodDetails}
+                    fieldErrors={fieldErrors}
+                  />
+                </div>
+                <CheckoutPaymentInfo
+                  handleConfirm={handleConfirm}
+                  payInfos={payInfos}
+                  setShowCartModal={setShowCartModal}
+                  setShowDynamicInfoModal={setShowDynamicInfoModal}
+                  showCartModal={showCartModal}
+                  showDynamicInfoModal={showDynamicInfoModal}
+                />
+              </div>
+
+              <PoliciesContainer
+                policies={policies}
+                handleBookingPolicies={() => setShowDynamicInfoModal('book')}
+              />
+
+              <div className={styles.mobConfirmContainer}>
+                <div
+                  className={styles.termsArea}
+                  onClick={() => setShowDynamicInfoModal('book')}
+                >
+                  <h6>
+                    {t('byClickingButtonAboveAgreePolicies')}:
+                    <strong>
+                      {' '}
+                      <u>{t('reservationPolicies')}</u>
+                    </strong>
+                  </h6>
+                </div>
+
+                <motion.button
+                  initial={{ scale: 0.9 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.2 }}
+                  whileTap={{ scale: 0.9 }}
+                  className={styles.confirmBtn}
+                  onClick={handleConfirm}
+                >
+                  {t('confirmPay')}
+                </motion.button>
+              </div>
+            </div>
+          </main>
+          <FooterCheckout />
+        </>
+      ) : (
         <>
           {size.width < 868 ? (
             <CheckoutSucessModalAllMethodsMobile
@@ -361,6 +338,20 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
             />
           )}
         </>
+      )}
+
+      {showCartModal && (
+        <CartModal
+          isCheckoutSeeAllData
+          handleCloseCartModal={handleCloseCartInfoModal}
+        />
+      )}
+      {showDynamicInfoModal && (
+        <DynamicInfoModal
+          handleCloseDynamicInfo={handleCloseDynamicInfo}
+          data={policies}
+          type={showDynamicInfoModal}
+        />
       )}
     </>
   );
