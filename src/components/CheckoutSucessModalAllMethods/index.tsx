@@ -102,7 +102,7 @@ export const CheckoutSucessModalAllMethods = ({
         <div className={styles.modal}>
           <div className={styles.desktopContainer}>
             <div className={styles.desktopPaymentStatusBox}>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div className={styles.desktopStatusContainer}>
                 <div
                   className={styles.checkIconWithCodeHolder}
                   style={{ marginBottom: 16 }}
@@ -158,13 +158,7 @@ export const CheckoutSucessModalAllMethods = ({
 
                   <div className={styles.desktopStatusContainer}>
                     <div className={styles.statusLineDesktop}></div>
-                    <div
-                      style={{
-                        display: 'flex',
-                        width: '70%',
-                        justifyContent: 'space-between',
-                      }}
-                    >
+                    <div className={styles.desktopStatusCircleContainer}>
                       <div className={styles.statusHolder}>
                         <div className={styles.statusCodeInfoBox}>
                           <div
@@ -193,10 +187,7 @@ export const CheckoutSucessModalAllMethods = ({
                         </span>
                       </div>
 
-                      <div
-                        className={styles.statusHolder}
-                        style={{ marginLeft: 4, marginRight: 42 }}
-                      >
+                      <div className={styles.statusHolder}>
                         <div className={styles.statusCodeInfoBox}>
                           <div
                             className={styles.circleProgress}
@@ -349,7 +340,7 @@ export const CheckoutSucessModalAllMethods = ({
                         style={{ color: '#FFF' }}
                         className={styles.pixObsTitle}
                       >
-                        Obs
+                        {t('bankObs')}
                       </span>
 
                       <span style={{ color: '#FFF' }} className={styles.pixObs}>
@@ -448,7 +439,7 @@ export const CheckoutSucessModalAllMethods = ({
                                 </div> */}
                                 <div className={styles.holderCardDetails}>
                                   <span className={styles.holderTitle}>
-                                    {t('obs')}
+                                    {t('bankObs')}
                                   </span>
                                   <span className={styles.holderDescription}>
                                     {item.addInformation}

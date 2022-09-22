@@ -10,6 +10,7 @@ interface IAmenitiDisplayProps {
   showTitle?: boolean;
   direction?: 'row' | 'column';
   resume?: boolean;
+  style?: any;
   amenitie: {
     amenityGroupTypeCode: number;
     sequenceOrder: number;
@@ -28,6 +29,7 @@ export const AmenitieDisplay = ({
   showTitle = true,
   direction = 'row',
   resume = false,
+  style,
 }: IAmenitiDisplayProps) => {
   const { t } = useTranslation('common');
   const amenitiesList = amenitie?.Amenities.slice(
@@ -48,7 +50,7 @@ export const AmenitieDisplay = ({
       {amenitiesList?.map((item, index) => (
         <div
           className={styles.amenitie}
-          style={{ flexDirection: direction }}
+          style={{ flexDirection: direction, ...style }}
           title={GetAmenitieFromDomain(item.amenityTypeCode)}
           key={index}
         >

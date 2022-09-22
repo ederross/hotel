@@ -196,7 +196,11 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
 
               <div className={styles.amenitiesContainer}>
                 {room?.amenities?.map((item, index) => (
-                  <AmenitieDisplay key={index} amenitie={item as any} />
+                  <AmenitieDisplay
+                    key={index}
+                    amenitie={item as any}
+                    style={{ margin: 8 }}
+                  />
                 ))}
               </div>
             </div>

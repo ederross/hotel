@@ -46,6 +46,11 @@
         justify-content:space-between;
         padding: 4rem 2rem 4rem 2rem;
 
+        .desktopStatusContainer {
+          display: flex;
+          flex-direction: column;
+        }
+
         .mainTitle {
           font-size: 24px;
           font-weight: 400;
@@ -91,6 +96,14 @@
             justify-content: space-between;
             width: 90%;
           }
+
+          
+        
+        .desktopStatusCircleContainer {
+          display: flex;
+          width: 70%;
+          justify-content: space-between;
+        }
 
           .statusHolder {
             display: flex;

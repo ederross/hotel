@@ -335,7 +335,9 @@ export const CheckoutSucessModalAllMethodsMobile = ({
                           </span>
                         </div> */}
                         <div className={styles.holderCardDetails}>
-                          <span className={styles.holderTitle}>{t('obs')}</span>
+                          <span className={styles.holderTitle}>
+                            {t('bankObs')}
+                          </span>
                           <span className={styles.holderDescription}>
                             {item.addInformation}
                           </span>
