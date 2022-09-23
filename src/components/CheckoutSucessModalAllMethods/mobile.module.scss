@@ -512,13 +512,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: 36px;
+    min-height: 36px;
     width: 36px;
     height: 36px;
     background: #2ab59c;
     border-radius: 36px;
-    border: 8px solid #fff;
+    border: 6px solid #f9f9f9;
     position: relative;
-    left: -8px;
   }
 
   .locationContainer {

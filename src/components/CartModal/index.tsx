@@ -148,7 +148,16 @@ const CartModal = ({
                     </div>
 
                     <div className={styles.roomQtndPriceContainer}>
-                      <h5>{room?.prices[0]?.quantity + ' ' + t('room')} </h5>
+                      <h5>
+                        {room?.prices[0]?.quantity +
+                          ' ' +
+                          t(
+                            `room_${pluralProfix(
+                              room?.prices[0]?.quantity,
+                              router.locale
+                            )}`
+                          )}{' '}
+                      </h5>
                       <h4>{currency(room.prices[0]?.regularTotalAmount)}</h4>
                     </div>
                   </div>
