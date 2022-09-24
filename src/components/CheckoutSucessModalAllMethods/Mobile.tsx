@@ -152,7 +152,7 @@ export const CheckoutSucessModalAllMethodsMobile = ({
                 date={payment?.methodDetails[0]?.deadlinePaymentDate}
                 className={styles.mobTimeline}
               >
-                <span className={styles.mobTimeline}>{t('TimeOver')}</span>
+                <span className={styles.mobTimeline}>{t('timeOver')}</span>
               </Countdown>
               <span className={styles.mobDate}>
                 {moment(

@@ -303,7 +303,7 @@ export const CheckoutSucessModalAllMethods = ({
                         className={styles.dateTimeline}
                       >
                         <span className={styles.dateTimeline}>
-                          {t('TimeOver')}
+                          {t('timeOver')}
                         </span>
                       </Countdown>
                       <div className={styles.qrCodeContainerDesk}>
