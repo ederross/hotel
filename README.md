@@ -6,6 +6,7 @@
 
 - [@ederross](https://www.github.com/ederross)
 - [@billycoding](https://www.github.com/billycoding)
+- [@luizcarlosrodrigues](https://github.com/luizcarlosrodrigues)
 
 
 ## Etiquetas
