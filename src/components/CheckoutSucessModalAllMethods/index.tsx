@@ -122,7 +122,7 @@ export const CheckoutSucessModalAllMethods = ({
                       className={styles.circleProgress}
                       style={{ left: 0, width: 20, height: 20, border: 'none' }}
                     ></div>
-                  </div>
+                  </div>  
                   <span className={styles.bookingCode}>
                     #{data?.BookingNumber}
                   </span>
@@ -158,6 +158,8 @@ export const CheckoutSucessModalAllMethods = ({
 
                   <div className={styles.desktopStatusContainer}>
                     <div className={styles.statusLineDesktop}></div>
+
+
                     <div className={styles.desktopStatusCircleContainer}>
                       <div className={styles.statusHolder}>
                         <div className={styles.statusCodeInfoBox}>
@@ -215,7 +217,7 @@ export const CheckoutSucessModalAllMethods = ({
                         </span>
                       </div>
 
-                      <div className={styles.statusHolder}>
+                      <div className={styles.statusHolder} >
                         <div className={styles.statusCodeInfoBox}>
                           <div
                             className={styles.circleProgress}
@@ -244,6 +246,8 @@ export const CheckoutSucessModalAllMethods = ({
                   </div>
                 </div>
               </div>
+
+
               <div
                 className={styles.confirmBtn}
                 onClick={handleCloseCheckoutSucessModal}

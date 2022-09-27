@@ -37,13 +37,12 @@
       height: 100vh;
       margin: 0 auto;
 
-
       // Left side
       .desktopPaymentStatusBox {
         flex: 2;
         display: flex;
         flex-direction: column;
-        justify-content:space-between;
+        justify-content: space-between;
         padding: 4rem 2rem 4rem 2rem;
 
         .desktopStatusContainer {
@@ -88,27 +87,27 @@
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          
 
           .statusContainerHeader {
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 90%;
+            background-color: green;
           }
 
-          
-        
-        .desktopStatusCircleContainer {
-          display: flex;
-          width: 70%;
-          justify-content: space-between;
-        }
+          .desktopStatusCircleContainer {
+            display: flex;
+            width: 90%;
+            // justify-content: space-between;
+          }
 
           .statusHolder {
             display: flex;
             flex-direction: column;
             z-index: 99;
+            width: 100%;
+            margin-right: 32px;
 
             .statusTitle {
               font-size: 18px;
@@ -116,6 +115,7 @@
             }
             .statusDescription {
               font-size: 14px;
+
               color: #aebfc9;
             }
 
@@ -129,7 +129,7 @@
         }
       }
 
-        // Rigth Side
+      // Rigth Side
       .desktopPaymentInfo {
         flex: 1;
         display: flex;
@@ -149,7 +149,7 @@
             margin-bottom: 4px;
 
             span {
-              color: #2AB59C;
+              color: #2ab59c;
             }
           }
 
@@ -163,8 +163,6 @@
           display: flex;
           min-height: 200px;
           width: 100%;
-
-        
         }
       }
     }
@@ -222,7 +220,6 @@
         margin-bottom: 12px;
       }
 
-
       .mobDate {
         font-size: 12px;
         color: #2ab59c;
@@ -243,9 +240,6 @@
         font-size: 20px;
         color: #666666;
       }
-    
-
-   
     }
 
     .mobReturnFeedbackContainer {
@@ -290,7 +284,7 @@
 
 // Components
 
-.valueBox{
+.valueBox {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -299,11 +293,11 @@
   padding: 24px;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
 
   .value {
     font-size: 18px;
-    color: #2AB59C;
+    color: #2ab59c;
   }
 }
 
@@ -336,7 +330,7 @@
   cursor: pointer;
   width: 160px;
   height: 42px;
-  background-color: #FFF;
+  background-color: #fff;
   border: 1px solid #ccc;
   font-size: 12px;
 }
@@ -345,15 +339,12 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-
 }
-
 
 .backHome {
   font-size: 14px;
-  color: #2AB59C;
+  color: #2ab59c;
 }
-
 
 .accItemHeader {
   cursor: pointer;
@@ -383,7 +374,6 @@
   }
 }
 
-
 .copyInfoContainer {
   display: flex;
   justify-content: center;
@@ -393,18 +383,16 @@
 
   .copyInfo {
     font-size: 14px;
-    color: #2AB59C;
+    color: #2ab59c;
   }
 }
-
 
 .cardDetailsResultContainerDesk {
   display: flex;
   flex-direction: column;
 
-
   .holderTitle {
-    color: #93A2AB;
+    color: #93a2ab;
     font-weight: 400;
     font-size: 14px;
   }
@@ -418,8 +406,6 @@
     flex-direction: column;
     margin-bottom: 1rem;
   }
-
-
 }
 
 .cardDetailsResultContainer {
@@ -443,14 +429,14 @@
     margin-bottom: 1rem;
   }
 
-  .valueBox{
+  .valueBox {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     min-height: 24px;
     padding: 2rem;
-    background-color: #F9F9F9;
+    background-color: #f9f9f9;
   }
 }
 
@@ -500,7 +486,7 @@
 }
 
 .statusLineDesktop {
-  width: 55%;
+  width: 60%;
 
   margin-left: 6px;
   margin-right: 6px;
@@ -547,5 +533,4 @@
 
 .confirmBtn {
   cursor: pointer;
-
 }
