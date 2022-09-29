@@ -199,7 +199,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
         <link rel="icon" href={design?.favIconUrl} />
       </Head>
 
-      {confirmData ? (
+      {!confirmData ? (
         <>
           <Header design={design} />
           <main className={styles.mainBox}>
