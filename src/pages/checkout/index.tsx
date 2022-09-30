@@ -186,7 +186,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
           );
       }
     } else {
-      toast.error(`dataMissing`, toastConfig as any);
+      toast.error(t('dataMissing'), toastConfig as any);
     }
   };
 
