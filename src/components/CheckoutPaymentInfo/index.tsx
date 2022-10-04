@@ -99,7 +99,12 @@ export const CheckoutPaymentInfo = ({
                   </div>
 
                   <div className={styles.roomQtndPriceContainer}>
-                    <h5>{price?.quantity + ' ' + t('room')}</h5>
+                    <h5>{price?.quantity + 
+                         ' ' + 
+                         t(`room_${pluralProfix(
+                             price?.quantity, router.locale
+                          )}`
+                        )}</h5>
                     <h4>{currency(price?.regularTotalAmount)}</h4>
                   </div>
                 </div>
