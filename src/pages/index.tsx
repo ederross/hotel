@@ -118,6 +118,7 @@ export default function Home(props: IHomeProps) {
           <HotelImagesSlider events={props?.events} images={props?.images} />
 
           <section className={styles.clientsContainer}>
+
             <h2 className={`${styles.title}`}>
               {t('seeWhatOurCostumersAreSaying')}
             </h2>
@@ -137,6 +138,7 @@ export default function Home(props: IHomeProps) {
                   </SwiperSlide>
                 ))}
               </Swiper> */}
+              
             <div className={styles.clientsCardContainer}>
               {props?.reviews?.map((item, index) => (
                 <CardClient key={index} data={item} index={index} />

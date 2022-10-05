@@ -17,24 +17,7 @@ import {
 } from '../../store/ducks/checkout/types';
 import { IPaymentBooking } from '../../services/requests/booking';
 
-export const depositMock = [
-  {
-    bankCode: '001',
-    bankName: 'Banco do Brasil',
-    branch: '0983',
-    account: '16916-1     ',
-    addInformation: 'Hotel Central Parque\r20.690.236/0002-95',
-    deadlinePaymentDate: '2022-09-17 07:20:20',
-  },
-  {
-    bankCode: '002',
-    bankName: 'Banco Bradesco',
-    branch: '0543      ',
-    account: '12323-4     ',
-    addInformation: 'Hotel\rTeste',
-    deadlinePaymentDate: '2022-09-17 07:20:20',
-  },
-];
+
 
 interface ICheckoutSucessModal {
   handleCloseCheckoutSucessModal: () => void;
@@ -72,7 +55,7 @@ export const CheckoutSucessModalAllMethods = ({
   const payment: any =
     payType === 4
       ? {
-          methodDetails: depositMock as any,
+          methodDetails: data?.payment?.methodDetails || [],
           paymentDetails: [],
           paymentMethodTypeCode: 4,
         }
@@ -355,7 +338,7 @@ export const CheckoutSucessModalAllMethods = ({
 
                   {/* DEPÓSITO */}
                   {payType === 4 &&
-                    payment?.methodDetails.map((item, index) => {
+                    payment?.methodDetails?.map((item, index) => {
                       return (
                         <div
                           key={index}

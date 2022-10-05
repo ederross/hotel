@@ -241,7 +241,7 @@ const Search = ({
             !selectedRoom && (
               <>
                 <section className={styles.filterInfo}>
-                  {searchResult.length < 1 || searchResult?.errors ? (
+                  {searchResult?.length < 1 || searchResult?.errors ? (
                     <>
                       <section className={styles.filterInfo}>
                         <div style={{ flex: 1, paddingTop: 1 }}>

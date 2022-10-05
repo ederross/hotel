@@ -5,7 +5,6 @@ import styles from './mobile.module.scss';
 import ExpandLessOutlined from '@mui/icons-material/ExpandLessOutlined';
 import ExpandMoreOutlined from '@mui/icons-material/ExpandMoreOutlined';
 import { useTranslation } from 'next-i18next';
-import { depositMock } from '.';
 import { OfficeDetails } from '../../../data/officeDetails';
 import { IPaymentBooking } from '../../services/requests/booking';
 import {
@@ -53,7 +52,7 @@ export const CheckoutSucessModalAllMethodsMobile = ({
   const payment: any =
     payType === 4
       ? {
-          methodDetails: depositMock as any,
+          methodDetails: data?.payment?.methodDetails || [],
           paymentDetails: [],
           paymentMethodTypeCode: 4,
         }

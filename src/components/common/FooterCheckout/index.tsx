@@ -41,7 +41,6 @@ const FooterCheckout = () => {
             <GlobeContainer>
               <Globe />
               <h4 onClick={handleLanguageSwitcher} className={'textWithHover'}>
-
                 {languageLabels.map((value, index) => {
                   return value.language === locale
                     ? value.label + ' ' + `(${value.language })`
