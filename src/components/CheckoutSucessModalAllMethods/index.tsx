@@ -17,8 +17,6 @@ import {
 } from '../../store/ducks/checkout/types';
 import { IPaymentBooking } from '../../services/requests/booking';
 
-
-
 interface ICheckoutSucessModal {
   handleCloseCheckoutSucessModal: () => void;
   officeDetails: OfficeDetails;
@@ -105,7 +103,7 @@ export const CheckoutSucessModalAllMethods = ({
                       className={styles.circleProgress}
                       style={{ left: 0, width: 20, height: 20, border: 'none' }}
                     ></div>
-                  </div>  
+                  </div>
                   <span className={styles.bookingCode}>
                     #{data?.BookingNumber}
                   </span>
@@ -124,7 +122,7 @@ export const CheckoutSucessModalAllMethods = ({
                   <PlaceOutlined
                     width={18}
                     height={18}
-                    style={{ color: 'var(--primary-color)' }}
+                    style={{ color: 'var(--gray-with-blue-400)' }}
                   />
 
                   <h3 className={styles.localizationTitle}>
@@ -141,7 +139,6 @@ export const CheckoutSucessModalAllMethods = ({
 
                   <div className={styles.desktopStatusContainer}>
                     <div className={styles.statusLineDesktop}></div>
-
 
                     <div className={styles.desktopStatusCircleContainer}>
                       <div className={styles.statusHolder}>
@@ -200,7 +197,7 @@ export const CheckoutSucessModalAllMethods = ({
                         </span>
                       </div>
 
-                      <div className={styles.statusHolder} >
+                      <div className={styles.statusHolder}>
                         <div className={styles.statusCodeInfoBox}>
                           <div
                             className={styles.circleProgress}
@@ -229,7 +226,6 @@ export const CheckoutSucessModalAllMethods = ({
                   </div>
                 </div>
               </div>
-
 
               <div
                 className={styles.confirmBtn}
@@ -354,7 +350,9 @@ export const CheckoutSucessModalAllMethods = ({
                             className={styles.accItemHeader}
                             style={{
                               backgroundColor:
-                                ctaSelected === index ? '#2AB59C' : '#576167',
+                                ctaSelected === index
+                                  ? 'var(--primary-color)'
+                                  : '#576167',
                             }}
                           >
                             <div

@@ -83,7 +83,7 @@
         calc((100 - var(--mouse-y, 0)) * 1%);
       background-image: radial-gradient(
         circle,
-        #0a7763 0%,
+        var(--primary-color-600) 0%,
         var(--primary-color) 100%
       );
 
@@ -328,7 +328,7 @@
         background: linear-gradient(
           90.72deg,
           var(--primary-color) 23.93%,
-          #0a7763 138.27%
+          var(--primary-color-600) 138.27%
         );
 
         font-size: 18px;

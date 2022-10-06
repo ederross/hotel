@@ -72,7 +72,7 @@
       calc((100 - var(--mouse-y, 0)) * 1%);
     background-image: radial-gradient(
       circle,
-      #0a7763 0%,
+      var(--primary-color-600) 0%,
       var(--primary-color) 100%
     );
 

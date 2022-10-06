@@ -1,5 +1,5 @@
 import { useTranslation } from 'next-i18next';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Policy } from '../../../data/policies';
 import styles from './styles.module.scss';
 import { ChevronDown, ChevronUp } from 'react-feather';
@@ -16,7 +16,7 @@ export const PoliciesContainer = ({
   handleBookingPolicies,
 }: IPoliciesContainerProps) => {
   const { t } = useTranslation();
-  const [policy, setPolicy] = useState(null);
+  const [policy, setPolicy] = useState(1);
   const [showMoreDescription, setShowMoreDescription] = useState(false);
 
   const {
@@ -107,60 +107,39 @@ export const PoliciesContainer = ({
           </a>
         </h5>
         <div className={styles.policyCardContainer}>
-          <div
-            className={styles.policyCard}
-            onClick={() => setPolicy(policy === 0 ? null : 0)}
-          >
-            <div className={styles.row}>
+          <div className={styles.policyCard}>
+            <div className={styles.row} style={{ marginTop: 24 }}>
               <h3>{t('accommodationRules')}</h3>
-              {policy === 0 ? (
-                <ChevronUp
-                  className={styles.chevronIcon}
-                  width={18}
-                  height={18}
-                />
-              ) : (
-                <ChevronDown
-                  className={styles.chevronIcon}
-                  width={18}
-                  height={18}
-                />
-              )}
             </div>
-            {policy === 0 && (
-              <>
-                <h6 style={{ marginTop: 16 }}>{t('checkIn')}</h6>
-                <div className={styles.row}>
-                  <IconImportDynamically iconName={1517} size={20} />
-                  <p>{policies.bookPolicy.checkinWindow.startTime}</p>
-                </div>
-                <h6 style={{ marginTop: 16 }}>{t('checkOut')}</h6>
-                <div className={styles.row}>
-                  <IconImportDynamically iconName={1517} size={20} />
-                  <p>{policies.bookPolicy.checkoutTime.endTime}</p>
-                </div>
-                <h6 style={{ marginTop: 16 }}>{t('upFrontPercentage')}</h6>
-                <div className={styles.row}>
-                  <IconImportDynamically iconName={1285} size={20} />
-                  <p>{policies.upfrontPercentage}%</p>
-                </div>
-              </>
-            )}
+            <div style={{ marginBottom: 32 }}>
+              <h6 style={{ marginTop: 16 }}>{t('checkIn')}</h6>
+              <div className={styles.row}>
+                <IconImportDynamically iconName={1517} size={20} />
+                <p>{policies.bookPolicy.checkinWindow.startTime}</p>
+              </div>
+              <h6 style={{ marginTop: 16 }}>{t('checkOut')}</h6>
+              <div className={styles.row}>
+                <IconImportDynamically iconName={1517} size={20} />
+                <p>{policies.bookPolicy.checkoutTime.endTime}</p>
+              </div>
+              <h6 style={{ marginTop: 16 }}>{t('upFrontPercentage')}</h6>
+              <div className={styles.row}>
+                <IconImportDynamically iconName={1285} size={20} />
+                <p>{policies.upfrontPercentage}%</p>
+              </div>
+            </div>
             {policies?.policies?.map((item, policeIndex) => (
-              <div
-                key={policeIndex}
-                className={styles.policyCard}
-                onClick={() =>
-                  setPolicy(policy === policeIndex + 1 ? null : policeIndex + 1)
-                }
-              >
-                <div className={styles.row}>
+              <div key={policeIndex} className={styles.policyCard}>
+                <div
+                  className={styles.row}
+                  onClick={() => setPolicy(policeIndex)}
+                >
                   <h3>
                     {policyTypeDomain?.data?.find(
                       (p) => p.domainItemCode === item.PolicyTypeCode
                     )?.domainItemValue || '-'}
                   </h3>
-                  {policy === 0 ? (
+                  {policy === policeIndex ? (
                     <ChevronUp
                       className={styles.chevronIcon}
                       width={18}
@@ -174,7 +153,7 @@ export const PoliciesContainer = ({
                     />
                   )}
                 </div>
-                {policy === policeIndex + 1 && (
+                {policy === policeIndex && (
                   <>
                     <h4>{item.PolicyDescription}</h4>
                     {item?.Rules?.map((rule, index) => (

@@ -267,7 +267,9 @@ export const CheckoutSucessModalAllMethodsMobile = ({
                     className={styles.accItemHeader}
                     style={{
                       backgroundColor:
-                        ctaSelected === index ? '#2AB59C' : '#576167',
+                        ctaSelected === index
+                          ? 'var(--primary-color)'
+                          : '#576167',
                     }}
                   >
                     <div
@@ -374,7 +376,7 @@ export const CheckoutSucessModalAllMethodsMobile = ({
             <PlaceOutlined
               width={18}
               height={18}
-              style={{ color: 'var(--primary-color)' }}
+              style={{ color: 'var(--gray-with-blue-400)' }}
             />
 
             <h3 className={styles.localizationTitle}>{t('bookLocale')}</h3>
