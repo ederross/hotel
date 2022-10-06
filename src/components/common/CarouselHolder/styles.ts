@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const CarouselHolderStyles = styled.div`
   transition: all 0.2s ease-in-out;
   height: 100%;
-  cursor: pointer;
+  /* cursor: pointer; */
   display: flex;
   flex-direction: column;
   position: relative;
