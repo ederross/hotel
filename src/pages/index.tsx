@@ -33,6 +33,9 @@ import { useEffect } from 'react';
 import { SetCheckoutRedux } from '../store/ducks/checkout/actions';
 import { useDispatch } from 'react-redux';
 import { dynamicOffice, officeId } from '../services/api';
+import { useRouter } from 'next/router';
+import moment from 'moment';
+import { CleanCart, SetCartInfos } from '../store/ducks/cart/actions';
 interface IHomeProps {
   officeDetails: OfficeDetails;
   design: Design;
@@ -45,6 +48,7 @@ export default function Home(props: IHomeProps) {
   const { width } = useWindowSize();
   const dispatch = useDispatch();
   const { t } = useTranslation('common');
+  const router = useRouter();
 
   useEffect(() => {
     document.documentElement.className =
@@ -70,6 +74,32 @@ export default function Home(props: IHomeProps) {
   useEffect(() => {
     dispatch(SetCheckoutRedux([]));
   }, [dispatch]);
+
+  const handleEventSearch = (event: EventsHome) => {
+    const endDate = new Date(event.endDate);
+    endDate.setDate(endDate.getDate() + 1);
+
+    router.push({
+      pathname: '/search',
+      query: {
+        startDate: moment(event.startDate).format('YYYY-MM-DD'),
+        endDate: moment(endDate).format('YYYY-MM-DD'),
+        adults: 1,
+        children: 0,
+      },
+    });
+    dispatch(
+      SetCartInfos({
+        totalGuest: 1,
+        startDate: moment(event.startDate).format('YYYY-MM-DD'),
+        endDate: moment(endDate).format('YYYY-MM-DD'),
+        adults: 1,
+        children: 0,
+        ages: [],
+      })
+    );
+    dispatch(CleanCart());
+  };
 
   return (
     <div>
@@ -106,7 +136,12 @@ export default function Home(props: IHomeProps) {
                 {props?.events?.map((item, index) => (
                   <SwiperSlide
                     key={index}
-                    style={{ width: 'auto', marginRight: '1rem' }}
+                    style={{
+                      width: 'auto',
+                      marginRight: '1rem',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => handleEventSearch(item)}
                   >
                     <CardEventType1 event={item} />
                   </SwiperSlide>
@@ -118,7 +153,6 @@ export default function Home(props: IHomeProps) {
           <HotelImagesSlider events={props?.events} images={props?.images} />
 
           <section className={styles.clientsContainer}>
-
             <h2 className={`${styles.title}`}>
               {t('seeWhatOurCostumersAreSaying')}
             </h2>
@@ -138,7 +172,7 @@ export default function Home(props: IHomeProps) {
                   </SwiperSlide>
                 ))}
               </Swiper> */}
-              
+
             <div className={styles.clientsCardContainer}>
               {props?.reviews?.map((item, index) => (
                 <CardClient key={index} data={item} index={index} />
@@ -156,7 +190,10 @@ export default function Home(props: IHomeProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale, req }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  locale,
+  req,
+}) => {
   const id = dynamicOffice ? req.headers.host.split('.')[0] : officeId;
 
   const officeDetails = await GetOfficeDetails(id);

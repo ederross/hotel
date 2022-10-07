@@ -85,6 +85,11 @@
       color: var(--dark-text);
     }
 
+    .swiperContainer {
+      padding: 0 7rem 1rem 7rem;
+      min-width: 1000px;
+    }
+
     .sliderContainer {
       display: flex;
       overflow: scroll;

@@ -77,6 +77,19 @@ const Filters = ({
     return res ? res : '-';
   };
 
+  const handleEventDate = (event: EventsHome) => {
+    const endDate = new Date(event.endDate);
+    endDate.setDate(endDate.getDate() + 1);
+
+    setDateState([
+      {
+        ...dateState[0],
+        startDate: new Date(event.startDate),
+        endDate: endDate,
+      },
+    ] as any);
+  };
+
   return (
     <>
       <section className={styles.container}>
@@ -136,7 +149,11 @@ const Filters = ({
                   }}
                 >
                   {events?.map((event, index) => (
-                    <SwiperSlide key={index} style={{ width: 'auto' }}>
+                    <SwiperSlide
+                      key={index}
+                      onClick={() => handleEventDate(event)}
+                      style={{ width: 'auto' }}
+                    >
                       <CardEventType2 event={event} />
                     </SwiperSlide>
                   ))}
@@ -317,6 +334,11 @@ const Container = styled.div`
   .rdrMonthAndYearPickers select {
     font-size: 16px;
     font-family: 'SulSansRegular';
+  }
+
+  .rdrDayToday .rdrDayNumber span:after {
+    /* background: var(--primary-color); */
+    background: transparent;
   }
 `;
 

@@ -80,6 +80,19 @@ const WebFilters = ({
     return res ? res : '-';
   };
 
+  const handleEventDate = (event: EventsHome) => {
+    const endDate = new Date(event.endDate);
+    endDate.setDate(endDate.getDate() + 1);
+
+    setDateState([
+      {
+        ...dateState[0],
+        startDate: new Date(event.startDate),
+        endDate: endDate,
+      },
+    ] as any);
+  };
+
   return (
     <>
       <div
@@ -154,10 +167,14 @@ const WebFilters = ({
                         freeMode={true}
                         navigation={true}
                         modules={[Navigation]}
-                        style={{ padding: '0 7rem 1rem 7rem' }}
+                        className={styles.swiperContainer}
                       >
                         {events?.map((event, index) => (
-                          <SwiperSlide key={index} style={{ width: 'auto' }}>
+                          <SwiperSlide
+                            onClick={() => handleEventDate(event)}
+                            key={index}
+                            style={{ width: 'auto', cursor: 'pointer' }}
+                          >
                             <CardEventType2 event={event} />
                           </SwiperSlide>
                         ))}
