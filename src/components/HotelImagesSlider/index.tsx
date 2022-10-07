@@ -35,8 +35,10 @@ const HotelImagesSlider = ({ images, events }: IHotelImagesSlider) => {
         </div>
         <div className={styles.imgDescriptionContainer}>
           <div>
-            <h3>{images[selected].subTitle}</h3>
             <h2>{images[selected].subTitle}</h2>
+            {images[selected]?.description && (
+              <h3>{images[selected]?.description}</h3>
+            )}
           </div>
         </div>
       </div>

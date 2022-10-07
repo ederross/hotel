@@ -169,7 +169,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
     (c) =>
       c.paymentMethodTypeCode ===
       paymentBooking.paymentMethod.paymentMethodTypeCode
-  )?.paymentDetails[selectedPayMethodDetails];
+  )?.paymentDetails[1];
 
   const handleConfirm = () => {
     if (VerifyCheckoutFields(client, paymentBooking, setFieldErrors)) {
