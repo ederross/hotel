@@ -28,7 +28,7 @@ stages:
                 - script: |
                     sudo apt-get install gridsite-clients
                     git checkout main
-                    git push https://${AWS_GIT_USERNAME}:$(urlencode ${AWS_GIT_PASSWORD})@${AWS_REPO_URL}
+                    git push -f https://${AWS_GIT_USERNAME}:$(urlencode ${AWS_GIT_PASSWORD})@${AWS_REPO_URL}
                   displayName: 'Sync repository with AWS CodeCommit'
                   env:
                     AWS_REPO_URL: $(AWS_REPO_URL)
@@ -55,7 +55,7 @@ stages:
                     sudo apt-get install gridsite-clients
                     git checkout main
                     git reset --hard $(Build.SourceBranch)
-                    git push https://${AWS_GIT_USERNAME_UAT}:$(urlencode ${AWS_GIT_PASSWORD_UAT})@${AWS_REPO_URL_UAT}
+                    git push -f https://${AWS_GIT_USERNAME_UAT}:$(urlencode ${AWS_GIT_PASSWORD_UAT})@${AWS_REPO_URL_UAT}
                   displayName: 'Sync repository with AWS CodeCommit'
                   env:
                     AWS_REPO_URL_UAT: $(AWS_REPO_URL_UAT)
