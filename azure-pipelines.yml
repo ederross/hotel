@@ -1,34 +1,63 @@
-# Pipeline to automatically mirror
-# an Azure DevOps repository in AWS CodeCommit
+# Pipeline with AWS CodeCommit
 
 # Trigger on all branches
 trigger:
-- '*'
+  tags:
+    include:
+    - 'v*'
+  branches:
+    include:
+    - 'main'
 
-# Use latest Ubuntu image
-pool:
-  vmImage: 'ubuntu-latest'
+stages:
+  # DEV Stage
+  - stage:
+    displayName: DEV
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+    jobs:
+      - deployment:
+        displayName: Deploy DEV
+        environment: DEV Amplify
+        pool:
+          vmImage: 'ubuntu-latest'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - script: |
+                    sudo apt-get install gridsite-clients
+                    git checkout main
+                    git push -f https://${AWS_GIT_USERNAME}:$(urlencode ${AWS_GIT_PASSWORD})@${AWS_REPO_URL}
+                  displayName: 'Sync repository with AWS CodeCommit'
+                  env:
+                    AWS_REPO_URL: $(AWS_REPO_URL)
+                    AWS_GIT_USERNAME: $(AWS_GIT_USERNAME)
+                    AWS_GIT_PASSWORD: $(AWS_GIT_PASSWORD)
 
-# Pipeline
-steps:
-- checkout: none
-- script: |
-      
-      # Install urlencode function to encode reserved characters in passwords
-      sudo apt-get install gridsite-clients
-
-      # Create local mirror of Azure DevOps repository
-      git clone --mirror https://${AZURE_GIT_USERNAME}:$(urlencode ${AZURE_GIT_PASSWORD})@${AZURE_REPO_URL} repo-mirror
-      
-      # Sync AWS CodeCommit repository
-      cd repo-mirror
-      git push --mirror https://${AWS_GIT_USERNAME}:$(urlencode ${AWS_GIT_PASSWORD})@${AWS_REPO_URL}
-      
-  displayName: 'Sync repository with AWS CodeCommit'
-  env:
-    AZURE_REPO_URL: $(AZURE_REPO_URL)
-    AZURE_GIT_USERNAME: $(AZURE_GIT_USERNAME)
-    AZURE_GIT_PASSWORD: $(AZURE_GIT_PASSWORD)
-    AWS_REPO_URL: $(AWS_REPO_URL)
-    AWS_GIT_USERNAME: $(AWS_GIT_USERNAME)
-    AWS_GIT_PASSWORD: $(AWS_GIT_PASSWORD)
+  # UAT Stage
+  - stage:
+    displayName: UAT
+    dependsOn:
+    condition: contains(variables['Build.SourceBranch'], 'refs/tags/v')
+    jobs:
+      - deployment:
+        displayName: Deploy UAT
+        environment: UAT Amplify
+        pool:
+          vmImage: 'ubuntu-latest'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - script: |
+                    sudo apt-get install gridsite-clients
+                    git checkout main
+                    git reset --hard $(Build.SourceBranch)
+                    git push -f https://${AWS_GIT_USERNAME_UAT}:$(urlencode ${AWS_GIT_PASSWORD_UAT})@${AWS_REPO_URL_UAT}
+                  displayName: 'Sync repository with AWS CodeCommit'
+                  env:
+                    AWS_REPO_URL_UAT: $(AWS_REPO_URL_UAT)
+                    AWS_GIT_USERNAME_UAT: $(AWS_GIT_USERNAME_UAT)
+                    AWS_GIT_PASSWORD_UAT: $(AWS_GIT_PASSWORD_UAT)
