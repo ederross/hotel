@@ -83,3 +83,18 @@
     }
   }
 }
+
+.errorContainer {
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+
+  p {
+    color: var(--light-text);
+    font-weight: 700;
+    font-size: 32px;
+  }
+}

@@ -36,6 +36,7 @@ import { dynamicOffice, officeId } from '../services/api';
 import { useRouter } from 'next/router';
 import moment from 'moment';
 import { CleanCart, SetCartInfos } from '../store/ducks/cart/actions';
+import { WhatsappButton } from '../components/WhatsappButton';
 interface IHomeProps {
   officeDetails: OfficeDetails;
   design: Design;
@@ -79,10 +80,14 @@ export default function Home(props: IHomeProps) {
     const endDate = new Date(event.endDate);
     endDate.setDate(endDate.getDate() + 1);
 
+    const startDate = moment(
+      new Date(event.startDate) < new Date() ? new Date() : event.startDate
+    ).format('YYYY-MM-DD');
+
     router.push({
       pathname: '/search',
       query: {
-        startDate: moment(event.startDate).format('YYYY-MM-DD'),
+        startDate,
         endDate: moment(endDate).format('YYYY-MM-DD'),
         adults: 1,
         children: 0,
@@ -91,7 +96,7 @@ export default function Home(props: IHomeProps) {
     dispatch(
       SetCartInfos({
         totalGuest: 1,
-        startDate: moment(event.startDate).format('YYYY-MM-DD'),
+        startDate,
         endDate: moment(endDate).format('YYYY-MM-DD'),
         adults: 1,
         children: 0,
@@ -186,6 +191,7 @@ export default function Home(props: IHomeProps) {
           marginTop={width < 868 && '4rem'}
         />
       </main>
+      <WhatsappButton />
     </div>
   );
 }

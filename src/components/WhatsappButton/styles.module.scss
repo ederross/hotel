@@ -1,0 +1,48 @@
+.button {
+  z-index: 9999;
+  padding: 0.8rem;
+  position: fixed;
+  background-color: #25d366;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 300px;
+  cursor: pointer;
+  transition: all 0.08s ease-in;
+  animation: pulse 3s infinite;
+
+  img {
+    width: 28px;
+    height: 28px;
+  }
+
+  @media screen and (min-width: 528px) {
+    padding: 1.1rem;
+    bottom: 3rem;
+    right: 3rem;
+    img {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+
+.button:hover {
+  transform: scale(1.15);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 #25d366aa;
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}

@@ -26,6 +26,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+#VS Code Debug
+launch.json
+
 # local env files
 .env*.local
 
