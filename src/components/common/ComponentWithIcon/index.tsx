@@ -1,4 +1,5 @@
 import * as MuiIcons from '@mui/icons-material';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../../store/types';
 
@@ -21,9 +22,12 @@ export const IconImportDynamically = ({
     (i) => i.domainItemCode === iconName
   )?.domainItemValue;
 
+  //Corrigir ícones inválidos
+  const isReady = !!MuiIcons[findIconValue];
+
   const Icon =
     MuiIcons[
-      findIconValue
+      findIconValue && isReady
         ? findIconValue
         : ('HelpCenterOutlined' as keyof typeof MuiIcons)
     ];

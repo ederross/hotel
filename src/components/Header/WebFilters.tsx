@@ -84,10 +84,15 @@ const WebFilters = ({
     const endDate = new Date(event.endDate);
     endDate.setDate(endDate.getDate() + 1);
 
+    const startDate =
+      new Date(event.startDate) < new Date()
+        ? new Date()
+        : new Date(event.startDate);
+
     setDateState([
       {
         ...dateState[0],
-        startDate: new Date(event.startDate),
+        startDate,
         endDate: endDate,
       },
     ] as any);

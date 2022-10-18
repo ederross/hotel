@@ -3,7 +3,6 @@ import { useTranslation } from 'next-i18next';
 import styles from './styles.module.scss';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../../store/types';
-import { IconDisplay } from '../IconDisplay';
 import { IconImportDynamically } from '../ComponentWithIcon';
 
 interface IAmenitiDisplayProps {
@@ -58,7 +57,6 @@ export const AmenitieDisplay = ({
             iconName={item?.displayIconTypeCode}
             size={20}
           />
-          {/* <IconDisplay displayIconTypeCode={item.displayIconTypeCode} /> */}
           {showTitle && (
             <h5>{t(GetAmenitieFromDomain(item.amenityTypeCode))}</h5>
           )}
