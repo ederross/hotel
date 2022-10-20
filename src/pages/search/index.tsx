@@ -472,7 +472,9 @@ export default Search;
 };*/
 
 export const getServerSideProps: GetServerSideProps = async ({ locale, req }) => {
-  const id = dynamicOffice ? req.headers.host.split('.')[0] : officeId;
+  const xfowardedHost = req.headers['x-forwarded-host'][0];
+  const id = dynamicOffice ? xfowardedHost.split('.')[0] : officeId;
+
   const officeDetails = await GetOfficeDetails(id);
   const design = await GetOfficeDesign(id);
   const servicesResult = await GetServiceSearch(id);
