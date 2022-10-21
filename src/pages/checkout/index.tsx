@@ -362,6 +362,8 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
 }) => {
   const xfowardedHost = req.headers['x-forwarded-host'][0];
+  console.log(xfowardedHost);
+  console.log(xfowardedHost.split('.'));
   console.log(xfowardedHost.split('.')[0]);
   const id = dynamicOffice ? xfowardedHost.split('.')[0] : officeId;
   console.log(dynamicOffice);
