@@ -361,7 +361,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   locale,
   req,
 }) => {
-  const xfowardedHost = req.headers['x-forwarded-host'][0];
+  const xfowardedHost = req.headers['x-forwarded-host'];
   console.log("X-fowardedHost: " + xfowardedHost);
   console.log("X-fowardedHost.split: " + xfowardedHost.toString().split('.')[0]);
 
