@@ -42,7 +42,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
   const router = useRouter();
 
   const {
-    cart: { objects, services, infos },
+    cart: { objects, services },
   } = useSelector((state: AppStore) => state);
 
   const headerRef = useRef(null);
@@ -84,7 +84,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
     }
   }, [startSearchDay, firstMonth, endSearchDay, inputCalendars]);
 
-  const { startDate, endDate, adults, children }: any = router.query;
+  const { startDate, endDate, adults, children, ages }: any = router.query;
 
   // Window Sizes
   const size = useWindowSize();
@@ -108,7 +108,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
   const checkOutDate = moment(dateState[0].endDate).format('YYYY-MM-DD');
   const numberOfAdults = dateState[0].adults;
   const numberOfChildren = dateState[0].children;
-  const [childrenAges, setChildrenAges] = useState<number[]>(infos?.ages || []);
+  const [childrenAges, setChildrenAges] = useState<number[]>(ages || []);
 
   const openDatePicker = () => {
     setOpenCart(false);
@@ -173,12 +173,13 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
   const handleSubmit = (e) => {
     e.preventDefault();
     router.push({
-      pathname: '/search',
+      pathname: `/search`,
       query: {
         startDate: checkInDate,
         endDate: checkOutDate,
         adults: numberOfAdults,
         children: numberOfChildren,
+        ages: childrenAges,
       },
     });
     dispatch(CleanCart());
