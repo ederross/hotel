@@ -233,6 +233,7 @@ const Filters = ({
                   </h4>
                   <div className={styles.cSelect}>
                     <select
+                      value={childrenAges[index] || ''}
                       onChange={(v) =>
                         setChildrenAges([
                           ...[...Array(numberOfChildren)].map((_, i) =>
@@ -243,9 +244,9 @@ const Filters = ({
                         ])
                       }
                     >
-                      <option value="">{t('age')}</option>
+                      <option value={''}>{t('age')}</option>
                       {[...Array(15)].map((_, index) => (
-                        <option key={index} value="one">
+                        <option key={index} value={index + 1}>
                           {index + 1}
                         </option>
                       ))}

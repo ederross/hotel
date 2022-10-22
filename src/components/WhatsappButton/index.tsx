@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import styles from './styles.module.scss';
 
-export const WhatsappButton = () => {
+interface IWhatsappButton {
+  whatsappNumber: string;
+}
+
+export const WhatsappButton = ({ whatsappNumber }: IWhatsappButton) => {
   return (
     <>
       <a
         title="whatsapp"
-        // href="https://wa.me/message/IGVCXVTBD6ZPN1"
+        href={`https://wa.me/${whatsappNumber}`}
         target="_blank"
         rel="noreferrer"
         className={styles.button}

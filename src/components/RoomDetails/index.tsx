@@ -64,18 +64,22 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
 
   const handleReserve = () => {
     setLoadingCheckout(true);
-    PostPaymentMethods(cart)
-      .then((res) => {
-        router.push('/checkout');
-        res?.data && dispatch(SetCheckoutRedux(res?.data));
-        setLoadingCheckout(false);
-      })
-      .catch((err) => {
-        console.log('POST PAYMENT METHOD ERROR!', err);
-        setLoadingCheckout(false);
-        toast.error(t(`bookingError`), toastConfig as any);
-        return [];
-      });
+    if (cart?.objects?.length > 0) {
+      PostPaymentMethods(cart)
+        .then((res) => {
+          router.push('/checkout');
+          res?.data && dispatch(SetCheckoutRedux(res?.data));
+          setLoadingCheckout(false);
+        })
+        .catch((err) => {
+          console.log('POST PAYMENT METHOD ERROR!', err);
+          setLoadingCheckout(false);
+          toast.error(t(`bookingError`), toastConfig as any);
+          return [];
+        });
+    } else {
+      toast.error(t(`bookingError`), toastConfig as any);
+    }
   };
 
   const imageData = room.images?.map((image) => {
@@ -199,7 +203,11 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
                   <AmenitieDisplay
                     key={index}
                     amenitie={item as any}
-                    style={{ margin: 8 }}
+                    style={{
+                      margin: 8,
+                      width: 160,
+                      justifyContent: 'flex-start',
+                    }}
                   />
                 ))}
               </div>

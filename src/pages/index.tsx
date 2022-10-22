@@ -106,6 +106,10 @@ export default function Home(props: IHomeProps) {
     dispatch(CleanCart());
   };
 
+  const whatsappNumber = props.officeDetails?.contacts.find(
+    (c) => c.contactTypeCode === 5
+  )?.contactText;
+
   return (
     <div>
       <Head>
@@ -191,7 +195,7 @@ export default function Home(props: IHomeProps) {
           marginTop={width < 868 && '4rem'}
         />
       </main>
-      <WhatsappButton />
+      {!!whatsappNumber && <WhatsappButton whatsappNumber={whatsappNumber} />}
     </div>
   );
 }

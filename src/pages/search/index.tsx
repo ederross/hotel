@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import styles from './search.module.scss';
-import { HotelOutlined, AttractionsOutlined, ContentCutOutlined } from '@mui/icons-material';
+import {
+  HotelOutlined,
+  AttractionsOutlined,
+  ContentCutOutlined,
+} from '@mui/icons-material';
 import CardRoom from '../../components/CardRoom';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -101,13 +105,12 @@ const Search = ({
 
   const {
     domain: { facilitiesDomain: facilitiesDomainRedux },
-    cart: { infos },
   } = useSelector((state: AppStore) => state);
 
   const [selectedTab, setSelectedTab] = useState('rooms');
   const [searchResult, setSearchResult] = useState<any>();
   const [searchLoading, setSearchLoading] = useState(true);
-  const { startDate, endDate, adults, children }: any = router.query;
+  const { startDate, endDate, adults, children, ages }: any = router.query;
   const [selectedRoom, setSelectedRoom] = useState<Room>(undefined);
 
   const formattedNumber = (number: number) =>
@@ -121,8 +124,10 @@ const Search = ({
         endDate,
         adults,
         children,
-        ages: infos?.ages || [],
-        officeId: dynamicOffice ? window?.location?.hostname.split('.')[0] : officeId,
+        ages: ages || [],
+        officeId: dynamicOffice
+          ? window?.location?.hostname.split('.')[0]
+          : officeId,
       })
         .then((res: any) => {
           setSearchResult(res?.data);
@@ -143,7 +148,7 @@ const Search = ({
         endDate,
         adults,
         children,
-        ages: infos?.ages || [],
+        ages: ages || [],
       })
     );
   }, [startDate, endDate, adults, children, dispatch]);
@@ -471,7 +476,10 @@ export default Search;
   };
 };*/
 
-export const getServerSideProps: GetServerSideProps = async ({ locale, req }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  locale,
+  req,
+}) => {
   const id = dynamicOffice ? req.headers.host.split('.')[0] : officeId;
   const officeDetails = await GetOfficeDetails(id);
   const design = await GetOfficeDesign(id);
