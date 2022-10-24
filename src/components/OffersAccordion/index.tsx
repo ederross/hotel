@@ -100,7 +100,7 @@ const OffersAccordion = ({ room }: IOffersAccordion) => {
           infos: {
             adults,
             children,
-            image: room?.images[0]?.imageUrl,
+            image: room?.images ? room?.images[0]?.imageUrl : '',
             objectName: room?.objectName,
           },
         })
@@ -166,7 +166,6 @@ const OffersAccordion = ({ room }: IOffersAccordion) => {
                   </span>
                 </h4>
               )}{' '} */}
-
             </div>
             {ctaSelected === index && (
               <p className={styles.description}>{item?.priceDescription}</p>

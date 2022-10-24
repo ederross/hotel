@@ -128,11 +128,13 @@ const CartMenu = ({ openCart }: ICartMenu) => {
             {item?.prices?.map((price, index) => (
               <div key={index} className={styles.roomContainer}>
                 <div className={styles.imageRoomHolder}>
-                  <Image
-                    src={item?.infos?.image}
-                    layout={'fill'}
-                    alt={item?.infos?.objectName}
-                  />
+                  {!!item?.infos?.image && (
+                    <Image
+                      src={item?.infos?.image}
+                      layout={'fill'}
+                      alt={item?.infos?.objectName}
+                    />
+                  )}
                 </div>
 
                 <div className={styles.roomInfo}>
@@ -163,12 +165,13 @@ const CartMenu = ({ openCart }: ICartMenu) => {
                   </div>
 
                   <div className={styles.roomQtndPriceContainer}>
-                    <h5>{price?.quantity + 
-                          ' ' + 
-                          t(`room_${pluralProfix(
-                            price?.quantity,
-                            router.locale
-                          )}`)}</h5>
+                    <h5>
+                      {price?.quantity +
+                        ' ' +
+                        t(
+                          `room_${pluralProfix(price?.quantity, router.locale)}`
+                        )}
+                    </h5>
                     <h4>{currency(price?.regularTotalAmount)}</h4>
                   </div>
                 </div>

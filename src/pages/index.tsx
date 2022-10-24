@@ -31,12 +31,13 @@ import {
 } from '../services/requests/office';
 import { useEffect } from 'react';
 import { SetCheckoutRedux } from '../store/ducks/checkout/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { dynamicOffice, officeId } from '../services/api';
 import { useRouter } from 'next/router';
 import moment from 'moment';
 import { CleanCart, SetCartInfos } from '../store/ducks/cart/actions';
 import { WhatsappButton } from '../components/WhatsappButton';
+import { AppStore } from '../store/types';
 interface IHomeProps {
   officeDetails: OfficeDetails;
   design: Design;
@@ -50,6 +51,10 @@ export default function Home(props: IHomeProps) {
   const dispatch = useDispatch();
   const { t } = useTranslation('common');
   const router = useRouter();
+
+  const {
+    cart: { objects, services },
+  } = useSelector((state: AppStore) => state);
 
   useEffect(() => {
     document.documentElement.className =
@@ -195,7 +200,9 @@ export default function Home(props: IHomeProps) {
           marginTop={width < 868 && '4rem'}
         />
       </main>
-      {!!whatsappNumber && <WhatsappButton whatsappNumber={whatsappNumber} />}
+      {!!whatsappNumber && objects.length <= 0 && services.length <= 0 && (
+        <WhatsappButton whatsappNumber={whatsappNumber} />
+      )}
     </div>
   );
 }

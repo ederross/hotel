@@ -83,7 +83,7 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
     infos: {
       adults: parseInt(adults),
       children: parseInt(children),
-      image: room?.images[0]?.imageUrl,
+      image: room?.images ? room?.images[0]?.imageUrl : '',
       objectName: room?.objectName,
     },
   };

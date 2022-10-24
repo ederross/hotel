@@ -51,11 +51,13 @@ export const CheckoutInfoBox = ({ policies }: ICheckoutInfoBox) => {
                 {item?.prices?.map((price, index) => (
                   <div key={index} className={styles.roomContainer}>
                     <div className={styles.imageRoomHolder}>
-                      <Image
-                        src={item?.infos?.image}
-                        layout={'fill'}
-                        alt={item?.infos?.objectName}
-                      />
+                      {item?.infos?.image && (
+                        <Image
+                          src={item?.infos?.image}
+                          layout={'fill'}
+                          alt={item?.infos?.objectName}
+                        />
+                      )}
                     </div>
 
                     <div className={styles.roomInfo}>

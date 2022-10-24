@@ -110,7 +110,7 @@ const Search = ({
   const [selectedTab, setSelectedTab] = useState('rooms');
   const [searchResult, setSearchResult] = useState<any>();
   const [searchLoading, setSearchLoading] = useState(true);
-  const { startDate, endDate, adults, children, ages }: any = router.query;
+  const { startDate, endDate, adults, children, age }: any = router.query;
   const [selectedRoom, setSelectedRoom] = useState<Room>(undefined);
 
   const formattedNumber = (number: number) =>
@@ -124,7 +124,7 @@ const Search = ({
         endDate,
         adults,
         children,
-        ages: ages || [],
+        ages: age || [],
         officeId: dynamicOffice
           ? window?.location?.hostname.split('.')[0]
           : officeId,
@@ -148,7 +148,7 @@ const Search = ({
         endDate,
         adults,
         children,
-        ages: ages || [],
+        ages: age || [],
       })
     );
   }, [startDate, endDate, adults, children, dispatch]);

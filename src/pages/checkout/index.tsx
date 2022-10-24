@@ -163,7 +163,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
     },
   });
 
-  const [selectedPayMethodDetails, setSelectedPayMethodDetails] = useState(0);
+  const [selectedPayMethodDetails, setSelectedPayMethodDetails] = useState(-1);
 
   const payInfos = checkout?.find(
     (c) =>
@@ -174,16 +174,20 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
   const handleConfirm = () => {
     if (VerifyCheckoutFields(client, paymentBooking, setFieldErrors)) {
       if (checkout?.length > 0) {
-        PostBooking(cart, client, paymentBooking)
-          .then((res) => {
-            setConfirmData({
-              ...res?.data,
-              email: client?.contacts[0]?.contactText,
-            });
-          })
-          .catch((err) =>
-            toast.error(t('createBookingError'), toastConfig as any)
-          );
+        if (selectedPayMethodDetails >= 0) {
+          PostBooking(cart, client, paymentBooking)
+            .then((res) => {
+              setConfirmData({
+                ...res?.data,
+                email: client?.contacts[0]?.contactText,
+              });
+            })
+            .catch((err) =>
+              toast.error(t('createBookingError'), toastConfig as any)
+            );
+        } else {
+          toast.error(t('selectPlots'), toastConfig as any);
+        }
       }
     } else {
       toast.error(t('dataMissing'), toastConfig as any);
