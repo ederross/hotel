@@ -237,6 +237,7 @@ export const CheckoutPersonalData = ({
               setSelectedPayMethodDetails(parseInt(e.target.value))
             }
           >
+            <option value={-1}>{t('selectPlots')}</option>
             {checkout
               ?.find((c) => c.paymentMethodTypeCode === selectedPayMethod)
               .paymentDetails.sort(

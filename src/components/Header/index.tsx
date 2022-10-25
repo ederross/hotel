@@ -179,7 +179,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
         endDate: checkOutDate,
         adults: numberOfAdults,
         children: numberOfChildren,
-        ages: childrenAges,
+        age: childrenAges,
       },
     });
     dispatch(CleanCart());

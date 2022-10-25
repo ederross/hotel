@@ -59,7 +59,7 @@ export const GetPaymethodDomain = async (AcceptLanguage: string) =>
 
 export const GetPolicyDomain = async (AcceptLanguage: string) =>
   await (
-    await api.get('/domain/policyTypeCode', {
+    await api.get('/domain/policyGroupTypeCode', {
       headers: {
         'Accept-Language': AcceptLanguage,
       },

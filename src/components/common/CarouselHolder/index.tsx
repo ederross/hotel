@@ -73,7 +73,7 @@ const CarouselHolder = ({
             </div>
           )}
 
-          {currSlide < data.length - 1 && (
+          {currSlide < data?.length - 1 && (
             <div
               className="arrowBtnRight"
               onClick={(e) => {
