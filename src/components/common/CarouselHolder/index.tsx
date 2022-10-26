@@ -92,7 +92,10 @@ const CarouselHolder = ({
             url={image?.url}
             title={image?.title}
             alt={image?.alt}
-            style={styleImageComponent}
+            style={{
+              backgroundColor: '#FFFFFF77',
+              ...styleImageComponent,
+            }}
           />
         ))}
       </div>

@@ -14,7 +14,7 @@ import OffersAccordion from '../OffersAccordion';
 import { useRouter } from 'next/router';
 import { AmenitieDisplay } from '../common/AmenitieDisplay';
 import { motion } from 'framer-motion';
-import { Room } from '../../../data/room';
+import { Room, RoomImages } from '../../../data/room';
 import { IconImportDynamically } from '../common/ComponentWithIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStore } from '../../store/types';
@@ -25,9 +25,14 @@ import { SetCheckoutRedux } from '../../store/ducks/checkout/actions';
 interface IRoomDetailsProps {
   room: Room;
   setSelectedRoom: React.Dispatch<React.SetStateAction<Room>>;
+  setShowPhotosModal: React.Dispatch<React.SetStateAction<RoomImages[]>>;
 }
 
-export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
+export const RoomDetails = ({
+  room,
+  setSelectedRoom,
+  setShowPhotosModal,
+}: IRoomDetailsProps) => {
   const { t } = useTranslation('common');
   const dispatch = useDispatch();
   const [openOffersModal, setOpenOffersModal] = useState(false);
@@ -129,24 +134,27 @@ export const RoomDetails = ({ room, setSelectedRoom }: IRoomDetailsProps) => {
             <div
               className={styles.imgLeftSide}
               style={{
-                backgroundImage: `url(${imageData[0]?.url})`,
+                backgroundImage: `url(${imageData ? imageData[0]?.url : ''})`,
               }}
             ></div>
             <div className={styles.imgRightSide}>
               <div
                 className={styles.secondImgBox}
                 style={{
-                  backgroundImage: `url(${imageData[1]?.url})`,
+                  backgroundImage: `url(${imageData ? imageData[1]?.url : ''})`,
                 }}
               ></div>
               <div
                 className={styles.thirdImgBox}
                 style={{
-                  backgroundImage: `url(${imageData[2]?.url})`,
+                  backgroundImage: `url(${imageData ? imageData[2]?.url : ''})`,
                 }}
               >
-                {imageData.length > 3 && (
-                  <div className={styles.allButton}>
+                {imageData?.length > 3 && (
+                  <div
+                    className={styles.allButton}
+                    onClick={() => setShowPhotosModal(room?.images)}
+                  >
                     <AppsOutlined
                       fontSize={'small'}
                       style={{ color: '#000' }}
