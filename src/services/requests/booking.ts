@@ -59,7 +59,7 @@ export const GetRoomSearch = async ({
   officeId,
 }: IGetRoomSearch) => {
   return await api
-    .get(`/booking/room-search/?${ages.map((a) => `age=${a}`).join('&')}`, {
+    .get(`/booking/room-search/`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -69,6 +69,7 @@ export const GetRoomSearch = async ({
         endDate,
         adults,
         children,
+        age: ages,
       },
     })
     .then((response) => {

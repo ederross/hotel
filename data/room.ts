@@ -14,7 +14,7 @@ export interface Room {
   };
   prices: Price[];
   amenities: Amenities[];
-  images: Images[];
+  images: RoomImages[];
 }
 
 interface SleepArrangements {
@@ -58,7 +58,7 @@ interface Amenities {
   ];
 }
 
-interface Images {
+export interface RoomImages {
   imageId: number;
   imageUrl: string;
   subTitle: string;

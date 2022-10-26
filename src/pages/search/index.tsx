@@ -30,7 +30,7 @@ import {
   GetOfficeEvents,
   GetOfficeFacilities,
 } from '../../services/requests/office';
-import { Room } from '../../../data/room';
+import { Room, RoomImages } from '../../../data/room';
 import { RoomDetails } from '../../components/RoomDetails';
 import { Facility } from '../../../data/facilities';
 import { useWindowSize } from '../../hooks/UseWindowSize';
@@ -62,6 +62,7 @@ import { SetCartInfos } from '../../store/ducks/cart/actions';
 import { pluralProfix } from '../../utils/pluralRules';
 import { dynamicOffice, officeId } from '../../services/api';
 import { EventsHome } from '../../../data/events';
+import { PhotosModal } from '../../components/PhotosModal';
 
 interface ISearch {
   servicesResult: any;
@@ -112,6 +113,7 @@ const Search = ({
   const [searchLoading, setSearchLoading] = useState(true);
   const { startDate, endDate, adults, children, age }: any = router.query;
   const [selectedRoom, setSelectedRoom] = useState<Room>(undefined);
+  const [showPhotosModal, setShowPhotosModal] = useState<RoomImages[]>([]);
 
   const formattedNumber = (number: number) =>
     number < 10 && number > 0 ? `0${number}` : '';
@@ -133,12 +135,13 @@ const Search = ({
           setSearchResult(res?.data);
           setSearchLoading(false);
         })
-        .catch(() => {
-          console.log('>>> FALHA AO PEGAR A PESQUISA DE QUARTOS! <<<');
+        .catch((err) => {
+          console.log('>>> FALHA AO PEGAR A PESQUISA DE QUARTOS! <<<\n', err);
           setSearchResult([]);
           setSearchLoading(false);
         });
     } else {
+      console.log('[SEARCH] INVALID REQUEST!');
       setSearchLoading(false);
     }
     dispatch(
@@ -200,7 +203,11 @@ const Search = ({
       >
         <Header selectedRoom={selectedRoom} design={design} events={events} />
         {selectedRoom && (
-          <RoomDetails room={selectedRoom} setSelectedRoom={setSelectedRoom} />
+          <RoomDetails
+            room={selectedRoom}
+            setSelectedRoom={setSelectedRoom}
+            setShowPhotosModal={setShowPhotosModal}
+          />
         )}
 
         <>
@@ -425,6 +432,13 @@ const Search = ({
             </section>
           )}
         </>
+        {showPhotosModal.length > 0 && (
+          <PhotosModal
+            close={() => setShowPhotosModal([])}
+            data={showPhotosModal}
+            room={selectedRoom}
+          />
+        )}
 
         {selectedRoom && width < 868 ? (
           <div></div>

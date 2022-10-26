@@ -4,14 +4,17 @@
   align-items: center;
   justify-content: center;
   // width: 64px;
-  height: 32px;
+  height: 48px;
   margin-right: 0.4rem;
 
   h5 {
     margin: 0.3rem;
-    padding: 0 0.2rem;
     font-size: 0.6rem;
     font-weight: 450;
     color: #777;
+    white-space: nowrap;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 } 
