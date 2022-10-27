@@ -20,6 +20,7 @@ import { toast } from 'react-toastify';
 
 import styles from './styles.module.scss';
 import { pluralProfix } from '../../utils/pluralRules';
+import { dynamicOffice, officeId } from '../../services/api';
 
 interface ICartModal {
   handleCloseCartModal: () => void;
@@ -56,7 +57,12 @@ const CartModal = ({
   const handleCleanCart = () => dispatch(CleanCart());
   const handleReserve = () => {
     setLoadingCheckout(true);
-    PostPaymentMethods(cart)
+    PostPaymentMethods({
+      ...cart,
+      officeId: dynamicOffice
+        ? window.location.hostname.split('.')[0]
+        : officeId,
+    })
       .then((res) => {
         handleCloseCartModal();
         res?.data?.length > 0 && router.push('/checkout');
