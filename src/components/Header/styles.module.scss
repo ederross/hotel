@@ -400,6 +400,8 @@
     color: var(--gray-600);
     font-size: 14px;
     font-family: 'SulSansRegular' !important;
+    
+    text-transform: capitalize;
 
     @media screen and (min-width: 868px) {
       font-size: 18px;

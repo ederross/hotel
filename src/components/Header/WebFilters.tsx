@@ -143,7 +143,7 @@ const WebFilters = ({
                       showDateDisplay={false}
                       editableDateInputs={false}
                       showMonthAndYearPickers={false}
-                      locale={locales[locale === 'ptBR' ? 'pt' : locale]}
+                      locale={locales[locale === 'pt-BR' ? 'pt' : 'enUs']}
                       inputRanges={[]}
                       staticRanges={[]}
                       dayContentRenderer={(date: Date) =>

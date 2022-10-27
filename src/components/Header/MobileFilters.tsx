@@ -346,6 +346,9 @@ const Container = styled.div`
     /* background: var(--primary-color); */
     background: transparent;
   }
+  .rdrDayPassive {
+    opacity: 0;
+  }
 `;
 
 export default Filters;

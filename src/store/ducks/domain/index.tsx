@@ -46,6 +46,21 @@ const INITIAL_STATE: TypesDomain = {
       requestDateTime: '',
     },
   },
+  facilitiesItemDomain: {
+    data: [],
+    links: {
+      self: '',
+      first: '',
+      prev: '',
+      next: '',
+      last: '',
+    },
+    meta: {
+      totalRecords: 0,
+      totalPages: 0,
+      requestDateTime: '',
+    },
+  },
   iconsDomain: {
     data: [],
     links: {
@@ -133,6 +148,8 @@ const reducer = (state = INITIAL_STATE, action: any) => {
       return { ...state, contactDomain: action.payload.contact };
     case Types.SET_FACILITIES_DOMAIN:
       return { ...state, facilitiesDomain: action.payload.facilities };
+    case Types.SET_FACILITIESITEM_DOMAIN:
+      return { ...state, facilitiesItemDomain: action.payload.facilities };
     case Types.SET_SERVICES_DOMAIN:
       return { ...state, serviceTypeDomain: action.payload.services };
     case Types.SET_SERVICEPRICES_DOMAIN:
