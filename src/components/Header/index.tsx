@@ -273,7 +273,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
   // Filter Calendar Strings Format
   const filterString = `${moment(dateState[0].startDate).format(
     'DD'
-  )} - ${moment(dateState[0].endDate).format('ll')} | ${
+  )} - ${moment(dateState[0].endDate).format('DD MMM')} | ${
     numberOfAdults + numberOfChildren
   } ${t('guest_other', {
     count: numberOfAdults + numberOfChildren,
@@ -639,7 +639,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
         </div>
       </header>
 
-      {size.width < 868 && router.pathname !== '/checkout' && (
+      {size.width < 868 && router.pathname !== '/checkout' && cartLength > 0 && (
         <div className={styles.cartFloatingContainer}>
           <motion.div
             initial={{ scale: 0.9 }}

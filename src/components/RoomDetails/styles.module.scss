@@ -165,7 +165,7 @@
         .amenitiesContainer {
           display: flex;
           margin-bottom: 1rem;
-          max-width: 280px;
+          max-width: 720px;
           flex-wrap: wrap;
 
           .amenitie {
@@ -180,10 +180,6 @@
               font-weight: 600;
               font-size: 0.7rem;
             }
-          }
-
-          @media screen and (min-width: 728px) {
-            max-width: 400px;
           }
         }
       }
@@ -548,8 +544,6 @@
         .infoBox {
           flex: 1.5;
           color: #000;
-
-          padding-right: 4rem;
         }
 
         .ctaBoxHolder {
