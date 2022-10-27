@@ -2,6 +2,7 @@ export const Types = {
   SET_ICON_DOMAIN: '@domain/SET_ICON_DOMAIN',
   SET_CONTACT_DOMAIN: '@domain/SET_CONTACT_DOMAIN',
   SET_FACILITIES_DOMAIN: '@domain/SET_FACILITIES_DOMAIN',
+  SET_FACILITIESITEM_DOMAIN: '@domain/SET_FACILITIESITEM_DOMAIN',
   SET_AMENITIES_DOMAIN: '@domain/SET_AMENITIES_DOMAIN',
   SET_SERVICES_DOMAIN: '@domain/SET_SERVICES_DOMAIN',
   SET_SERVICEPRICES_DOMAIN: '@domain/SET_SERVICEPRICES_DOMAIN',
@@ -13,6 +14,7 @@ export interface TypesDomain {
   iconsDomain: Domain;
   contactDomain: Domain;
   facilitiesDomain: Domain;
+  facilitiesItemDomain: Domain;
   amenitiesDomain: Domain;
   servicePriceDomain: Domain;
   serviceTypeDomain: Domain;

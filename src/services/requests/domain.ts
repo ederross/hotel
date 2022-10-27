@@ -24,6 +24,14 @@ export const GetFacilitiesDomain = async (AcceptLanguage: string) =>
       },
     })
   ).data;
+export const GetFacilitiesItemDomain = async (AcceptLanguage: string) =>
+  await (
+    await api.get('/domain/FacilityTypeCode', {
+      headers: {
+        'Accept-Language': AcceptLanguage,
+      },
+    })
+  ).data;
 export const GetAmenitiesDomain = async (AcceptLanguage: string) =>
   await (
     await api.get('/domain/amenityTypeCode', {

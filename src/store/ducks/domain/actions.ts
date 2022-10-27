@@ -12,6 +12,10 @@ export const SetFacilitiesDomain = (facilities: Domain) => {
   return action(Types.SET_FACILITIES_DOMAIN, { facilities });
 };
 
+export const SetFacilitiesItemDomain = (facilities: Domain) => {
+  return action(Types.SET_FACILITIESITEM_DOMAIN, { facilities });
+};
+
 export const SetAmenitiesDomain = (amenities: Domain) => {
   return action(Types.SET_AMENITIES_DOMAIN, { amenities });
 };

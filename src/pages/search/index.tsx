@@ -38,6 +38,7 @@ import {
   GetAmenitiesDomain,
   GetContactDomain,
   GetFacilitiesDomain,
+  GetFacilitiesItemDomain,
   GetIconsDomain,
   GetPaymethodDomain,
   GetPolicyDomain,
@@ -49,6 +50,7 @@ import {
   SetAmenitiesDomain,
   SetContactDomain,
   SetFacilitiesDomain,
+  SetFacilitiesItemDomain,
   SetIconsDomain,
   SetPaymethodDomain,
   SetPolicyDomain,
@@ -72,6 +74,7 @@ interface ISearch {
   events: EventsHome[];
   iconsDomain: Domain;
   facilitiesDomain: Domain;
+  facilitiesItemDomain: Domain;
   contactDomain: Domain;
   amenititiesDomain: Domain;
   servicesDomain: Domain;
@@ -89,6 +92,7 @@ const Search = ({
   amenititiesDomain,
   contactDomain,
   facilitiesDomain,
+  facilitiesItemDomain,
   servicePricesDomain,
   servicesDomain,
   iconsDomain,
@@ -105,7 +109,10 @@ const Search = ({
   }, [design]);
 
   const {
-    domain: { facilitiesDomain: facilitiesDomainRedux },
+    domain: {
+      facilitiesDomain: facilitiesDomainRedux,
+      facilitiesItemDomain: facilitiesItemDomainRedux,
+    },
   } = useSelector((state: AppStore) => state);
 
   const [selectedTab, setSelectedTab] = useState('rooms');
@@ -161,6 +168,7 @@ const Search = ({
     dispatch(SetAmenitiesDomain(amenititiesDomain));
     dispatch(SetContactDomain(contactDomain));
     dispatch(SetFacilitiesDomain(facilitiesDomain));
+    dispatch(SetFacilitiesItemDomain(facilitiesItemDomain));
     dispatch(SetServicesDomain(servicesDomain));
     dispatch(SetServicePricesDomain(servicePricesDomain));
     dispatch(SetPaymethodDomain(paymethodDomain));
@@ -180,6 +188,11 @@ const Search = ({
   const GetFacilityFromDomain = (facilityCategoryTypeCode: number) =>
     facilitiesDomainRedux.data.find(
       (i) => i.domainItemCode === facilityCategoryTypeCode
+    )?.domainItemValue || '-';
+
+  const GetFacilityItemFromDomain = (facilityItemTypeCode: number) =>
+    facilitiesItemDomainRedux.data.find(
+      (i) => i.domainItemCode === facilityItemTypeCode
     )?.domainItemValue || '-';
 
   return (
@@ -423,7 +436,13 @@ const Search = ({
                             iconName={item?.displayIconTypeCode}
                             size={20}
                           />
-                          <p>{item?.facilityName || '-'}</p>
+                          <p>
+                            {item.facilityName
+                              ? item.facilityName
+                              : GetFacilityItemFromDomain(
+                                  item.facilityTypeCode
+                                )}
+                          </p>
                         </div>
                       ))}
                     </div>
@@ -504,6 +523,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   //Domain
   const iconsDomain = await GetIconsDomain(locale);
   const facilitiesDomain = await GetFacilitiesDomain(locale);
+  const facilitiesItemDomain = await GetFacilitiesItemDomain(locale);
   const contactDomain = await GetContactDomain(locale);
   const amenititiesDomain = await GetAmenitiesDomain(locale);
   const servicesDomain = await GetServicesDomain(locale);
@@ -520,6 +540,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       events,
       iconsDomain,
       facilitiesDomain,
+      facilitiesItemDomain,
       contactDomain,
       amenititiesDomain,
       servicesDomain,
