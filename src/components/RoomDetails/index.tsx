@@ -21,6 +21,7 @@ import { AppStore } from '../../store/types';
 import { PostPaymentMethods } from '../../services/requests/booking';
 import { toast } from 'react-toastify';
 import { SetCheckoutRedux } from '../../store/ducks/checkout/actions';
+import { dynamicOffice, officeId } from '../../services/api';
 
 interface IRoomDetailsProps {
   room: Room;
@@ -70,7 +71,12 @@ export const RoomDetails = ({
   const handleReserve = () => {
     setLoadingCheckout(true);
     if (cart?.objects?.length > 0) {
-      PostPaymentMethods(cart)
+      PostPaymentMethods({
+        ...cart,
+        officeId: dynamicOffice
+          ? window.location.hostname.split('.')[0]
+          : officeId,
+      })
         .then((res) => {
           router.push('/checkout');
           res?.data && dispatch(SetCheckoutRedux(res?.data));

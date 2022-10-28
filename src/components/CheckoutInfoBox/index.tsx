@@ -29,7 +29,8 @@ export const CheckoutInfoBox = ({ policies }: ICheckoutInfoBox) => {
     parseInt(policies?.bookPolicy?.checkinWindow?.endTime?.substring(0, 2)) ||
     parseInt(policies?.bookPolicy?.checkinWindow?.startTime?.substring(0, 2)) +
       0;
-  const checkInOptions = checkInEnd - checkInStart + 1;
+  const checkInOptions =
+    checkInEnd - checkInStart + 1 > 0 ? checkInEnd - checkInStart + 1 : 0;
 
   const {
     cart: { infos, objects, services },
@@ -174,15 +175,17 @@ export const CheckoutInfoBox = ({ policies }: ICheckoutInfoBox) => {
             <h4>{t('arrivalForecast')}</h4>
             <div className={styles.cSelect}>
               <select name="arrivalForecast" id="pet-select">
-                {[...Array(checkInOptions || 0)].map((_, index) => (
-                  <option key={index} value="">
-                    {checkInStart + index}:
-                    {policies?.bookPolicy?.checkinWindow?.startTime?.substring(
-                      3,
-                      5
-                    )}
-                  </option>
-                ))}
+                {[...Array(!!checkInOptions ? checkInOptions : 0)].map(
+                  (_, index) => (
+                    <option key={index} value="">
+                      {checkInStart + index}:
+                      {policies?.bookPolicy?.checkinWindow?.startTime?.substring(
+                        3,
+                        5
+                      )}
+                    </option>
+                  )
+                )}
               </select>
             </div>
           </div>

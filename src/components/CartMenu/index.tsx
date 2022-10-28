@@ -19,6 +19,7 @@ import { useWindowSize } from '../../hooks/UseWindowSize';
 import { PostPaymentMethods } from '../../services/requests/booking';
 import { SetCheckoutRedux } from '../../store/ducks/checkout/actions';
 import { pluralProfix } from '../../utils/pluralRules';
+import { dynamicOffice, officeId } from '../../services/api';
 
 interface ICartMenu {
   openCart: boolean;
@@ -43,7 +44,12 @@ const CartMenu = ({ openCart }: ICartMenu) => {
 
   const handleReserve = () => {
     setLoadingCheckout(true);
-    PostPaymentMethods(cart)
+    PostPaymentMethods({
+      ...cart,
+      officeId: dynamicOffice
+        ? window.location.hostname.split('.')[0]
+        : officeId,
+    })
       .then((res) => {
         res?.data?.length > 0 && router.push('/checkout');
         res?.data && dispatch(SetCheckoutRedux(res?.data));
