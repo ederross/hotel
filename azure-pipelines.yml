@@ -65,7 +65,7 @@ stages:
   - stage:
     displayName: PROD
     dependsOn:
-    condition: contains(variables['Build.Reason'], 'Manual')
+    condition: and(contains(variables['Build.Reason'], 'Manual'), contains(variables['Build.SourceBranch'], 'refs/tags/v'))
     jobs:
       - deployment:
         displayName: Deploy PROD
