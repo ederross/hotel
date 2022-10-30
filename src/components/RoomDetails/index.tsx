@@ -22,6 +22,7 @@ import { PostPaymentMethods } from '../../services/requests/booking';
 import { toast } from 'react-toastify';
 import { SetCheckoutRedux } from '../../store/ducks/checkout/actions';
 import { dynamicOffice, officeId } from '../../services/api';
+import { pluralProfix } from '../../utils/pluralRules';
 
 interface IRoomDetailsProps {
   room: Room;
@@ -260,12 +261,14 @@ export const RoomDetails = ({
           </h4>
           <u onClick={() => handleOpenMobileOffersModal()}>
             <h6>
+
               {t('see')} {room?.prices?.length}{' '}
-              {room?.prices?.length > 1
-                ? t('offers')
-                : room?.prices?.length === 0
-                ? t('offers')
-                : t('offers')}
+              {t(
+                  `offers_${pluralProfix(
+                            room?.prices?.length,
+                            router.locale
+                          )}`
+              )}
             </h6>
           </u>
         </div>
