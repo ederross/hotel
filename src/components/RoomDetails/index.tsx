@@ -256,7 +256,7 @@ export const RoomDetails = ({
       <div className={styles.offersControlContainer}>
         <div className={styles.leftSide}>
           <h4>
-            R$ 98 <span>2 {t('nights')}</span>{' '}
+            R$ 98 <span>2 {t('night')}</span>{' '}
           </h4>
           <u onClick={() => handleOpenMobileOffersModal()}>
             <h6>
@@ -265,7 +265,7 @@ export const RoomDetails = ({
                 ? t('offers')
                 : room?.prices?.length === 0
                 ? t('offers')
-                : t('offer')}
+                : t('offers')}
             </h6>
           </u>
         </div>
