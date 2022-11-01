@@ -365,7 +365,10 @@ export const getServerSideProps: GetServerSideProps = async ({
   locale,
   req,
 }) => {
-  const id = dynamicOffice ? req.headers.host.split('.')[0] : officeId;
+  const xfowardedHost = req.headers['x-forwarded-host'];
+  console.log("X-fowardedHost: " + xfowardedHost);
+
+  const id = dynamicOffice ? xfowardedHost.toString().split('.')[0] : officeId;
   const officeDetails = await GetOfficeDetails(id);
   const design = await GetOfficeDesign(id);
   const policies = await GetOfficePolicies(id);

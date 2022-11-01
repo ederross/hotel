@@ -61,3 +61,29 @@ stages:
                     AWS_REPO_URL_UAT: $(AWS_REPO_URL_UAT)
                     AWS_GIT_USERNAME_UAT: $(AWS_GIT_USERNAME_UAT)
                     AWS_GIT_PASSWORD_UAT: $(AWS_GIT_PASSWORD_UAT)
+  # PROD Stage
+  - stage:
+    displayName: PROD
+    dependsOn:
+    condition: and(contains(variables['Build.Reason'], 'Manual'), contains(variables['Build.SourceBranch'], 'refs/tags/v'))
+    jobs:
+      - deployment:
+        displayName: Deploy PROD
+        environment: PROD Amplify
+        pool:
+          vmImage: 'ubuntu-latest'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - script: |
+                    sudo apt-get install gridsite-clients
+                    git checkout main
+                    git reset --hard $(Build.SourceBranch)
+                    git push -f https://${AWS_GIT_USERNAME_PROD}:$(urlencode ${AWS_GIT_PASSWORD_PROD})@${AWS_REPO_URL_PROD}
+                  displayName: 'Sync repository with AWS CodeCommit'
+                  env:
+                    AWS_REPO_URL_PROD: $(AWS_REPO_URL_PROD)
+                    AWS_GIT_USERNAME_PROD: $(AWS_GIT_USERNAME_PROD)
+                    AWS_GIT_PASSWORD_PROD: $(AWS_GIT_PASSWORD_PROD)
