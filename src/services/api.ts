@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const dynamicOffice = true;
+export const dynamicOffice = false;
 export const officeId = 'office1';
 export const baseURL = 'https://book.hospeda.in';
 const https = require('https');
