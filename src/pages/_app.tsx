@@ -20,6 +20,7 @@ import { useEffect } from 'react';
 import NextNProgress from 'nextjs-progressbar';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { locale } = useRouter();
