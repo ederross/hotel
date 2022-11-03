@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppStore } from '../../store/types';
 import { motion } from 'framer-motion';
 import CartModal from '../CartModal';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { CleanCart, SetCartInfos } from '../../store/ducks/cart/actions';
 import { pluralProfix } from '../../utils/pluralRules';
 import { GetCalendarSearch } from '../../services/requests/booking';
@@ -110,6 +110,17 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
   const numberOfChildren = dateState[0].children;
   const [childrenAges, setChildrenAges] = useState<number[]>(ages || []);
 
+  const toastConfig = {
+    position: size?.width < 868 ? 'top-left' : 'bottom-right',
+    autoClose: 5000,
+    theme: 'colored',
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  };
+
   const openDatePicker = () => {
     setOpenCart(false);
     setInputGuest(false);
@@ -172,28 +183,33 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
   // Search Submit Method
   const handleSubmit = (e) => {
     e.preventDefault();
-    router.push({
-      pathname: `/search`,
-      query: {
-        startDate: checkInDate,
-        endDate: checkOutDate,
-        adults: numberOfAdults,
-        children: numberOfChildren,
-        age: childrenAges,
-      },
-    });
-    dispatch(CleanCart());
-    dispatch(
-      SetCartInfos({
-        totalGuest: numberOfAdults + numberOfChildren,
-        startDate: checkInDate,
-        endDate: checkOutDate,
-        adults: numberOfAdults,
-        children: numberOfChildren,
-        ages: childrenAges,
-      })
-    );
-    setTimeout(() => closeCalendar(), 100);
+    const hasAllAges = childrenAges.length >= numberOfChildren;
+    if (hasAllAges) {
+      router.push({
+        pathname: `/search`,
+        query: {
+          startDate: checkInDate,
+          endDate: checkOutDate,
+          adults: numberOfAdults,
+          children: numberOfChildren,
+          age: childrenAges,
+        },
+      });
+      dispatch(CleanCart());
+      dispatch(
+        SetCartInfos({
+          totalGuest: numberOfAdults + numberOfChildren,
+          startDate: checkInDate,
+          endDate: checkOutDate,
+          adults: numberOfAdults,
+          children: numberOfChildren,
+          ages: childrenAges,
+        })
+      );
+      setTimeout(() => closeCalendar(), 100);
+    } else {
+      toast.error(`enterAllAges`, toastConfig as any);
+    }
   };
 
   // Scroll Header Animation

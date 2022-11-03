@@ -33,7 +33,7 @@ export const AmenitieDisplay = ({
   const { t } = useTranslation('common');
   const amenitiesList = amenitie?.Amenities.slice(
     0,
-    resume ? 4 : amenitie.Amenities.length
+    resume ? 3 : amenitie.Amenities.length
   );
 
   const {
@@ -58,7 +58,9 @@ export const AmenitieDisplay = ({
             size={20}
           />
           {showTitle && (
-            <h5>{t(GetAmenitieFromDomain(item.amenityTypeCode))}</h5>
+            <h5 style={{ maxWidth: resume ? 72 : 120 }}>
+              {t(GetAmenitieFromDomain(item.amenityTypeCode))}
+            </h5>
           )}
         </div>
       ))}
