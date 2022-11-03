@@ -23,6 +23,7 @@ import { toast } from 'react-toastify';
 import { SetCheckoutRedux } from '../../store/ducks/checkout/actions';
 import { dynamicOffice, officeId } from '../../services/api';
 import { pluralProfix } from '../../utils/pluralRules';
+import { currency } from '../../utils/currency';
 
 interface IRoomDetailsProps {
   room: Room;
@@ -257,18 +258,18 @@ export const RoomDetails = ({
       <div className={styles.offersControlContainer}>
         <div className={styles.leftSide}>
           <h4>
-            R$ 98 <span>2 {t('night')}</span>{' '}
+            {currency(room?.prices[0]?.regularTotalAmount)}{' '}
+            <span>
+              {room?.prices[0].nightQty}{' '}
+              {t(
+                `night_${pluralProfix(room?.prices[0].nightQty, router.locale)}`
+              )}
+            </span>{' '}
           </h4>
           <u onClick={() => handleOpenMobileOffersModal()}>
             <h6>
-
               {t('see')} {room?.prices?.length}{' '}
-              {t(
-                  `offers_${pluralProfix(
-                            room?.prices?.length,
-                            router.locale
-                          )}`
-              )}
+              {t(`offers_${pluralProfix(room?.prices?.length, router.locale)}`)}
             </h6>
           </u>
         </div>

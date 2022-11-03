@@ -13,6 +13,7 @@ import {
   RemoveProductToCart,
 } from '../../store/ducks/cart/actions';
 import { useRouter } from 'next/router';
+import { pluralProfix } from '../../utils/pluralRules';
 interface IOffersAccordion {
   room: Room;
 }
@@ -141,7 +142,10 @@ const OffersAccordion = ({ room }: IOffersAccordion) => {
                 {ctaSelected !== index ? (
                   <h4>{currency(item?.regularTotalAmount)}</h4>
                 ) : (
-                  <h4>{item?.nightQty} noites </h4>
+                  <h4>
+                    {item?.nightQty}{' '}
+                    {t(`night_${pluralProfix(item?.nightQty, router.locale)}`)}
+                  </h4>
                 )}
                 <h3 style={{ fontSize: ctaSelected !== index ? 16 : 20 }}>
                   {item?.name}
