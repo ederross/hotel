@@ -145,7 +145,7 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
         <p>{room?.objectDescription.substring(0, 56)}...</p>
 
         <div className={styles.amenitiesContainer}>
-          {room?.amenities?.map((item, index) => (
+          {room?.amenities?.slice(0, 3).map((item, index) => (
             <AmenitieDisplay
               key={index}
               resume
