@@ -208,7 +208,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
       );
       setTimeout(() => closeCalendar(), 100);
     } else {
-      toast.error(`enterAllAges`, toastConfig as any);
+      toast.error(t('enterAllAges'), toastConfig as any);
     }
   };
 
