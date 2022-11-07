@@ -156,7 +156,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
                             )}`)
                         }
                         {' & '}
-                        {item.infos?.adults +
+                        {item.infos?.children +
                          ' ' +
                           t(
                             `children_${pluralProfix(
