@@ -141,12 +141,14 @@ export const RoomDetails = ({
           <div className={styles.imgsBox}>
             <div
               className={styles.imgLeftSide}
+              onClick={() => setShowPhotosModal(room?.images)}
               style={{
                 backgroundImage: `url(${imageData ? imageData[0]?.url : ''})`,
               }}
             ></div>
             <div className={styles.imgRightSide}>
               <div
+                onClick={() => setShowPhotosModal(room?.images)}
                 className={styles.secondImgBox}
                 style={{
                   backgroundImage: `url(${imageData ? imageData[1]?.url : ''})`,
@@ -154,6 +156,7 @@ export const RoomDetails = ({
               ></div>
               <div
                 className={styles.thirdImgBox}
+                onClick={() => setShowPhotosModal(room?.images)}
                 style={{
                   backgroundImage: `url(${imageData ? imageData[2]?.url : ''})`,
                 }}

@@ -14,7 +14,7 @@ import {
 } from './styles';
 import { OfficeDetails } from '../../../../data/officeDetails';
 import { useTranslation } from 'next-i18next';
-import { Globe, Instagram, Twitter } from 'react-feather';
+import { Globe, Instagram, Twitter, Facebook } from 'react-feather';
 import { Design } from '../../../../data/design';
 import { GlobeContainer } from '../FooterCheckout/styles';
 import { useRouter } from 'next/router';
@@ -123,6 +123,20 @@ const Footer = ({ design, officeDetails, marginTop }: IFooterProps) => {
 
                 <div style={{ display: 'flex' }}>
                   {officeDetails?.contacts
+                    ?.filter((o) => o.contactTypeCode === 6)
+                    ?.map((item, index) => (
+                      <a
+                        href={`https://www.facebook.com/${item?.contactText}`}
+                        className="socialCircle"
+                        key={index}
+                        title={item.name}
+                        target={'_blank'}
+                        rel="noreferrer"
+                      >
+                        <Facebook className="icon" />
+                      </a>
+                    ))}
+                  {officeDetails?.contacts
                     ?.filter((o) => o.contactTypeCode === 3)
                     ?.map((item, index) => (
                       <a
@@ -167,7 +181,14 @@ const Footer = ({ design, officeDetails, marginTop }: IFooterProps) => {
               </div>
             </InformationContainer>
           </div>
-          <hr style={{ marginTop: 32, border: 'none', borderTop: '1px solid #cacaca', marginBottom: 32 }} />
+          <hr
+            style={{
+              marginTop: 32,
+              border: 'none',
+              borderTop: '1px solid #cacaca',
+              marginBottom: 32,
+            }}
+          />
           <GlobeContainer
             style={{
               alignItems: 'flex-start',

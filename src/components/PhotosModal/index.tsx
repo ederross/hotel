@@ -22,6 +22,8 @@ export const PhotosModal = ({ close, data, room }: ICartModal) => {
 
   const dispatch = useDispatch();
 
+  const [selected, setSelected] = useState(0);
+
   // Window Sizes
   const size = useWindowSize();
 
@@ -44,12 +46,12 @@ export const PhotosModal = ({ close, data, room }: ICartModal) => {
         <div className={styles.modal}>
           <div className={styles.modalHeader}>
             <h3 className={styles.modalTitle}>
-              {room?.objectName || t('Galery')}
+              {imageData[selected]?.title || t('Galery')}
             </h3>
             <CloseOutlined onClick={close} className={styles.closeButton} />
           </div>{' '}
           <div className={styles.contentContainer}>
-            <CarouselHolder data={imageData} />
+            <CarouselHolder data={imageData} setSelected={setSelected} />
           </div>
         </div>
         <div

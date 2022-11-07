@@ -1,5 +1,5 @@
 import { TypesCart } from '../../store/ducks/cart/types';
-import api from '../api';
+import api, { apiToken } from '../api';
 
 interface IGetRoomSearch {
   officeId: string;
@@ -62,6 +62,7 @@ export const GetRoomSearch = async ({
     .get(`/booking/room-search/`, {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Basic ${apiToken}`,
       },
       params: {
         officeId,
@@ -84,6 +85,10 @@ export const GetRoomSearch = async ({
 export const GetServiceSearch = async (id: string) => {
   const res = await api
     .get('/booking/services', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Basic ${apiToken}`,
+      },
       params: {
         officeId: id,
       },
@@ -109,6 +114,7 @@ export const GetCalendarSearch = async (
     .get('/booking/calendar-search', {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Basic ${apiToken}`,
       },
       params: {
         officeId: id,
@@ -153,6 +159,7 @@ export const PostPaymentMethods = async (cart: TypesCart) => {
     {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Basic ${apiToken}`,
       },
     }
   );
@@ -216,6 +223,7 @@ export const PostBooking = async (
     {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Basic ${apiToken}`,
       },
     }
   );
