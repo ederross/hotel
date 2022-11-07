@@ -124,19 +124,23 @@ const CartModal = ({
                     <div className={styles.roomNameAdultChildContainer}>
                       <div className={styles.row}>
                         <h5>
-                          {t(
-                            `adult_${pluralProfix(
-                              room.infos?.adults,
-                              router.locale
-                            )}`
-                          )}
+                          {room.infos?.adults +
+                           ' ' +
+                            t(
+                              `adult_${pluralProfix(
+                                room.infos?.adults,
+                                router.locale
+                              )}`)
+                          }
                           {' & '}
-                          {t(
-                            `children_${pluralProfix(
-                              room.infos?.children,
-                              router.locale
-                            )}`
-                          )}
+                          {room.infos?.children +
+                           ' ' +
+                            t(
+                              `children_${pluralProfix(
+                                room.infos?.children,
+                                router.locale
+                              )}`)
+                          }
                         </h5>
                         {!isCheckoutSeeAllData && (
                           <Delete

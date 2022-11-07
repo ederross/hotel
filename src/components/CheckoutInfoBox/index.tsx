@@ -76,19 +76,23 @@ export const CheckoutInfoBox = ({ policies }: ICheckoutInfoBox) => {
                       <div className={styles.roomNameAdultChildContainer}>
                         <div className={styles.row}>
                           <h5>
-                            {t(
-                              `adult_${pluralProfix(
-                                item.infos?.adults,
-                                router.locale
-                              )}`
-                            )}
+                            {item.infos?.adults +
+                             ' ' +
+                              t(
+                                `adult_${pluralProfix(
+                                  item.infos?.adults,
+                                  router.locale
+                                )}`)
+                            }
                             {' & '}
-                            {t(
-                              `children_${pluralProfix(
-                                item.infos?.children,
-                                router.locale
-                              )}`
-                            )}
+                            {item.infos?.children + 
+                             ' ' +
+                              t(
+                                `children_${pluralProfix(
+                                  item.infos?.children,
+                                  router.locale
+                                )}`)
+                            }
                           </h5>
                         </div>
                         <h4>{item.infos?.objectName}</h4>
