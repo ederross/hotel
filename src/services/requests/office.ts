@@ -1,9 +1,13 @@
 import moment from 'moment';
-import api from '../api';
+import api, { apiToken, credentials } from '../api';
 
 export const GetOfficeDetails = async (id: string) => {
   const res = await api
-    .get(`/offices/${id}`)
+    .get(`/offices/${id}`, {
+      headers: {
+        Authorization: `Basic ${credentials}`,
+      },
+    })
     .then((response) => {
       return response.data;
     })
@@ -17,7 +21,11 @@ export const GetOfficeDetails = async (id: string) => {
 
 export const GetOfficeDesign = async (id: string) => {
   const res = await api
-    .get(`/offices/${id}/design`)
+    .get(`/offices/${id}/design`, {
+      headers: {
+        Authorization: `Basic ${credentials}`,
+      },
+    })
     .then((response) => {
       return response.data;
     })
@@ -31,7 +39,11 @@ export const GetOfficeDesign = async (id: string) => {
 
 export const GetOfficeReviews = async (id: string) => {
   const res = await api
-    .get(`/offices/${id}/reviews`)
+    .get(`/offices/${id}/reviews`, {
+      headers: {
+        Authorization: `Basic ${credentials}`,
+      },
+    })
     .then((response) => {
       return response.data;
     })
@@ -45,7 +57,11 @@ export const GetOfficeReviews = async (id: string) => {
 
 export const GetOfficeImages = async (id: string) => {
   const res = await api
-    .get(`/offices/${id}/images`)
+    .get(`/offices/${id}/images`, {
+      headers: {
+        Authorization: `Basic ${credentials}`,
+      },
+    })
     .then((response) => {
       return response.data;
     })
@@ -60,6 +76,9 @@ export const GetOfficeImages = async (id: string) => {
 export const GetOfficeEvents = async (id: string) => {
   const res = await api
     .get(`/offices/${id}/events`, {
+      headers: {
+        Authorization: `Basic ${credentials}`,
+      },
       params: {
         startDate: moment().format('YYYY-MM-DD'),
         endDate: moment().add(2, 'M').format('YYYY-MM-DD'),
@@ -78,7 +97,11 @@ export const GetOfficeEvents = async (id: string) => {
 
 export const GetOfficeFacilities = async (id: string) => {
   const res = await api
-    .get(`/offices/${id}/facilities`)
+    .get(`/offices/${id}/facilities`, {
+      headers: {
+        Authorization: `Basic ${credentials}`,
+      },
+    })
     .then((response) => {
       return response.data;
     })
@@ -92,7 +115,11 @@ export const GetOfficeFacilities = async (id: string) => {
 
 export const GetOfficePolicies = async (id: string) => {
   const res = await api
-    .get(`/offices/${id}/policies`)
+    .get(`/offices/${id}/policies`, {
+      headers: {
+        Authorization: `Basic ${credentials}`,
+      },
+    })
     .then((response) => {
       return response.data;
     })

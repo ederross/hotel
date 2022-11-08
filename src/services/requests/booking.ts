@@ -1,5 +1,5 @@
 import { TypesCart } from '../../store/ducks/cart/types';
-import api, { apiToken } from '../api';
+import api, { apiToken, credentials } from '../api';
 
 interface IGetRoomSearch {
   officeId: string;
@@ -62,7 +62,8 @@ export const GetRoomSearch = async ({
     .get(`/booking/room-search/`, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Basic ${apiToken}`,
+        // 'Access-Control-Allow-Headers': '*',
+        // Authorization: `Basic ${credentials}`,
       },
       params: {
         officeId,
@@ -87,7 +88,7 @@ export const GetServiceSearch = async (id: string) => {
     .get('/booking/services', {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Basic ${apiToken}`,
+        // Authorization: `Basic ${credentials}`,
       },
       params: {
         officeId: id,
@@ -114,7 +115,7 @@ export const GetCalendarSearch = async (
     .get('/booking/calendar-search', {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Basic ${apiToken}`,
+        // 'Access-Control-Allow-Headers': '*',
       },
       params: {
         officeId: id,
@@ -159,7 +160,6 @@ export const PostPaymentMethods = async (cart: TypesCart) => {
     {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Basic ${apiToken}`,
       },
     }
   );
@@ -223,7 +223,6 @@ export const PostBooking = async (
     {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Basic ${apiToken}`,
       },
     }
   );
