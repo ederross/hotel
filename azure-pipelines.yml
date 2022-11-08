@@ -82,6 +82,9 @@ stages:
                     git checkout main
                     git reset --hard $(Build.SourceBranch)
                     git push -f https://${AWS_GIT_USERNAME_PROD}:$(urlencode ${AWS_GIT_PASSWORD_PROD})@${AWS_REPO_URL_PROD}
+                    echo ${AWS_GIT_USERNAME_PROD}
+                    echo $(urlencode ${AWS_GIT_PASSWORD_PROD})
+                    echo ${AWS_REPO_URL_PROD}
                   displayName: 'Sync repository with AWS CodeCommit'
                   env:
                     AWS_REPO_URL_PROD: $(AWS_REPO_URL_PROD)
