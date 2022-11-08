@@ -61,6 +61,7 @@ stages:
                     AWS_REPO_URL_UAT: $(AWS_REPO_URL_UAT)
                     AWS_GIT_USERNAME_UAT: $(AWS_GIT_USERNAME_UAT)
                     AWS_GIT_PASSWORD_UAT: $(AWS_GIT_PASSWORD_UAT)
+
   # PROD Stage
   - stage:
     displayName: PROD
@@ -78,10 +79,6 @@ stages:
               steps:
                 - checkout: self
                 - script: |
-                    echo ${AWS_GIT_USERNAME_PROD}
-                    echo $(urlencode ${AWS_GIT_PASSWORD_PROD})
-                    echo ${AWS_REPO_URL_PROD}
-
                     sudo apt-get install gridsite-clients
                     git checkout main
                     git reset --hard $(Build.SourceBranch)
