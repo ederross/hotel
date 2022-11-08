@@ -18,7 +18,7 @@ export const IconImportDynamically = ({
     domain: { iconsDomain },
   } = useSelector((state: AppStore) => state);
 
-  const findIconValue = iconsDomain.data.find(
+  const findIconValue = iconsDomain?.data?.find(
     (i) => i.domainItemCode === iconName
   )?.domainItemValue;
 

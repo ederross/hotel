@@ -186,12 +186,12 @@ const Search = ({
   ]);
 
   const GetFacilityFromDomain = (facilityCategoryTypeCode: number) =>
-    facilitiesDomainRedux.data.find(
+    facilitiesDomainRedux?.data?.find(
       (i) => i.domainItemCode === facilityCategoryTypeCode
     )?.domainItemValue || '-';
 
   const GetFacilityItemFromDomain = (facilityItemTypeCode: number) =>
-    facilitiesItemDomainRedux.data.find(
+    facilitiesItemDomainRedux?.data?.find(
       (i) => i.domainItemCode === facilityItemTypeCode
     )?.domainItemValue || '-';
 
@@ -514,7 +514,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
 }) => {
   const xfowardedHost = req.headers['x-forwarded-host'];
-  console.log('X-fowardedHost: ' + xfowardedHost);
+  dynamicOffice && console.log('X-fowardedHost: ' + xfowardedHost);
 
   const id =
     dynamicOffice && !!xfowardedHost

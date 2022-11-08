@@ -63,7 +63,7 @@ export const GetRoomSearch = async ({
       headers: {
         'Content-Type': 'application/json',
         // 'Access-Control-Allow-Headers': '*',
-        // Authorization: `Basic ${credentials}`,
+        Authorization: `Basic ${credentials}`,
       },
       params: {
         officeId,
@@ -88,7 +88,7 @@ export const GetServiceSearch = async (id: string) => {
     .get('/booking/services', {
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Basic ${credentials}`,
+        Authorization: `Basic ${credentials}`,
       },
       params: {
         officeId: id,
