@@ -115,6 +115,14 @@ export default function Home(props: IHomeProps) {
     (c) => c.contactTypeCode === 5
   )?.contactText;
 
+  useEffect(() => {
+    console.log(
+      !!process.env.NEXT_PUBLIC_IS_PRODUCTION
+        ? 'Production environment'
+        : 'Development environment'
+    );
+  }, []);
+
   return (
     <div>
       <Head>
