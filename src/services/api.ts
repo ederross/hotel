@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const apiToken = 'e2plX0JmfCNsP15VWiB7QHIl';
-export const credentials = btoa('' + ':' + apiToken);
+export const credentials = Buffer.from('' + ':' + apiToken).toString('base64');
 export const dynamicOffice = true;
 export const officeId = 'office1';
 export const baseURL = 'http://book.hospeda.in';
