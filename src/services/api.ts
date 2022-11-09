@@ -7,6 +7,12 @@ export const officeId = 'office1';
 export const baseURL = process.env.NEXT_PUBLIC_BASE_URL; //'http://book.hospeda.in';
 const https = require('https');
 
+console.log(dynamicOffice);
+console.log(credentials);
+console.log(baseURL);
+
+
+
 const api = axios.create({
   baseURL,
   httpsAgent: new https.Agent({

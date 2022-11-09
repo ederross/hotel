@@ -8,7 +8,6 @@ frontend:
       commands:
         - cp .env.$BUILD_ENV .env
         - rm .env.*
-        - cat .env
         - yarn run build
   artifacts:
     baseDirectory: .next
