@@ -115,6 +115,7 @@ export const GetCalendarSearch = async (
     .get('/booking/calendar-search', {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Basic ${credentials}`,
         // 'Access-Control-Allow-Headers': '*',
       },
       params: {

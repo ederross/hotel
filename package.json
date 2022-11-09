@@ -18,6 +18,7 @@
     "@material/react-material-icon": "^0.15.0",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.2",
+    "@next/env": "^13.0.2",
     "@react-br-forms/cpf-cnpj-mask": "^1.0.6",
     "@react-hook/media-query": "^1.1.1",
     "@reduxjs/toolkit": "^1.8.3",
