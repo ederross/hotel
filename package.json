@@ -5,9 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:development": "NODE_ENV=development && next build",
-    "build:test": "NODE_ENV=test && next build",
-    "build:production": "NODE_ENV=production && next build",
     "start": "next start",
     "lint": "next lint"
   },
