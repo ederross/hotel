@@ -171,11 +171,11 @@ const Footer = ({ design, officeDetails, marginTop }: IFooterProps) => {
             <InformationContainer>
               <div>
                 <h3>{t('information_other')}</h3>
-                <a href="/terms-and-conditions" title={t('termsAndConditions')}>
+                <a href="https://hospeda.in/terms/terms-and-conditions.html" title={t('termsAndConditions')}>
                   <p className="link">{t('termsAndConditions')}</p>
                 </a>
                 <br />
-                <a href="/privacy-police" title={t('privacyPolicies')}>
+                <a href="https://hospeda.in/terms/privacy-policy.html" title={t('privacyPolicies')}>
                   <p className="link">{t('privacyPolicies')}</p>
                 </a>
               </div>

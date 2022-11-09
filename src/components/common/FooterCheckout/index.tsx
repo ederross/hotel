@@ -52,14 +52,14 @@ const FooterCheckout = () => {
           <LinksAndCopyrightContainer>
             <h4>© 2022 Finehost, Inc.</h4>
             <LinksContainer>
-              <Link href="/terms-and-conditions">
+              <Link href="https://hospeda.in/terms/terms-and-conditions.html">
                 <a title={t('termsAndConditions')}>
                   <p className="link">{t('termsAndConditions')}</p>
                 </a>
               </Link>
 
-              <Link href="/terms-and-conditions">
-                <a href="/privacy-police" title={t('privacyPolicies')}>
+              <Link href="https://hospeda.in/terms/terms-and-conditions.html">
+                <a href="https://hospeda.in/terms/privacy-policy.html" title={t('privacyPolicies')}>
                   <p className="link">{t('privacyPolicies')}</p>
                 </a>
               </Link>
