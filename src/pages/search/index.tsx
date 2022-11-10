@@ -125,6 +125,9 @@ const Search = ({
   const formattedNumber = (number: number) =>
     number < 10 && number > 0 ? `0${number}` : '';
 
+  //officeId
+  const id = dynamicOffice ? window?.location?.hostname.split('.')[0] : officeId;
+
   useEffect(() => {
     if (startDate && endDate && adults && children) {
       setSearchLoading(true);
@@ -134,9 +137,7 @@ const Search = ({
         adults,
         children,
         ages: age || [],
-        officeId: dynamicOffice
-          ? window?.location?.hostname.split('.')[0]
-          : officeId,
+        officeId: id,
       })
         .then((res: any) => {
           setSearchResult(res?.data);

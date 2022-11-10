@@ -4,15 +4,16 @@ import { GetRoomSearch } from '../../services/requests/booking';
 
 export default function handler(req, res) {
   try {
+    //officeID
+    const id = dynamicOffice ? window?.location?.hostname.split('.')[0] : officeId;
+    
     GetRoomSearch({
       startDate: req?.query?.startDate,
       endDate: req?.query?.endDate,
       adults: req?.query?.adults,
       children: req?.query?.children,
       ages: req?.query?.age || [],
-      officeId: dynamicOffice
-        ? window?.location?.hostname.split('.')[0]
-        : officeId,
+      officeId: id,
     })
       .then((data: any) => {
         res.status(400).json(data?.data);

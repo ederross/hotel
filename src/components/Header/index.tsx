@@ -62,6 +62,9 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
 
   const startSearchDay = moment(firstMonth).format('YYYY-MM-DD');
   const endSearchDay = moment(firstMonth).add(2, 'months').format('YYYY-MM-DD');
+  
+  //officeId
+  const id =  dynamicOffice ? (window?.location?.hostname.split('.')[0]) : officeId;
 
   useEffect(() => {
     if (inputCalendars) {
@@ -70,7 +73,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
         GetCalendarSearch(
           startSearchDay,
           endSearchDay,
-          dynamicOffice ? window?.location?.hostname.split('.')[0] : officeId
+          id,
         )
           .then((res) => {
             setCalendarSearch(res);
