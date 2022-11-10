@@ -1,3 +1,4 @@
+;
 window.NREUM || (NREUM = {});
 NREUM.init = {
   distributed_tracing: {
@@ -13,17 +14,17 @@ NREUM.init = {
 
 ;
 NREUM.loader_config = {
-  accountID: "3667478",
-  trustKey: "3667478",
-  agentID: "1003308579",
-  licenseKey: "NRJS-9f09bd75d09b423305e",
-  applicationID: "1003308579"
+  accountID: "3693872",
+  trustKey: "3693872",
+  agentID: "1120129698",
+  licenseKey: "NRJS-a3f45ea428829535409",
+  applicationID: "1120129698"
 };
 NREUM.info = {
   beacon: "bam.nr-data.net",
   errorBeacon: "bam.nr-data.net",
-  licenseKey: "NRJS-9f09bd75d09b423305e",
-  applicationID: "1003308579",
+  licenseKey: "NRJS-a3f45ea428829535409",
+  applicationID: "1120129698",
   sa: 1
 }
 window.NREUM || (NREUM = {}), __nr_require = function (t, e, n) {
