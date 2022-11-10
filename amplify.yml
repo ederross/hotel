@@ -9,7 +9,7 @@ frontend:
         - cp .env.$BUILD_ENV .env
         - rm .env.*
         - cp ./public/scripts/rum-$BUILD_ENV.js ./public/scripts/rum.js
-        - rm rum-*.js
+        - rm ./public/scripts/rum-*.js
         - yarn run build
   artifacts:
     baseDirectory: .next
