@@ -16,10 +16,10 @@ import { Delete } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { useWindowSize } from '../../hooks/UseWindowSize';
-import { PostPaymentMethods } from '../../services/requests/booking';
 import { SetCheckoutRedux } from '../../store/ducks/checkout/actions';
 import { pluralProfix } from '../../utils/pluralRules';
 import { dynamicOffice, officeId } from '../../services/api';
+import axios from 'axios';
 
 interface ICartMenu {
   openCart: boolean;
@@ -44,12 +44,13 @@ const CartMenu = ({ openCart }: ICartMenu) => {
 
   const handleReserve = () => {
     setLoadingCheckout(true);
-    PostPaymentMethods({
-      ...cart,
-      officeId: dynamicOffice
-        ? window.location.hostname.split('.')[0]
-        : officeId,
-    })
+    axios
+      .post('api/payment-methods', {
+        ...cart,
+        officeId: dynamicOffice
+          ? window.location.hostname.split('.')[0]
+          : officeId,
+      })
       .then((res) => {
         res?.data?.length > 0 && router.push('/checkout');
         res?.data && dispatch(SetCheckoutRedux(res?.data));
@@ -148,22 +149,22 @@ const CartMenu = ({ openCart }: ICartMenu) => {
                     <div className={styles.row}>
                       <h5>
                         {item.infos?.adults +
-                         ' ' +
+                          ' ' +
                           t(
                             `adult_${pluralProfix(
                               item.infos?.adults,
                               router.locale
-                            )}`)
-                        }
+                            )}`
+                          )}
                         {' & '}
                         {item.infos?.children +
-                         ' ' +
+                          ' ' +
                           t(
                             `children_${pluralProfix(
                               item.infos?.children,
                               router.locale
-                            )}`)
-                        }
+                            )}`
+                          )}
                       </h5>
                       <Delete
                         onClick={() => handleRemoveItem(item?.objectId, false)}

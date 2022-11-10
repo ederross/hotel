@@ -30,7 +30,6 @@ import { Design } from '../../../data/design';
 import {
   IClientBooking,
   IPaymentBooking,
-  PostBooking,
 } from '../../services/requests/booking';
 import { toast } from 'react-toastify';
 import { CleanCart } from '../../store/ducks/cart/actions';
@@ -43,6 +42,7 @@ import { VerifyCheckoutFields } from '../../utils/verifyCheckoutFields';
 import { dynamicOffice, officeId } from '../../services/api';
 import { CheckoutSucessModalAllMethods } from '../../components/CheckoutSucessModalAllMethods';
 import { CheckoutSucessModalAllMethodsMobile } from '../../components/CheckoutSucessModalAllMethods/Mobile';
+import axios from 'axios';
 interface ICheckout {
   design: Design;
   policies: Policy;
@@ -175,7 +175,8 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
     if (VerifyCheckoutFields(client, paymentBooking, setFieldErrors)) {
       if (checkout?.length > 0) {
         if (selectedPayMethodDetails >= 0) {
-          PostBooking(cart, client, paymentBooking)
+          axios
+            .post('api/booking', { cart, client, payment: paymentBooking })
             .then((res) => {
               setConfirmData({
                 ...res?.data,

@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useWindowSize } from '../../hooks/UseWindowSize';
-import { PostPaymentMethods } from '../../services/requests/booking';
 import {
   CleanCart,
   RemoveProductToCart,
@@ -21,6 +20,7 @@ import { toast } from 'react-toastify';
 import styles from './styles.module.scss';
 import { pluralProfix } from '../../utils/pluralRules';
 import { dynamicOffice, officeId } from '../../services/api';
+import axios from 'axios';
 
 interface ICartModal {
   handleCloseCartModal: () => void;
@@ -57,12 +57,13 @@ const CartModal = ({
   const handleCleanCart = () => dispatch(CleanCart());
   const handleReserve = () => {
     setLoadingCheckout(true);
-    PostPaymentMethods({
-      ...cart,
-      officeId: dynamicOffice
-        ? window.location.hostname.split('.')[0]
-        : officeId,
-    })
+    axios
+      .post('api/payment-methods', {
+        ...cart,
+        officeId: dynamicOffice
+          ? window.location.hostname.split('.')[0]
+          : officeId,
+      })
       .then((res) => {
         handleCloseCartModal();
         res?.data?.length > 0 && router.push('/checkout');
@@ -125,22 +126,22 @@ const CartModal = ({
                       <div className={styles.row}>
                         <h5>
                           {room.infos?.adults +
-                           ' ' +
+                            ' ' +
                             t(
                               `adult_${pluralProfix(
                                 room.infos?.adults,
                                 router.locale
-                              )}`)
-                          }
+                              )}`
+                            )}
                           {' & '}
                           {room.infos?.children +
-                           ' ' +
+                            ' ' +
                             t(
                               `children_${pluralProfix(
                                 room.infos?.children,
                                 router.locale
-                              )}`)
-                          }
+                              )}`
+                            )}
                         </h5>
                         {!isCheckoutSeeAllData && (
                           <Delete

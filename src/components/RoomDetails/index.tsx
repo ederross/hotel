@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import styles from './styles.module.scss';
 
 import { ChevronLeft } from 'react-feather';
-import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
-import SingleBedOutlinedIcon from '@mui/icons-material/SingleBedOutlined';
-import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import { AppsOutlined } from '@mui/icons-material';
 import CarouselHolder from '../common/CarouselHolder';
 import { useTranslation } from 'next-i18next';
@@ -18,12 +15,12 @@ import { Room, RoomImages } from '../../../data/room';
 import { IconImportDynamically } from '../common/ComponentWithIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStore } from '../../store/types';
-import { PostPaymentMethods } from '../../services/requests/booking';
 import { toast } from 'react-toastify';
 import { SetCheckoutRedux } from '../../store/ducks/checkout/actions';
 import { dynamicOffice, officeId } from '../../services/api';
 import { pluralProfix } from '../../utils/pluralRules';
 import { currency } from '../../utils/currency';
+import axios from 'axios';
 
 interface IRoomDetailsProps {
   room: Room;
@@ -73,14 +70,15 @@ export const RoomDetails = ({
   const handleReserve = () => {
     setLoadingCheckout(true);
     if (cart?.objects?.length > 0) {
-      PostPaymentMethods({
-        ...cart,
-        officeId: dynamicOffice
-          ? window.location.hostname.split('.')[0]
-          : officeId,
-      })
+      axios
+        .post('api/payment-methods', {
+          ...cart,
+          officeId: dynamicOffice
+            ? window.location.hostname.split('.')[0]
+            : officeId,
+        })
         .then((res) => {
-          router.push('/checkout');
+          res?.data?.length > 0 && router.push('/checkout');
           res?.data && dispatch(SetCheckoutRedux(res?.data));
           setLoadingCheckout(false);
         })

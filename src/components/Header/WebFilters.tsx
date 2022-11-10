@@ -10,7 +10,6 @@ import { EventsHome } from '../../../data/events';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import CardEventType2 from '../cardsEvents/CardEventType2';
-import { GetCalendarSearch } from '../../services/requests/booking';
 import moment from 'moment';
 import { AppStore } from '../../store/types';
 import { useSelector } from 'react-redux';

@@ -27,8 +27,8 @@ import CartModal from '../CartModal';
 import { toast, ToastContainer } from 'react-toastify';
 import { CleanCart, SetCartInfos } from '../../store/ducks/cart/actions';
 import { pluralProfix } from '../../utils/pluralRules';
-import { GetCalendarSearch } from '../../services/requests/booking';
 import { dynamicOffice, officeId } from '../../services/api';
+import axios from 'axios';
 
 interface IHeader {
   design: Design;
@@ -62,21 +62,25 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
 
   const startSearchDay = moment(firstMonth).format('YYYY-MM-DD');
   const endSearchDay = moment(firstMonth).add(2, 'months').format('YYYY-MM-DD');
-  
+
   //officeId
-  const id =  dynamicOffice ? (window?.location?.hostname.split('.')[0]) : officeId;
+  const id = dynamicOffice
+    ? window?.location?.hostname.split('.')[0]
+    : officeId;
 
   useEffect(() => {
     if (inputCalendars) {
       setLoadingCalendar(true);
       if (!loadingCalendar) {
-        GetCalendarSearch(
-          startSearchDay,
-          endSearchDay,
-          id,
-        )
+        axios
+          .get('api/calendar-search', {
+            params: {
+              startDate: startSearchDay,
+              endDate: endSearchDay,
+            },
+          })
           .then((res) => {
-            setCalendarSearch(res);
+            setCalendarSearch(res?.data);
             setLoadingCalendar(false);
           })
           .catch((err) => {

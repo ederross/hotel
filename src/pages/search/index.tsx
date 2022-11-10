@@ -20,10 +20,7 @@ import CardService from '../../components/CardService';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStore } from '../../store/types';
-import {
-  GetRoomSearch,
-  GetServiceSearch,
-} from '../../services/requests/booking';
+import { GetServiceSearch } from '../../services/requests/booking';
 import {
   GetOfficeDesign,
   GetOfficeDetails,
@@ -65,6 +62,7 @@ import { pluralProfix } from '../../utils/pluralRules';
 import { dynamicOffice, officeId } from '../../services/api';
 import { EventsHome } from '../../../data/events';
 import { PhotosModal } from '../../components/PhotosModal';
+import axios from 'axios';
 
 interface ISearch {
   servicesResult: any;
@@ -126,19 +124,23 @@ const Search = ({
     number < 10 && number > 0 ? `0${number}` : '';
 
   //officeId
-  const id = dynamicOffice ? window?.location?.hostname.split('.')[0] : officeId;
+  const id = dynamicOffice
+    ? window?.location?.hostname.split('.')[0]
+    : officeId;
 
   useEffect(() => {
     if (startDate && endDate && adults && children) {
       setSearchLoading(true);
-      GetRoomSearch({
-        startDate,
-        endDate,
-        adults,
-        children,
-        ages: age || [],
-        officeId: id,
-      })
+      axios
+        .get('api/room-search', {
+          params: {
+            startDate,
+            endDate,
+            adults,
+            children,
+            ages: age || [],
+          },
+        })
         .then((res: any) => {
           setSearchResult(res?.data);
           setSearchLoading(false);
