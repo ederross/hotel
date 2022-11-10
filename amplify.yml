@@ -8,8 +8,7 @@ frontend:
       commands:
         - cp .env.$BUILD_ENV .env
         - rm .env.*
-        - pwd
-        - cp ../public/scripts/rum-$BUILD_ENV.js ../public/scripts/rum.js
+        - cp ./public/scripts/rum-$BUILD_ENV.js ./public/scripts/rum.js
         - rm rum-*.js
         - yarn run build
   artifacts:
