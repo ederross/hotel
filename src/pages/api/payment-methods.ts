@@ -1,8 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { dynamicOffice, officeId } from '../../services/api';
 import { PostPaymentMethods } from '../../services/requests/booking';
-import { getCircularReplacer } from '../../utils/currency';
-
 export default function handler(req, res) {
   if (req.method === 'POST') {
     try {
@@ -11,14 +9,35 @@ export default function handler(req, res) {
         ? window?.location?.hostname.split('.')[0]
         : officeId;
 
-      const cart = req?.body;
-      PostPaymentMethods(cart)
+      const body = req?.body;
+
+      const cart = {
+        officeId: id,
+        objects: body?.objects?.map((o) => {
+          return {
+            objectId: parseInt(o?.objectId),
+            identificationCode: '',
+            quantity: o?.prices
+              ?.map((p) => p?.quantity)
+              ?.reduce((a, b) => a + b, 0),
+            prices: o?.prices?.map((p) => {
+              return {
+                quoteId: p?.quoteId,
+              };
+            }),
+          };
+        }),
+        services: body?.services?.map((s) => {
+          return { serviceId: s.serviceId, quantity: s.quantity };
+        }),
+      };
+      PostPaymentMethods(cart as any)
         .then((data: any) => {
           res.status(200).json(data);
         })
         .catch((err) => {
           console.log('>>> FALHA AO PEGAR MÉTODOS DE PAGAMENTO! <<<\n', err);
-          res.status(200).json([]);
+          res.status(400).json([]);
         });
     } catch (error) {
       res.status(500).json('Post PaymentMethods Error');

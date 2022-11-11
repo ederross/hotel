@@ -70,9 +70,10 @@ export const RoomDetails = ({
   const handleReserve = () => {
     setLoadingCheckout(true);
     if (cart?.objects?.length > 0) {
+      const { error, infos, loading, ...rest } = cart;
       axios
         .post('api/payment-methods', {
-          ...cart,
+          ...rest,
           officeId: dynamicOffice
             ? window.location.hostname.split('.')[0]
             : officeId,
