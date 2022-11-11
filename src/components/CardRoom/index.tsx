@@ -114,6 +114,7 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
         className={styles.container}
         style={{ maxWidth: isResultOneRoom ? 364 : '100%' }}
         onClick={handleDetails}
+        title={room?.prices[0]?.quoteId}
       >
         <CarouselHolder
           discont={mainPrice?.discountPercentage}

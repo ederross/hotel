@@ -138,7 +138,7 @@ const Search = ({
             endDate,
             adults,
             children,
-            ages: age || [],
+            age: age || [],
           },
         })
         .then((res: any) => {

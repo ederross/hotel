@@ -7,7 +7,7 @@ interface IGetRoomSearch {
   endDate: string;
   adults: string;
   children: string;
-  ages: number[];
+  age: number[];
 }
 
 export interface IPaymentBooking {
@@ -55,7 +55,7 @@ export const GetRoomSearch = async ({
   children,
   endDate,
   startDate,
-  ages = [],
+  age = [],
   officeId,
 }: IGetRoomSearch) => {
   return await api
@@ -71,7 +71,7 @@ export const GetRoomSearch = async ({
         endDate,
         adults,
         children,
-        age: ages,
+        age: age,
       },
     })
     .then((response) => {

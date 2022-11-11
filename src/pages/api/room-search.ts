@@ -14,7 +14,7 @@ export default function handler(req, res) {
       endDate: req?.query?.endDate,
       adults: req?.query?.adults,
       children: req?.query?.children,
-      ages: req?.query?.age || [],
+      age: req?.query?.age || [],
       officeId: id,
     })
       .then((data: any) => {
