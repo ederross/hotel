@@ -14,17 +14,17 @@ NREUM.init = {
 
 ;
 NREUM.loader_config = {
-  accountID: "3693872",
-  trustKey: "3693872",
-  agentID: "1120129698",
-  licenseKey: "NRJS-a3f45ea428829535409",
-  applicationID: "1120129698"
+  accountID: "3695130",
+  trustKey: "3695130",
+  agentID: "601355762",
+  licenseKey: "NRJS-8b70bcb1f6dfec9cd48",
+  applicationID: "601355762"
 };
 NREUM.info = {
   beacon: "bam.nr-data.net",
   errorBeacon: "bam.nr-data.net",
-  licenseKey: "NRJS-a3f45ea428829535409",
-  applicationID: "1120129698",
+  licenseKey: "NRJS-8b70bcb1f6dfec9cd48",
+  applicationID: "601355762",
   sa: 1
 }
 window.NREUM || (NREUM = {}), __nr_require = function (t, e, n) {
