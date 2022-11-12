@@ -5,9 +5,13 @@ import { GetServiceSearch } from '../../services/requests/booking';
 export default function handler(req, res) {
   try {
     //officeID
-    const id = dynamicOffice
-      ? window?.location?.hostname.split('.')[0]
-      : officeId;
+    const xfowardedHost = req.headers['x-forwarded-host'];
+    console.log('X-fowardedHost: ' + xfowardedHost);
+  
+    const id =
+      dynamicOffice && !!xfowardedHost
+        ? xfowardedHost?.toString()?.split('.')[0]
+        : officeId;
 
     GetServiceSearch(id)
       .then((data: any) => {
