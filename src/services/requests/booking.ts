@@ -137,35 +137,12 @@ export const GetCalendarSearch = async (
 
 export const PostPaymentMethods = async (cart: TypesCart) => {
   return await api
-    .post(
-      '/booking/payment-methods',
-      {
-        officeId: cart?.officeId,
-        objects: cart?.objects?.map((o) => {
-          return {
-            objectId: parseInt(o?.objectId),
-            identificationCode: '',
-            quantity: o?.prices
-              ?.map((p) => p?.quantity)
-              ?.reduce((a, b) => a + b, 0),
-            prices: o?.prices?.map((p) => {
-              return {
-                quoteId: p?.quoteId,
-              };
-            }),
-          };
-        }),
-        services: cart?.services?.map((s) => {
-          return { serviceId: s.serviceId, quantity: s.quantity };
-        }),
+    .post('/booking/payment-methods', cart, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Basic ${credentials}`,
       },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Basic ${credentials}`,
-        },
-      }
-    )
+    })
     .then((response) => {
       return response.data;
     })
