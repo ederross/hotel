@@ -8,8 +8,7 @@ frontend:
       commands:
         - cp .env.$BUILD_ENV .env
         - rm .env.*
-        - KEY=$NEWRELIC_KEY; sed -i 's/license-key-variable/$KEY/g' newrelic-template.js
-        - cat newrelic-template.js
+        - KEY=$NEWRELIC_KEY; sed -i "s/<license-key>/$KEY/g" newrelic-template.js
         - mv -f newrelic-template.js newrelic.js
         - yarn run build
   artifacts:
