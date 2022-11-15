@@ -5,7 +5,7 @@ export const credentials = Buffer.from('' + ':' + apiToken).toString('base64');
 export const dynamicOffice =
   process.env.NEXT_PUBLIC_DYNAMIC_OFFICE === 'true' ? true : false;
 export const officeId = 'office1';
-export const baseURL = process.env.NEXT_PUBLIC_BASE_URL; //'http://book.hospeda.in';
+export const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 const https = require('https');
 
 const api = axios.create({
@@ -14,12 +14,5 @@ const api = axios.create({
     rejectUnauthorized: false,
   }),
 });
-
-// api.interceptors.request.use(function (config) {
-//   var credentials = btoa('' + ':' + apiToken);
-
-//   config.headers.Authorization = `Basic ${credentials}`;
-//   return config;
-// });
 
 export default api;
