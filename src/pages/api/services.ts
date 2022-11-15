@@ -1,4 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { logger } from '../../components/Logger';
 import { dynamicOffice, officeId } from '../../services/api';
 import { GetServiceSearch } from '../../services/requests/booking';
 
@@ -6,8 +7,8 @@ export default function handler(req, res) {
   try {
     //officeID
     const xfowardedHost = req.headers['x-forwarded-host'];
-    console.log('X-fowardedHost: ' + xfowardedHost);
-  
+    logger.info(`X-fowardedHost: ${xfowardedHost}`);
+
     const id =
       dynamicOffice && !!xfowardedHost
         ? xfowardedHost?.toString()?.split('.')[0]

@@ -43,6 +43,7 @@ import { dynamicOffice, officeId } from '../../services/api';
 import { CheckoutSucessModalAllMethods } from '../../components/CheckoutSucessModalAllMethods';
 import { CheckoutSucessModalAllMethodsMobile } from '../../components/CheckoutSucessModalAllMethods/Mobile';
 import axios from 'axios';
+import { logger } from '../../components/Logger';
 interface ICheckout {
   design: Design;
   policies: Policy;
@@ -368,7 +369,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
 }) => {
   const xfowardedHost = req.headers['x-forwarded-host'];
-  console.log('X-fowardedHost: ' + xfowardedHost);
+  logger.info(`X-fowardedHost: ${xfowardedHost}`);
 
   const id =
     dynamicOffice && !!xfowardedHost

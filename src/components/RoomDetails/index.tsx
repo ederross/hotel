@@ -21,6 +21,7 @@ import { dynamicOffice, officeId } from '../../services/api';
 import { pluralProfix } from '../../utils/pluralRules';
 import { currency } from '../../utils/currency';
 import axios from 'axios';
+import { logger } from '../Logger';
 
 interface IRoomDetailsProps {
   room: Room;
@@ -84,7 +85,7 @@ export const RoomDetails = ({
           setLoadingCheckout(false);
         })
         .catch((err) => {
-          console.log('POST PAYMENT METHOD ERROR!', err);
+          logger.error('POST BOOKING ERROR!', { errorDescription: err });
           setLoadingCheckout(false);
           toast.error(t(`bookingError`), toastConfig as any);
           return [];

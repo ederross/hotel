@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev-test": "set NODE_OPTIONS='-r @newrelic/next' && next dev",
-    "dev": "next dev",
+    "dev": "set NODE_OPTIONS='-r @newrelic/next' && next dev",
     "build": "next build",
     "start": "NODE_OPTIONS='-r @newrelic/next' next start",
     "lint": "next lint"
@@ -62,7 +61,8 @@
     "sass": "^1.51.0",
     "styled-components": "^5.3.5",
     "swiper": "^8.2.2",
-    "typesafe-actions": "^5.1.0"
+    "typesafe-actions": "^5.1.0",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "@types/node": "^17.0.34",

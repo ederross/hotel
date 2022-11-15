@@ -38,6 +38,7 @@ import moment from 'moment';
 import { CleanCart, SetCartInfos } from '../store/ducks/cart/actions';
 import { WhatsappButton } from '../components/WhatsappButton';
 import { AppStore } from '../store/types';
+import { logger } from '../components/Logger';
 interface IHomeProps {
   officeDetails: OfficeDetails;
   design: Design;
@@ -115,13 +116,13 @@ export default function Home(props: IHomeProps) {
     (c) => c.contactTypeCode === 5
   )?.contactText;
 
-  useEffect(() => {
-    console.log(
-      !!process.env.NEXT_PUBLIC_IS_PRODUCTION
-        ? 'Production environment'
-        : 'Development environment'
-    );
-  }, []);
+  // useEffect(() => {
+  //   logger.info(
+  //     !!process.env.NEXT_PUBLIC_IS_PRODUCTION
+  //       ? 'Production environment'
+  //       : 'Development environment'
+  //   );
+  // }, []);
 
   return (
     <div>
@@ -220,7 +221,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
 }) => {
   const xfowardedHost = req.headers['x-forwarded-host'];
-  console.log('X-fowardedHost: ' + xfowardedHost);
+  logger.info(`X-fowardedHost: ${xfowardedHost}`);
 
   const id =
     dynamicOffice && !!xfowardedHost

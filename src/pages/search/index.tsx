@@ -63,6 +63,7 @@ import { dynamicOffice, officeId } from '../../services/api';
 import { EventsHome } from '../../../data/events';
 import { PhotosModal } from '../../components/PhotosModal';
 import axios from 'axios';
+import { logger } from '../../components/Logger';
 
 interface ISearch {
   servicesResult: any;
@@ -519,7 +520,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
 }) => {
   const xfowardedHost = req.headers['x-forwarded-host'];
-  dynamicOffice && console.log('X-fowardedHost: ' + xfowardedHost);
+  dynamicOffice && logger.info(`X-fowardedHost: ${xfowardedHost}`);
 
   const id =
     dynamicOffice && !!xfowardedHost

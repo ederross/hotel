@@ -20,6 +20,7 @@ import { SetCheckoutRedux } from '../../store/ducks/checkout/actions';
 import { pluralProfix } from '../../utils/pluralRules';
 import { dynamicOffice, officeId } from '../../services/api';
 import axios from 'axios';
+import { logger } from '../Logger';
 
 interface ICartMenu {
   openCart: boolean;
@@ -58,7 +59,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
         setLoadingCheckout(false);
       })
       .catch((err) => {
-        console.log('POST PAYMENT METHOD ERROR!', err);
+        logger.info('POST PAYMENT METHOD ERROR!' + err);
         setLoadingCheckout(false);
         toast.error(`Falha ao reservar quartos`, toastConfig as any);
         return [];

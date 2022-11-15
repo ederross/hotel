@@ -21,6 +21,7 @@ import styles from './styles.module.scss';
 import { pluralProfix } from '../../utils/pluralRules';
 import { dynamicOffice, officeId } from '../../services/api';
 import axios from 'axios';
+import { logger } from '../Logger';
 
 interface ICartModal {
   handleCloseCartModal: () => void;
@@ -72,7 +73,7 @@ const CartModal = ({
         setLoadingCheckout(false);
       })
       .catch((err) => {
-        console.log('POST PAYMENT METHOD ERROR!', err);
+        logger.error('POST PAYMENT METHOD ERROR!', { errorDescription: err });
         setLoadingCheckout(false);
         toast.error(`Falha ao reservar quartos`, toastConfig as any);
         return [];
