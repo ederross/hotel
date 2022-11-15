@@ -114,7 +114,7 @@ const Search = ({
   } = useSelector((state: AppStore) => state);
 
   const [selectedTab, setSelectedTab] = useState('rooms');
-  const [searchResult, setSearchResult] = useState<any>();
+  const [searchResult, setSearchResult] = useState<any>([]);
   const [searchLoading, setSearchLoading] = useState(true);
   const { startDate, endDate, adults, children, age }: any = router.query;
   const [selectedRoom, setSelectedRoom] = useState<Room>(undefined);
@@ -351,16 +351,17 @@ const Search = ({
                   {!selectedRoom && (
                     <>
                       <section className={styles.contentResultContainer}>
-                        {searchResult?.map((room, index) => (
-                          <CardRoom
-                            isResultOneRoom={
-                              searchResult?.length === 1 ? true : false
-                            }
-                            key={index}
-                            room={room}
-                            setSelectedRoom={setSelectedRoom}
-                          />
-                        ))}
+                        {!!searchResult &&
+                          searchResult.map((room, index) => (
+                            <CardRoom
+                              isResultOneRoom={
+                                searchResult?.length === 1 ? true : false
+                              }
+                              key={index}
+                              room={room}
+                              setSelectedRoom={setSelectedRoom}
+                            />
+                          ))}
                       </section>
                     </>
                   )}
@@ -383,14 +384,15 @@ const Search = ({
                       <h4 className={styles.subtitle}>{t('look')}</h4>
                       <h2 className={styles.title}>{t('availableRooms')}</h2>
                       <div className={styles.contentResultContainer}>
-                        {searchResult?.map((room, index) => (
-                          <CardRoom
-                            isResultOneRoom={room.length === 1 ? true : false}
-                            key={index}
-                            room={room}
-                            setSelectedRoom={setSelectedRoom}
-                          />
-                        ))}
+                        {!!searchResult &&
+                          searchResult.map((room, index) => (
+                            <CardRoom
+                              isResultOneRoom={room.length === 1 ? true : false}
+                              key={index}
+                              room={room}
+                              setSelectedRoom={setSelectedRoom}
+                            />
+                          ))}
                       </div>
                     </section>
                   )}
