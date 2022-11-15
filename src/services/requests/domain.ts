@@ -1,3 +1,4 @@
+import { logger } from '../../components/Logger';
 import api, { credentials } from '../api';
 
 const emptyDomain = {
@@ -26,7 +27,9 @@ export const GetIconsDomain = async (AcceptLanguage: string) =>
         },
       })
       .catch((error) => {
-        console.log('GET iconTypeCode ERROR', error);
+        logger.error(`GET iconTypeCode ERROR`, {
+          errorDescription: error,
+        });
         return emptyDomain;
       })
   ).data;
@@ -40,7 +43,9 @@ export const GetContactDomain = async (AcceptLanguage: string) =>
         },
       })
       .catch((error) => {
-        console.log('GET contactTypeCode ERROR', error);
+        logger.error(`GET contactTypeCode ERROR`, {
+          errorDescription: error,
+        });
         return emptyDomain;
       })
   ).data;
@@ -54,7 +59,9 @@ export const GetFacilitiesDomain = async (AcceptLanguage: string) =>
         },
       })
       .catch((error) => {
-        console.log('GET facilityCategoryTypeCode ERROR', error);
+        logger.error(`GET facilityCategoryTypeCode ERROR`, {
+          errorDescription: error,
+        });
         return emptyDomain;
       })
   ).data;
@@ -68,7 +75,9 @@ export const GetFacilitiesItemDomain = async (AcceptLanguage: string) =>
         },
       })
       .catch((error) => {
-        console.log('GET facilityTypeCode ERROR', error);
+        logger.error(`GET facilityTypeCode ERROR`, {
+          errorDescription: error,
+        });
         return emptyDomain;
       })
   ).data;
@@ -82,7 +91,9 @@ export const GetAmenitiesDomain = async (AcceptLanguage: string) =>
         },
       })
       .catch((error) => {
-        console.log('GET amenityTypeCode ERROR', error);
+        logger.error(`GET amenityTypeCode ERROR`, {
+          errorDescription: error,
+        });
         return emptyDomain;
       })
   ).data;
@@ -96,7 +107,9 @@ export const GetServicesDomain = async (AcceptLanguage: string) =>
         },
       })
       .catch((error) => {
-        console.log('GET serviceTypeCode ERROR', error);
+        logger.error(`GET serviceTypeCode ERROR`, {
+          errorDescription: error,
+        });
         return emptyDomain;
       })
   ).data;
@@ -110,7 +123,9 @@ export const GetServicePricesDomain = async (AcceptLanguage: string) =>
         },
       })
       .catch((error) => {
-        console.log('GET servicePriceTypeCode ERROR', error);
+        logger.error(`GET servicePriceTypeCode ERROR`, {
+          errorDescription: error,
+        });
         return emptyDomain;
       })
   ).data;
@@ -124,7 +139,9 @@ export const GetPaymethodDomain = async (AcceptLanguage: string) =>
         },
       })
       .catch((error) => {
-        console.log('GET paymentMethodTypeCode ERROR', error);
+        logger.error(`GET paymentMethodTypeCode ERROR`, {
+          errorDescription: error,
+        });
         return emptyDomain;
       })
   ).data;
@@ -139,7 +156,9 @@ export const GetPolicyDomain = async (AcceptLanguage: string) =>
         },
       })
       .catch((error) => {
-        console.log('GET policyGroupTypeCode ERROR', error);
+        logger.error(`GET policyGroupTypeCode ERROR`, {
+          errorDescription: error,
+        });
         return emptyDomain;
       })
   ).data;

@@ -41,7 +41,9 @@ export default function handler(req, res) {
           res.status(200).json(data);
         })
         .catch((err) => {
-          console.log('>>> FALHA AO PEGAR MÉTODOS DE PAGAMENTO! <<<\n', err);
+          logger.error(`FALHA AO PEGAR MÉTODOS DE PAGAMENTO!`, {
+            errorDescription: err,
+          });
           res.status(400).json([]);
         });
     } catch (error) {

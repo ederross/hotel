@@ -147,12 +147,13 @@ const Search = ({
           setSearchLoading(false);
         })
         .catch((err) => {
-          console.log('>>> FALHA AO PEGAR A PESQUISA DE QUARTOS! <<<\n', err);
+          logger.error(`FALHA AO PEGAR A PESQUISA DE QUARTOS!`, {
+            errorDescription: err,
+          });
           setSearchResult([]);
           setSearchLoading(false);
         });
     } else {
-      console.log('[SEARCH] INVALID REQUEST!');
       setSearchLoading(false);
     }
     dispatch(

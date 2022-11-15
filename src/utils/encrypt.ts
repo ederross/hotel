@@ -1,4 +1,5 @@
 import JSEncrypt from 'jsencrypt';
+import { logger } from '../components/Logger';
 
 // const publicKey = `
 //   -----BEGIN PUBLIC KEY-----
@@ -17,7 +18,9 @@ export const OpenSSL_encrypt_hospeda = (data: string, publicKey: string) => {
     var ciphertext = crypt.encrypt(str);
     return `${ciphertext}`;
   } catch (error) {
-    console.log('FALHA NA CRIPTOGRAFIA DO CARTÃO', error);
+    logger.error(`FALHA NA CRIPTOGRAFIA DO CARTÃO`, {
+      errorDescription: error,
+    });
     return data;
   }
 };

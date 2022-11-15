@@ -29,6 +29,7 @@ import { CleanCart, SetCartInfos } from '../../store/ducks/cart/actions';
 import { pluralProfix } from '../../utils/pluralRules';
 import { dynamicOffice, officeId } from '../../services/api';
 import axios from 'axios';
+import { logger } from '../Logger';
 
 interface IHeader {
   design: Design;
@@ -84,7 +85,9 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
             setLoadingCalendar(false);
           })
           .catch((err) => {
-            console.log('>> FALHA AO PESQUISAR O CALENDÁRIO <<', err);
+            logger.error(`>> FALHA AO PESQUISAR O CALENDÁRIO <<`, {
+              errorDescription: err,
+            });
             setLoadingCalendar(false);
           });
       }

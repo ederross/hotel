@@ -1,3 +1,4 @@
+import { logger } from '../../components/Logger';
 import { TypesCart } from '../../store/ducks/cart/types';
 import api, { apiToken, credentials } from '../api';
 
@@ -78,7 +79,9 @@ export const GetRoomSearch = async ({
       return response;
     })
     .catch((err) => {
-      console.log('ROOM SEARCH ERROR!', err);
+      logger.error(`ROOM SEARCH ERROR!`, {
+        errorDescription: err,
+      });
       return [];
     });
 };
@@ -98,7 +101,9 @@ export const GetServiceSearch = async (id: string) => {
       return response.data;
     })
     .catch((err) => {
-      console.log('SERVICE SEARCH ERROR!');
+      logger.error(`SERVICE SEARCH ERROR!`, {
+        errorDescription: err,
+      });
       return [];
     });
 
@@ -110,7 +115,6 @@ export const GetCalendarSearch = async (
   endDate: string,
   id: string
 ) => {
-  console.log('[CALENDAR] Pesquisando valores...');
   const res = await api
     .get('/booking/calendar-search', {
       headers: {
@@ -128,7 +132,9 @@ export const GetCalendarSearch = async (
       return response.data;
     })
     .catch((err) => {
-      console.log('CALENDAR SEARCH ERROR!', err);
+      logger.error(`CALENDAR SEARCH ERROR!`, {
+        errorDescription: err,
+      });
       return [];
     });
 
@@ -147,7 +153,9 @@ export const PostPaymentMethods = async (cart: TypesCart) => {
       return response.data;
     })
     .catch((err) => {
-      console.log('PAYMENT METHODS ERROR!', err);
+      logger.error(`PAYMENT METHODS ERROR!`, {
+        errorDescription: err,
+      });
       return [];
     });
 };

@@ -22,7 +22,7 @@ export default function handler(req, res) {
         res.status(200).json(data?.data);
       })
       .catch((err) => {
-        console.log('>>> FALHA AO RESERVAR QUARTO! <<<\n', err);
+        logger.error(`FALHA AO RESERVAR QUARTO!`, { errorDescription: err });
         res.status(err?.status || 500).json(err);
       });
   } catch (error) {

@@ -19,7 +19,9 @@ export default function handler(req, res) {
         res.status(200).json(data);
       })
       .catch((err) => {
-        console.log('>>> FALHA AO PEGAR A PESQUISA DE CALENDÁRIO! <<<\n', err);
+        logger.error(`FALHA AO PEGAR A PESQUISA DE CALENDÁRIO!`, {
+          errorDescription: err,
+        });
         res.status(200).json([]);
       });
   } catch (error) {

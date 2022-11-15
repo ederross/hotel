@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { logger } from '../../components/Logger';
 import api, { apiToken, credentials } from '../api';
 
 export const GetOfficeDetails = async (id: string) => {
@@ -11,8 +12,10 @@ export const GetOfficeDetails = async (id: string) => {
     .then((response) => {
       return response.data;
     })
-    .catch(() => {
-      console.log('OFFICE DETAILS ERROR!');
+    .catch((error) => {
+      logger.error(`OFFICE DETAILS ERROR!`, {
+        errorDescription: error,
+      });
       return {};
     });
 
@@ -29,8 +32,10 @@ export const GetOfficeDesign = async (id: string) => {
     .then((response) => {
       return response.data;
     })
-    .catch(() => {
-      console.log('OFFICE DESIGN ERROR!');
+    .catch((error) => {
+      logger.error(`OFFICE DESIGN ERROR!`, {
+        errorDescription: error,
+      });
       return {};
     });
 
@@ -47,8 +52,10 @@ export const GetOfficeReviews = async (id: string) => {
     .then((response) => {
       return response.data;
     })
-    .catch(() => {
-      console.log('OFFICE REVIEWS ERROR!');
+    .catch((error) => {
+      logger.error(`OFFICE REVIEWS ERROR!`, {
+        errorDescription: error,
+      });
       return [];
     });
 
@@ -65,8 +72,10 @@ export const GetOfficeImages = async (id: string) => {
     .then((response) => {
       return response.data;
     })
-    .catch(() => {
-      console.log('OFFICE IMAGES ERROR!');
+    .catch((error) => {
+      logger.error(`OFFICE IMAGES ERROR!`, {
+        errorDescription: error,
+      });
       return [];
     });
 
@@ -87,8 +96,10 @@ export const GetOfficeEvents = async (id: string) => {
     .then((response) => {
       return response.data;
     })
-    .catch(() => {
-      console.log('OFFICE EVENTS ERROR!');
+    .catch((error) => {
+      logger.error(`OFFICE EVENTS ERROR!`, {
+        errorDescription: error,
+      });
       return [];
     });
 
@@ -105,8 +116,10 @@ export const GetOfficeFacilities = async (id: string) => {
     .then((response) => {
       return response.data;
     })
-    .catch(() => {
-      console.log('OFFICE FACILITIES ERROR!');
+    .catch((error) => {
+      logger.error(`OFFICE FACILITIES ERROR!`, {
+        errorDescription: error,
+      });
       return [];
     });
 
@@ -123,8 +136,10 @@ export const GetOfficePolicies = async (id: string) => {
     .then((response) => {
       return response.data;
     })
-    .catch(() => {
-      console.log('OFFICE POLICIES ERROR!');
+    .catch((error) => {
+      logger.error(`OFFICE POLICIES ERROR!`, {
+        errorDescription: error,
+      });
       return {};
     });
 
