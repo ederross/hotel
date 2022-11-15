@@ -13,6 +13,7 @@ import {
   IPaymentBooking,
 } from '../../services/requests/booking';
 import dynamic from 'next/dynamic';
+import { OfficeDetails } from '../../../data/officeDetails';
 
 const CreditCard = dynamic(() => import('../CreditCard'), {
   ssr: false,
@@ -34,6 +35,7 @@ interface ICheckoutPersonalData {
     expiryYear: string;
     securityCode: string;
   };
+  officeDetails: OfficeDetails;
 }
 
 export const CheckoutPersonalData = ({
@@ -44,6 +46,7 @@ export const CheckoutPersonalData = ({
   selectedPayMethodDetails,
   setSelectedPayMethodDetails,
   fieldErrors,
+  officeDetails,
 }: ICheckoutPersonalData) => {
   const size = useWindowSize();
   const { t } = useTranslation();
@@ -265,6 +268,7 @@ export const CheckoutPersonalData = ({
           setExpiryYear={setExpiryYear}
           setSecurityCode={setSecurityCode}
           fieldErrors={fieldErrors}
+          officeDetails={officeDetails}
         />
       )}
     </div>

@@ -277,6 +277,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                     selectedPayMethodDetails={selectedPayMethodDetails}
                     setSelectedPayMethodDetails={setSelectedPayMethodDetails}
                     fieldErrors={fieldErrors}
+                    officeDetails={officeDetails}
                   />
                 </div>
                 <CheckoutPaymentInfo

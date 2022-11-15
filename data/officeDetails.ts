@@ -24,6 +24,7 @@ export interface OfficeDetails {
       longitude: number;
     };
   };
+  publicKey: string;
 }
 
 interface Contacts {
