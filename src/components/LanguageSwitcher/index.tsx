@@ -45,7 +45,9 @@ const LanguageSwitcher = ({
 
   const handleLang = (lang: string) => {
     document.body.style.overflow = 'initial';
-    router.push(router.pathname, '/', { locale: lang });
+    router.push({ pathname: router?.pathname, query: router?.query }, '/', {
+      locale: lang,
+    });
     moment.locale(lang);
     handleCloseLanguageSwitcher();
   };
