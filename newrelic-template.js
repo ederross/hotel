@@ -13,7 +13,7 @@ exports.config = {
   /**
    * Your New Relic license key.
    */
-  license_key: '<license-key>',
+  license_key: 'license-key-variable',
 
   // Distributed tracing log
   application_logging: {

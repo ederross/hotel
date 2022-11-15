@@ -8,8 +8,9 @@ frontend:
       commands:
         - cp .env.$BUILD_ENV .env
         - rm .env.*
-        - sed -i 's/\<license-key\>/$NEWRELIC_KEY/g' newrelic-template.js
+        - sed -i 's/license-key-variable/$NEWRELIC_KEY/g' newrelic-template.js
         - mv -f newrelic-template.js newrelic.js
+        - cp newrelic.js ./public/
         - yarn run build
   artifacts:
     baseDirectory: .next
