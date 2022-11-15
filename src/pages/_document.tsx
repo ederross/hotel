@@ -25,6 +25,7 @@ class MyDocument extends Document<DocumentProps> {
 
     return {
       ...initialProps,
+      // @ts-ignore
       browserTimingHeader,
     };
   }
@@ -51,6 +52,7 @@ class MyDocument extends Document<DocumentProps> {
           <Main />
           <NextScript />
           <Script
+            id="newrelic-script"
             dangerouslySetInnerHTML={{ __html: browserTimingHeader }}
             strategy="beforeInteractive"
           ></Script>

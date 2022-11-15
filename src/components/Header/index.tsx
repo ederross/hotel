@@ -73,7 +73,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
       setLoadingCalendar(true);
       if (!loadingCalendar) {
         axios
-          .get('api/calendar-search', {
+          .get('/api/calendar-search', {
             params: {
               startDate: startSearchDay,
               endDate: endSearchDay,

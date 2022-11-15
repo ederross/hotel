@@ -72,7 +72,7 @@ export const RoomDetails = ({
     if (cart?.objects?.length > 0) {
       const { error, infos, loading, ...rest } = cart;
       axios
-        .post('api/payment-methods', {
+        .post('/api/payment-methods', {
           ...rest,
           officeId: dynamicOffice
             ? window.location.hostname.split('.')[0]

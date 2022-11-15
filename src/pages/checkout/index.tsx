@@ -176,7 +176,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
       if (checkout?.length > 0) {
         if (selectedPayMethodDetails >= 0) {
           axios
-            .post('api/booking', { cart, client, payment: paymentBooking })
+            .post('/api/booking', { cart, client, payment: paymentBooking })
             .then((res) => {
               setConfirmData({
                 ...res?.data,

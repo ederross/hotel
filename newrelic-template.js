@@ -14,6 +14,22 @@ exports.config = {
    * Your New Relic license key.
    */
   license_key: '<license-key>',
+
+  // Distributed tracing log
+  application_logging: {
+    forwarding: {
+      enabled: true,
+    },
+  },
+  distributed_tracing: {
+    /**
+     * Enables/disables distributed tracing.
+     *
+     * @env NEW_RELIC_DISTRIBUTED_TRACING_ENABLED
+     */
+    enabled: true,
+  },
+
   logging: {
     /**
      * Level at which to log. 'trace' is most useful to New Relic when diagnosing
@@ -37,17 +53,6 @@ exports.config = {
      *
      * @name NEW_RELIC_ATTRIBUTES_EXCLUDE
      */
-    exclude: [
-      'request.headers.cookie',
-      'request.headers.authorization',
-      'request.headers.proxyAuthorization',
-      'request.headers.setCookie*',
-      'request.headers.x*',
-      'response.headers.cookie',
-      'response.headers.authorization',
-      'response.headers.proxyAuthorization',
-      'response.headers.setCookie*',
-      'response.headers.x*',
-    ],
+    exclude: [],
   },
 };

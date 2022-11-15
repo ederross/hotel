@@ -46,7 +46,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
     setLoadingCheckout(true);
     const { error, infos, loading, ...rest } = cart;
     axios
-      .post('api/payment-methods', {
+      .post('/api/payment-methods', {
         ...rest,
         officeId: dynamicOffice
           ? window.location.hostname.split('.')[0]

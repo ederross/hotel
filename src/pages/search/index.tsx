@@ -132,7 +132,7 @@ const Search = ({
     if (startDate && endDate && adults && children) {
       setSearchLoading(true);
       axios
-        .get('api/room-search', {
+        .get('/api/room-search', {
           params: {
             startDate,
             endDate,
