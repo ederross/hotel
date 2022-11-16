@@ -1,5 +1,6 @@
-const newrelic = require('newrelic');
+require('@newrelic/next')
 
+const newrelic = require('newrelic');
 import Document, {
   DocumentContext,
   DocumentInitialProps,
