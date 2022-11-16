@@ -92,15 +92,22 @@ export const CheckoutPersonalData = ({
         paymentDetails: [
           {
             paymentInstallmentCount:
-              currentPaymentDetails?.paymentInstallmentCount,
-            paymentTotalAmount: currentPaymentDetails?.paymentTotalAmount,
+              currentPaymentDetails?.paymentInstallmentCount || 0,
+            paymentTotalAmount: currentPaymentDetails?.paymentTotalAmount || 0,
           },
         ],
         paymentMethodTypeCode: selectedPayMethod,
       },
       totalAmont: selectedPayMethod,
     });
-  }, [selectedPayMethod, cardNumber, expiryYear, securityCode, checkout]);
+  }, [
+    selectedPayMethod,
+    cardNumber,
+    expiryYear,
+    securityCode,
+    checkout,
+    selectedPayMethodDetails,
+  ]);
 
   return (
     <div className={styles.mobPersonalDataContainer}>

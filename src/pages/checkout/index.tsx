@@ -129,11 +129,11 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
     documentNumber: '',
     contacts: [
       {
-        contactTypeCode: 0,
+        contactTypeCode: 2,
         contactText: '',
       },
       {
-        contactTypeCode: 0,
+        contactTypeCode: 1,
         CountryPhoneCode: '',
         StatePhoneCode: '',
         PhoneNumber: '',

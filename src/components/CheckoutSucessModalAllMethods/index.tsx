@@ -16,6 +16,8 @@ import {
   PaymethodTypes,
 } from '../../store/ducks/checkout/types';
 import { IPaymentBooking } from '../../services/requests/booking';
+import { toast, ToastContainer } from 'react-toastify';
+import { useWindowSize } from '../../hooks/UseWindowSize';
 
 interface ICheckoutSucessModal {
   handleCloseCheckoutSucessModal: () => void;
@@ -44,6 +46,7 @@ export const CheckoutSucessModalAllMethods = ({
   paymentBooking,
 }: ICheckoutSucessModal) => {
   const { t, i18n } = useTranslation('common');
+  const size = useWindowSize();
 
   const [ctaSelected, setCtaSelected] = useState(0);
 
@@ -75,6 +78,17 @@ export const CheckoutSucessModalAllMethods = ({
         item?.account
       }`
     );
+  };
+
+  const toastConfig = {
+    position: size?.width < 868 ? 'top-left' : 'bottom-right',
+    autoClose: 5000,
+    theme: 'colored',
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
   };
 
   return (
@@ -309,11 +323,12 @@ export const CheckoutSucessModalAllMethods = ({
                         </span>
                         <button
                           className={styles.mobButton}
-                          onClick={() =>
+                          onClick={() => {
+                            toast.success(t('pixCopied'), toastConfig as any);
                             navigator.clipboard.writeText(
                               payment?.methodDetails[0]?.qrCodeUrl
-                            )
-                          }
+                            );
+                          }}
                         >
                           {t('copy')}
                         </button>
@@ -514,6 +529,17 @@ export const CheckoutSucessModalAllMethods = ({
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 };

@@ -15,6 +15,8 @@ import moment from 'moment';
 import Countdown from 'react-countdown';
 import QRCode from 'react-qr-code';
 import { CheckOutlined, PlaceOutlined } from '@mui/icons-material';
+import { useWindowSize } from '../../hooks/UseWindowSize';
+import { toast, ToastContainer } from 'react-toastify';
 
 interface ICheckoutSucessModal {
   handleCloseCheckoutSucessModal: () => void;
@@ -43,6 +45,7 @@ export const CheckoutSucessModalAllMethodsMobile = ({
   paymentBooking,
 }: ICheckoutSucessModal) => {
   const { t, i18n } = useTranslation('common');
+  const size = useWindowSize();
 
   const [ctaSelected, setCtaSelected] = useState(0);
 
@@ -74,6 +77,17 @@ export const CheckoutSucessModalAllMethodsMobile = ({
         item?.account
       }`
     );
+  };
+
+  const toastConfig = {
+    position: size?.width < 868 ? 'top-left' : 'bottom-right',
+    autoClose: 5000,
+    theme: 'colored',
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
   };
 
   return (
@@ -194,11 +208,12 @@ export const CheckoutSucessModalAllMethodsMobile = ({
             </span>
             <button
               className={styles.mobButton}
-              onClick={() =>
+              onClick={() => {
                 navigator.clipboard.writeText(
                   payment?.methodDetails[0]?.qrCodeUrl
-                )
-              }
+                );
+                toast.success(t('pixCopied'), toastConfig as any);
+              }}
             >
               {t('copy')}
             </button>
@@ -390,6 +405,17 @@ export const CheckoutSucessModalAllMethodsMobile = ({
           </button>
         </div>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
