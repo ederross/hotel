@@ -1,5 +1,5 @@
-// eslint-disable-next-line @next/next/no-document-import-in-page
 const newrelic = require('newrelic');
+
 import Document, {
   DocumentContext,
   DocumentInitialProps,
