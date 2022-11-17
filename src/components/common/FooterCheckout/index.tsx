@@ -53,13 +53,13 @@ const FooterCheckout = () => {
             <h4>© 2022 Hospeda Inc.</h4>
             <LinksContainer>
               <Link href="https://hospeda.in/terms/terms-and-conditions.html" >
-                <a title={t('termsAndConditions')} target="_blank">
+                <a title={t('termsAndConditions')} target="_blank" rel="noreferrer">
                   <p className="link">{t('termsAndConditions')}</p>
                 </a>
               </Link>
 
               <Link href="https://hospeda.in/terms/privacy-policy.html">
-                <a title={t('privacyPolicies')} target="_blank">
+                <a title={t('privacyPolicies')} target="_blank" rel="noreferrer">
                   <p className="link">{t('privacyPolicies')}</p>
                 </a>
               </Link>
