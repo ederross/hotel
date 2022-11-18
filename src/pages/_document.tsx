@@ -36,6 +36,7 @@ class MyDocument extends Document<DocumentProps> {
     return (
       <Html className="default">
         <Head>
+          <script async type="text/javascript" src="/scripts/rum.js"></script>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
