@@ -11,6 +11,8 @@ frontend:
         - rm newrelic.js
         - sed -i "s/<license-key>/$NEWRELIC_KEY/g" newrelic-template.js
         - cp newrelic-template.js newrelic.js
+        - cp ./public/scripts/rum-$BUILD_ENV.js ./public/scripts/rum.js
+        - rm ./public/scripts/rum-*.js
         - yarn run build
   artifacts:
     baseDirectory: .next
