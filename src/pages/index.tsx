@@ -54,7 +54,7 @@ export default function Home(props: IHomeProps) {
   const router = useRouter();
 
   const {
-    cart: { objects, services },
+    cart: { objects, services, infos },
   } = useSelector((state: AppStore) => state);
 
   useEffect(() => {
@@ -109,7 +109,9 @@ export default function Home(props: IHomeProps) {
         ages: [],
       })
     );
-    dispatch(CleanCart());
+    infos?.startDate !== startDate ||
+      (infos?.endDate !== moment(endDate).format('YYYY-MM-DD') &&
+        dispatch(CleanCart()));
   };
 
   const whatsappNumber = props?.officeDetails?.contacts?.find(

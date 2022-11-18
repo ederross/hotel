@@ -43,7 +43,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
   const router = useRouter();
 
   const {
-    cart: { objects, services },
+    cart: { objects, services, infos },
   } = useSelector((state: AppStore) => state);
 
   const headerRef = useRef(null);
@@ -205,7 +205,8 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
           age: childrenAges,
         },
       });
-      dispatch(CleanCart());
+      infos?.startDate !== checkInDate ||
+        (infos?.endDate !== checkOutDate && dispatch(CleanCart()));
       dispatch(
         SetCartInfos({
           totalGuest: numberOfAdults + numberOfChildren,

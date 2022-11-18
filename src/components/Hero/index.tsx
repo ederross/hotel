@@ -2,10 +2,11 @@ import moment from 'moment';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Design } from '../../../data/design';
 import { OfficeDetails } from '../../../data/officeDetails';
 import { CleanCart, SetCartInfos } from '../../store/ducks/cart/actions';
+import { AppStore } from '../../store/types';
 import styles from './styles.module.scss';
 
 interface IHeroProps {
@@ -17,6 +18,10 @@ const Hero = ({ officeDetails, design }: IHeroProps) => {
   const { t } = useTranslation('common');
   const router = useRouter();
   const dispatch = useDispatch();
+
+  const {
+    cart: { infos },
+  } = useSelector((state: AppStore) => state);
 
   const handleExploreRooms = (e) => {
     router.push({
@@ -38,7 +43,10 @@ const Hero = ({ officeDetails, design }: IHeroProps) => {
         ages: [],
       })
     );
-    dispatch(CleanCart());
+
+    infos?.startDate !== moment().add(1, 'day').format('YYYY-MM-DD') ||
+      (infos?.endDate !== moment().add(15, 'days').format('YYYY-MM-DD') &&
+        dispatch(CleanCart()));
   };
 
   return (

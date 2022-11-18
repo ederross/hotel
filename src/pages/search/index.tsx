@@ -64,6 +64,7 @@ import { EventsHome } from '../../../data/events';
 import { PhotosModal } from '../../components/PhotosModal';
 import axios from 'axios';
 import { logger } from '../../components/Logger';
+import qs from 'qs';
 
 interface ISearch {
   servicesResult: any;
@@ -124,22 +125,17 @@ const Search = ({
   const formattedNumber = (number: number) =>
     number < 10 && number > 0 ? `0${number}` : '';
 
-  //officeId
-  const id = dynamicOffice
-    ? window?.location?.hostname.split('.')[0]
-    : officeId;
-
   useEffect(() => {
     if (startDate && endDate && adults && children) {
       setSearchLoading(true);
       axios
-        .get('/api/room-search', {
+        .get(`/api/room-search`, {
           params: {
             startDate,
             endDate,
             adults,
             children,
-            age: age || [],
+            age: Array?.isArray(age) ? age?.join(',') : age || '',
           },
         })
         .then((res: any) => {
@@ -166,7 +162,7 @@ const Search = ({
         ages: age || [],
       })
     );
-  }, [startDate, endDate, adults, children, dispatch]);
+  }, [startDate, endDate, adults, children, dispatch, age]);
 
   useEffect(() => {
     dispatch(SetIconsDomain(iconsDomain));
@@ -291,14 +287,18 @@ const Search = ({
                             router.locale
                           )}`
                         )}{' '}
-                        <span>
-                          {formattedNumber(servicesResult?.length) || 0}
-                        </span>{' '}
-                        {t(
-                          `servicesWereFound_${pluralProfix(
-                            servicesResult?.length,
-                            router.locale
-                          )}`
+                        {servicesResult?.length > 0 && (
+                          <>
+                            <span>
+                              {formattedNumber(servicesResult?.length) || 0}
+                            </span>{' '}
+                            {t(
+                              `servicesWereFound_${pluralProfix(
+                                servicesResult?.length,
+                                router.locale
+                              )}`
+                            )}
+                          </>
                         )}
                       </h2>
                     </div>
@@ -546,7 +546,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     props: {
-      servicesResult,
+      servicesResult: [],
       officeDetails,
       design,
       facilities,

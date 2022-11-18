@@ -14,12 +14,16 @@ export default function handler(req, res) {
         ? xfowardedHost?.toString()?.split('.')[0]
         : officeId;
 
+    const formattedAges = req?.query?.age
+      ?.split(',')
+      .map((c) => parseInt(c))
+      .filter(Boolean);
     GetRoomSearch({
       startDate: req?.query?.startDate,
       endDate: req?.query?.endDate,
       adults: req?.query?.adults,
       children: req?.query?.children,
-      age: req?.query?.age || [],
+      age: formattedAges,
       officeId: id,
     })
       .then((data: any) => {
