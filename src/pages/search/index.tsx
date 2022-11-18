@@ -546,7 +546,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     props: {
-      servicesResult: [],
+      servicesResult,
       officeDetails,
       design,
       facilities,
