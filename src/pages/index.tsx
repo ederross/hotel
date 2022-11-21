@@ -230,12 +230,11 @@ export const getServerSideProps: GetServerSideProps = async ({
     ? xfowardedHost?.toString()?.split('.')[0]
     : xfowardedHost?.toString()?.split('.')[1];
 
-  console.log(fwHost);
-  
   const id =
-    dynamicOffice && !!xfowardedHost
-      ? xfowardedHost?.toString()?.split('.')[0]
+    dynamicOffice && !!fwHost
+      ? fwHost
       : officeId;
+
   const officeDetails = await GetOfficeDetails(id);
   const design = await GetOfficeDesign(id);
   const reviews = await GetOfficeReviews(id);
