@@ -369,6 +369,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
 }) => {
   const xfowardedHost = req.headers['x-forwarded-host'];
+  console.log(`X-fowardedHost: ${xfowardedHost}`);
   logger.info(`X-fowardedHost: ${xfowardedHost}`);
 
   const id =

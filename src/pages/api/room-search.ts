@@ -7,6 +7,7 @@ export default function handler(req, res) {
   try {
     //officeID
     const xfowardedHost = req.headers['x-forwarded-host'];
+    console.log(`X-fowardedHost: ${xfowardedHost}`);
     logger.info(`X-fowardedHost: ${xfowardedHost}`);
 
     const id =
