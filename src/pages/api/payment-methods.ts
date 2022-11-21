@@ -10,6 +10,12 @@ export default function handler(req, res) {
       console.log(`X-fowardedHost: ${xfowardedHost}`);
       logger.info(`X-fowardedHost: ${xfowardedHost}`);
 
+      const fwHost = !!xfowardedHost && xfowardedHost?.toString()?.split('.')[0] !== "www"
+        ? xfowardedHost?.toString()?.split('.')[0]
+        : xfowardedHost?.toString()?.split('.')[1];
+
+      console.log(fwHost);
+
       const id =
         dynamicOffice && !!xfowardedHost
           ? xfowardedHost?.toString()?.split('.')[0]

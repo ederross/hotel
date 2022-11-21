@@ -67,12 +67,12 @@ export default function Home(props: IHomeProps) {
       width >= 320 && width < 524
         ? '1rem'
         : width >= 524 && width < 1024
-        ? '2rem'
-        : width >= 628 && width < 1024
-        ? '2rem'
-        : width >= 1024 && width < 1280
-        ? '4rem'
-        : '8rem',
+          ? '2rem'
+          : width >= 628 && width < 1024
+            ? '2rem'
+            : width >= 1024 && width < 1280
+              ? '4rem'
+              : '8rem',
     paddingRight: 16,
     paddingBottom: 16,
     marginBottom: 48,
@@ -226,6 +226,12 @@ export const getServerSideProps: GetServerSideProps = async ({
   console.log(`X-fowardedHost: ${xfowardedHost}`);
   logger.info(`X-fowardedHost: ${xfowardedHost}`);
 
+  const fwHost = !!xfowardedHost && xfowardedHost?.toString()?.split('.')[0] !== "www"
+    ? xfowardedHost?.toString()?.split('.')[0]
+    : xfowardedHost?.toString()?.split('.')[1];
+
+  console.log(fwHost);
+  
   const id =
     dynamicOffice && !!xfowardedHost
       ? xfowardedHost?.toString()?.split('.')[0]
