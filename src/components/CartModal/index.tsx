@@ -59,11 +59,13 @@ const CartModal = ({
   const handleReserve = () => {
     setLoadingCheckout(true);
     const { error, infos, loading, ...rest } = cart;
+    const hotelId = window.location.hostname.split('.')[0] === "www" ? window.location.hostname.split('.')[1] : window.location.hostname.split('.')[0];
+
     axios
       .post('/api/payment-methods', {
         ...rest,
         officeId: dynamicOffice
-          ? window.location.hostname.split('.')[0]
+          ? hotelId
           : officeId,
       })
       .then((res) => {
