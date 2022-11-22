@@ -211,8 +211,8 @@ const Search = ({
             selectedRoom && width < 868
               ? '0'
               : selectedRoom && width > 868
-                ? '5rem 0 0'
-                : '6rem 0 0',
+              ? '5rem 0 0'
+              : '6rem 0 0',
         }}
       >
         <Header selectedRoom={selectedRoom} design={design} events={events} />
@@ -278,13 +278,19 @@ const Search = ({
                   ) : (
                     <div style={{ flex: 1, paddingTop: 1 }}>
                       <h2>
-                        {servicesResult?.length <= 0 ||
-                        searchResult?.length <= 0 ? (
+                        {searchResult?.length === 0 ? (
+                          <>{t(`noRoomFound`)}</>
+                        ) : servicesResult?.length === 0 ? (
                           <>
                             <span>
                               {formattedNumber(searchResult?.length) || 0}
                             </span>{' '}
-                            {t(`AvailableRooms`)}
+                            {t(
+                              `availableRooms_${pluralProfix(
+                                searchResult?.length,
+                                router.locale
+                              )}`
+                            )}
                           </>
                         ) : (
                           <>
@@ -320,8 +326,8 @@ const Search = ({
                       style={
                         selectedTab === 'rooms'
                           ? {
-                            borderBottom: '6px solid black',
-                          }
+                              borderBottom: '6px solid black',
+                            }
                           : { opacity: 0.35, paddingBottom: '1.4rem' }
                       }
                       className={styles.filterButtonContainer}
@@ -341,8 +347,8 @@ const Search = ({
                       style={
                         selectedTab === 'services'
                           ? {
-                            borderBottom: '6px solid black',
-                          }
+                              borderBottom: '6px solid black',
+                            }
                           : { opacity: 0.35, paddingBottom: '1.4rem' }
                       }
                       className={styles.filterButtonContainer}
@@ -455,8 +461,8 @@ const Search = ({
                             {item.facilityName
                               ? item.facilityName
                               : GetFacilityItemFromDomain(
-                                item.facilityTypeCode
-                              )}
+                                  item.facilityTypeCode
+                                )}
                           </p>
                         </div>
                       ))}
@@ -532,14 +538,12 @@ export const getServerSideProps: GetServerSideProps = async ({
   console.log(`X-fowardedHost: ${xfowardedHost}`);
   logger.info(`X-fowardedHost: ${xfowardedHost}`);
 
-  const fwHost = !!xfowardedHost && xfowardedHost?.toString()?.split('.')[0] !== "www"
-    ? xfowardedHost?.toString()?.split('.')[0]
-    : xfowardedHost?.toString()?.split('.')[1];
+  const fwHost =
+    !!xfowardedHost && xfowardedHost?.toString()?.split('.')[0] !== 'www'
+      ? xfowardedHost?.toString()?.split('.')[0]
+      : xfowardedHost?.toString()?.split('.')[1];
 
-  const id =
-    dynamicOffice && !!fwHost
-      ? fwHost
-      : officeId;
+  const id = dynamicOffice && !!fwHost ? fwHost : officeId;
 
   const officeDetails = await GetOfficeDetails(id);
   const design = await GetOfficeDesign(id);
