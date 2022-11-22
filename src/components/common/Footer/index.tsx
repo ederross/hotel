@@ -94,8 +94,8 @@ const Footer = ({ design, officeDetails, marginTop }: IFooterProps) => {
                   ?.map((item, index) => (
                     <a
                       key={index}
-                      href="mailto:contac@finehost.com"
-                      title="contac@finehost.com"
+                      href={`mailto:${item?.contactText}`}
+                      title={item?.contactText}
                       className="row"
                     >
                       <EmailRounded style={{ color: '#fff' }} />
@@ -171,11 +171,21 @@ const Footer = ({ design, officeDetails, marginTop }: IFooterProps) => {
             <InformationContainer>
               <div>
                 <h3>{t('information_other')}</h3>
-                <a href="https://hospeda.in/terms/terms-and-conditions.html" title={t('termsAndConditions')} target="_blank" rel="noreferrer">
+                <a
+                  href="https://hospeda.in/terms/terms-and-conditions.html"
+                  title={t('termsAndConditions')}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <p className="link">{t('termsAndConditions')}</p>
                 </a>
                 <br />
-                <a href="https://hospeda.in/terms/privacy-policy.html" title={t('privacyPolicies')} target="_blank" rel="noreferrer">
+                <a
+                  href="https://hospeda.in/terms/privacy-policy.html"
+                  title={t('privacyPolicies')}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <p className="link">{t('privacyPolicies')}</p>
                 </a>
               </div>

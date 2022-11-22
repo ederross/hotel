@@ -278,17 +278,25 @@ const Search = ({
                   ) : (
                     <div style={{ flex: 1, paddingTop: 1 }}>
                       <h2>
-                        <span>
-                          {formattedNumber(searchResult?.length) || 0}
-                        </span>{' '}
-                        {t(
-                          `roomsWith_${pluralProfix(
-                            searchResult?.length,
-                            router.locale
-                          )}`
-                        )}{' '}
-                        {servicesResult?.length > 0 && (
+                        {servicesResult?.length <= 0 ||
+                        searchResult?.length <= 0 ? (
                           <>
+                            <span>
+                              {formattedNumber(searchResult?.length) || 0}
+                            </span>{' '}
+                            {t(`AvailableRooms`)}
+                          </>
+                        ) : (
+                          <>
+                            <span>
+                              {formattedNumber(searchResult?.length) || 0}
+                            </span>{' '}
+                            {t(
+                              `roomsWith_${pluralProfix(
+                                searchResult?.length,
+                                router.locale
+                              )}`
+                            )}
                             <span>
                               {formattedNumber(servicesResult?.length) || 0}
                             </span>{' '}
