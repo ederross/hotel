@@ -211,8 +211,8 @@ const Search = ({
             selectedRoom && width < 868
               ? '0'
               : selectedRoom && width > 868
-              ? '5rem 0 0'
-              : '6rem 0 0',
+                ? '5rem 0 0'
+                : '6rem 0 0',
         }}
       >
         <Header selectedRoom={selectedRoom} design={design} events={events} />
@@ -320,8 +320,8 @@ const Search = ({
                       style={
                         selectedTab === 'rooms'
                           ? {
-                              borderBottom: '6px solid black',
-                            }
+                            borderBottom: '6px solid black',
+                          }
                           : { opacity: 0.35, paddingBottom: '1.4rem' }
                       }
                       className={styles.filterButtonContainer}
@@ -341,8 +341,8 @@ const Search = ({
                       style={
                         selectedTab === 'services'
                           ? {
-                              borderBottom: '6px solid black',
-                            }
+                            borderBottom: '6px solid black',
+                          }
                           : { opacity: 0.35, paddingBottom: '1.4rem' }
                       }
                       className={styles.filterButtonContainer}
@@ -455,8 +455,8 @@ const Search = ({
                             {item.facilityName
                               ? item.facilityName
                               : GetFacilityItemFromDomain(
-                                  item.facilityTypeCode
-                                )}
+                                item.facilityTypeCode
+                              )}
                           </p>
                         </div>
                       ))}
@@ -529,12 +529,18 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
 }) => {
   const xfowardedHost = req.headers['x-forwarded-host'];
-  dynamicOffice && logger.info(`X-fowardedHost: ${xfowardedHost}`);
+  console.log(`X-fowardedHost: ${xfowardedHost}`);
+  logger.info(`X-fowardedHost: ${xfowardedHost}`);
+
+  const fwHost = !!xfowardedHost && xfowardedHost?.toString()?.split('.')[0] !== "www"
+    ? xfowardedHost?.toString()?.split('.')[0]
+    : xfowardedHost?.toString()?.split('.')[1];
 
   const id =
-    dynamicOffice && !!xfowardedHost
-      ? xfowardedHost?.toString()?.split('.')[0]
+    dynamicOffice && !!fwHost
+      ? fwHost
       : officeId;
+
   const officeDetails = await GetOfficeDetails(id);
   const design = await GetOfficeDesign(id);
   const servicesResult = await GetServiceSearch(id);

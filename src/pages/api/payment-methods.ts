@@ -7,11 +7,16 @@ export default function handler(req, res) {
     try {
       //officeID
       const xfowardedHost = req.headers['x-forwarded-host'];
+      console.log(`X-fowardedHost: ${xfowardedHost}`);
       logger.info(`X-fowardedHost: ${xfowardedHost}`);
 
+      const fwHost = !!xfowardedHost && xfowardedHost?.toString()?.split('.')[0] !== "www"
+        ? xfowardedHost?.toString()?.split('.')[0]
+        : xfowardedHost?.toString()?.split('.')[1];
+
       const id =
-        dynamicOffice && !!xfowardedHost
-          ? xfowardedHost?.toString()?.split('.')[0]
+        dynamicOffice && !!fwHost
+          ? fwHost
           : officeId;
 
       const body = req?.body;
