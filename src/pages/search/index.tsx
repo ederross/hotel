@@ -302,7 +302,7 @@ const Search = ({
                                 searchResult?.length,
                                 router.locale
                               )}`
-                            )}
+                            )}{' '}
                             <span>
                               {formattedNumber(servicesResult?.length) || 0}
                             </span>{' '}
