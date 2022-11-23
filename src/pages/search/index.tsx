@@ -317,50 +317,56 @@ const Search = ({
                       </h2>
                     </div>
                   )}
-                  <div className={styles.filtersMobileSection}>
-                    <motion.div
-                      initial={{ scale: 0.9 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 0.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      style={
-                        selectedTab === 'rooms'
-                          ? {
-                              borderBottom: '6px solid black',
-                            }
-                          : { opacity: 0.35, paddingBottom: '1.4rem' }
-                      }
-                      className={styles.filterButtonContainer}
-                      onClick={() => {
-                        (document.body.style.overflow = 'initial'),
-                          setSelectedTab('rooms');
-                      }}
-                    >
-                      <HotelOutlined style={{ marginBottom: '0.2rem' }} />
-                      <h4>{t('room_other')}</h4>
-                    </motion.div>
-                    <motion.div
-                      initial={{ scale: 0.9 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 0.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      style={
-                        selectedTab === 'services'
-                          ? {
-                              borderBottom: '6px solid black',
-                            }
-                          : { opacity: 0.35, paddingBottom: '1.4rem' }
-                      }
-                      className={styles.filterButtonContainer}
-                      onClick={() => {
-                        (document.body.style.overflow = 'initial'),
-                          setSelectedTab('services');
-                      }}
-                    >
-                      <AttractionsOutlined style={{ marginBottom: '0.2rem' }} />
-                      <h4>{t('service_other')}</h4>
-                    </motion.div>
-                  </div>
+                  {searchResult?.length > 0 && (
+                    <div className={styles.filtersMobileSection}>
+                      <motion.div
+                        initial={{ scale: 0.9 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 0.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        style={
+                          selectedTab === 'rooms'
+                            ? {
+                                borderBottom: '6px solid black',
+                              }
+                            : { opacity: 0.35, paddingBottom: '1.4rem' }
+                        }
+                        className={styles.filterButtonContainer}
+                        onClick={() => {
+                          (document.body.style.overflow = 'initial'),
+                            setSelectedTab('rooms');
+                        }}
+                      >
+                        <HotelOutlined style={{ marginBottom: '0.2rem' }} />
+                        <h4>{t('room_other')}</h4>
+                      </motion.div>
+                      {servicesResult.length > 0 && (
+                        <motion.div
+                          initial={{ scale: 0.9 }}
+                          animate={{ scale: 1 }}
+                          transition={{ duration: 0.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          style={
+                            selectedTab === 'services'
+                              ? {
+                                  borderBottom: '6px solid black',
+                                }
+                              : { opacity: 0.35, paddingBottom: '1.4rem' }
+                          }
+                          className={styles.filterButtonContainer}
+                          onClick={() => {
+                            (document.body.style.overflow = 'initial'),
+                              setSelectedTab('services');
+                          }}
+                        >
+                          <AttractionsOutlined
+                            style={{ marginBottom: '0.2rem' }}
+                          />
+                          <h4>{t('service_other')}</h4>
+                        </motion.div>
+                      )}
+                    </div>
+                  )}
                 </section>
                 {/* Desktop Results */}
                 <div className={styles.webResults}>
@@ -394,46 +400,54 @@ const Search = ({
                   )}
                 </div>
                 {/* Mobile Results */}
-                <div className={styles.mobileResults}>
-                  {selectedTab === 'rooms' && !selectedRoom && (
-                    <section className={styles.serviceResultContainer}>
-                      <h4 className={styles.subtitle}>{t('look')}</h4>
-                      <h2 className={styles.title}>{t('availableRooms')}</h2>
-                      <div className={styles.contentResultContainer}>
-                        {!!searchResult &&
-                          searchResult.map((room, index) => (
-                            <CardRoom
-                              isResultOneRoom={room.length === 1 ? true : false}
-                              key={index}
-                              room={room}
-                              setSelectedRoom={setSelectedRoom}
-                            />
+                {searchResult?.length > 0 && (
+                  <div className={styles.mobileResults}>
+                    {selectedTab === 'rooms' && !selectedRoom && (
+                      <section className={styles.serviceResultContainer}>
+                        <h4 className={styles.subtitle}>{t('look')}</h4>
+                        <h2 className={styles.title}>{t('availableRooms')}</h2>
+                        <div className={styles.contentResultContainer}>
+                          {!!searchResult &&
+                            searchResult.map((room, index) => (
+                              <CardRoom
+                                isResultOneRoom={
+                                  room.length === 1 ? true : false
+                                }
+                                key={index}
+                                room={room}
+                                setSelectedRoom={setSelectedRoom}
+                              />
+                            ))}
+                        </div>
+                      </section>
+                    )}
+                    {servicesResult > 0 &&
+                    (selectedTab === 'services' || selectedRoom) ? (
+                      <section
+                        className={styles.serviceResultContainer}
+                        style={{
+                          marginTop: selectedRoom && '2rem',
+                          borderTop:
+                            selectedRoom && '1px solid var(--gray-150)',
+                          paddingTop: selectedRoom && '2rem',
+                          paddingBottom: width < 868 && '8rem',
+                        }}
+                      >
+                        <h4 className={styles.subtitle}>{t('look')}</h4>
+                        <h2 className={styles.title}>
+                          {t('availableServices')}
+                        </h2>
+                        <div className={styles.contentResultContainer}>
+                          {servicesResult?.map((service, index) => (
+                            <CardService key={index} service={service} />
                           ))}
-                      </div>
-                    </section>
-                  )}
-                  {selectedTab === 'services' || selectedRoom ? (
-                    <section
-                      className={styles.serviceResultContainer}
-                      style={{
-                        marginTop: selectedRoom && '2rem',
-                        borderTop: selectedRoom && '1px solid var(--gray-150)',
-                        paddingTop: selectedRoom && '2rem',
-                        paddingBottom: width < 868 && '8rem',
-                      }}
-                    >
-                      <h4 className={styles.subtitle}>{t('look')}</h4>
-                      <h2 className={styles.title}>{t('availableServices')}</h2>
-                      <div className={styles.contentResultContainer}>
-                        {servicesResult?.map((service, index) => (
-                          <CardService key={index} service={service} />
-                        ))}
-                      </div>
-                    </section>
-                  ) : (
-                    <div />
-                  )}
-                </div>
+                        </div>
+                      </section>
+                    ) : (
+                      <div />
+                    )}
+                  </div>
+                )}
               </>
             )
           )}
