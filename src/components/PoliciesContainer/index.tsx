@@ -26,7 +26,7 @@ export const PoliciesContainer = ({
   return (
     <>
       <div className={styles.webPoliticsContainer}>
-        <h3>{t('policy_other')}</h3>
+        <h3>{t('policy')}</h3>
         <h5>
           {t('reservationPolicies')}{' '}
           <a
@@ -95,7 +95,7 @@ export const PoliciesContainer = ({
       </div>
 
       <div className={styles.mobPoliticsContainer}>
-        <h3>{t('policy_other')}</h3>
+        <h3>{t('policy')}</h3>
         <h5>
           {t('reservationPolicies')}{' '}
           <a
