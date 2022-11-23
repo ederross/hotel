@@ -170,7 +170,7 @@ const Footer = ({ design, officeDetails, marginTop }: IFooterProps) => {
 
             <InformationContainer>
               <div>
-                <h3>{t('information_other')}</h3>
+                <h3>{t('informations')}</h3>
                 <a
                   href="https://hospeda.in/terms/terms-and-conditions.html"
                   title={t('termsAndConditions')}

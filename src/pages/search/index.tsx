@@ -279,7 +279,7 @@ const Search = ({
                     <div style={{ flex: 1, paddingTop: 1 }}>
                       <h2>
                         {searchResult?.length === 0 ? (
-                          <>{t(`noRoomFound`)}</>
+                          <>{t(`noRoomAvailable`)}</>
                         ) : servicesResult?.length === 0 ? (
                           <>
                             <span>
