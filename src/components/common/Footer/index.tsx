@@ -223,7 +223,7 @@ const Footer = ({ design, officeDetails, marginTop }: IFooterProps) => {
           </GlobeContainer>
           <CopyrightContainer>
             <h4>
-              © {new Date().getFullYear()} FINEHOST. {t('allRightsReserved')}
+              © {new Date().getFullYear()} Hospeda Inc. {t('allRightsReserved')}
             </h4>
           </CopyrightContainer>
         </ContainerHolder>

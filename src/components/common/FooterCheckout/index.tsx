@@ -50,7 +50,7 @@ const FooterCheckout = () => {
             </GlobeContainer>
           </TranslateSocialMediaContainer>
           <LinksAndCopyrightContainer>
-            <h4>© 2022 Hospeda Inc.</h4>
+            <h4>© {new Date().getFullYear()} Hospeda Inc. {t('allRightsReserved')}</h4>
             <LinksContainer>
               <Link href="https://hospeda.in/terms/terms-and-conditions.html" >
                 <a title={t('termsAndConditions')} target="_blank" rel="noreferrer">
