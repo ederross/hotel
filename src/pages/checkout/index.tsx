@@ -219,7 +219,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                 <ChevronLeft width={24} height={24} />
               </div>
 
-              <h2>{t('checkoutTitle')}</h2>
+              <h2>{t('checkOutTitle')}</h2>
             </div>
 
             <div className={styles.mobTotalPrice}>
