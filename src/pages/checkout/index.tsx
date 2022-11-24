@@ -238,7 +238,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                     <div className={styles.btnGoBackDesk} onClick={router.back}>
                       <ChevronLeft width={18} height={18} />
                     </div>
-                    <h4>{' '}{t('backHome')}</h4>
+                    <h2 className={styles.titleHeaderDesk}>{t('backHome')}</h2>
                   </div>
 
                   <CheckoutInfoBox policies={policies} />
