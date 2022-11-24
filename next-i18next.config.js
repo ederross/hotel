@@ -6,7 +6,7 @@ module.exports = {
     locales: ['en-US', 'pt-BR'],
 
     backend: {
-      loadPath: `https://d3tmwynvs73u9l.cloudfront.net/public/locales/{{lng}}/{{ns}}.json`,
+      loadPath: process.env.NEXT_PUBLIC_I18N_URL,
     },
   },
   debug: false,
