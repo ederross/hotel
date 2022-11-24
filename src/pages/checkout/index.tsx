@@ -219,7 +219,7 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                 <ChevronLeft width={24} height={24} />
               </div>
 
-              <h2>{t('backFromCheckout')}</h2>
+              <h2>{t('checkoutTitle')}</h2>
             </div>
 
             <div className={styles.mobTotalPrice}>
@@ -238,7 +238,6 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
                     <div className={styles.btnGoBackDesk} onClick={router.back}>
                       <ChevronLeft width={18} height={18} />
                     </div>
-                    <h2 className={styles.titleHeaderDesk}>{t('backFromCheckout')}</h2>
                   </div>
 
                   <CheckoutInfoBox policies={policies} />
