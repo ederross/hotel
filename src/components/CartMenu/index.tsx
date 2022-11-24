@@ -271,7 +271,7 @@ const CartMenu = ({ openCart }: ICartMenu) => {
               handleReserve();
             }}
           >
-            {t('checkout')}
+            {t('goCheckout')}
           </motion.button>
         )}
 

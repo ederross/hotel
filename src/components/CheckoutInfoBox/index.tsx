@@ -174,10 +174,7 @@ export const CheckoutInfoBox = ({ policies }: ICheckoutInfoBox) => {
             </div>
             <div>
               <h4>
-                {t('total')}{' '}
-                <span style={{ textTransform: 'lowercase' }}>
-                  {t('guest_other')}
-                </span>
+                {t('totalGuest')}
               </h4>
               <h5>{infos?.totalGuest}</h5>
             </div>

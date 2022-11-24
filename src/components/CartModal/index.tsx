@@ -269,7 +269,7 @@ const CartModal = ({
                       handleReserve();
                     }}
                   >
-                    {t('checkout')}
+                    {t('goCheckout')}
                   </motion.button>
                 )}
               </div>
