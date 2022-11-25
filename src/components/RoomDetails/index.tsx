@@ -11,7 +11,7 @@ import OffersAccordion from '../OffersAccordion';
 import { useRouter } from 'next/router';
 import { AmenitieDisplay } from '../common/AmenitieDisplay';
 import { motion } from 'framer-motion';
-import { Room, RoomImages } from '../../../data/room';
+import { Price, Room, RoomImages } from '../../../data/room';
 import { IconImportDynamically } from '../common/ComponentWithIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStore } from '../../store/types';
@@ -22,6 +22,11 @@ import { pluralProfix } from '../../utils/pluralRules';
 import { currency } from '../../utils/currency';
 import axios from 'axios';
 import { logger } from '../Logger';
+import {
+  AddProductToCart,
+  RemoveProductToCart,
+} from '../../store/ducks/cart/actions';
+import moment from 'moment';
 
 interface IRoomDetailsProps {
   room: Room;
@@ -68,18 +73,121 @@ export const RoomDetails = ({
     progress: undefined,
   };
 
-  const handleReserve = () => {
-    setLoadingCheckout(true);
-    if (cart?.objects?.length > 0) {
+  const {
+    cart: { objects },
+  } = useSelector((state: AppStore) => state);
+
+  const {
+    startDate = moment().add(1, 'day').format('YYYY-MM-DD'),
+    endDate = moment(startDate).add(15, 'days').format('YYYY-MM-DD'),
+    adults = 1,
+    children = 0,
+  }: any = router.query;
+
+  const currentCart = objects.find((r) => r.objectId === room?.objectId);
+
+  const handleAddToCart = (quantity: number, price: Price) => {
+    if (quantity > 0) {
+      dispatch(
+        AddProductToCart({
+          objectId: room.objectId,
+          identificationCode: '',
+          prices: !!currentCart?.prices?.find(
+            (p) => p.quoteId === price?.quoteId
+          )
+            ? currentCart?.prices.map((p) =>
+                p.quoteId !== price?.quoteId
+                  ? p
+                  : {
+                      ...p,
+                      quantity,
+                      checkIn: startDate,
+                      checkOut: endDate,
+                      priceDescription: price?.priceDescription,
+                      taxes: p.taxes || [],
+                      fees: p.fees || [],
+                      travelers: {
+                        adults,
+                        childrens: children,
+                        ages: [],
+                      },
+                    }
+              )
+            : currentCart
+            ? [
+                ...currentCart?.prices,
+                {
+                  quantity,
+                  quoteId: price?.quoteId,
+                  regularTotalAmount: price?.regularTotalAmount,
+                  checkIn: startDate,
+                  checkOut: endDate,
+                  priceDescription: room?.prices[0].priceDescription,
+                  taxes: price?.taxes || [],
+                  fees: price?.fees || [],
+                  travelers: {
+                    adults: parseInt(adults),
+                    childrens: parseInt(children),
+                    ages: [],
+                  },
+                },
+              ]
+            : [
+                {
+                  quantity,
+                  quoteId: price?.quoteId,
+                  regularTotalAmount: price?.regularTotalAmount,
+                  checkIn: startDate,
+                  checkOut: endDate,
+                  priceDescription: room?.prices[0].priceDescription,
+                  taxes: price?.taxes || [],
+                  fees: price?.fees || [],
+                  travelers: {
+                    adults,
+                    childrens: children,
+                    ages: [],
+                  },
+                },
+              ],
+          infos: {
+            adults,
+            children,
+            image: room?.images ? room?.images[0]?.imageUrl : '',
+            objectName: room?.objectName,
+          },
+        })
+      );
+    } else {
+      dispatch(
+        currentCart.prices.length > 1
+          ? AddProductToCart({
+              objectId: currentCart?.objectId,
+              identificationCode: '',
+              prices: currentCart?.prices.filter(
+                (p) => p.quoteId !== price?.quoteId
+              ),
+              infos: currentCart?.infos,
+            })
+          : dispatch(RemoveProductToCart(currentCart?.objectId))
+      );
+    }
+  };
+
+  const handleReserve = (isMobile = false) => {
+    if (isMobile && cart?.objects?.length === 0) {
+      handleAddToCart(1, room?.prices[0]);
+    } else if (cart?.objects?.length > 0) {
+      setLoadingCheckout(true);
       const { error, infos, loading, ...rest } = cart;
-      const hotelId = window.location.hostname.split('.')[0] === "www" ? window.location.hostname.split('.')[1] : window.location.hostname.split('.')[0];
+      const hotelId =
+        window.location.hostname.split('.')[0] === 'www'
+          ? window.location.hostname.split('.')[1]
+          : window.location.hostname.split('.')[0];
 
       axios
         .post('/api/payment-methods', {
           ...rest,
-          officeId: dynamicOffice
-            ? hotelId
-            : officeId,
+          officeId: dynamicOffice ? hotelId : officeId,
         })
         .then((res) => {
           res?.data?.length > 0 && router.push('/checkout');
@@ -93,7 +201,7 @@ export const RoomDetails = ({
           return [];
         });
     } else {
-      toast.error(t(`bookingError`), toastConfig as any);
+      toast.error(t(`selectRoomError`), toastConfig as any);
     }
   };
 
@@ -236,7 +344,10 @@ export const RoomDetails = ({
 
             <div className={styles.ctaBoxHolder}>
               <div className={styles.ctaBox}>
-                <OffersAccordion room={room} />
+                <OffersAccordion
+                  room={room}
+                  handleAddToCart={handleAddToCart}
+                />
                 <motion.button
                   id={'button'}
                   initial={{ scale: 0.9 }}
@@ -244,7 +355,7 @@ export const RoomDetails = ({
                   transition={{ duration: 0.1 }}
                   whileTap={{ scale: 0.9 }}
                   className={styles.confirmBtn}
-                  onClick={handleReserve}
+                  onClick={() => handleReserve(false)}
                 >
                   {t('book')}
                 </motion.button>
@@ -258,6 +369,7 @@ export const RoomDetails = ({
           room={room}
           openOffersModal={openOffersModal}
           handleOpenMobileOffersModal={handleOpenMobileOffersModal}
+          handleAddToCart={handleAddToCart}
         />
       )}
       <div className={styles.offersControlContainer}>
@@ -287,9 +399,9 @@ export const RoomDetails = ({
             transition={{ duration: 0.1 }}
             whileTap={{ scale: 0.9 }}
             className={styles.confirmBtn}
-            onClick={handleReserve}
+            onClick={() => handleReserve(true)}
           >
-            {t('book')}
+            {t(cart?.objects?.length === 0 ? 'addToCart' : 'book')}
           </motion.button>
         </div>
       </div>

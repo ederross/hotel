@@ -10,7 +10,7 @@ import CardRoom from '../../components/CardRoom';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import nextI18nConfig from '../../../next-i18next.config';
-import { GetServerSideProps, GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import Header from '../../components/Header';
 import { useTranslation } from 'next-i18next';
 import Footer from '../../components/common/Footer';
@@ -65,6 +65,7 @@ import { PhotosModal } from '../../components/PhotosModal';
 import axios from 'axios';
 import { logger } from '../../components/Logger';
 import qs from 'qs';
+import moment from 'moment';
 
 interface ISearch {
   servicesResult: any;
@@ -118,7 +119,13 @@ const Search = ({
   const [selectedTab, setSelectedTab] = useState('rooms');
   const [searchResult, setSearchResult] = useState<any>([]);
   const [searchLoading, setSearchLoading] = useState(true);
-  const { startDate, endDate, adults, children, age }: any = router.query;
+  const {
+    startDate = moment().add(1, 'day').format('YYYY-MM-DD'),
+    endDate = moment(startDate).add(15, 'days').format('YYYY-MM-DD'),
+    adults = 1,
+    children = 0,
+    age,
+  }: any = router?.query;
   const [selectedRoom, setSelectedRoom] = useState<Room>(undefined);
   const [showPhotosModal, setShowPhotosModal] = useState<RoomImages[]>([]);
 
@@ -126,7 +133,7 @@ const Search = ({
     number < 10 && number > 0 ? `0${number}` : '';
 
   useEffect(() => {
-    if (startDate && endDate && adults && children) {
+    if (startDate && endDate && adults) {
       setSearchLoading(true);
       axios
         .get(`/api/room-search`, {
@@ -195,6 +202,28 @@ const Search = ({
     facilitiesItemDomainRedux?.data?.find(
       (i) => i.domainItemCode === facilityItemTypeCode
     )?.domainItemValue || '-';
+
+  useEffect(() => {
+    const head = document.createElement('head');
+    head.innerHTML = design?.tagManagementScript;
+    let node: any = head.firstChild;
+    while (node) {
+      const next = node.nextSibling;
+      if (node.tagName === 'SCRIPT') {
+        const newNode = document.createElement('script');
+        if (node.src) {
+          newNode.src = node.src;
+        }
+        while (node.firstChild) {
+          newNode.appendChild(node.firstChild.cloneNode(true));
+          node.removeChild(node.firstChild);
+        }
+        node = newNode;
+      }
+      document.head.appendChild(node);
+      node = next;
+    }
+  }, []);
 
   return (
     <>
@@ -387,7 +416,7 @@ const Search = ({
                       </section>
                     </>
                   )}
-                  {servicesResult?.length > 0 && (
+                  {servicesResult?.length > 0 && searchResult.length > 0 && (
                     <section className={styles.serviceResultContainer}>
                       <h4 className={styles.subtitle}>{t('look')}</h4>
                       <h2 className={styles.title}>{t('availableServices')}</h2>
@@ -421,7 +450,8 @@ const Search = ({
                         </div>
                       </section>
                     )}
-                    {servicesResult > 0 &&
+                    {servicesResult.length > 0 &&
+                    searchResult.length > 0 &&
                     (selectedTab === 'services' || selectedRoom) ? (
                       <section
                         className={styles.serviceResultContainer}

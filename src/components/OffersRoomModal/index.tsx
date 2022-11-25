@@ -10,12 +10,14 @@ interface IOffersRoomModal {
   openOffersModal: boolean;
   handleOpenMobileOffersModal: () => void;
   room: Room;
+  handleAddToCart: (quantity: number, price: Price) => void;
 }
 
 const OffersRoomModal = ({
   openOffersModal,
   handleOpenMobileOffersModal,
   room,
+  handleAddToCart,
 }: IOffersRoomModal) => {
   const subMenuAnimate = {
     enter: {
@@ -49,7 +51,7 @@ const OffersRoomModal = ({
               <h3>Ofertas</h3>
             </div>{' '} */}
           <div className={styles.contentContainer}>
-            <OffersAccordion room={room} />
+            <OffersAccordion room={room} handleAddToCart={handleAddToCart} />
           </div>
         </div>
         <motion.div

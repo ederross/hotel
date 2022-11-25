@@ -30,16 +30,14 @@ export const Counter = ({
     <div className={styles.addButtons}>
       <button
         onClick={handleRemove}
-        style={{ border: quantity < 1 && '1px solid #EDEDED' }}
+        style={{ opacity: quantity === 0 ? 0.4 : 1 }}
       >
-        <RemoveOutlined
-          className={styles.removeIcon}
-          style={{ color: quantity < 1 && '#EDEDED' }}
-        />
+        <RemoveOutlined className={styles.removeIcon} />
       </button>
       <h5>{quantity}</h5>
       <button
         onClick={handleAdd}
+        style={{ opacity: quantity === max ? 0.4 : 1 }}
         title={
           max !== 1
             ? `${max} reservas disponíveis`

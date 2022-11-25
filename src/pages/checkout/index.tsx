@@ -196,6 +196,28 @@ const Checkout = ({ design, policies, officeDetails }: ICheckout) => {
     }
   };
 
+  useEffect(() => {
+    const head = document.createElement('head');
+    head.innerHTML = design?.tagManagementScript;
+    let node: any = head.firstChild;
+    while (node) {
+      const next = node.nextSibling;
+      if (node.tagName === 'SCRIPT') {
+        const newNode = document.createElement('script');
+        if (node.src) {
+          newNode.src = node.src;
+        }
+        while (node.firstChild) {
+          newNode.appendChild(node.firstChild.cloneNode(true));
+          node.removeChild(node.firstChild);
+        }
+        node = newNode;
+      }
+      document.head.appendChild(node);
+      node = next;
+    }
+  }, []);
+
   return (
     <>
       <Head>
@@ -372,14 +394,12 @@ export const getServerSideProps: GetServerSideProps = async ({
   console.log(`X-fowardedHost: ${xfowardedHost}`);
   logger.info(`X-fowardedHost: ${xfowardedHost}`);
 
-  const fwHost = !!xfowardedHost && xfowardedHost?.toString()?.split('.')[0] !== "www"
-    ? xfowardedHost?.toString()?.split('.')[0]
-    : xfowardedHost?.toString()?.split('.')[1];
+  const fwHost =
+    !!xfowardedHost && xfowardedHost?.toString()?.split('.')[0] !== 'www'
+      ? xfowardedHost?.toString()?.split('.')[0]
+      : xfowardedHost?.toString()?.split('.')[1];
 
-  const id =
-    dynamicOffice && !!fwHost
-      ? fwHost
-      : officeId;
+  const id = dynamicOffice && !!fwHost ? fwHost : officeId;
 
   const officeDetails = await GetOfficeDetails(id);
   const design = await GetOfficeDesign(id);
