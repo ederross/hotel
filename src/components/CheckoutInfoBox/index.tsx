@@ -77,22 +77,22 @@ export const CheckoutInfoBox = ({ policies }: ICheckoutInfoBox) => {
                         <div className={styles.row}>
                           <h5>
                             {item.infos?.adults +
-                             ' ' +
+                              ' ' +
                               t(
                                 `adult_${pluralProfix(
                                   item.infos?.adults,
                                   router.locale
-                                )}`)
-                            }
+                                )}`
+                              )}
                             {' & '}
-                            {item.infos?.children + 
-                             ' ' +
+                            {item.infos?.children +
+                              ' ' +
                               t(
                                 `children_${pluralProfix(
                                   item.infos?.children,
                                   router.locale
-                                )}`)
-                            }
+                                )}`
+                              )}
                           </h5>
                         </div>
                         <h4>{item.infos?.objectName}</h4>
@@ -173,9 +173,7 @@ export const CheckoutInfoBox = ({ policies }: ICheckoutInfoBox) => {
               </h5>
             </div>
             <div>
-              <h4>
-                {t('totalGuests')}
-              </h4>
+              <h4>{t('totalGuests')}</h4>
               <h5>{infos?.totalGuest}</h5>
             </div>
           </div>

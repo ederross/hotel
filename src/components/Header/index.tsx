@@ -94,7 +94,13 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
     }
   }, [startSearchDay, firstMonth, endSearchDay, inputCalendars]);
 
-  const { startDate, endDate, adults, children, ages }: any = router.query;
+  const {
+    startDate = moment().add(1, 'day').format('YYYY-MM-DD'),
+    endDate = moment(startDate).add(15, 'days').format('YYYY-MM-DD'),
+    adults = 1,
+    children = 0,
+    ages,
+  }: any = router.query;
 
   // Window Sizes
   const size = useWindowSize();
@@ -416,6 +422,13 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
                   </div>
                 </form>
               </div>
+            </>
+          )}
+
+          {size.width > 868 && router.pathname === '/checkout' && (
+            <>
+              <h2>{t('checkOutTitle')}</h2>
+              <div />
             </>
           )}
 

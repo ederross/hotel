@@ -39,6 +39,7 @@ import { CleanCart, SetCartInfos } from '../store/ducks/cart/actions';
 import { WhatsappButton } from '../components/WhatsappButton';
 import { AppStore } from '../store/types';
 import { logger } from '../components/Logger';
+import Script from 'next/script';
 interface IHomeProps {
   officeDetails: OfficeDetails;
   design: Design;
@@ -67,12 +68,12 @@ export default function Home(props: IHomeProps) {
       width >= 320 && width < 524
         ? '1rem'
         : width >= 524 && width < 1024
-          ? '2rem'
-          : width >= 628 && width < 1024
-            ? '2rem'
-            : width >= 1024 && width < 1280
-              ? '4rem'
-              : '8rem',
+        ? '2rem'
+        : width >= 628 && width < 1024
+        ? '2rem'
+        : width >= 1024 && width < 1280
+        ? '4rem'
+        : '8rem',
     paddingRight: 16,
     paddingBottom: 16,
     marginBottom: 48,
@@ -125,6 +126,28 @@ export default function Home(props: IHomeProps) {
   //       : 'Development environment'
   //   );
   // }, []);
+
+  useEffect(() => {
+    const head = document.createElement('head');
+    head.innerHTML = props?.design?.tagManagementScript;
+    let node: any = head.firstChild;
+    while (node) {
+      const next = node.nextSibling;
+      if (node.tagName === 'SCRIPT') {
+        const newNode = document.createElement('script');
+        if (node.src) {
+          newNode.src = node.src;
+        }
+        while (node.firstChild) {
+          newNode.appendChild(node.firstChild.cloneNode(true));
+          node.removeChild(node.firstChild);
+        }
+        node = newNode;
+      }
+      document.head.appendChild(node);
+      node = next;
+    }
+  }, []);
 
   return (
     <div>
@@ -226,14 +249,12 @@ export const getServerSideProps: GetServerSideProps = async ({
   console.log(`X-fowardedHost: ${xfowardedHost}`);
   logger.info(`X-fowardedHost: ${xfowardedHost}`);
 
-  const fwHost = !!xfowardedHost && xfowardedHost?.toString()?.split('.')[0] !== "www"
-    ? xfowardedHost?.toString()?.split('.')[0]
-    : xfowardedHost?.toString()?.split('.')[1];
+  const fwHost =
+    !!xfowardedHost && xfowardedHost?.toString()?.split('.')[0] !== 'www'
+      ? xfowardedHost?.toString()?.split('.')[0]
+      : xfowardedHost?.toString()?.split('.')[1];
 
-  const id =
-    dynamicOffice && !!fwHost
-      ? fwHost
-      : officeId;
+  const id = dynamicOffice && !!fwHost ? fwHost : officeId;
 
   const officeDetails = await GetOfficeDetails(id);
   const design = await GetOfficeDesign(id);

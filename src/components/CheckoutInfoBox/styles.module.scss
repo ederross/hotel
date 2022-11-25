@@ -1,7 +1,10 @@
 .content {
-  margin-top: 32px;
   display: flex;
   width: 100%;
+
+  @media screen and (max-width: 868px) {
+    margin-top: 32px;
+  }
 
   .infoBox {
     display: flex;
