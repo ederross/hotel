@@ -174,8 +174,9 @@ export const RoomDetails = ({
   };
 
   const handleReserve = (isMobile = false) => {
-    if (isMobile && cart?.objects?.length === 0) {
+    if (isMobile) {
       handleAddToCart(1, room?.prices[0]);
+      setSelectedRoom(undefined);
     } else if (cart?.objects?.length > 0) {
       setLoadingCheckout(true);
       const { error, infos, loading, ...rest } = cart;

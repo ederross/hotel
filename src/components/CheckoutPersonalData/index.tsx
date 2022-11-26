@@ -258,7 +258,8 @@ export const CheckoutPersonalData = ({
                   {item?.paymentInstallmentCount}
                   {'x de '}
                   {currency(item.firstInstallmentAmount)}
-                  {item?.isDownPayment ? ' (pagamento sinal)' : ''}
+                  {item?.isDownPayment ? ' (pagamento sinal)' : ''} (
+                  {currency(item.paymentTotalAmount)})
                 </option>
               ))}
           </select>
