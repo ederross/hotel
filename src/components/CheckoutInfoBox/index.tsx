@@ -28,7 +28,7 @@ export const CheckoutInfoBox = ({ policies }: ICheckoutInfoBox) => {
   const checkInEnd =
     parseInt(policies?.bookPolicy?.checkinWindow?.endTime?.substring(0, 2)) ||
     parseInt(policies?.bookPolicy?.checkinWindow?.startTime?.substring(0, 2)) +
-      0;
+    0;
 
   const startHour = checkInStart;
   const endHour = checkInEnd < checkInStart ? checkInEnd + 24 : checkInEnd;
@@ -99,7 +99,16 @@ export const CheckoutInfoBox = ({ policies }: ICheckoutInfoBox) => {
                       </div>
 
                       <div className={styles.roomQtndPriceContainer}>
-                        <h5>{price?.quantity + ' ' + t('room')}</h5>
+                        <h5>
+                          {price?.quantity +
+                            ' ' +
+                            t(
+                              `room_${pluralProfix(
+                                price?.quantity,
+                                router.locale
+                              )}`
+                            )}{' '}
+                        </h5>
                         <h4>{currency(price?.regularTotalAmount)}</h4>
                       </div>
                     </div>
