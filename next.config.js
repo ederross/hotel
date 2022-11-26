@@ -11,6 +11,7 @@ const nextConfig = {
       'hospeda.in',
       'img.freepik.com',
       'images.pexels.com',
+      'dm8fjazsua2ut.cloudfront.net',
     ],
   },
   compiler: {
