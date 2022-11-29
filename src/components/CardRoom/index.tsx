@@ -112,7 +112,7 @@ const CardRoom = ({ room, setSelectedRoom, isResultOneRoom }: ICardRoom) => {
         // transition={{ duration: 0.1 }}
         // whileTap={{ scale: 0.99 }}
         className={styles.container}
-        style={{ maxWidth: isResultOneRoom ? 364 : '100%' }}
+        style={{ maxWidth: isResultOneRoom ? 400 : '100%' }}
         onClick={handleDetails}
       >
         <CarouselHolder

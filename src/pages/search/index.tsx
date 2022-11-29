@@ -133,6 +133,7 @@ const Search = ({
     number < 10 && number > 0 ? `0${number}` : '';
 
   useEffect(() => {
+    setSelectedRoom(undefined);
     if (startDate && endDate && adults) {
       setSearchLoading(true);
       axios
@@ -169,7 +170,7 @@ const Search = ({
         ages: age || [],
       })
     );
-  }, [startDate, endDate, adults, children, dispatch, age]);
+  }, [startDate, endDate, adults, children, age]);
 
   useEffect(() => {
     dispatch(SetIconsDomain(iconsDomain));

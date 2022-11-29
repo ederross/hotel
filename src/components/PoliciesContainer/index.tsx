@@ -53,7 +53,7 @@ export const PoliciesContainer = ({
             <h6 style={{ marginTop: 16 }}>{t('upFrontPercentage')}</h6>
             <div className={styles.row}>
               <IconImportDynamically iconName={1285} size={20} />
-              <p>{policies.upfrontPercentage}%</p>
+              <p>{policies.upfrontPercentage || 0}%</p>
             </div>
           </div>
           {policies?.policies?.map((item, index) => (
