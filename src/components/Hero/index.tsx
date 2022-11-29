@@ -19,34 +19,21 @@ const Hero = ({ officeDetails, design }: IHeroProps) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const {
-    cart: { infos },
-  } = useSelector((state: AppStore) => state);
-
   const handleExploreRooms = (e) => {
+    const endDate = moment().add(15, 'days').format('YYYY-MM-DD');
+    const startDate = moment().add(1, 'day').format('YYYY-MM-DD');
+
     router.push({
       pathname: '/search',
       query: {
-        startDate: moment().add(1, 'day').format('YYYY-MM-DD'),
-        endDate: moment().add(15, 'days').format('YYYY-MM-DD'),
+        startDate,
+        endDate,
         adults: 1,
         children: 0,
       },
     });
-    dispatch(
-      SetCartInfos({
-        totalGuest: 1,
-        startDate: moment().add(1, 'day').format('YYYY-MM-DD'),
-        endDate: moment().add(15, 'days').format('YYYY-MM-DD'),
-        adults: 1,
-        children: 0,
-        ages: [],
-      })
-    );
 
-    infos?.startDate !== moment().add(1, 'day').format('YYYY-MM-DD') ||
-      (infos?.endDate !== moment().add(15, 'days').format('YYYY-MM-DD') &&
-        dispatch(CleanCart()));
+    dispatch(SetCartInfos({ startDate, endDate }));
   };
 
   return (

@@ -179,7 +179,7 @@ export const RoomDetails = ({
       setSelectedRoom(undefined);
     } else if (cart?.objects?.length > 0) {
       setLoadingCheckout(true);
-      const { error, infos, loading, ...rest } = cart;
+      const { error, endDate, startDate, loading, ...rest } = cart;
       const hotelId =
         window.location.hostname.split('.')[0] === 'www'
           ? window.location.hostname.split('.')[1]

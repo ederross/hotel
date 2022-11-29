@@ -57,7 +57,7 @@ import {
 
 import Skeleton from '@mui/material/Skeleton';
 import { IconImportDynamically } from '../../components/common/ComponentWithIcon';
-import { SetCartInfos } from '../../store/ducks/cart/actions';
+import { CleanCart, SetCartInfos } from '../../store/ducks/cart/actions';
 import { pluralProfix } from '../../utils/pluralRules';
 import { dynamicOffice, officeId } from '../../services/api';
 import { EventsHome } from '../../../data/events';
@@ -114,6 +114,7 @@ const Search = ({
       facilitiesDomain: facilitiesDomainRedux,
       facilitiesItemDomain: facilitiesItemDomainRedux,
     },
+    cart,
   } = useSelector((state: AppStore) => state);
 
   const [selectedTab, setSelectedTab] = useState('rooms');
@@ -160,16 +161,7 @@ const Search = ({
     } else {
       setSearchLoading(false);
     }
-    dispatch(
-      SetCartInfos({
-        totalGuest: parseInt(adults) + parseInt(children),
-        startDate,
-        endDate,
-        adults,
-        children,
-        ages: age || [],
-      })
-    );
+    dispatch(SetCartInfos({ startDate, endDate }));
   }, [startDate, endDate, adults, children, age]);
 
   useEffect(() => {

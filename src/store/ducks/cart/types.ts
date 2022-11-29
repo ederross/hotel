@@ -8,15 +8,8 @@ export const Types = {
 };
 
 export interface TypesCart {
-  officeId: string;
-  infos: {
-    totalGuest: number;
-    startDate: string;
-    endDate: string;
-    adults: number;
-    children: number;
-    ages: number[];
-  };
+  startDate: string;
+  endDate: string;
   services: CartService[];
   objects: CartRoom[];
   loading: boolean;

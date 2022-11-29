@@ -2,6 +2,7 @@ import { Types, CartRoom, CartService } from './types';
 import { action } from 'typesafe-actions';
 
 export const AddProductToCart = (object: CartRoom) => {
+  console.log('ADD PRODUCT TO CART\n', object);
   return action(Types.ADD_CART_ROOM, { object });
 };
 

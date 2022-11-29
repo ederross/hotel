@@ -55,7 +55,7 @@ export default function Home(props: IHomeProps) {
   const router = useRouter();
 
   const {
-    cart: { objects, services, infos },
+    cart: { objects, services },
   } = useSelector((state: AppStore) => state);
 
   useEffect(() => {
@@ -84,48 +84,29 @@ export default function Home(props: IHomeProps) {
   }, [dispatch]);
 
   const handleEventSearch = (event: EventsHome) => {
-    const endDate = new Date(event.endDate);
-    endDate.setDate(endDate.getDate() + 1);
+    const eventEnd = new Date(event.endDate);
+    eventEnd.setDate(eventEnd.getDate() + 1);
+    const end = moment(eventEnd).format('YYYY-MM-DD');
 
-    const startDate = moment(
+    const start = moment(
       new Date(event.startDate) < new Date() ? new Date() : event.startDate
     ).format('YYYY-MM-DD');
 
     router.push({
       pathname: '/search',
       query: {
-        startDate,
-        endDate: moment(endDate).format('YYYY-MM-DD'),
+        startDate: start,
+        endDate: end,
         adults: 1,
         children: 0,
       },
     });
-    dispatch(
-      SetCartInfos({
-        totalGuest: 1,
-        startDate,
-        endDate: moment(endDate).format('YYYY-MM-DD'),
-        adults: 1,
-        children: 0,
-        ages: [],
-      })
-    );
-    infos?.startDate !== startDate ||
-      (infos?.endDate !== moment(endDate).format('YYYY-MM-DD') &&
-        dispatch(CleanCart()));
+    dispatch(SetCartInfos({ startDate: start, endDate: end }));
   };
 
   const whatsappNumber = props?.officeDetails?.contacts?.find(
     (c) => c.contactTypeCode === 5
   )?.contactText;
-
-  // useEffect(() => {
-  //   logger.info(
-  //     !!process.env.NEXT_PUBLIC_IS_PRODUCTION
-  //       ? 'Production environment'
-  //       : 'Development environment'
-  //   );
-  // }, []);
 
   useEffect(() => {
     const head = document.createElement('head');

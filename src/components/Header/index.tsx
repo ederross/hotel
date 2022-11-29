@@ -43,7 +43,7 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
   const router = useRouter();
 
   const {
-    cart: { objects, services, infos },
+    cart: { objects, services },
   } = useSelector((state: AppStore) => state);
 
   const headerRef = useRef(null);
@@ -211,18 +211,8 @@ export default function Header({ design, events, selectedRoom }: IHeader) {
           age: childrenAges,
         },
       });
-      infos?.startDate !== checkInDate ||
-        (infos?.endDate !== checkOutDate && dispatch(CleanCart()));
-      dispatch(
-        SetCartInfos({
-          totalGuest: numberOfAdults + numberOfChildren,
-          startDate: checkInDate,
-          endDate: checkOutDate,
-          adults: numberOfAdults,
-          children: numberOfChildren,
-          ages: childrenAges,
-        })
-      );
+
+      dispatch(SetCartInfos({ startDate: checkInDate, endDate: checkOutDate }));
       setTimeout(() => closeCalendar(), 100);
     } else {
       toast.error(t('enterAllAges'), toastConfig as any);

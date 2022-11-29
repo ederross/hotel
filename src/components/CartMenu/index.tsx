@@ -45,15 +45,16 @@ const CartMenu = ({ openCart }: ICartMenu) => {
 
   const handleReserve = () => {
     setLoadingCheckout(true);
-    const { error, infos, loading, ...rest } = cart;
-    const hotelId = window.location.hostname.split('.')[0] === "www" ? window.location.hostname.split('.')[1] : window.location.hostname.split('.')[0];
+    const { error, loading, ...rest } = cart;
+    const hotelId =
+      window.location.hostname.split('.')[0] === 'www'
+        ? window.location.hostname.split('.')[1]
+        : window.location.hostname.split('.')[0];
 
     axios
       .post('/api/payment-methods', {
         ...rest,
-        officeId: dynamicOffice
-          ? hotelId
-          : officeId,
+        officeId: dynamicOffice ? hotelId : officeId,
       })
       .then((res) => {
         res?.data?.length > 0 && router.push('/checkout');

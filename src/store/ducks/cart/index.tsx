@@ -1,16 +1,8 @@
-import { officeId } from '../../../services/api';
 import { Types, TypesCart, CartRoom, CartService } from './types';
 
 const INITIAL_STATE: TypesCart = {
-  officeId: officeId,
-  infos: {
-    totalGuest: 0,
-    endDate: '',
-    startDate: '',
-    adults: 0,
-    children: 0,
-    ages: [],
-  },
+  endDate: '',
+  startDate: '',
   objects: [],
   services: [],
   loading: false,
@@ -68,9 +60,16 @@ const reducer = (state = INITIAL_STATE, action: any) => {
         error: false,
       };
     case Types.SET_CART_INFOS:
+      const hasChangeDate =
+        action.payload.infos?.startDate !== state?.startDate ||
+        action.payload.infos?.endDate !== state?.endDate;
+
       return {
         ...state,
-        infos: action.payload.infos,
+        objects: !hasChangeDate ? state?.objects : [],
+        services: !hasChangeDate ? state?.services : [],
+        startDate: action.payload.infos?.startDate,
+        endDate: action.payload.infos?.endDate,
         loading: false,
         error: false,
       };
